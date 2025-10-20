@@ -88,6 +88,29 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "Sconce.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Sconce.DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Sconce.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Sconce.BLL.dll": {}
+        }
+      },
+      "Sconce.DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/Sconce.DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Sconce.DAL.dll": {}
+        }
       }
     }
   },
@@ -439,10 +462,21 @@
         "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "Sconce.BLL/1.0.0": {
+      "type": "project",
+      "path": "../Sconce.BLL/Sconce.BLL.csproj",
+      "msbuildProject": "../Sconce.BLL/Sconce.BLL.csproj"
+    },
+    "Sconce.DAL/1.0.0": {
+      "type": "project",
+      "path": "../Sconce.DAL/Sconce.DAL.csproj",
+      "msbuildProject": "../Sconce.DAL/Sconce.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Sconce.BLL >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -477,7 +511,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
+              "projectPath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sconce.BLL\Sconce.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
