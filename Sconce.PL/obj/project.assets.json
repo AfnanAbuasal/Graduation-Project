@@ -1758,7 +1758,10 @@
         },
         "runtime": {
           "bin/placeholder/Sconce.DAL.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

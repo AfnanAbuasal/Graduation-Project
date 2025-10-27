@@ -14,6 +14,8 @@ namespace Sconce.DAL.Models
         public string? Country { get; set; }
         public string? City { get; set; }
         public string? Street { get; set; }
+
+        // Password Reset
         public string? PasswordResetCode { get; set; }
         public DateTime? PasswordResetCodeExpiration { get; set; }
     }
