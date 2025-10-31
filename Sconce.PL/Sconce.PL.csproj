@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Sconce.BLL\Sconce.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Parent\" />
+    <Folder Include="Areas\Student\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

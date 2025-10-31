@@ -11,6 +11,8 @@ using Sconce.DAL.Models;
 using System.Text;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.BLL.Services.Classes;
+using Sconce.DAL.Repositories.Interfaces;
+using Sconce.DAL.Repositories.Classes;
 
 namespace Sconce.PL
 {
@@ -30,9 +32,16 @@ namespace Sconce.PL
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped(typeof(IGenericService<,,>), typeof(GenericService<,,>));
+            builder.Services.AddScoped<IInstructorApplicationRepository, InstructorApplicationRepository>();
+            builder.Services.AddScoped<IInstructorApplicationService, InstructorApplicationService>();
+            builder.Services.AddScoped<IFileService, FileService>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<IEmailSender, EmailSetting>();
             builder.Services.AddScoped<ISeedData, SeedData>();
+            builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<IAdminInstructorService, AdminInstructorService>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => {

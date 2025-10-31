@@ -161,3 +161,4 @@ D:\GraduationProject\Sconce\Sconce.PL\obj\Release\net8.0\refint\Sconce.PL.dll
 D:\GraduationProject\Sconce\Sconce.PL\obj\Release\net8.0\Sconce.PL.pdb
 D:\GraduationProject\Sconce\Sconce.PL\obj\Release\net8.0\Sconce.PL.genruntimeconfig.cache
 D:\GraduationProject\Sconce\Sconce.PL\obj\Release\net8.0\ref\Sconce.PL.dll
+D:\GraduationProject\Sconce\Sconce.PL\bin\Release\net8.0\Sconce.PL.staticwebassets.runtime.json

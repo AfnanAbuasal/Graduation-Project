@@ -14,16 +14,31 @@ namespace Sconce.PL
         }
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            
-            var client = new SmtpClient("smtp.gmail.com", 587)
+            var host = _configuration["MailSettings:Host"];
+            var port = int.Parse(_configuration["MailSettings:Port"]);
+            var enableSsl = bool.Parse(_configuration["MailSettings:EnableSSL"]);
+            var fromEmail = _configuration["MailSettings:Email"];
+            var password = _configuration["MailSettings:Password"];
+            var displayName = _configuration["MailSettings:DisplayName"];
+
+            var client = new SmtpClient(host, port)
             {
-                EnableSsl = true,
+                EnableSsl = enableSsl,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("afnanalaa49@gmail.com", _configuration["EmailSender:AppPassword"])
+                Credentials = new NetworkCredential(fromEmail, password)
             };
 
+            //var message = new MailMessage(from: new MailAddress(fromEmail, displayName), to: new MailAddress(email))
+            //{
+            //    Subject = subject,
+            //    Body = htmlMessage,
+            //    IsBodyHtml = true
+            //};
+
+            //return client.SendMailAsync(message);
+
             return client.SendMailAsync(
-                new MailMessage(from: "afnanalaa49@gmail.com",
+                new MailMessage(from: fromEmail,
                                 to: email,
                                 subject,
                                 htmlMessage

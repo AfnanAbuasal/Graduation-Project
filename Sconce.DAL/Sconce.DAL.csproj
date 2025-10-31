@@ -12,10 +12,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.21" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>

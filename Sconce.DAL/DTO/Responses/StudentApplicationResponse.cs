@@ -33,6 +33,6 @@ namespace Sconce.DAL.DTO.Responses
         [JsonIgnore] public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationStatusDisplay => ApplicationStatus.ToDisplayString();
 
-        public string Message { get; set; }
+        public string Feedback { get; set; } = "Your application has been submitted successfully. Please wait while the manager reviews it.";
     }
 }

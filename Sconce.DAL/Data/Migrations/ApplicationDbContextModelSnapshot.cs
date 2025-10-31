@@ -82,6 +82,11 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -146,6 +151,222 @@ namespace Sconce.DAL.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.InstructorApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApplicationStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CVPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ExperienceWithTeachingKids")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Feedback")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("YearsOfExperience")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InstructorApplications");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
+                {
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GuardianEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Token");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("ParentInvites");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.StudentParent", b =>
+                {
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LinkedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RelationshipWithStudent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StudentId", "ParentId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("StudentParents");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Instructor", b =>
+                {
+                    b.HasBaseType("Sconce.DAL.Models.ApplicationUser");
+
+                    b.Property<int>("ApplicationStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CVPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("ExperienceWithTeachingKids")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("YearsOfExperience")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Instructor");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Parent", b =>
+                {
+                    b.HasBaseType("Sconce.DAL.Models.ApplicationUser");
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.Property("DateOfBirth")
+                                .HasColumnName("Parent_DateOfBirth");
+
+                            t.Property("Gender")
+                                .HasColumnName("Parent_Gender");
+                        });
+
+                    b.HasDiscriminator().HasValue("Parent");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Student", b =>
+                {
+                    b.HasBaseType("Sconce.DAL.Models.ApplicationUser");
+
+                    b.Property<int>("ApplicationStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("DocumentPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LevelOfProficiency")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
+
+                    b.ToTable("Users", t =>
+                        {
+                            t.Property("ApplicationStatus")
+                                .HasColumnName("Student_ApplicationStatus");
+
+                            t.Property("DateOfBirth")
+                                .HasColumnName("Student_DateOfBirth");
+
+                            t.Property("Gender")
+                                .HasColumnName("Student_Gender");
+
+                            t.Property("SubmittedAt")
+                                .HasColumnName("Student_SubmittedAt");
+                        });
+
+                    b.HasDiscriminator().HasValue("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -161,6 +382,46 @@ namespace Sconce.DAL.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
+                {
+                    b.HasOne("Sconce.DAL.Models.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.StudentParent", b =>
+                {
+                    b.HasOne("Sconce.DAL.Models.Parent", "Parent")
+                        .WithMany("StudentParents")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sconce.DAL.Models.Student", "Student")
+                        .WithMany("StudentParents")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Parent", b =>
+                {
+                    b.Navigation("StudentParents");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Student", b =>
+                {
+                    b.Navigation("StudentParents");
                 });
 #pragma warning restore 612, 618
         }

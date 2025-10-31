@@ -13,12 +13,11 @@ namespace Sconce.DAL.Models
         public DateOnly DateOfBirth { get; set; }
         public Gender Gender { get; set; }
         public string DocumentPath { get; set; } // path to the uploaded ID/BirthCertificate file
-        public string GuardianName { get; set; }
-        public string GuardianEmail { get; set; }
         public LevelOfProficiency LevelOfProficiency { get; set; } = LevelOfProficiency.None;
 
         // Application tracking
         public DateTime? SubmittedAt { get; set; }
         public ApplicationStatus ApplicationStatus { get; set; } = ApplicationStatus.Pending;
+        public ICollection<StudentParent> StudentParents { get; set; } = new List<StudentParent>();
     }
 }

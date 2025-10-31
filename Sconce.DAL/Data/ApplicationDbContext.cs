@@ -12,12 +12,23 @@ namespace Sconce.DAL.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        // Identity Related
+        public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<InstructorApplication> InstructorApplications { get; set; }
+        public DbSet<Student> Students { get; set; }
+        //public DbSet<StudentApplication> StudentApplications { get; set; }
+        public DbSet<Parent> Parents { get; set; }
+        public DbSet<StudentParent> StudentParents { get; set; }
+        public DbSet<ParentInvite> ParentInvites { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.Entity<IdentityUserRole<string>>().ToTable("UsersRoles");
@@ -26,6 +37,20 @@ namespace Sconce.DAL.Data
             builder.Ignore<IdentityUserLogin<string>>();
             builder.Ignore<IdentityUserClaim<string>>();
             builder.Ignore<IdentityRoleClaim<string>>();
+
+            // Student Parent
+            builder.Entity<StudentParent>()
+                .HasKey(sp => new { sp.StudentId, sp.ParentId });
+
+            builder.Entity<StudentParent>()
+                .HasOne(sp => sp.Student)
+                .WithMany(s => s.StudentParents)
+                .HasForeignKey(sp => sp.StudentId);
+
+            builder.Entity<StudentParent>()
+                .HasOne(sp => sp.Parent)
+                .WithMany(p => p.StudentParents)
+                .HasForeignKey(sp => sp.ParentId);
         }
     }
 }
