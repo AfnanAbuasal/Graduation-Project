@@ -15,9 +15,5 @@ namespace Sconce.DAL.Models
         public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; } = false;
         public string CVPath { get; set; } // path to uploaded CV
-
-        // Application tracking
-        public DateTime? SubmittedAt { get; set; }
-        public ApplicationStatus ApplicationStatus { get; set; } = ApplicationStatus.Pending;
     }
 }

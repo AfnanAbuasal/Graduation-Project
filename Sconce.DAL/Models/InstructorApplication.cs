@@ -17,10 +17,13 @@ namespace Sconce.DAL.Models
         public Gender Gender { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
-        public string Street { get; set; }
+        public string? Street { get; set; }
         public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; }
         public string CVPath { get; set; }
+
+        // Application tracking
+        public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
         public ApplicationStatus ApplicationStatus { get; set; } = ApplicationStatus.Pending;
         public string? Feedback { get; set; }
     }

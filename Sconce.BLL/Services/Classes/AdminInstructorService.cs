@@ -20,17 +20,20 @@ namespace Sconce.BLL.Services.Classes
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly INotificationService _notificationService;
+        private readonly IFileUrlHelper _fileUrlHelper;
 
         public AdminInstructorService(
             IInstructorApplicationRepository applicationRepository,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IFileUrlHelper fileUrlHelper)
         {
             _applicationRepository = applicationRepository;
             _userManager = userManager;
             _roleManager = roleManager;
             _notificationService = notificationService;
+            _fileUrlHelper = fileUrlHelper;
         }
 
         public async Task<IEnumerable<InstructorApplicationResponse>> GetAllApplicationsAsync(ApplicationStatus? status = null)
@@ -39,13 +42,24 @@ namespace Sconce.BLL.Services.Classes
             if (status.HasValue)
                 apps = apps.Where(a => a.ApplicationStatus == status.Value);
 
-            return apps.Adapt<IEnumerable<InstructorApplicationResponse>>();
+            var responses = apps.Adapt<IEnumerable<InstructorApplicationResponse>>();
+            foreach (var res in responses)
+            {
+                res.CVUrl = _fileUrlHelper.BuildFileUrl(res.CVPath);
+            }
+
+            return responses;
         }
 
         public async Task<InstructorApplicationResponse?> GetApplicationByIdAsync(int id)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
-            return app?.Adapt<InstructorApplicationResponse>();
+            if (app == null) return null;
+
+            var response = app.Adapt<InstructorApplicationResponse>();
+            response.CVUrl = _fileUrlHelper.BuildFileUrl(response.CVPath);
+
+            return response;
         }
 
         public async Task<bool> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback)

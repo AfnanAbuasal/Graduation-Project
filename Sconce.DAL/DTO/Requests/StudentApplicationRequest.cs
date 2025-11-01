@@ -12,15 +12,16 @@ namespace Sconce.DAL.DTO.Requests
     public class StudentApplicationRequest
     {
         [Required] public string FullName { get; set; }
+        [Required, EmailAddress] public string Email { get; set; }
+        [Required] public string PhoneNumber { get; set; }
         [Required] public DateTime DateOfBirth { get; set; }
         [Required] public Gender Gender { get; set; }
         [Required] public string Country { get; set; }
         [Required] public string City { get; set; }
-        public string Street { get; set; }
-        [Required] public string PhoneNumber { get; set; }
+        public string? Street { get; set; }
         [Required] public IFormFile Document { get; set; }
-        public string GuardianName { get; set; }
-        public string GuardianEmail { get; set; }
+        public string? GuardianName { get; set; }
+        public string? GuardianEmail { get; set; }
         public LevelOfProficiency LevelOfProficiency { get; set; }
     }
 }

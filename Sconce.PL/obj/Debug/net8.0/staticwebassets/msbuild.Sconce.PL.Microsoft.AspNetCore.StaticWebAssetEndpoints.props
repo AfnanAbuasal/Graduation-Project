@@ -1,0 +1,28 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.kdy6iy9aug.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kdy6iy9aug"},{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Sat, 01 Nov 2025 11:38:13 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Sat, 01 Nov 2025 11:38:13 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.kdy6iy9aug.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kdy6iy9aug"},{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Sat, 01 Nov 2025 09:49:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Sat, 01 Nov 2025 09:49:18 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>

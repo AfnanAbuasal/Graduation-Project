@@ -26,6 +26,9 @@ namespace Sconce.DAL.DTO.Responses
         public string GuardianName { get; set; }
         public string GuardianEmail { get; set; }
 
+        [JsonIgnore] public string? DocumentPath { get; set; }
+        public string? DocumentUrl { get; set; }
+
         [JsonIgnore] public LevelOfProficiency LevelOfProficiency { get; set; }
         public string LevelOfProficiencyDisplay => LevelOfProficiency.ToDisplayString();
 

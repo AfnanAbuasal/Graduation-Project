@@ -42,6 +42,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<ISeedData, SeedData>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddScoped<IAdminInstructorService, AdminInstructorService>();
+            builder.Services.AddScoped<IFileUrlHelper, FileUrlHelper>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => {
@@ -74,6 +75,8 @@ namespace Sconce.PL
                 };
             });
 
+            builder.Services.AddHttpContextAccessor();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -96,8 +99,9 @@ namespace Sconce.PL
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseStaticFiles();
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

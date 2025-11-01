@@ -26,8 +26,8 @@ namespace Sconce.DAL.DTO.Responses
         public DateTime? SubmittedAt { get; set; } = DateTime.UtcNow;
         [JsonIgnore] public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationStatusDisplay => ApplicationStatus.ToDisplayString();
-
-        //public string CVPath { get; set; } // optional if you want to show the uploaded file link
+        [JsonIgnore] public string? CVPath { get; set; }
+        public string? CVUrl { get; set; }
         public string Feedback { get; set; } = "Your application has been submitted successfully. Please wait while the manager reviews it.";
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -19,13 +21,15 @@ namespace Sconce.BLL.Services.Classes
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IFileUrlHelper _fileUrlHelper;
 
-        public InstructorApplicationService(IInstructorApplicationRepository applicationRepository, IFileService fileService, INotificationService notificationService, UserManager<ApplicationUser> userManager)
+        public InstructorApplicationService(IInstructorApplicationRepository applicationRepository, IFileService fileService, INotificationService notificationService, UserManager<ApplicationUser> userManager, IFileUrlHelper fileUrlHelper)
         {
             _applicationRepository = applicationRepository;
             _fileService = fileService;
             _notificationService = notificationService;
             _userManager = userManager;
+            _fileUrlHelper = fileUrlHelper;
         }
 
         public async Task<InstructorApplicationResponse> SubmitApplicationAsync(InstructorApplicationRequest request)
@@ -39,22 +43,30 @@ namespace Sconce.BLL.Services.Classes
 
             var cvPath = await _fileService.SaveFileAsync(request.CV, "Uploads/CVs");
 
-            var application = request.Adapt<InstructorApplication>();
-            application.CVPath = cvPath;
-            application.Feedback = "Your instructor application has been submitted successfully. Please wait while the manager reviews it.";
+            var app = request.Adapt<InstructorApplication>();
+            app.CVPath = cvPath;
+            app.Feedback = "Your instructor application has been submitted successfully. Please wait while the manager reviews it.";
 
-            await _applicationRepository.AddAsync(application);
+            await _applicationRepository.AddAsync(app);
 
-            await _notificationService.SendApplicationSubmittedAsync(application);
+            await _notificationService.SendApplicationSubmittedAsync(app);
 
-            return application.Adapt<InstructorApplicationResponse>();
+            var response = app.Adapt<InstructorApplicationResponse>();
+            response.CVUrl = _fileUrlHelper.BuildFileUrl(app.CVPath);
+
+            return response;
         }
         public async Task<InstructorApplicationResponse?> GetApplicationByEmailAsync(string email)
         {
             var app = (await _applicationRepository.GetAllAsync())
-                            .FirstOrDefault(a => a.Email == email);
+                    .FirstOrDefault(a => a.Email == email);
 
-            return app?.Adapt<InstructorApplicationResponse>();
+            if (app == null) return null;
+
+            var response = app.Adapt<InstructorApplicationResponse>();
+            response.CVUrl = _fileUrlHelper.BuildFileUrl(app.CVPath);
+
+            return response;
         }
     }
 }
