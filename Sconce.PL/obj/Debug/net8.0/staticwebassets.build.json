@@ -1,12 +1,20 @@
 {
   "Version": 1,
-  "Hash": "ULKV3+93rm/vKDeThPSxbPMpsyI0PcIzLARwpb3EVqw=",
+  "Hash": "Ci8zFVqGghVbkYgUNwHClrj8HxN26gM4fniXsytenBg=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Sconce.PL\\wwwroot",
+      "Source": "Sconce.PL",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "Pattern": "**"
+    }
+  ],
   "Assets": [],
   "Endpoints": []
 }

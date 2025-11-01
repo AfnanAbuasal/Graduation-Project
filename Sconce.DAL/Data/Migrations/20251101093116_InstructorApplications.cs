@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Sconce.DAL.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateInstructorApplications : Migration
+    public partial class InstructorApplications : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -127,7 +127,7 @@ namespace Sconce.DAL.Data.Migrations
                     ExperienceWithTeachingKids = table.Column<bool>(type: "bit", nullable: false),
                     CVPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ApplicationStatus = table.Column<int>(type: "int", nullable: false),
-                    Feedback = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -176,7 +176,7 @@ namespace Sconce.DAL.Data.Migrations
                         column: x => x.ParentId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudentParents_Users_StudentId",
                         column: x => x.StudentId,

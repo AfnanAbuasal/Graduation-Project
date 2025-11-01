@@ -194,7 +194,6 @@ namespace Sconce.DAL.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Feedback")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
@@ -223,7 +222,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InstructorApplications");
+                    b.ToTable("InstructorApplications", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
@@ -249,7 +248,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("ParentInvites");
+                    b.ToTable("ParentInvites", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.StudentParent", b =>
@@ -274,7 +273,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("StudentParents");
+                    b.ToTable("StudentParents", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Instructor", b =>
@@ -316,7 +315,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.ToTable("Users", t =>
+                    b.ToTable("Users", null, t =>
                         {
                             t.Property("DateOfBirth")
                                 .HasColumnName("Parent_DateOfBirth");
@@ -351,7 +350,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<DateTime?>("SubmittedAt")
                         .HasColumnType("datetime2");
 
-                    b.ToTable("Users", t =>
+                    b.ToTable("Users", null, t =>
                         {
                             t.Property("ApplicationStatus")
                                 .HasColumnName("Student_ApplicationStatus");
@@ -400,7 +399,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasOne("Sconce.DAL.Models.Parent", "Parent")
                         .WithMany("StudentParents")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sconce.DAL.Models.Student", "Student")

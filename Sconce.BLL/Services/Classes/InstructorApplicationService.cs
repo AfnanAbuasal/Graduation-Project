@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
@@ -18,20 +18,23 @@ namespace Sconce.BLL.Services.Classes
         private readonly IInstructorApplicationRepository _applicationRepository;
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public InstructorApplicationService(IInstructorApplicationRepository applicationRepository, IFileService fileService, INotificationService notificationService)
+        public InstructorApplicationService(IInstructorApplicationRepository applicationRepository, IFileService fileService, INotificationService notificationService, UserManager<ApplicationUser> userManager)
         {
             _applicationRepository = applicationRepository;
             _fileService = fileService;
             _notificationService = notificationService;
+            _userManager = userManager;
         }
 
         public async Task<InstructorApplicationResponse> SubmitApplicationAsync(InstructorApplicationRequest request)
         {
-            var existing = (await _applicationRepository.GetAllAsync())
-                .FirstOrDefault(a => a.Email == request.Email);
+            if(await _userManager.FindByEmailAsync(request.Email) != null)
+                throw new InvalidOperationException("An account with this email already exists.");
 
-            if (existing != null)
+            if ((await _applicationRepository.GetAllAsync())
+                .FirstOrDefault(a => a.Email == request.Email) != null)
                 throw new InvalidOperationException("An application with this email already exists.");
 
             var cvPath = await _fileService.SaveFileAsync(request.CV, "Uploads/CVs");

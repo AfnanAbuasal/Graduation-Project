@@ -161,3 +161,4 @@ D:\GraduationProject\Sconce\Sconce.PL\bin\Debug\net8.0\Microsoft.AspNetCore.Auth
 D:\GraduationProject\Sconce\Sconce.PL\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\GraduationProject\Sconce\Sconce.PL\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
 D:\GraduationProject\Sconce\Sconce.PL\bin\Debug\net8.0\Scalar.AspNetCore.dll
+D:\GraduationProject\Sconce\Sconce.PL\bin\Debug\net8.0\Sconce.PL.staticwebassets.runtime.json

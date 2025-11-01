@@ -1,0 +1,40 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>kdy6iy9aug</Fingerprint>
+      <Integrity>eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>kdy6iy9aug</Fingerprint>
+      <Integrity>eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
+  </ItemGroup>
+</Project>

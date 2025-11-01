@@ -31,7 +31,7 @@ namespace Sconce.BLL.Services.Classes
                     <li><b>Email:</b> {app.Email}</li>
                     <li><b>Password:</b> {password}</li>
                 </ul>
-                <p>Please log in and change your password as soon as possible for security.</p>
+                <p style='color:red;'>Please log in and change your password as soon as possible for security.</p>
                 <br/>
                 <p>Welcome aboard! 🌟<br/>— The Sconce Team</p>"
             );

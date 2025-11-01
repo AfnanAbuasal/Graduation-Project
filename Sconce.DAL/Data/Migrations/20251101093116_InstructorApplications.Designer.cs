@@ -12,8 +12,8 @@ using Sconce.DAL.Data;
 namespace Sconce.DAL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251031190613_UpdateInstructorApplications")]
-    partial class UpdateInstructorApplications
+    [Migration("20251101093116_InstructorApplications")]
+    partial class InstructorApplications
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,7 +197,6 @@ namespace Sconce.DAL.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Feedback")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
@@ -403,7 +402,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasOne("Sconce.DAL.Models.Parent", "Parent")
                         .WithMany("StudentParents")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sconce.DAL.Models.Student", "Student")

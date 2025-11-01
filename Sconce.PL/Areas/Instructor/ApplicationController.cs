@@ -9,7 +9,6 @@ namespace Sconce.PL.Areas.Instructor
     [Route("api/[area]/[controller]")]
     [ApiController]
     [Area("Instructor")]
-    [Authorize(Roles = "Instructor")]
     public class ApplicationController : ControllerBase
     {
         private readonly IInstructorApplicationService _applicationService;

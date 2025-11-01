@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\CVs\\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf"
+    },
+    {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\CVs\\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.Sconce.PL.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.Sconce.PL.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.Sconce.PL.props",
+      "PackagePath": "build\\Sconce.PL.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Sconce.PL.props",
+      "PackagePath": "buildMultiTargeting\\Sconce.PL.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.Sconce.PL.props",
+      "PackagePath": "buildTransitive\\Sconce.PL.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

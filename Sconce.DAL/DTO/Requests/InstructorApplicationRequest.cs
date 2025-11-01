@@ -18,7 +18,7 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public Gender Gender { get; set; }
         [Required] public string Country { get; set; }
         [Required] public string City { get; set; }
-        public string Street { get; set; }
+        public string? Street { get; set; }
         [Required] public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; } = false;
         [Required] public IFormFile CV { get; set; }

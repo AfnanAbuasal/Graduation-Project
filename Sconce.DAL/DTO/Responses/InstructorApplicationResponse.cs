@@ -23,7 +23,7 @@ namespace Sconce.DAL.DTO.Responses
         public string? Street { get; set; }
         public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; }
-        public DateTime? SubmittedAt { get; set; }
+        public DateTime? SubmittedAt { get; set; } = DateTime.UtcNow;
         [JsonIgnore] public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationStatusDisplay => ApplicationStatus.ToDisplayString();
 

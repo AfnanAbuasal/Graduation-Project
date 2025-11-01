@@ -22,6 +22,6 @@ namespace Sconce.DAL.Models
         public bool ExperienceWithTeachingKids { get; set; }
         public string CVPath { get; set; }
         public ApplicationStatus ApplicationStatus { get; set; } = ApplicationStatus.Pending;
-        public string Feedback { get; set; }
+        public string? Feedback { get; set; }
     }
 }

@@ -54,6 +54,9 @@ namespace Sconce.BLL.Services.Classes
             if (app == null)
                 return false;
 
+            if (app.ApplicationStatus == ApplicationStatus.Approved || app.ApplicationStatus == ApplicationStatus.Rejected)
+                return false;
+
             app.ApplicationStatus = newStatus;
             app.Feedback = feedback;
 

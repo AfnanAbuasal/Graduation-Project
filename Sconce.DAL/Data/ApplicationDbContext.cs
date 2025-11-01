@@ -39,18 +39,21 @@ namespace Sconce.DAL.Data
             builder.Ignore<IdentityRoleClaim<string>>();
 
             // Student Parent
-            builder.Entity<StudentParent>()
-                .HasKey(sp => new { sp.StudentId, sp.ParentId });
+            builder.Entity<StudentParent>(entity =>
+            {
+                entity.HasKey(sp => new { sp.StudentId, sp.ParentId });
 
-            builder.Entity<StudentParent>()
-                .HasOne(sp => sp.Student)
-                .WithMany(s => s.StudentParents)
-                .HasForeignKey(sp => sp.StudentId);
+                entity.HasOne(sp => sp.Student)
+                    .WithMany(s => s.StudentParents)
+                    .HasForeignKey(sp => sp.StudentId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<StudentParent>()
-                .HasOne(sp => sp.Parent)
-                .WithMany(p => p.StudentParents)
-                .HasForeignKey(sp => sp.ParentId);
+                entity.HasOne(sp => sp.Parent)
+                    .WithMany(p => p.StudentParents)
+                    .HasForeignKey(sp => sp.ParentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
         }
     }
 }
