@@ -21,12 +21,14 @@ namespace Sconce.BLL.Services.Classes
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
+        private readonly IFileUrlHelper _fileUrlHelper;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, IEmailSender emailSender)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, IEmailSender emailSender, IFileUrlHelper fileUrlHelper)
         {
             _userManager = userManager;
             _configuration = configuration;
             _emailSender = emailSender;
+            _fileUrlHelper = fileUrlHelper;
         }
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
         {
@@ -57,8 +59,36 @@ namespace Sconce.BLL.Services.Classes
             {
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var escapedToken = Uri.EscapeDataString(token);
-                var emailConfirmationURL = $"https://localhost:7072/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={user.Id}";
-                await _emailSender.SendEmailAsync(user.Email, "Welcome to Sconce", $"<h1>Hello, {user.FullName}!</h1><a href='{emailConfirmationURL}'>Confirm Email<a/>");
+
+                var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={user.Id}";
+                var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
+
+
+                await _emailSender.SendEmailAsync(
+                    user.Email,
+                    "Welcome to Sconce – Confirm Your Email",
+                    $@"
+                    <div style='font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>
+                        <h2 style='color: #2c3e50;'>Welcome to <span style='color: #1abc9c;'>Sconce</span>!</h2>
+                        <p>Hi <strong>{user.FullName}</strong>,</p>
+
+                        <p>We’re thrilled to have you join our learning community! To get started, please confirm your email address by clicking the button below:</p>
+
+                        <div style='text-align: center; margin: 25px 0;'>
+                            <a href='{emailConfirmationURL}' 
+                               style='background-color: #1abc9c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>
+                               Confirm Email
+                            </a>
+                        </div>
+
+                        <p>If the button doesn’t work, you can also copy and paste this link into your browser:</p>
+                        <p style='word-break: break-all; color: #1abc9c;'>{emailConfirmationURL}</p>
+
+                        <p>Thank you for joining us – we’re excited to see you shine!</p>
+
+                        <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>
+                    </div>");
+
                 return new UserResponse()
                 {
                     Token = registerRequest.Email //temporary
@@ -67,7 +97,6 @@ namespace Sconce.BLL.Services.Classes
             {
                 var errors = string.Join("; ", result.Errors.Select(e => e.Description));
                 throw new Exception(errors);
-                //throw new Exception($"{result.Errors}");
             }
         }
     

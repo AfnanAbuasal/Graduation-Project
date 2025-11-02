@@ -18,6 +18,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>3exp0glu0o</Fingerprint>
+      <Integrity>S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf'))">
       <SourceType>Package</SourceType>
       <SourceId>Sconce.PL</SourceId>

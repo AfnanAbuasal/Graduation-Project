@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sconce.DAL.Data;
 
@@ -11,9 +12,11 @@ using Sconce.DAL.Data;
 namespace Sconce.DAL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251102091434_SubmittedAt")]
+    partial class SubmittedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,7 +227,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InstructorApplications", (string)null);
+                    b.ToTable("InstructorApplications");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
@@ -250,7 +253,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("ParentInvites", (string)null);
+                    b.ToTable("ParentInvites");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.StudentParent", b =>
@@ -275,7 +278,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("StudentParents", (string)null);
+                    b.ToTable("StudentParents");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Instructor", b =>
@@ -311,7 +314,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.Property("DateOfBirth")
                                 .HasColumnName("Parent_DateOfBirth");
@@ -340,7 +343,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<int>("LevelOfProficiency")
                         .HasColumnType("int");
 
-                    b.ToTable("Users", null, t =>
+                    b.ToTable("Users", t =>
                         {
                             t.Property("DateOfBirth")
                                 .HasColumnName("Student_DateOfBirth");

@@ -12,7 +12,7 @@ namespace Sconce.DAL.DTO.Responses
 {
     public class InstructorApplicationResponse
     {
-        public Guid ApplicationId { get; set; }
+        public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
@@ -23,11 +23,11 @@ namespace Sconce.DAL.DTO.Responses
         public string? Street { get; set; }
         public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; }
-        public DateTime? SubmittedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? SubmittedAt { get; set; }
         [JsonIgnore] public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationStatusDisplay => ApplicationStatus.ToDisplayString();
         [JsonIgnore] public string? CVPath { get; set; }
         public string? CVUrl { get; set; }
-        public string Feedback { get; set; } = "Your application has been submitted successfully. Please wait while the manager reviews it.";
+        public string Feedback { get; set; }
     }
 }

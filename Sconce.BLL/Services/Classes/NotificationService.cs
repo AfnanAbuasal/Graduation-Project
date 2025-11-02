@@ -33,7 +33,8 @@ namespace Sconce.BLL.Services.Classes
                 </ul>
                 <p style='color:red;'>Please log in and change your password as soon as possible for security.</p>
                 <br/>
-                <p>Welcome aboard! 🌟<br/>— The Sconce Team</p>"
+                <p>Welcome aboard! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
 
@@ -49,7 +50,8 @@ namespace Sconce.BLL.Services.Classes
                 <br/>
                 <p><b>Feedback:</b> {app.Feedback}</p>
                 <br/>
-                <p>You’re always welcome to reapply in the future. 💛<br/>— The Sconce Team</p>"
+                <p>You’re always welcome to reapply in the future. 💛</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
 

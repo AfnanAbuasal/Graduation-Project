@@ -42,7 +42,7 @@ namespace Sconce.BLL.Services.Classes
             if (status.HasValue)
                 apps = apps.Where(a => a.ApplicationStatus == status.Value);
 
-            var responses = apps.Adapt<IEnumerable<InstructorApplicationResponse>>();
+            var responses = apps.Adapt<IEnumerable<InstructorApplicationResponse>>().ToList();
             foreach (var res in responses)
             {
                 res.CVUrl = _fileUrlHelper.BuildFileUrl(res.CVPath);
@@ -69,7 +69,7 @@ namespace Sconce.BLL.Services.Classes
                 return false;
 
             if (app.ApplicationStatus == ApplicationStatus.Approved || app.ApplicationStatus == ApplicationStatus.Rejected)
-                return false;
+                throw new InvalidOperationException("Only pending applications can be reviewed.");
 
             app.ApplicationStatus = newStatus;
             app.Feedback = feedback;
@@ -98,7 +98,8 @@ namespace Sconce.BLL.Services.Classes
                 var cleanName = new string(app.FullName
                     .Where(c => char.IsLetterOrDigit(c))
                     .ToArray());
-                var defaultPassword = $"{cleanName}@123";
+                var capitalized = char.ToUpper(cleanName[0]) + cleanName.Substring(1);
+                var defaultPassword = $"{capitalized}@123";
 
                 var result = await _userManager.CreateAsync(instructorUser, defaultPassword);
                 if (!result.Succeeded)
@@ -112,11 +113,12 @@ namespace Sconce.BLL.Services.Classes
 
                 await _notificationService.SendApplicationApprovedAsync(app, defaultPassword);
 
-            } else if (newStatus == ApplicationStatus.Rejected)
+            }
+            else if (newStatus == ApplicationStatus.Rejected)
             {
                 await _notificationService.SendApplicationRejectedAsync(app);
             }
-                return true;
+            return true;
         }
     }
 }

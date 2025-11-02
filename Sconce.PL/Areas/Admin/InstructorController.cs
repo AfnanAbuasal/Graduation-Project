@@ -38,7 +38,7 @@ namespace Sconce.PL.Areas.Admin
         public async Task<IActionResult> Review(int id, [FromBody] ApplicationReviewRequest request)
         {
             var success = await _adminInstructorService.ReviewApplicationAsync(id, request.ApplicationStatus, request.Feedback);
-            if (!success) return BadRequest("Only pending applications can be reviewed.");
+            if (!success) return BadRequest("Application review failed.");
             return Ok("Application reviewed successfully.");
         }
     }
