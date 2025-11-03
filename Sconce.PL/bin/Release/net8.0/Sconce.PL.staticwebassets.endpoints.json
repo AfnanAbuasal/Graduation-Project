@@ -85,6 +85,88 @@
       ]
     },
     {
+      "Route": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.3exp0glu0o.pdf",
+      "AssetFile": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "286726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Nov 2025 09:18:30 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3exp0glu0o"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf",
+      "AssetFile": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "286726"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 02 Nov 2025 09:18:30 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
       "AssetFile": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf",
       "Selectors": [],

@@ -16,7 +16,7 @@ namespace Sconce.DAL.Data
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<InstructorApplication> InstructorApplications { get; set; }
         public DbSet<Student> Students { get; set; }
-        //public DbSet<StudentApplication> StudentApplications { get; set; }
+        public DbSet<StudentApplication> StudentApplications { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<StudentParent> StudentParents { get; set; }
         public DbSet<ParentInvite> ParentInvites { get; set; }

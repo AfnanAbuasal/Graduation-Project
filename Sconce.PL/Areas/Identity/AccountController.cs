@@ -18,10 +18,17 @@ namespace Sconce.PL.Areas.Identity
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("Register")]
-        public async Task<ActionResult<UserResponse>> Register(RegisterRequest registerRequest)
+        [HttpPost("RegisterStudent")]
+        public async Task<ActionResult<UserResponse>> RegisterStudent(RegisterRequest registerRequest)
         {
-            var result = await _authenticationService.RegisterAsync(registerRequest);
+            var result = await _authenticationService.RegisterStudentAsync(registerRequest);
+            return Ok(result);
+        }
+
+        [HttpPost("RegisterParent")]
+        public async Task<ActionResult<UserResponse>> RegisterParent(RegisterRequest registerRequest)
+        {
+            var result = await _authenticationService.RegisterParentAsync(registerRequest);
             return Ok(result);
         }
 

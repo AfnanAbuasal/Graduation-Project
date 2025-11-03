@@ -20,14 +20,14 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
-        private readonly IEmailSender _emailSender;
+        private readonly INotificationService _notificationService;
         private readonly IFileUrlHelper _fileUrlHelper;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, IEmailSender emailSender, IFileUrlHelper fileUrlHelper)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, INotificationService notificationService, IFileUrlHelper fileUrlHelper)
         {
             _userManager = userManager;
             _configuration = configuration;
-            _emailSender = emailSender;
+            _notificationService = notificationService;
             _fileUrlHelper = fileUrlHelper;
         }
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
@@ -43,61 +43,6 @@ namespace Sconce.BLL.Services.Classes
             {
                 Token = await GenerateTokenAsync(user)
             };
-        }
-
-        public async Task<UserResponse> RegisterAsync(RegisterRequest registerRequest)
-        {
-            var user = new ApplicationUser()
-            {
-                Email = registerRequest.Email,
-                FullName = registerRequest.FullName,
-                UserName = registerRequest.UserName,
-                PhoneNumber = registerRequest.PhoneNumber
-            };
-            var result = await _userManager.CreateAsync(user, registerRequest.Password);
-            if (result.Succeeded)
-            {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var escapedToken = Uri.EscapeDataString(token);
-
-                var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={user.Id}";
-                var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
-
-
-                await _emailSender.SendEmailAsync(
-                    user.Email,
-                    "Welcome to Sconce – Confirm Your Email",
-                    $@"
-                    <div style='font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>
-                        <h2 style='color: #2c3e50;'>Welcome to <span style='color: #1abc9c;'>Sconce</span>!</h2>
-                        <p>Hi <strong>{user.FullName}</strong>,</p>
-
-                        <p>We’re thrilled to have you join our learning community! To get started, please confirm your email address by clicking the button below:</p>
-
-                        <div style='text-align: center; margin: 25px 0;'>
-                            <a href='{emailConfirmationURL}' 
-                               style='background-color: #1abc9c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>
-                               Confirm Email
-                            </a>
-                        </div>
-
-                        <p>If the button doesn’t work, you can also copy and paste this link into your browser:</p>
-                        <p style='word-break: break-all; color: #1abc9c;'>{emailConfirmationURL}</p>
-
-                        <p>Thank you for joining us – we’re excited to see you shine!</p>
-
-                        <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>
-                    </div>");
-
-                return new UserResponse()
-                {
-                    Token = registerRequest.Email //temporary
-                };
-            } else
-            {
-                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
-                throw new Exception(errors);
-            }
         }
     
         private async Task<string> GenerateTokenAsync(ApplicationUser user)
@@ -128,6 +73,56 @@ namespace Sconce.BLL.Services.Classes
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public async Task<UserResponse> RegisterStudentAsync(RegisterRequest registerRequest)
+        {
+            var student = new Student
+            {
+                Email = registerRequest.Email,
+                FullName = registerRequest.FullName,
+                UserName = registerRequest.Email.Split('@')[0]
+            };
+
+            var result = await _userManager.CreateAsync(student, registerRequest.Password);
+            if (!result.Succeeded)
+                throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
+
+            await _userManager.AddToRoleAsync(student, "Student");
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(student);
+            var escapedToken = Uri.EscapeDataString(token);
+            var relativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userId={student.Id}";
+            var confirmationUrl = _fileUrlHelper.BuildFileUrl(relativePath);
+
+            await _notificationService.SendConfirmEmailAsync(student, confirmationUrl);
+
+            return new UserResponse { Token = student.Email };
+        }
+
+        public async Task<UserResponse> RegisterParentAsync(RegisterRequest registerRequest)
+        {
+            var parent = new Parent
+            {
+                Email = registerRequest.Email,
+                FullName = registerRequest.FullName,
+                UserName = registerRequest.Email.Split('@')[0]
+            };
+
+            var result = await _userManager.CreateAsync(parent, registerRequest.Password);
+            if (!result.Succeeded)
+                throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
+
+            await _userManager.AddToRoleAsync(parent, "Parent");
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(parent);
+            var escapedToken = Uri.EscapeDataString(token);
+            var relativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userId={parent.Id}";
+            var confirmationUrl = _fileUrlHelper.BuildFileUrl(relativePath);
+
+            await _notificationService.SendConfirmEmailAsync(parent, confirmationUrl);
+
+            return new UserResponse { Token = parent.Email };
+        }
+
         public async Task<string> ConfirmEmail(string token, string userID)
         {
             var user = await _userManager.FindByIdAsync(userID);
@@ -146,7 +141,7 @@ namespace Sconce.BLL.Services.Classes
             user.PasswordResetCode = code;
             user.PasswordResetCodeExpiration = DateTime.UtcNow.AddMinutes(15);
             await _userManager.UpdateAsync(user);
-            await _emailSender.SendEmailAsync(forgotPasswordRequest.Email, "Reset Password", $"<p>Your Code for Reseting Password:</p><h1>{code}<h1/>");
+            await _notificationService.SendPasswordResetCodeAsync(forgotPasswordRequest, code);
             return "Please check your email";
         }
 
@@ -158,7 +153,7 @@ namespace Sconce.BLL.Services.Classes
             if (user.PasswordResetCodeExpiration < DateTime.UtcNow) return "Code Expired";
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, resetPasswordRequest.NewPassword);
-            if (result.Succeeded) await _emailSender.SendEmailAsync(resetPasswordRequest.Email, "Password Reset Success", $"<h1>Hello, {user.FullName}!<h1/><p>Your password has been updated.<p/>");
+            if (result.Succeeded) await _notificationService.SendPasswordResetSuccessAsync(resetPasswordRequest, user);
             return "Paswword Reset Successfully";
         }
     }

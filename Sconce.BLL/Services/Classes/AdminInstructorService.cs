@@ -111,7 +111,13 @@ namespace Sconce.BLL.Services.Classes
 
                 await _userManager.AddToRoleAsync(instructorUser, "Instructor");
 
-                await _notificationService.SendApplicationApprovedAsync(app, defaultPassword);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(instructorUser);
+                var escapedToken = Uri.EscapeDataString(token);
+
+                var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={instructorUser.Id}";
+                var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
+
+                await _notificationService.SendApplicationApprovedAsync(app, defaultPassword, emailConfirmationURL);
 
             }
             else if (newStatus == ApplicationStatus.Rejected)
