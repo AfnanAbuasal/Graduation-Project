@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Sconce.DAL.Repositories.Interfaces;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -22,13 +23,15 @@ namespace Sconce.BLL.Services.Classes
         private readonly IConfiguration _configuration;
         private readonly INotificationService _notificationService;
         private readonly IFileUrlHelper _fileUrlHelper;
+        private readonly IParentInviteRepository _parentInviteRepository;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, INotificationService notificationService, IFileUrlHelper fileUrlHelper)
+        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, INotificationService notificationService, IFileUrlHelper fileUrlHelper, IParentInviteRepository parentInviteRepository)
         {
             _userManager = userManager;
             _configuration = configuration;
             _notificationService = notificationService;
             _fileUrlHelper = fileUrlHelper;
+            _parentInviteRepository = parentInviteRepository;
         }
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
         {
@@ -121,6 +124,41 @@ namespace Sconce.BLL.Services.Classes
             await _notificationService.SendConfirmEmailAsync(parent, confirmationUrl);
 
             return new UserResponse { Token = parent.Email };
+        }
+
+        public async Task<UserResponse> RegisterParentWithInviteAsync(ParentRegisterWithInviteRequest request)
+        {
+            var invite = (await _parentInviteRepository.GetAllAsync())
+                .FirstOrDefault(i => i.Token == request.Token);
+
+            if (invite == null || invite.IsUsed || invite.ExpiresAt < DateTime.UtcNow)
+                throw new InvalidOperationException("This invitation link is invalid or has expired.");
+
+            var existingUser = await _userManager.FindByEmailAsync(invite.GuardianEmail);
+            if (existingUser != null)
+                throw new InvalidOperationException("An account with this email already exists.");
+
+            var parent = new Parent
+            {
+                Email = invite.GuardianEmail,
+                FullName = request.FullName,
+                UserName = invite.GuardianEmail.Split('@')[0]
+            };
+
+            var result = await _userManager.CreateAsync(parent, request.Password);
+            if (!result.Succeeded)
+                throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
+
+            await _userManager.AddToRoleAsync(parent, "Parent");
+
+            // Step 5: Mark the invite as used
+            invite.IsUsed = true;
+            await _parentInviteRepository.UpdateAsync(invite);
+
+            // Step 6: Send confirmation email
+            await _notificationService.SendParentWelcomeAsync(parent);
+
+            return new UserResponse { Token = "Registered successfully (token generation pending)" };
         }
 
         public async Task<string> ConfirmEmail(string token, string userID)

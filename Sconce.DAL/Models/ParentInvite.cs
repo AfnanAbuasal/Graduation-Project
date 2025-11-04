@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.Models
 {
-    public class ParentInvite
+    public class ParentInvite : BaseModel
     {
-        [Key]
-        public string Token { get; set; } = Guid.NewGuid().ToString("N"); // unique token
+        public string Token { get; set; }
 
         [Required]
         public string StudentId { get; set; }
-        public Student Student { get; set; }  // optional navigation property
+        public Student Student { get; set; }
 
         [Required]
         [EmailAddress]
         public string GuardianEmail { get; set; }
 
-        public DateTime ExpiresAt { get; set; } = DateTime.UtcNow.AddDays(3); // 3-day validity
-        public bool IsUsed { get; set; } = false;
+        public DateTime ExpiresAt { get; set; }
+        public bool IsUsed { get; set; }
     }
 }

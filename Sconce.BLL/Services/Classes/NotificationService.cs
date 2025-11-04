@@ -20,6 +20,22 @@ namespace Sconce.BLL.Services.Classes
             _emailSender = emailSender;
         }
 
+        // Instructor Emails
+        public async Task SendApplicationSubmittedAsync(InstructorApplication app)
+        {
+            await _emailSender.SendEmailAsync(
+                app.Email,
+                "Sconce Application Submitted",
+                $@"
+                <h2>Hello {app.FullName},</h2>
+                <p>Thank you for applying to join Sconce as an instructor!</p>
+                <p>Your application has been received and is currently under review by our team.</p>
+                <p>We’ll notify you by email once a decision has been made.</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
         public async Task SendApplicationApprovedAsync(InstructorApplication app, string password, string emailConfirmationURL)
         {
             await _emailSender.SendEmailAsync(
@@ -61,21 +77,86 @@ namespace Sconce.BLL.Services.Classes
             );
         }
 
-        public async Task SendApplicationSubmittedAsync(InstructorApplication app)
+        // Student Emails
+        public async Task SendApplicationSubmittedAsync(StudentApplication app)
         {
             await _emailSender.SendEmailAsync(
                 app.Email,
                 "Sconce Application Submitted",
                 $@"
                 <h2>Hello {app.FullName},</h2>
-                <p>Thank you for applying to join Sconce as an instructor!</p>
-                <p>Your application has been received and is currently under review by our team.</p>
-                <p>We’ll notify you by email once a decision has been made.</p>
+                <p>Thank you for applying to join <b>Sconce</b> as a student! 🎓</p>
+                <p>Your application has been successfully received and is currently under review by our admissions team.</p>
+                <p>We’ll notify you via email once your application has been processed.</p>
                 <br/>
-                <p>— The Sconce Team</p>"
+                <p>We’re excited to have you begin your learning journey with us!</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
 
+        public async Task SendApplicationApprovedAsync(StudentApplication app)
+        {
+            await _emailSender.SendEmailAsync(
+                app.Email,
+                "🎉 Your Student Application Has Been Approved!",
+                $@"
+                <h2>Congratulations, {app.FullName}!</h2>
+                <p>We’re excited to let you know that your application to join <b>Sconce</b> as a student has been <b>approved</b> 🎓.</p>
+
+                <p>You can now log in to your account and proceed to payment and proficiency exam.</p>
+                <p>We’re thrilled to have you join our learning community and can’t wait to see what you’ll achieve!</p>
+
+                <br/>
+                <p>Welcome to Sconce 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendApplicationRejectedAsync(StudentApplication app)
+        {
+            await _emailSender.SendEmailAsync(
+                app.Email,
+                "Sconce Application Update",
+                $@"
+                <h2>Hello {app.FullName},</h2>
+                <p>Thank you for your interest in joining <b>Sconce</b>.</p>
+                <p>After carefully reviewing your student application, we regret to inform you that it was <b>not approved</b> at this time.</p>
+                <p>We encourage you to reapply in the future once you’ve updated your information or met the necessary requirements.</p>
+                <br/>
+                <p><b>Feedback:</b> {app.Feedback}</p>
+                <br/>
+                <p>We truly appreciate your effort and wish you all the best in your educational journey!</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        // Parent Emails
+        public async Task SendParentInvitationAsync(StudentApplication app, string invitationUrl)
+        {
+            var guardianName = string.IsNullOrEmpty(app.GuardianName) ? "Parent/Guardian" : app.GuardianName;
+
+            await _emailSender.SendEmailAsync(
+                app.GuardianEmail!,
+                "Invitation to Join Sconce as a Parent",
+                $@"
+                <h2>Hello {guardianName},</h2>
+                <p>Your child <b>{app.FullName}</b> has been accepted into the Sconce learning platform. 🎉</p>
+                <p>To stay connected and monitor your child's progress, please create your parent account by clicking the button below:</p>
+                <br/>
+                <a href='{invitationUrl}' 
+                   style='background-color:#1abc9c;color:white;
+                          padding:10px 20px;text-decoration:none;
+                          border-radius:5px;'>Create Parent Account</a>
+                <br/><br/>
+                <p>This link will expire in <b>3 days</b> for security reasons.</p>
+                <p>If you did not expect this invitation, please ignore this message.</p>
+                <br/>
+                <p>Best regards,</p>
+                <p style='color:#555;'>— The Sconce Team</p>"
+            );
+        }
+
+        // General Account Emails
         public async Task SendConfirmEmailAsync(ApplicationUser user, string emailConfirmationURL)
         {
             await _emailSender.SendEmailAsync(

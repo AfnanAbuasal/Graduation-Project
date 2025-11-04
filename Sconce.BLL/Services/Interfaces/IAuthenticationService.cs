@@ -12,6 +12,7 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<UserResponse> RegisterStudentAsync(RegisterRequest registerRequest);
         Task<UserResponse> RegisterParentAsync(RegisterRequest registerRequest);
+        Task<UserResponse> RegisterParentWithInviteAsync(ParentRegisterWithInviteRequest request);
         Task<UserResponse> LoginAsync(LoginRequest loginRequest);
         Task<string> ConfirmEmail(string token, string userID);
         Task<string> ForgotPassword(ForgotPasswordRequest forgotPasswordRequest);
