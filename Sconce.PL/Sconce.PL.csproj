@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Parent\" />
-    <Folder Include="Areas\Student\" />
     <Folder Include="wwwroot\Uploads\StudentDocs\" />
   </ItemGroup>
 

@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Requests
 {
-    public class ParentRegisterWithInviteRequest
+    public class ParentRegisterRequest
     {
-        [Required] public string Token { get; set; }
+        [Required, EmailAddress] public string Email { get; set; }
         [Required] public string FullName { get; set; }
         [Required] public DateOnly DateOfBirth { get; set; }
         [Required] public Gender Gender { get; set; }
-        [Required] [MinLength(8)] public string Password { get; set; }
+        [Required] public string Password { get; set; }
+        [Required, EmailAddress] public string StudentEmail { get; set; }
     }
 }

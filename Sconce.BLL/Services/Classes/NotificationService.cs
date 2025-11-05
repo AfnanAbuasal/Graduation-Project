@@ -130,6 +130,25 @@ namespace Sconce.BLL.Services.Classes
             );
         }
 
+        public async Task SendParentLinkRequestAsync(Parent parent, Student student, string approvalUrl)
+        {
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                "Parent Link Request — Sconce",
+                $@"
+                <h2>Parent Link Request</h2>
+                <p>Your parent, <b>{parent.FullName}</b> (<i>{parent.Email}</i>), 
+                wants to link their account to yours on Sconce.</p>
+                <p>If you recognize this request, click the button below to approve:</p>
+                <a href='{approvalUrl}' 
+                   style='background-color:#1abc9c;color:white;padding:10px 20px;
+                          text-decoration:none;border-radius:5px;'>Approve</a>
+                <br/><br/>
+                <p>If you don’t recognize this person, ignore this message.</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
         // Parent Emails
         public async Task SendParentInvitationAsync(StudentApplication app, string invitationUrl)
         {
@@ -152,7 +171,25 @@ namespace Sconce.BLL.Services.Classes
                 <p>If you did not expect this invitation, please ignore this message.</p>
                 <br/>
                 <p>Best regards,</p>
-                <p style='color:#555;'>— The Sconce Team</p>"
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendParentWelcomeAsync(Parent parent, string emailConfirmationURL)
+        {
+            await _emailSender.SendEmailAsync(
+                parent.Email,
+                "Welcome to Sconce — Parent Account Created",
+                $@"
+                <h2>Welcome, {parent.FullName}!</h2>
+                <p>Your parent account has been successfully created. 🎉</p>
+                <p>To activate your account, please confirm your email by clicking the button below:</p>
+                <a href='{emailConfirmationURL}' 
+                   style='background-color:#1abc9c;color:white;padding:10px 20px;
+                          text-decoration:none;border-radius:5px;'>Confirm Email</a>
+                <br/><br/>
+                <p>Once confirmed, you'll be able to log in and start using Sconce to stay connected with your child's progress.</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
 
@@ -232,5 +269,6 @@ namespace Sconce.BLL.Services.Classes
             );
         }
 
+        
     }
 }

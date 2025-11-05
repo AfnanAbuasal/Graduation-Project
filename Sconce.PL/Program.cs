@@ -47,6 +47,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<IStudentApplicationService, StudentApplicationService>();
             builder.Services.AddScoped<IAdminStudentService, AdminStudentService>();
             builder.Services.AddScoped<IParentInviteRepository, ParentInviteRepository>();
+            builder.Services.AddScoped<IParentLinkRepository, ParentLinkRepository>();
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => {

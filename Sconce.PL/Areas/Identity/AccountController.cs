@@ -32,6 +32,13 @@ namespace Sconce.PL.Areas.Identity
             return Ok(result);
         }
 
+        [HttpPost("RegisterParentWithInvite")]
+        public async Task<IActionResult> RegisterParentWithInvite([FromBody] ParentRegisterWithInviteRequest request)
+        {
+            var result = await _authenticationService.RegisterParentWithInviteAsync(request);
+            return Ok(result);
+        }
+
         [HttpPost("Login")]
         public async Task<ActionResult<UserResponse>> Login(LoginRequest loginRequest)
         {
