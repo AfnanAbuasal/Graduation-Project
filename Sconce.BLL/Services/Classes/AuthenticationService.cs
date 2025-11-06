@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sconce.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -26,8 +27,16 @@ namespace Sconce.BLL.Services.Classes
         private readonly IFileUrlHelper _fileUrlHelper;
         private readonly IParentInviteRepository _parentInviteRepository;
         private readonly IParentLinkRepository _parentLinkRepository;
+        private readonly IStudentParentRepository _studentParentRepository;
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager, IConfiguration configuration, INotificationService notificationService, IFileUrlHelper fileUrlHelper, IParentInviteRepository parentInviteRepository, IParentLinkRepository parentLinkRepository)
+        public AuthenticationService(
+            UserManager<ApplicationUser> userManager,
+            IConfiguration configuration,
+            INotificationService notificationService,
+            IFileUrlHelper fileUrlHelper,
+            IParentInviteRepository parentInviteRepository,
+            IParentLinkRepository parentLinkRepository,
+            IStudentParentRepository studentParentRepository)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -35,7 +44,9 @@ namespace Sconce.BLL.Services.Classes
             _fileUrlHelper = fileUrlHelper;
             _parentInviteRepository = parentInviteRepository;
             _parentLinkRepository = parentLinkRepository;
+            _studentParentRepository = studentParentRepository;
         }
+
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
         {
             var user = await _userManager.FindByEmailAsync(loginRequest.Email);
@@ -79,7 +90,7 @@ namespace Sconce.BLL.Services.Classes
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<UserResponse> RegisterStudentAsync(RegisterRequest registerRequest)
+        public async Task<UserResponse> RegisterStudentAsync(StudentRegisterRequest registerRequest)
         {
             var student = new Student
             {
@@ -136,14 +147,66 @@ namespace Sconce.BLL.Services.Classes
                 StudentEmail = student.Email,
                 ExpiresAt = DateTime.UtcNow.AddDays(3),
                 IsUsed = false,
-                IsApproved = false
+                IsApproved = false,
+                RelationshipWithStudent = request.RelationshipWithStudent
             };
             await _parentLinkRepository.AddAsync(linkRequest);
 
-            var approvalUrl = _fileUrlHelper.BuildFileUrl($"/api/Student/Parent/ApproveLink?token={token}");
-            await _notificationService.SendParentLinkRequestAsync(parent, student, approvalUrl);
+            var approvalUrl = _fileUrlHelper.BuildFileUrl($"/api/Student/Account/ApproveParentLink?token={token}");
+            await _notificationService.SendParentLinkRequestAsync(parent, student, request.RelationshipWithStudent, approvalUrl);
 
             return new UserResponse { Token = parent.Email };
+        }
+
+        public async Task<(bool Success, string Message)> ApproveParentLinkAsync(string token)
+        {
+            // Validate the link
+            var link = (await _parentLinkRepository.GetAllAsync())
+                .FirstOrDefault(l => l.Token == token && !l.IsUsed && l.ExpiresAt > DateTime.UtcNow);
+
+            if (link == null)
+                return (false, "Invalid or expired token.");
+
+            // Mark as approved
+            link.IsUsed = true;
+            link.IsApproved = true;
+            await _parentLinkRepository.UpdateAsync(link);
+
+            // Fetch related users
+            var parent = await _userManager.Users
+                .OfType<Parent>()
+                .FirstOrDefaultAsync(p => p.Id == link.ParentId);
+            var student = await _userManager.Users
+                .OfType<Student>()
+                .FirstOrDefaultAsync(s => s.Email == link.StudentEmail);
+
+            if (parent == null || student == null)
+                return (false, "Parent or student not found.");
+
+            // Create relationship
+            var relation = new StudentParent
+            {
+                StudentId = student.Id,
+                ParentId = parent.Id,
+                RelationshipWithStudent = link.RelationshipWithStudent,
+                LinkedAt = DateTime.UtcNow,
+                IsConfirmed = true
+            };
+
+            await _studentParentRepository.AddAsync(relation);
+
+            // Create Token to confirm email
+            var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(parent);
+            var escapedToken = Uri.EscapeDataString(emailToken);
+
+            var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={parent.Id}";
+            var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
+
+            // Send notification emails
+            await _notificationService.SendParentLinkedAsync(student, parent, link.RelationshipWithStudent);
+            await _notificationService.SendStudentLinkedAsync(parent, student, emailConfirmationURL);
+
+            return (true, "Parent link approved successfully!");
         }
 
         public async Task<UserResponse> RegisterParentWithInviteAsync(ParentRegisterWithInviteRequest request)
@@ -158,6 +221,7 @@ namespace Sconce.BLL.Services.Classes
             if (existingUser != null)
                 throw new InvalidOperationException("An account with this email already exists.");
 
+            // Create the parent user
             var parent = new Parent
             {
                 Email = invite.GuardianEmail,
@@ -173,9 +237,29 @@ namespace Sconce.BLL.Services.Classes
 
             await _userManager.AddToRoleAsync(parent, "Parent");
 
+            // Mark invite as used
             invite.IsUsed = true;
             await _parentInviteRepository.UpdateAsync(invite);
 
+            // Link parent to student
+            var student = (await _userManager.Users.OfType<Student>().ToListAsync())
+                .FirstOrDefault(s => s.Id == invite.StudentId);
+
+            if (student == null)
+                throw new InvalidOperationException("The student associated with this invite could not be found.");
+
+            var studentParent = new StudentParent
+            {
+                StudentId = student.Id,
+                ParentId = parent.Id,
+                RelationshipWithStudent = request.RelationshipWithStudent,
+                LinkedAt = DateTime.UtcNow,
+                IsConfirmed = true
+            };
+
+            await _studentParentRepository.AddAsync(studentParent);
+
+            // Generate token for email confirmation
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(parent);
             var escapedToken = Uri.EscapeDataString(token);
 
@@ -183,6 +267,10 @@ namespace Sconce.BLL.Services.Classes
             var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
 
             await _notificationService.SendParentWelcomeAsync(parent, emailConfirmationURL);
+
+            // Send emails
+            await _notificationService.SendParentLinkedAsync(student, parent, request.RelationshipWithStudent);
+            await _notificationService.SendStudentLinkedAsync(parent, student, emailConfirmationURL);
 
             return new UserResponse { Token = parent.Email };
         }

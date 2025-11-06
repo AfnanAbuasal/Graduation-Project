@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Requests
 {
-    public class RegisterRequest
+    public class StudentRegisterRequest
     {
         public string Email { get; set; }
         public string FullName { get; set; }

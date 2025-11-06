@@ -20,6 +20,7 @@ namespace Sconce.DAL.Data
         public DbSet<Parent> Parents { get; set; }
         public DbSet<StudentParent> StudentParents { get; set; }
         public DbSet<ParentInvite> ParentInvites { get; set; }
+        public DbSet<ParentLink> ParentLinks { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

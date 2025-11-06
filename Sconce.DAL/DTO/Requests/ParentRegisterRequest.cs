@@ -14,6 +14,7 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public string FullName { get; set; }
         [Required] public DateOnly DateOfBirth { get; set; }
         [Required] public Gender Gender { get; set; }
+        [Required] public string RelationshipWithStudent { get; set; }
         [Required] public string Password { get; set; }
         [Required, EmailAddress] public string StudentEmail { get; set; }
     }

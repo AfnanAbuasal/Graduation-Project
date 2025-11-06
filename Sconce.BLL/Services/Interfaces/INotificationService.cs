@@ -16,9 +16,10 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendApplicationSubmittedAsync(StudentApplication app);
         Task SendApplicationApprovedAsync(StudentApplication app);
         Task SendApplicationRejectedAsync(StudentApplication app);
-        Task SendParentLinkRequestAsync(Parent parent, Student student, string approvalUrl);
+        Task SendParentLinkRequestAsync(Parent parent, Student student, string relationship, string approvalUrl);
+        Task SendParentLinkedAsync(Student student, Parent parent, string relationship);
+        Task SendStudentLinkedAsync(Parent parent, Student student, string emailConfirmationURL);
         Task SendParentInvitationAsync(StudentApplication app, string invitationLink);
-        Task SendParentWelcomeAsync(Parent parent, string emailConfirmationURL);
         Task SendConfirmEmailAsync(ApplicationUser user, string emailConfirmationURL);
         Task SendPasswordResetCodeAsync(ForgotPasswordRequest forgotPasswordRequest, string code);
         Task SendPasswordResetSuccessAsync(ResetPasswordRequest resetPasswordRequest, ApplicationUser user);

@@ -10,8 +10,9 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<UserResponse> RegisterStudentAsync(RegisterRequest registerRequest);
-        Task<UserResponse> RegisterParentAsync(RegisterRequest registerRequest);
+        Task<UserResponse> RegisterStudentAsync(StudentRegisterRequest registerRequest);
+        Task<UserResponse> RegisterParentAsync(ParentRegisterRequest request);
+        Task<(bool Success, string Message)> ApproveParentLinkAsync(string token);
         Task<UserResponse> RegisterParentWithInviteAsync(ParentRegisterWithInviteRequest request);
         Task<UserResponse> LoginAsync(LoginRequest loginRequest);
         Task<string> ConfirmEmail(string token, string userID);

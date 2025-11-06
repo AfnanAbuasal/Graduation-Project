@@ -130,14 +130,14 @@ namespace Sconce.BLL.Services.Classes
             );
         }
 
-        public async Task SendParentLinkRequestAsync(Parent parent, Student student, string approvalUrl)
+        public async Task SendParentLinkRequestAsync(Parent parent, Student student, string relationship, string approvalUrl)
         {
             await _emailSender.SendEmailAsync(
                 student.Email,
                 "Parent Link Request — Sconce",
                 $@"
                 <h2>Parent Link Request</h2>
-                <p>Your parent, <b>{parent.FullName}</b> (<i>{parent.Email}</i>), 
+                <p>Your {relationship}, <b>{parent.FullName}</b> (<i>{parent.Email}</i>), 
                 wants to link their account to yours on Sconce.</p>
                 <p>If you recognize this request, click the button below to approve:</p>
                 <a href='{approvalUrl}' 
@@ -148,6 +148,27 @@ namespace Sconce.BLL.Services.Classes
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
+
+        public async Task SendParentLinkedAsync(Student student, Parent parent, string relationship)
+        {
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"👨‍👩‍👧 Your {relationship} Account Has Been Linked",
+                $@"
+                <h2>Hello {student.FullName},</h2>
+                <p>We wanted to let you know that your Sconce account has been successfully linked to your {relationship}:</p>
+                <ul>
+                    <li><b>{relationship} Name:</b> {parent.FullName}</li>
+                    <li><b>Email:</b> {parent.Email}</li>
+                </ul>
+                <p>This allows your {relationship} to stay updated on your learning progress and manage related settings securely.</p>
+                <p>If you believe this link was made in error, please contact our support team immediately.</p>
+                <br/>
+                <p>Stay curious and keep learning! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
 
         // Parent Emails
         public async Task SendParentInvitationAsync(StudentApplication app, string invitationUrl)
@@ -175,20 +196,29 @@ namespace Sconce.BLL.Services.Classes
             );
         }
 
-        public async Task SendParentWelcomeAsync(Parent parent, string emailConfirmationURL)
+        public async Task SendStudentLinkedAsync(Parent parent, Student student, string emailConfirmationURL)
         {
             await _emailSender.SendEmailAsync(
                 parent.Email,
-                "Welcome to Sconce — Parent Account Created",
+                "📘 You’re Now Linked to Your Student on Sconce",
                 $@"
-                <h2>Welcome, {parent.FullName}!</h2>
-                <p>Your parent account has been successfully created. 🎉</p>
+                <h2>Hi {parent.FullName},</h2>
+                <p>Your Sconce account has been created and successfully linked to your student:</p>
+                <ul>
+                    <li><b>Student Name:</b> {student.FullName}</li>
+                    <li><b>Email:</b> {student.Email}</li>
+                </ul>
                 <p>To activate your account, please confirm your email by clicking the button below:</p>
                 <a href='{emailConfirmationURL}' 
                    style='background-color:#1abc9c;color:white;padding:10px 20px;
                           text-decoration:none;border-radius:5px;'>Confirm Email</a>
+                <br/>
+                <p style='font-size:12px;color:#777;'>If the button doesn’t work, copy and paste this link into your browser:<br/>{emailConfirmationURL}</p>
                 <br/><br/>
-                <p>Once confirmed, you'll be able to log in and start using Sconce to stay connected with your child's progress.</p>
+                <p>Once confirmed, you can now view their learning activities, monitor progress, and stay engaged in their educational journey.</p>
+                <p>If you didn’t request this link, please reach out to our support team immediately.</p>
+                <br/>
+                <p>Welcome to the Sconce family! 🎓</p>
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }

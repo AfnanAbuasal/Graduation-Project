@@ -10,14 +10,10 @@ namespace Sconce.DAL.Models
     public class ParentLink : BaseModel
     {
         public string Token { get; set; }
-
-        [Required]
-        public string ParentId { get; set; }
+        [Required] public string ParentId { get; set; }
         public Parent Parent { get; set; }
-
-        [Required, EmailAddress]
-        public string StudentEmail { get; set; }
-
+        [Required, EmailAddress] public string StudentEmail { get; set; }
+        public string RelationshipWithStudent { get; set; }
         public bool IsApproved { get; set; } = false;
         public bool IsUsed { get; set; }
         public DateTime ExpiresAt { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
@@ -79,15 +80,27 @@ namespace Sconce.BLL.Services.Classes
 
             if (newStatus == ApplicationStatus.Approved)
             {
-                var studentUser = await _userManager.FindByEmailAsync(app.Email);
+                var studentUser = await _userManager.Users
+                    .OfType<Student>()
+                    .FirstOrDefaultAsync(s => s.Email == app.Email);
                 if (studentUser == null)
                     throw new InvalidOperationException("Student user not found.");
 
-                // Here we should move other data fields from StudentApplication to Student account
+                // Move application data to Student account
+                studentUser.DateOfBirth = app.DateOfBirth;
+                studentUser.Gender = app.Gender;
+                studentUser.DocumentPath = app.DocumentPath;
+                studentUser.LevelOfProficiency = app.LevelOfProficiency;
 
+                // Update student user in Identity
+                var result = await _userManager.UpdateAsync(studentUser);
+                if (!result.Succeeded)
+                    throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
+
+                // Notify student of approval
                 await _notificationService.SendApplicationApprovedAsync(app);
 
-                // If guardian info exists, generate invitation
+                // If guardian info exists, generate and send invite
                 if (!string.IsNullOrEmpty(app.GuardianEmail))
                 {
                     var token = Guid.NewGuid().ToString("N");
@@ -95,7 +108,7 @@ namespace Sconce.BLL.Services.Classes
                     var invite = new ParentInvite
                     {
                         Token = token,
-                        StudentId = app.Id.ToString(),
+                        StudentId = studentUser.Id,
                         GuardianEmail = app.GuardianEmail!,
                         ExpiresAt = DateTime.UtcNow.AddDays(3),
                         IsUsed = false
@@ -103,13 +116,12 @@ namespace Sconce.BLL.Services.Classes
 
                     await _parentInviteRepository.AddAsync(invite);
 
-                    // Frontend registration link (to be replaced with our actual deployed URL)
+                    // Frontend registration link (to be replaced with actual URL)
                     var frontendUrl = $"https://sconce-frontend.com/register/parent?token={token}";
 
                     await _notificationService.SendParentInvitationAsync(app, frontendUrl);
                 }
             }
-
             else if (newStatus == ApplicationStatus.Rejected)
             {
                 await _notificationService.SendApplicationRejectedAsync(app);
