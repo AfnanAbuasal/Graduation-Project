@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Identity/Account/Register": {
+    "/api/Student/Account/RegisterStudent": {
       "post": {
         "tags": [
           "Account"
@@ -14,17 +14,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
+                "$ref": "#/components/schemas/StudentRegisterRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
+                "$ref": "#/components/schemas/StudentRegisterRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/RegisterRequest"
+                "$ref": "#/components/schemas/StudentRegisterRequest"
               }
             }
           }
@@ -49,6 +49,106 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Student/Account/ApproveParentLink": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Parent/Account/RegisterParent": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParentRegisterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParentRegisterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParentRegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Parent/Account/RegisterParentWithInvite": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParentRegisterWithInviteRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParentRegisterWithInviteRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParentRegisterWithInviteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -238,6 +338,129 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Student/Application/apply": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "City",
+                  "Country",
+                  "DateOfBirth",
+                  "Document",
+                  "Email",
+                  "Gender",
+                  "PhoneNumber"
+                ],
+                "type": "object",
+                "properties": {
+                  "Email": {
+                    "type": "string"
+                  },
+                  "PhoneNumber": {
+                    "type": "string"
+                  },
+                  "DateOfBirth": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "Gender": {
+                    "$ref": "#/components/schemas/Gender"
+                  },
+                  "Country": {
+                    "type": "string"
+                  },
+                  "City": {
+                    "type": "string"
+                  },
+                  "Street": {
+                    "type": "string"
+                  },
+                  "Document": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "GuardianName": {
+                    "type": "string"
+                  },
+                  "GuardianEmail": {
+                    "type": "string"
+                  },
+                  "LevelOfProficiency": {
+                    "$ref": "#/components/schemas/LevelOfProficiency"
+                  }
+                }
+              },
+              "encoding": {
+                "Email": {
+                  "style": "form"
+                },
+                "PhoneNumber": {
+                  "style": "form"
+                },
+                "DateOfBirth": {
+                  "style": "form"
+                },
+                "Gender": {
+                  "style": "form"
+                },
+                "Country": {
+                  "style": "form"
+                },
+                "City": {
+                  "style": "form"
+                },
+                "Street": {
+                  "style": "form"
+                },
+                "Document": {
+                  "style": "form"
+                },
+                "GuardianName": {
+                  "style": "form"
+                },
+                "GuardianEmail": {
+                  "style": "form"
+                },
+                "LevelOfProficiency": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Student/Application/status": {
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -454,6 +677,92 @@
           }
         }
       }
+    },
+    "/api/Admin/Student/applications": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/ApplicationStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/Student/applications/{id}": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/Student/applications/{id}/review": {
+      "post": {
+        "tags": [
+          "Student"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationReviewRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationReviewRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -499,6 +808,19 @@
         "type": "integer",
         "format": "int32"
       },
+      "LevelOfProficiency": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "LoginRequest": {
         "type": "object",
         "properties": {
@@ -513,28 +835,83 @@
         },
         "additionalProperties": false
       },
-      "RegisterRequest": {
+      "ParentRegisterRequest": {
+        "required": [
+          "dateOfBirth",
+          "email",
+          "fullName",
+          "gender",
+          "password",
+          "relationshipWithStudent",
+          "studentEmail"
+        ],
         "type": "object",
         "properties": {
           "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "fullName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
-          "userName": {
+          "dateOfBirth": {
             "type": "string",
-            "nullable": true
+            "format": "date"
           },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "relationshipWithStudent": {
+            "minLength": 1,
+            "type": "string"
           },
           "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "studentEmail": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ParentRegisterWithInviteRequest": {
+        "required": [
+          "dateOfBirth",
+          "fullName",
+          "gender",
+          "password",
+          "relationshipWithStudent",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fullName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "relationshipWithStudent": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 8,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -551,6 +928,24 @@
             "nullable": true
           },
           "code": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StudentRegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
             "type": "string",
             "nullable": true
           }

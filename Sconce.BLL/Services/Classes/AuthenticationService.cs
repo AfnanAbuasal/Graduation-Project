@@ -266,8 +266,6 @@ namespace Sconce.BLL.Services.Classes
             var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={parent.Id}";
             var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
 
-            await _notificationService.SendParentWelcomeAsync(parent, emailConfirmationURL);
-
             // Send emails
             await _notificationService.SendParentLinkedAsync(student, parent, request.RelationshipWithStudent);
             await _notificationService.SendStudentLinkedAsync(parent, student, emailConfirmationURL);

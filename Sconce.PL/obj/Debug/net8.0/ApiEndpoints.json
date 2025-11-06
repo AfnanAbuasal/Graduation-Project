@@ -53,6 +53,59 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
+    "Method": "GetAllApplications",
+    "RelativePath": "api/Admin/Student/applications",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
+    "Method": "GetApplicationById",
+    "RelativePath": "api/Admin/Student/applications/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
+    "Method": "ReviewApplication",
+    "RelativePath": "api/Admin/Student/applications/{id}/review",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ApplicationReviewRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Identity.AccountController",
     "Method": "ConfirmEmail",
     "RelativePath": "api/Identity/Account/ConfirmEmail",
@@ -120,32 +173,6 @@
       {
         "Name": "loginRequest",
         "Type": "Sconce.DAL.DTO.Requests.LoginRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.UserResponse",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Identity.AccountController",
-    "Method": "Register",
-    "RelativePath": "api/Identity/Account/Register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "registerRequest",
-        "Type": "Sconce.DAL.DTO.Requests.RegisterRequest",
         "IsRequired": true
       }
     ],
@@ -257,6 +284,172 @@
     "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationController",
     "Method": "GetStatus",
     "RelativePath": "api/Instructor/Application/status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Parent.AccountController",
+    "Method": "RegisterParent",
+    "RelativePath": "api/Parent/Account/RegisterParent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ParentRegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.UserResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Parent.AccountController",
+    "Method": "RegisterParentWithInvite",
+    "RelativePath": "api/Parent/Account/RegisterParentWithInvite",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ParentRegisterWithInviteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.AccountController",
+    "Method": "ApproveParentLink",
+    "RelativePath": "api/Student/Account/ApproveParentLink",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.AccountController",
+    "Method": "RegisterStudent",
+    "RelativePath": "api/Student/Account/RegisterStudent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerRequest",
+        "Type": "Sconce.DAL.DTO.Requests.StudentRegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.UserResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ApplicationController",
+    "Method": "Apply",
+    "RelativePath": "api/Student/Application/apply",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PhoneNumber",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "DateOfBirth",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "Gender",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Country",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "City",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Street",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Document",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "GuardianName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "GuardianEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "LevelOfProficiency",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ApplicationController",
+    "Method": "GetStatus",
+    "RelativePath": "api/Student/Application/status",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

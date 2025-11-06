@@ -11,33 +11,34 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class InstructorController : ControllerBase
+    public class StudentController : ControllerBase
     {
-        private readonly IAdminInstructorService _adminInstructorService;
-        public InstructorController(IAdminInstructorService adminInstructorService)
+        private readonly IAdminStudentService _adminStudentService;
+
+        public StudentController(IAdminStudentService adminStudentService)
         {
-            _adminInstructorService = adminInstructorService;
+            _adminStudentService = adminStudentService;
         }
 
         [HttpGet("applications")]
-        public async Task<IActionResult> GetAll([FromQuery] ApplicationStatus? status)
+        public async Task<IActionResult> GetAllApplications([FromQuery] ApplicationStatus? status = null)
         {
-            var result = await _adminInstructorService.GetAllApplicationsAsync(status);
+            var result = await _adminStudentService.GetAllApplicationsAsync(status);
             return Ok(result);
         }
 
         [HttpGet("applications/{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetApplicationById(int id)
         {
-            var result = await _adminInstructorService.GetApplicationByIdAsync(id);
+            var result = await _adminStudentService.GetApplicationByIdAsync(id);
             if (result == null) return NotFound("Application not found.");
             return Ok(result);
         }
 
         [HttpPost("applications/{id}/review")]
-        public async Task<IActionResult> Review(int id, [FromBody] ApplicationReviewRequest request)
+        public async Task<IActionResult> ReviewApplication(int id, [FromBody] ApplicationReviewRequest request)
         {
-            var success = await _adminInstructorService.ReviewApplicationAsync(id, request.ApplicationStatus, request.Feedback);
+            var success = await _adminStudentService.ReviewApplicationAsync(id, request.ApplicationStatus, request.Feedback);
             if (!success) return BadRequest("Failed to review the application.");
             return Ok("Application reviewed successfully.");
         }

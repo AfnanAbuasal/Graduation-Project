@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Responses;
@@ -19,7 +18,6 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly IStudentApplicationRepository _applicationRepository;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly INotificationService _notificationService;
         private readonly IFileUrlHelper _fileUrlHelper;
         private readonly IParentInviteRepository _parentInviteRepository;
@@ -27,14 +25,12 @@ namespace Sconce.BLL.Services.Classes
         public AdminStudentService(
             IStudentApplicationRepository applicationRepository,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
             INotificationService notificationService,
             IFileUrlHelper fileUrlHelper,
             IParentInviteRepository parentInviteRepository)
         {
             _applicationRepository = applicationRepository;
             _userManager = userManager;
-            _roleManager = roleManager;
             _notificationService = notificationService;
             _fileUrlHelper = fileUrlHelper;
             _parentInviteRepository = parentInviteRepository;
