@@ -177,7 +177,7 @@ namespace Sconce.BLL.Services.Classes
 
             await _emailSender.SendEmailAsync(
                 app.GuardianEmail!,
-                "Invitation to Join Sconce as a Parent",
+                "Invitation to Join Sconce as a Guardian",
                 $@"
                 <h2>Hello {guardianName},</h2>
                 <p>Your child <b>{app.FullName}</b> has been accepted into the Sconce learning platform. 🎉</p>
@@ -212,10 +212,10 @@ namespace Sconce.BLL.Services.Classes
                 <a href='{emailConfirmationURL}' 
                    style='background-color:#1abc9c;color:white;padding:10px 20px;
                           text-decoration:none;border-radius:5px;'>Confirm Email</a>
-                <br/>
-                <p style='font-size:12px;color:#777;'>If the button doesn’t work, copy and paste this link into your browser:<br/>{emailConfirmationURL}</p>
                 <br/><br/>
-                <p>Once confirmed, you can now view their learning activities, monitor progress, and stay engaged in their educational journey.</p>
+                <p style='font-size:12px;color:#777;'>If the button doesn’t work, copy and paste this link into your browser:<br/>{emailConfirmationURL}</p>
+                <br/>
+                <p>Once confirmed, you can view their learning activities, monitor progress, and stay engaged in their educational journey.</p>
                 <p>If you didn’t request this link, please reach out to our support team immediately.</p>
                 <br/>
                 <p>Welcome to the Sconce family! 🎓</p>

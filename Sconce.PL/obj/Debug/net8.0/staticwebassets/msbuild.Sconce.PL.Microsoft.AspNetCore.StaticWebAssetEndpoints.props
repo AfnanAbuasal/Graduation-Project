@@ -48,6 +48,18 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zutuliajve"},{"Name":"integrity","Value":"sha256-qw9sthsymkcQxpUN4qg6S1rZOIdyjsaZL3qQ4/x2kt4="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/StudentDocs/7496209a-c65b-4efd-a2f4-3154140ee99c_download.jfif"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"51698"},{"Name":"Content-Type","Value":"image/pjpeg"},{"Name":"ETag","Value":"\u0022qw9sthsymkcQxpUN4qg6S1rZOIdyjsaZL3qQ4/x2kt4=\u0022"},{"Name":"Last-Modified","Value":"Fri, 07 Nov 2025 10:31:46 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.kls6ms5siy.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kls6ms5siy"},{"Name":"integrity","Value":"sha256-SOwWjR0eGDcaQO3nwdX7STMXz\u002By/\u002BCkE8uIySRnyxrY="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"84633"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022SOwWjR0eGDcaQO3nwdX7STMXz\u002By/\u002BCkE8uIySRnyxrY=\u0022"},{"Name":"Last-Modified","Value":"Fri, 07 Nov 2025 12:43:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-SOwWjR0eGDcaQO3nwdX7STMXz\u002By/\u002BCkE8uIySRnyxrY="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"84633"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022SOwWjR0eGDcaQO3nwdX7STMXz\u002By/\u002BCkE8uIySRnyxrY=\u0022"},{"Name":"Last-Modified","Value":"Fri, 07 Nov 2025 12:43:35 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/StudentDocs/f3238336-6c2b-4678-81f9-06ab9520a046_EF_SET_Certificate.kls6ms5siy.pdf">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\f3238336-6c2b-4678-81f9-06ab9520a046_EF_SET_Certificate.pdf'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

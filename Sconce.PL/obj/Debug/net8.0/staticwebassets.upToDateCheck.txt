@@ -2,5 +2,6 @@ wwwroot\Uploads\CVs\194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf
 wwwroot\Uploads\CVs\3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf
 wwwroot\Uploads\CVs\f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf
 wwwroot\Uploads\StudentDocs\7496209a-c65b-4efd-a2f4-3154140ee99c_download.jfif
+wwwroot\Uploads\StudentDocs\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf
 wwwroot\Uploads\StudentDocs\f3238336-6c2b-4678-81f9-06ab9520a046_EF_SET_Certificate.pdf
 wwwroot\Uploads\StudentDocs\f746bea6-544a-493f-b8c2-34c4eb9e0c8d_download.jfif

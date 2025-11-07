@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NZ8NlPCHlZV0EkBqZYBYX+yM5ccs8Q68jJ6J+QAY9dM=",
+  "Hash": "ZQhuL3/9pTZlIow63pywDcILQxnHiBaK/XyKf+61y4Y=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -99,6 +99,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\StudentDocs\\7496209a-c65b-4efd-a2f4-3154140ee99c_download.jfif"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kls6ms5siy",
+      "Integrity": "SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\StudentDocs\\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf"
     },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\f3238336-6c2b-4678-81f9-06ab9520a046_EF_SET_Certificate.pdf",
@@ -469,6 +490,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-qw9sthsymkcQxpUN4qg6S1rZOIdyjsaZL3qQ4/x2kt4="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.kls6ms5siy.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 07 Nov 2025 12:43:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kls6ms5siy"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\a5e49a5c-f02e-433b-8459-4c1a63bf8801_EF_SET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 07 Nov 2025 12:43:35 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
         }
       ]
     },
