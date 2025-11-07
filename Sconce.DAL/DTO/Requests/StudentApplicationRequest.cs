@@ -13,7 +13,7 @@ namespace Sconce.DAL.DTO.Requests
     {
         [Required] public string Email { get; set; }
         [Required] public string PhoneNumber { get; set; }
-        [Required] public DateTime DateOfBirth { get; set; }
+        [Required] public DateOnly DateOfBirth { get; set; }
         [Required] public Gender Gender { get; set; }
         [Required] public string Country { get; set; }
         [Required] public string City { get; set; }

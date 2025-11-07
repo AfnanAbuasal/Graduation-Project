@@ -19,7 +19,7 @@ namespace Sconce.PL.Areas.Parent
         }
 
         [HttpPost("RegisterParent")]
-        public async Task<ActionResult<UserResponse>> RegisterParent(ParentRegisterRequest request)
+        public async Task<ActionResult<UserResponse>> RegisterParent([FromBody] ParentRegisterRequest request)
         {
             var result = await _authenticationService.RegisterParentAsync(request);
             return Ok(result);

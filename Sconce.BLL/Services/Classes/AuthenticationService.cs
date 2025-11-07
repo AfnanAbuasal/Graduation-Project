@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Sconce.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Sconce.DAL.Models.Enums;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -28,6 +29,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IParentInviteRepository _parentInviteRepository;
         private readonly IParentLinkRepository _parentLinkRepository;
         private readonly IStudentParentRepository _studentParentRepository;
+        private readonly IStudentApplicationRepository _studentApplicationRepository;
 
         public AuthenticationService(
             UserManager<ApplicationUser> userManager,
@@ -36,7 +38,8 @@ namespace Sconce.BLL.Services.Classes
             IFileUrlHelper fileUrlHelper,
             IParentInviteRepository parentInviteRepository,
             IParentLinkRepository parentLinkRepository,
-            IStudentParentRepository studentParentRepository)
+            IStudentParentRepository studentParentRepository,
+            IStudentApplicationRepository studentApplicationRepository)
         {
             _userManager = userManager;
             _configuration = configuration;
@@ -45,6 +48,7 @@ namespace Sconce.BLL.Services.Classes
             _parentInviteRepository = parentInviteRepository;
             _parentLinkRepository = parentLinkRepository;
             _studentParentRepository = studentParentRepository;
+            _studentApplicationRepository = studentApplicationRepository;
         }
 
         public async Task<UserResponse> LoginAsync(LoginRequest loginRequest)
@@ -123,6 +127,27 @@ namespace Sconce.BLL.Services.Classes
 
             if (student == null)
                 throw new InvalidOperationException("No student found with the provided email.");
+
+            var studentApplication = (await _studentApplicationRepository.GetAllAsync())
+            .FirstOrDefault(a => a.Email == request.StudentEmail);
+
+            if (studentApplication == null)
+                throw new InvalidOperationException(
+                    "The student has not yet submitted their application. Please ask them to submit it first.");
+
+            switch (studentApplication.ApplicationStatus)
+            {
+                case ApplicationStatus.Pending:
+                    throw new InvalidOperationException(
+                        "The student's application is still under review. Please try again once it has been approved.");
+
+                case ApplicationStatus.Rejected:
+                    throw new InvalidOperationException(
+                        "Sorry, the student's application was rejected and cannot be linked at this time.");
+
+                case ApplicationStatus.Approved:
+                    break;
+            }
 
             var parent = new Parent
             {
