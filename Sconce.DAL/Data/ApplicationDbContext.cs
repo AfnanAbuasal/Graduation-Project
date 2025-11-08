@@ -22,6 +22,9 @@ namespace Sconce.DAL.Data
         public DbSet<ParentInvite> ParentInvites { get; set; }
         public DbSet<ParentLink> ParentLinks { get; set; }
 
+        // Course Hierarchy
+        public DbSet<Program> Programs { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
