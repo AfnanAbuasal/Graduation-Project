@@ -3,8 +3,8 @@
   "ManifestType": "Build",
   "Endpoints": [
     {
-      "Route": "Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
-      "AssetFile": "Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf",
+      "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.kls6ms5siy.pdf",
+      "AssetFile": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -17,7 +17,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "234953"
+          "Value": "84633"
         },
         {
           "Name": "Content-Type",
@@ -25,31 +25,31 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+          "Value": "\"SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 01 Nov 2025 11:38:13 GMT"
+          "Value": "Fri, 07 Nov 2025 16:32:33 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "kdy6iy9aug"
+          "Value": "kls6ms5siy"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+          "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
         },
         {
           "Name": "label",
-          "Value": "Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf"
+          "Value": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf"
         }
       ]
     },
     {
-      "Route": "Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf",
-      "AssetFile": "Uploads/CVs/194a9513-a38a-4b3f-a715-5735fde82091_AfnanAbo-Asal_CV.pdf",
+      "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
+      "AssetFile": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -62,7 +62,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "234953"
+          "Value": "84633"
         },
         {
           "Name": "Content-Type",
@@ -70,181 +70,17 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+          "Value": "\"SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 01 Nov 2025 11:38:13 GMT"
+          "Value": "Fri, 07 Nov 2025 16:32:33 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
-        }
-      ]
-    },
-    {
-      "Route": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.3exp0glu0o.pdf",
-      "AssetFile": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "286726"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/pdf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 02 Nov 2025 09:18:30 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "3exp0glu0o"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo="
-        },
-        {
-          "Name": "label",
-          "Value": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf"
-        }
-      ]
-    },
-    {
-      "Route": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf",
-      "AssetFile": "Uploads/CVs/3f0e003b-a8c3-4037-ab74-80dae5234ebc_RayanAboAsal_CV.pdf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "286726"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/pdf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sun, 02 Nov 2025 09:18:30 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-S4XErv+jF9UuVk493YegfAWnUJe9oenZC8TIoomZjgo="
-        }
-      ]
-    },
-    {
-      "Route": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
-      "AssetFile": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "234953"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/pdf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 01 Nov 2025 09:49:18 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "kdy6iy9aug"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
-        },
-        {
-          "Name": "label",
-          "Value": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf"
-        }
-      ]
-    },
-    {
-      "Route": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf",
-      "AssetFile": "Uploads/CVs/f35fdf3e-310d-43c1-a592-451203c72492_AfnanAbo-Asal_CV.pdf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "234953"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/pdf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 01 Nov 2025 09:49:18 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+          "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
         }
       ]
     }

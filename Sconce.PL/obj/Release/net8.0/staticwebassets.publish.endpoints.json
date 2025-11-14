@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "ManifestType": "Publish",
+  "Endpoints": [
+    {
+      "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.kls6ms5siy.pdf",
+      "AssetFile": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 07 Nov 2025 16:32:33 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kls6ms5siy"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
+      "AssetFile": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 07 Nov 2025 16:32:33 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
+        }
+      ]
+    }
+  ]
+}

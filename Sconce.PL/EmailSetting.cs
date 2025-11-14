@@ -28,23 +28,23 @@ namespace Sconce.PL
                 Credentials = new NetworkCredential(fromEmail, password)
             };
 
-            //var message = new MailMessage(from: new MailAddress(fromEmail, displayName), to: new MailAddress(email))
-            //{
-            //    Subject = subject,
-            //    Body = htmlMessage,
-            //    IsBodyHtml = true
-            //};
+            var message = new MailMessage(from: new MailAddress(fromEmail, displayName), to: new MailAddress(email))
+            {
+                Subject = subject,
+                Body = htmlMessage,
+                IsBodyHtml = true
+            };
 
-            //return client.SendMailAsync(message);
+            return client.SendMailAsync(message);
 
-            return client.SendMailAsync(
-                new MailMessage(from: fromEmail,
-                                to: email,
-                                subject,
-                                htmlMessage
-                )
-                { IsBodyHtml = true}
-            );
+            //return client.SendMailAsync(
+            //    new MailMessage(from: fromEmail,
+            //                    to: email,
+            //                    subject,
+            //                    htmlMessage
+            //    )
+            //    { IsBodyHtml = true}
+            //);
         }
     }
 }

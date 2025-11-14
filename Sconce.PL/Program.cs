@@ -29,9 +29,21 @@ namespace Sconce.PL
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Cors Policy
+            var userPolicy = "";
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: userPolicy, policy =>
+                {
+                    policy.AllowAnyOrigin();
+                });
+            });
+
+            // Database Connection
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            // Dependency Injections
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IGenericService<,,>), typeof(GenericService<,,>));
             builder.Services.AddScoped<IInstructorApplicationRepository, InstructorApplicationRepository>();
@@ -50,6 +62,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<IParentLinkRepository, ParentLinkRepository>();
             builder.Services.AddScoped<IStudentParentRepository, StudentParentRepository>();
 
+            // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => {
                     options.Password.RequiredLength = 8;
@@ -96,6 +109,7 @@ namespace Sconce.PL
                 });
             }
 
+            // Data Seeding
             using (var scope = app.Services.CreateScope())
             {
                 var seeder = scope.ServiceProvider.GetRequiredService<ISeedData>();
@@ -105,7 +119,11 @@ namespace Sconce.PL
 
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(); //⁄‘«‰ —«»ÿ «·„·› ·„« √ﬂ»” ⁄·ÌÂ Ì› Õ «·„·›
+
+            app.UseAuthentication();
+
+            app.UseCors(userPolicy);
 
             app.UseAuthorization();
 
