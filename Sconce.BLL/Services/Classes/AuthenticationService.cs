@@ -3,19 +3,13 @@ using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using Sconce.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using Sconce.DAL.Models.Enums;
 
 namespace Sconce.BLL.Services.Classes
@@ -25,7 +19,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly INotificationService _notificationService;
-        private readonly IFileUrlHelper _fileUrlHelper;
+        private readonly IUrlHelper _urlHelper;
         private readonly IParentInviteRepository _parentInviteRepository;
         private readonly IParentLinkRepository _parentLinkRepository;
         private readonly IStudentParentRepository _studentParentRepository;
@@ -35,7 +29,7 @@ namespace Sconce.BLL.Services.Classes
             UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
             INotificationService notificationService,
-            IFileUrlHelper fileUrlHelper,
+            IUrlHelper urlHelper,
             IParentInviteRepository parentInviteRepository,
             IParentLinkRepository parentLinkRepository,
             IStudentParentRepository studentParentRepository,
@@ -44,7 +38,7 @@ namespace Sconce.BLL.Services.Classes
             _userManager = userManager;
             _configuration = configuration;
             _notificationService = notificationService;
-            _fileUrlHelper = fileUrlHelper;
+            _urlHelper = urlHelper;
             _parentInviteRepository = parentInviteRepository;
             _parentLinkRepository = parentLinkRepository;
             _studentParentRepository = studentParentRepository;
@@ -55,11 +49,11 @@ namespace Sconce.BLL.Services.Classes
         {
             var user = await _userManager.FindByEmailAsync(loginRequest.Email);
             if (user is null)
-                throw new Exception("Invalid Email or Password");
+                throw new Exception("Invalid Email or Password.");
             if(!await _userManager.IsEmailConfirmedAsync(user))
-                throw new Exception("Please Confirm Your Email");
+                throw new Exception("Please Confirm Your Email.");
             if (!await _userManager.CheckPasswordAsync(user, loginRequest.Password))
-                throw new Exception("Invalid Email or Password");
+                throw new Exception("Invalid Email or Password.");
             return new UserResponse()
             {
                 Token = await GenerateTokenAsync(user)
@@ -112,7 +106,7 @@ namespace Sconce.BLL.Services.Classes
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(student);
             var escapedToken = Uri.EscapeDataString(token);
             var relativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userId={student.Id}";
-            var confirmationUrl = _fileUrlHelper.BuildFileUrl(relativePath);
+            var confirmationUrl = _urlHelper.BuildUrl(relativePath);
 
             await _notificationService.SendConfirmEmailAsync(student, confirmationUrl);
 
@@ -177,7 +171,7 @@ namespace Sconce.BLL.Services.Classes
             };
             await _parentLinkRepository.AddAsync(linkRequest);
 
-            var approvalUrl = _fileUrlHelper.BuildFileUrl($"/api/Student/Account/ApproveParentLink?token={token}");
+            var approvalUrl = _urlHelper.BuildUrl($"/api/Student/Account/ApproveParentLink?token={token}");
             await _notificationService.SendParentLinkRequestAsync(parent, student, request.RelationshipWithStudent, approvalUrl);
 
             return new UserResponse { Token = parent.Email };
@@ -225,7 +219,7 @@ namespace Sconce.BLL.Services.Classes
             var escapedToken = Uri.EscapeDataString(emailToken);
 
             var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={parent.Id}";
-            var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
+            var emailConfirmationURL = _urlHelper.BuildUrl(confirmationRelativePath);
 
             // Send notification emails
             await _notificationService.SendParentLinkedAsync(student, parent, link.RelationshipWithStudent);
@@ -289,7 +283,7 @@ namespace Sconce.BLL.Services.Classes
             var escapedToken = Uri.EscapeDataString(token);
 
             var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={parent.Id}";
-            var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
+            var emailConfirmationURL = _urlHelper.BuildUrl(confirmationRelativePath);
 
             // Send emails
             await _notificationService.SendParentLinkedAsync(student, parent, request.RelationshipWithStudent);
@@ -298,38 +292,38 @@ namespace Sconce.BLL.Services.Classes
             return new UserResponse { Token = parent.Email };
         }
 
-        public async Task<string> ConfirmEmail(string token, string userID)
+        public async Task<string> ConfirmEmailAsync(string token, string userID)
         {
             var user = await _userManager.FindByIdAsync(userID);
-            if (user is null) throw new Exception("User not Found");
+            if (user is null) throw new Exception("User not Found.");
             var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded) return "Email Confirmed Successfully";
-            return "Email Confirmation Failed";
+            if (result.Succeeded) return "Email Confirmed Successfully!";
+            return "Email Confirmation Failed.";
         }
 
-        public async Task<string> ForgotPassword(ForgotPasswordRequest forgotPasswordRequest)
+        public async Task<string> ForgotPasswordAsync(ForgotPasswordRequest forgotPasswordRequest)
         {
             var user = await _userManager.FindByEmailAsync(forgotPasswordRequest.Email);
-            if(user is null) throw new Exception("User not Found");
+            if(user is null) throw new Exception("User not Found.");
             var random = new Random();
             var code = random.Next(1000, 9999).ToString();
             user.PasswordResetCode = code;
             user.PasswordResetCodeExpiration = DateTime.UtcNow.AddMinutes(15);
             await _userManager.UpdateAsync(user);
             await _notificationService.SendPasswordResetCodeAsync(forgotPasswordRequest, code);
-            return "Please check your email";
+            return "Please check your email.";
         }
 
-        public async Task<string> ResetPassword(ResetPasswordRequest resetPasswordRequest)
+        public async Task<string> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
         {
             var user = await _userManager.FindByEmailAsync(resetPasswordRequest.Email);
-            if (user is null) throw new Exception("User not Found");
-            if (user.PasswordResetCode != resetPasswordRequest.Code) return "Wrong Code";
-            if (user.PasswordResetCodeExpiration < DateTime.UtcNow) return "Code Expired";
+            if (user is null) throw new Exception("User not Found.");
+            if (user.PasswordResetCode != resetPasswordRequest.Code) return "Wrong Code.";
+            if (user.PasswordResetCodeExpiration < DateTime.UtcNow) return "Code Expired.";
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var result = await _userManager.ResetPasswordAsync(user, token, resetPasswordRequest.NewPassword);
             if (result.Succeeded) await _notificationService.SendPasswordResetSuccessAsync(resetPasswordRequest, user);
-            return "Paswword Reset Successfully";
+            return "Paswword Reset Successfully!";
         }
     }
 }

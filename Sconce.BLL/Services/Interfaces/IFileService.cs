@@ -10,6 +10,6 @@ namespace Sconce.BLL.Services.Interfaces
     public interface IFileService
     {
         Task<string> SaveFileAsync(IFormFile file, string folder);
-        void DeleteFile(string relativePath);
+        Task DeleteFileAsync(string relativePath);
     }
 }

@@ -37,8 +37,11 @@ namespace Sconce.BLL.Services.Classes
             // return relative path for DB
             return Path.Combine("/", folder, fileName).Replace("\\", "/");
         }
-        public async void DeleteFile(string relativePath)
+        public async Task DeleteFileAsync(string relativePath)
         {
+            if (string.IsNullOrWhiteSpace(relativePath))
+                return;
+
             var rootPath = _env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             var fullPath = Path.Combine(rootPath, relativePath.TrimStart('/'));
 

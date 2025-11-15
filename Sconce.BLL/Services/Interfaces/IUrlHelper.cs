@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sconce.BLL.Services.Interfaces
 {
-    public interface IFileUrlHelper
+    public interface IUrlHelper
     {
-        string? BuildFileUrl(string? relativePath);
+        string? BuildUrl(string? relativePath);
     }
 }

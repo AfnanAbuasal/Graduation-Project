@@ -19,23 +19,23 @@ namespace Sconce.PL.Areas.Admin
             _adminInstructorService = adminInstructorService;
         }
 
-        [HttpGet("applications")]
+        [HttpGet("Applications")]
         public async Task<IActionResult> GetAll([FromQuery] ApplicationStatus? status)
         {
             var result = await _adminInstructorService.GetAllApplicationsAsync(status);
             return Ok(result);
         }
 
-        [HttpGet("applications/{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("Applications/{id}")]
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var result = await _adminInstructorService.GetApplicationByIdAsync(id);
             if (result == null) return NotFound("Application not found.");
             return Ok(result);
         }
 
-        [HttpPost("applications/{id}/review")]
-        public async Task<IActionResult> Review(int id, [FromBody] ApplicationReviewRequest request)
+        [HttpPost("Applications/{id}/Review")]
+        public async Task<IActionResult> Review([FromRoute] int id, [FromBody] ApplicationReviewRequest request)
         {
             var success = await _adminInstructorService.ReviewApplicationAsync(id, request.ApplicationStatus, request.Feedback);
             if (!success) return BadRequest("Failed to review the application.");

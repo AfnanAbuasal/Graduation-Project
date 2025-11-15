@@ -19,20 +19,20 @@ namespace Sconce.BLL.Services.Classes
         private readonly IStudentApplicationRepository _applicationRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly INotificationService _notificationService;
-        private readonly IFileUrlHelper _fileUrlHelper;
+        private readonly IUrlHelper _urlHelper;
         private readonly IParentInviteRepository _parentInviteRepository;
 
         public AdminStudentService(
             IStudentApplicationRepository applicationRepository,
             UserManager<ApplicationUser> userManager,
             INotificationService notificationService,
-            IFileUrlHelper fileUrlHelper,
+            IUrlHelper urlHelper,
             IParentInviteRepository parentInviteRepository)
         {
             _applicationRepository = applicationRepository;
             _userManager = userManager;
             _notificationService = notificationService;
-            _fileUrlHelper = fileUrlHelper;
+            _urlHelper = urlHelper;
             _parentInviteRepository = parentInviteRepository;
         }
 
@@ -44,7 +44,7 @@ namespace Sconce.BLL.Services.Classes
 
             var responses = apps.Adapt<IEnumerable<StudentApplicationResponse>>().ToList();
             foreach (var res in responses)
-                res.DocumentUrl = _fileUrlHelper.BuildFileUrl(res.DocumentPath);
+                res.DocumentUrl = _urlHelper.BuildUrl(res.DocumentPath);
 
             return responses;
         }
@@ -55,7 +55,7 @@ namespace Sconce.BLL.Services.Classes
             if (app == null) return null;
 
             var response = app.Adapt<StudentApplicationResponse>();
-            response.DocumentUrl = _fileUrlHelper.BuildFileUrl(response.DocumentPath);
+            response.DocumentUrl = _urlHelper.BuildUrl(response.DocumentPath);
 
             return response;
         }
@@ -112,7 +112,7 @@ namespace Sconce.BLL.Services.Classes
 
                     await _parentInviteRepository.AddAsync(invite);
 
-                    // Frontend registration link (to be replaced with actual URL)
+                    // Frontend registration link for parent (to be replaced with actual URL)
                     var frontendUrl = $"https://sconce-frontend.com/register/parent?token={token}";
 
                     await _notificationService.SendParentInvitationAsync(app, frontendUrl);

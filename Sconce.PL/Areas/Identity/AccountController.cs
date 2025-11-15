@@ -19,7 +19,7 @@ namespace Sconce.PL.Areas.Identity
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<UserResponse>> Login(LoginRequest loginRequest)
+        public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest loginRequest)
         {
             var result = await _authenticationService.LoginAsync(loginRequest);
             return Ok(result);
@@ -33,7 +33,7 @@ namespace Sconce.PL.Areas.Identity
         }
 
         [HttpPost("ForgotPassword")]
-        public async Task<ActionResult<string>> ForgotPassword([FromBody]ForgotPasswordRequest forgotPasswordRequest)
+        public async Task<ActionResult<string>> ForgotPassword([FromBody] ForgotPasswordRequest forgotPasswordRequest)
         {
             var result = await _authenticationService.ForgotPassword(forgotPasswordRequest);
             return Ok(result);

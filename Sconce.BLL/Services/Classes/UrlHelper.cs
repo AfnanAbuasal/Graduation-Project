@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Sconce.BLL.Services.Classes
 {
-    public class FileUrlHelper : IFileUrlHelper
+    public class UrlHelper : IUrlHelper
     {
         private readonly IHttpContextAccessor _accessor;
 
-        public FileUrlHelper(IHttpContextAccessor accessor)
+        public UrlHelper(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
         }
 
-        public string? BuildFileUrl(string? relativePath)
+        public string? BuildUrl(string? relativePath)
         {
             if (string.IsNullOrEmpty(relativePath))
                 return null;

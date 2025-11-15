@@ -20,20 +20,20 @@ namespace Sconce.BLL.Services.Classes
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly INotificationService _notificationService;
-        private readonly IFileUrlHelper _fileUrlHelper;
+        private readonly IUrlHelper _urlHelper;
 
         public AdminInstructorService(
             IInstructorApplicationRepository applicationRepository,
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             INotificationService notificationService,
-            IFileUrlHelper fileUrlHelper)
+            IUrlHelper urlHelper)
         {
             _applicationRepository = applicationRepository;
             _userManager = userManager;
             _roleManager = roleManager;
             _notificationService = notificationService;
-            _fileUrlHelper = fileUrlHelper;
+            _urlHelper = urlHelper;
         }
 
         public async Task<IEnumerable<InstructorApplicationResponse>> GetAllApplicationsAsync(ApplicationStatus? status = null)
@@ -45,7 +45,7 @@ namespace Sconce.BLL.Services.Classes
             var responses = apps.Adapt<IEnumerable<InstructorApplicationResponse>>().ToList();
             foreach (var res in responses)
             {
-                res.CVUrl = _fileUrlHelper.BuildFileUrl(res.CVPath);
+                res.CVUrl = _urlHelper.BuildUrl(res.CVPath);
             }
 
             return responses;
@@ -57,7 +57,7 @@ namespace Sconce.BLL.Services.Classes
             if (app == null) return null;
 
             var response = app.Adapt<InstructorApplicationResponse>();
-            response.CVUrl = _fileUrlHelper.BuildFileUrl(response.CVPath);
+            response.CVUrl = _urlHelper.BuildUrl(response.CVPath);
 
             return response;
         }
@@ -115,7 +115,7 @@ namespace Sconce.BLL.Services.Classes
                 var escapedToken = Uri.EscapeDataString(token);
 
                 var confirmationRelativePath = $"/api/Identity/Account/ConfirmEmail?token={escapedToken}&userID={instructorUser.Id}";
-                var emailConfirmationURL = _fileUrlHelper.BuildFileUrl(confirmationRelativePath);
+                var emailConfirmationURL = _urlHelper.BuildUrl(confirmationRelativePath);
 
                 await _notificationService.SendApplicationApprovedAsync(app, defaultPassword, emailConfirmationURL);
 

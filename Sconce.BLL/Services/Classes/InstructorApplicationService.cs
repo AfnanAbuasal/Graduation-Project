@@ -21,15 +21,19 @@ namespace Sconce.BLL.Services.Classes
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IFileUrlHelper _fileUrlHelper;
+        private readonly IUrlHelper _urlHelper;
 
-        public InstructorApplicationService(IInstructorApplicationRepository applicationRepository, IFileService fileService, INotificationService notificationService, UserManager<ApplicationUser> userManager, IFileUrlHelper fileUrlHelper)
+        public InstructorApplicationService(IInstructorApplicationRepository applicationRepository,
+            IFileService fileService,
+            INotificationService notificationService,
+            UserManager<ApplicationUser> userManager,
+            IUrlHelper urlHelper)
         {
             _applicationRepository = applicationRepository;
             _fileService = fileService;
             _notificationService = notificationService;
             _userManager = userManager;
-            _fileUrlHelper = fileUrlHelper;
+            _urlHelper = urlHelper;
         }
 
         public async Task<InstructorApplicationResponse> SubmitApplicationAsync(InstructorApplicationRequest request)
@@ -52,7 +56,7 @@ namespace Sconce.BLL.Services.Classes
             await _notificationService.SendApplicationSubmittedAsync(app);
 
             var response = app.Adapt<InstructorApplicationResponse>();
-            response.CVUrl = _fileUrlHelper.BuildFileUrl(app.CVPath);
+            response.CVUrl = _urlHelper.BuildUrl(app.CVPath);
 
             return response;
         }
@@ -64,7 +68,7 @@ namespace Sconce.BLL.Services.Classes
             if (app == null) return null;
 
             var response = app.Adapt<InstructorApplicationResponse>();
-            response.CVUrl = _fileUrlHelper.BuildFileUrl(app.CVPath);
+            response.CVUrl = _urlHelper.BuildUrl(app.CVPath);
 
             return response;
         }

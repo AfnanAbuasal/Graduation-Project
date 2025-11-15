@@ -10,15 +10,9 @@ namespace Sconce.DAL.Models
     public class ParentInvite : BaseModel
     {
         public string Token { get; set; }
-
-        [Required]
-        public string StudentId { get; set; }
+        [Required] public string StudentId { get; set; }
         public Student Student { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string GuardianEmail { get; set; }
-
+        [Required, EmailAddress] public string GuardianEmail { get; set; }
         public DateTime ExpiresAt { get; set; }
         public bool IsUsed { get; set; }
     }

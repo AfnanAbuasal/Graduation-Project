@@ -19,20 +19,20 @@ namespace Sconce.BLL.Services.Classes
         private readonly IStudentApplicationRepository _applicationRepository;
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
-        private readonly IFileUrlHelper _fileUrlHelper;
+        private readonly IUrlHelper _urlHelper;
 
         public StudentApplicationService(
             UserManager<ApplicationUser> userManager,
             IStudentApplicationRepository applicationRepository,
             IFileService fileService,
             INotificationService notificationService,
-            IFileUrlHelper fileUrlHelper)
+            IUrlHelper urlHelper)
         {
             _userManager = userManager;
             _applicationRepository = applicationRepository;
             _fileService = fileService;
             _notificationService = notificationService;
-            _fileUrlHelper = fileUrlHelper;
+            _urlHelper = urlHelper;
         }
 
         public async Task<StudentApplicationResponse> SubmitApplicationAsync(StudentApplicationRequest request)
@@ -66,7 +66,7 @@ namespace Sconce.BLL.Services.Classes
 
             // 7. Map response
             var response = application.Adapt<StudentApplicationResponse>();
-            response.DocumentUrl = _fileUrlHelper.BuildFileUrl(application.DocumentPath);
+            response.DocumentUrl = _urlHelper.BuildUrl(application.DocumentPath);
 
             return response;
         }
@@ -79,7 +79,7 @@ namespace Sconce.BLL.Services.Classes
             if (app == null) return null;
 
             var response = app.Adapt<StudentApplicationResponse>();
-            response.DocumentUrl = _fileUrlHelper.BuildFileUrl(app.DocumentPath);
+            response.DocumentUrl = _urlHelper.BuildUrl(app.DocumentPath);
             return response;
         }
     }

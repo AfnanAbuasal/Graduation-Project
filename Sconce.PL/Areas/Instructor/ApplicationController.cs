@@ -18,14 +18,14 @@ namespace Sconce.PL.Areas.Instructor
             _applicationService = applicationService;
         }
 
-        [HttpPost("apply")]
+        [HttpPost("Apply")]
         public async Task<IActionResult> Apply([FromForm] InstructorApplicationRequest request)
         {
             var response = await _applicationService.SubmitApplicationAsync(request);
             return Ok(response);
         }
 
-        [HttpGet("status")]
+        [HttpGet("Status")]
         public async Task<IActionResult> GetStatus([FromQuery] string email)
         {
             var response = await _applicationService.GetApplicationByEmailAsync(email);

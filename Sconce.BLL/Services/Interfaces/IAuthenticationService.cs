@@ -15,8 +15,8 @@ namespace Sconce.BLL.Services.Interfaces
         Task<(bool Success, string Message)> ApproveParentLinkAsync(string token);
         Task<UserResponse> RegisterParentWithInviteAsync(ParentRegisterWithInviteRequest request);
         Task<UserResponse> LoginAsync(LoginRequest loginRequest);
-        Task<string> ConfirmEmail(string token, string userID);
-        Task<string> ForgotPassword(ForgotPasswordRequest forgotPasswordRequest);
-        Task<string> ResetPassword(ResetPasswordRequest resetPasswordRequest);
+        Task<string> ConfirmEmailAsync(string token, string userID);
+        Task<string> ForgotPasswordAsync(ForgotPasswordRequest forgotPasswordRequest);
+        Task<string> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest);
     }
 }
