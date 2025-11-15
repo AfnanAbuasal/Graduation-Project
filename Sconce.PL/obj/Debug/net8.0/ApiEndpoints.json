@@ -255,6 +255,107 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "GetAll",
+    "RelativePath": "api/Admin/Section",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "Create",
+    "RelativePath": "api/Admin/Section",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.SectionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "GetById",
+    "RelativePath": "api/Admin/Section/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "Update",
+    "RelativePath": "api/Admin/Section/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.SectionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "Delete",
+    "RelativePath": "api/Admin/Section/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "ToggleStatus",
+    "RelativePath": "api/Admin/Section/{id}/ToggleStatus",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
     "Method": "GetAllApplications",
     "RelativePath": "api/Admin/Student/Applications",

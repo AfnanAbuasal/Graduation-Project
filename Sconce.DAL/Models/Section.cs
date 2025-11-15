@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.Models
 {
-    public class Course : BaseModel
+    public class Section : BaseModel
     {
         public string Name { get; set; }
         public string? Description { get; set; }
-        public int ProgramId { get; set; }
-        public Program Program { get; set; }
-        public ICollection<Section> Sections { get; set; } = new List<Section>();
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
     }
 }
