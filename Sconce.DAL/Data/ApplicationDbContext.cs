@@ -24,6 +24,7 @@ namespace Sconce.DAL.Data
 
         // Course Hierarchy
         public DbSet<Program> Programs { get; set; }
+        public DbSet<Course> Courses { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

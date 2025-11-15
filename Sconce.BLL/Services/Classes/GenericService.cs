@@ -21,7 +21,7 @@ namespace Sconce.BLL.Services.Classes
         {
             _repository = repository;
         }
-        public async Task<int> CreateAsync(TRequest request)
+        public virtual async Task<int> CreateAsync(TRequest request)
         {
             var entity = request.Adapt<TEntity>();
             return await _repository.AddAsync(entity);

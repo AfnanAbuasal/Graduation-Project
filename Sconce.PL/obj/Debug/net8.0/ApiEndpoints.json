@@ -1,8 +1,109 @@
 [
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "Method": "GetAll",
+    "RelativePath": "api/Admin/Course",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "Method": "Create",
+    "RelativePath": "api/Admin/Course",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.CourseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "Method": "GetById",
+    "RelativePath": "api/Admin/Course/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "Method": "Update",
+    "RelativePath": "api/Admin/Course/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.CourseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "Method": "Delete",
+    "RelativePath": "api/Admin/Course/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "Method": "ToggleStatus",
+    "RelativePath": "api/Admin/Course/{id}/ToggleStatus",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.InstructorController",
     "Method": "GetAll",
-    "RelativePath": "api/Admin/Instructor/applications",
+    "RelativePath": "api/Admin/Instructor/Applications",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -18,7 +119,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Admin.InstructorController",
     "Method": "GetById",
-    "RelativePath": "api/Admin/Instructor/applications/{id}",
+    "RelativePath": "api/Admin/Instructor/Applications/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -34,7 +135,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Admin.InstructorController",
     "Method": "Review",
-    "RelativePath": "api/Admin/Instructor/applications/{id}/review",
+    "RelativePath": "api/Admin/Instructor/Applications/{id}/Review",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -53,9 +154,110 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "Method": "GetAll",
+    "RelativePath": "api/Admin/Program",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "Method": "Create",
+    "RelativePath": "api/Admin/Program",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ProgramRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "Method": "GetById",
+    "RelativePath": "api/Admin/Program/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "Method": "Update",
+    "RelativePath": "api/Admin/Program/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ProgramRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "Method": "Delete",
+    "RelativePath": "api/Admin/Program/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "Method": "ToggleStatus",
+    "RelativePath": "api/Admin/Program/{id}/ToggleStatus",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
     "Method": "GetAllApplications",
-    "RelativePath": "api/Admin/Student/applications",
+    "RelativePath": "api/Admin/Student/Applications",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -71,7 +273,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
     "Method": "GetApplicationById",
-    "RelativePath": "api/Admin/Student/applications/{id}",
+    "RelativePath": "api/Admin/Student/Applications/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -87,7 +289,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
     "Method": "ReviewApplication",
-    "RelativePath": "api/Admin/Student/applications/{id}/review",
+    "RelativePath": "api/Admin/Student/Applications/{id}/Review",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -217,7 +419,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationController",
     "Method": "Apply",
-    "RelativePath": "api/Instructor/Application/apply",
+    "RelativePath": "api/Instructor/Application/Apply",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -283,7 +485,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationController",
     "Method": "GetStatus",
-    "RelativePath": "api/Instructor/Application/status",
+    "RelativePath": "api/Instructor/Application/Status",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -383,7 +585,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Student.ApplicationController",
     "Method": "Apply",
-    "RelativePath": "api/Student/Application/apply",
+    "RelativePath": "api/Student/Application/Apply",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -449,7 +651,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Student.ApplicationController",
     "Method": "GetStatus",
-    "RelativePath": "api/Student/Application/status",
+    "RelativePath": "api/Student/Application/Status",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

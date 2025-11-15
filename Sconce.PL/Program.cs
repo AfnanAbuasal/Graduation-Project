@@ -41,7 +41,7 @@ namespace Sconce.PL
 
             // Database Connection
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection")));
 
             // Dependency Injections
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -63,6 +63,8 @@ namespace Sconce.PL
             builder.Services.AddScoped<IStudentParentRepository, StudentParentRepository>();
             builder.Services.AddScoped<IProgramService, ProgramService>();
             builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
             // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
