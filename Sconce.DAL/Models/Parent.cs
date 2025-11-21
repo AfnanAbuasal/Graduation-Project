@@ -9,8 +9,6 @@ namespace Sconce.DAL.Models
 {
     public class Parent : ApplicationUser
     {
-        public DateOnly DateOfBirth { get; set; }
-        public Gender Gender { get; set; }
         public ICollection<StudentParent> StudentParents { get; set; } = new List<StudentParent>();
     }
 }

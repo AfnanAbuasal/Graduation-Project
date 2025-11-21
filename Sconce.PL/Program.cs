@@ -35,7 +35,9 @@ namespace Sconce.PL
             {
                 options.AddPolicy(name: userPolicy, policy =>
                 {
-                    policy.AllowAnyOrigin();
+                    policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
                 });
             });
 

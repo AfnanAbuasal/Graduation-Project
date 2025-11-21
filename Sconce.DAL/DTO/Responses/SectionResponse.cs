@@ -1,8 +1,10 @@
-﻿using Sconce.DAL.Models.Enums;
+﻿using Sconce.DAL.Extensions;
+using Sconce.DAL.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Responses
@@ -15,6 +17,7 @@ namespace Sconce.DAL.DTO.Responses
         public int CourseId { get; set; }
         public string? CourseName { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Status Status { get; set; }
+        [JsonIgnore] public Status Status { get; set; }
+        public string StatusDisplay => Status.ToDisplayString();
     }
 }

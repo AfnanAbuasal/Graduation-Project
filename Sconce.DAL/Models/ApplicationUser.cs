@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Sconce.DAL.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +15,8 @@ namespace Sconce.DAL.Models
         public string? Country { get; set; }
         public string? City { get; set; }
         public string? Street { get; set; }
+        public DateOnly DateOfBirth { get; set; }
+        public Gender Gender { get; set; }
 
         // Password Reset
         public string? PasswordResetCode { get; set; }

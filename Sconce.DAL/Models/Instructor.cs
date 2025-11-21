@@ -10,8 +10,6 @@ namespace Sconce.DAL.Models
 {
     public class Instructor : ApplicationUser
     {
-        public DateOnly DateOfBirth { get; set; }
-        public Gender Gender { get; set; }
         public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; } = false;
         public string CVPath { get; set; } // path to uploaded CV

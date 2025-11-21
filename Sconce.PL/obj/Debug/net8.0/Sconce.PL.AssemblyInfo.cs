@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sconce.PL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+210e7084033d2878338f6c71aae30ba662c42414")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5d79d4e210fe7afa8361e61e3e0f1d1943071cf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sconce.PL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sconce.PL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

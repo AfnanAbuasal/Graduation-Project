@@ -9,6 +9,17 @@ namespace Sconce.DAL.Extensions
 {
     public static class EnumExtensions
     {
+        // Status
+        public static string ToDisplayString(this Status status)
+        {
+            return status switch
+            {
+                Status.Active => "Active",
+                Status.Inactive => "Inactive",
+                _ => "Unknown"
+            };
+        }
+
         // Level of Proficiency
         public static string ToDisplayString(this LevelOfProficiency level)
         {
@@ -45,17 +56,6 @@ namespace Sconce.DAL.Extensions
                 Gender.Unspecified => "Unspecified",
                 Gender.Male => "Male",
                 Gender.Female => "Female",
-                _ => "Unknown"
-            };
-        }
-
-        // Status
-        public static string ToDisplayString(this Status status)
-        {
-            return status switch
-            {
-                Status.Active => "Active",
-                Status.Inactive => "Inactive",
                 _ => "Unknown"
             };
         }
