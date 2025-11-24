@@ -30,20 +30,20 @@ namespace Sconce.PL
             builder.Services.AddSwaggerGen();
 
             // Cors Policy
-            var userPolicy = "";
+            var userPolicy = "FrontendPolicy";
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: userPolicy, policy =>
                 {
                     policy.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
                 });
             });
 
             // Database Connection
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Dependency Injections
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -127,7 +127,7 @@ namespace Sconce.PL
 
             app.UseHttpsRedirection();
 
-            app.UseStaticFiles(); //⁄‘«‰ —«»ÿ «·„·› ·„« √ﬂ»” ⁄·ÌÂ Ì› Õ «·„·›
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 

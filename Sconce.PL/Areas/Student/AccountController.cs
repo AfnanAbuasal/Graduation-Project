@@ -22,6 +22,7 @@ namespace Sconce.PL.Areas.Student
         public async Task<ActionResult<UserResponse>> RegisterStudent(StudentRegisterRequest registerRequest)
         {
             var result = await _authenticationService.RegisterStudentAsync(registerRequest);
+            if (result is null) return BadRequest();
             return Ok(result);
         }
 

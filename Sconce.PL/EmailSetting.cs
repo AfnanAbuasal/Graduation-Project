@@ -36,15 +36,6 @@ namespace Sconce.PL
             };
 
             return client.SendMailAsync(message);
-
-            //return client.SendMailAsync(
-            //    new MailMessage(from: fromEmail,
-            //                    to: email,
-            //                    subject,
-            //                    htmlMessage
-            //    )
-            //    { IsBodyHtml = true}
-            //);
         }
     }
 }

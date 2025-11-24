@@ -99,7 +99,8 @@ namespace Sconce.BLL.Services.Classes
 
             var result = await _userManager.CreateAsync(student, registerRequest.Password);
             if (!result.Succeeded)
-                throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
+                return null;
+                //throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
 
             await _userManager.AddToRoleAsync(student, "Student");
 
