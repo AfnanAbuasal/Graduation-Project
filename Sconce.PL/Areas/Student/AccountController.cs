@@ -19,10 +19,10 @@ namespace Sconce.PL.Areas.Student
         }
 
         [HttpPost("RegisterStudent")]
-        public async Task<ActionResult<UserResponse>> RegisterStudent(StudentRegisterRequest registerRequest)
+        public async Task<ActionResult<Response>> RegisterStudent(StudentRegisterRequest registerRequest)
         {
             var result = await _authenticationService.RegisterStudentAsync(registerRequest);
-            if (result is null) return BadRequest();
+            if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }
 
@@ -30,8 +30,8 @@ namespace Sconce.PL.Areas.Student
         public async Task<IActionResult> ApproveParentLink([FromQuery] string token)
         {
             var result = await _authenticationService.ApproveParentLinkAsync(token);
-            if (!result.Success) return BadRequest(result.Message);
-            return Ok(result.Message);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
     }
 }

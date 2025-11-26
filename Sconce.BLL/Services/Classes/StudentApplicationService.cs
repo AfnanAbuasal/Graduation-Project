@@ -35,51 +35,53 @@ namespace Sconce.BLL.Services.Classes
             _urlHelper = urlHelper;
         }
 
-        public async Task<StudentApplicationResponse> SubmitApplicationAsync(StudentApplicationRequest request)
+        public async Task<Response> SubmitApplicationAsync(StudentApplicationRequest request)
         {
-            // 1. Ensure a registered user exists
+            // Ensure a registered user exists
             var studentUser = await _userManager.FindByEmailAsync(request.Email);
             if (studentUser == null)
-                throw new InvalidOperationException("No student account found with this email.");
+                return new Response { Message = "No student account found with this email." };
 
-            // 2. Prevent duplicate applications
+            // Prevent duplicate applications
             var existing = (await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == request.Email);
             if (existing != null)
-                throw new InvalidOperationException("An application with this email already exists.");
+                return new Response { Message = "An application with this email already exists." };
 
-            // 3. Save uploaded document
+            // Save uploaded document
             var documentPath = await _fileService.SaveFileAsync(request.Document, "Uploads/StudentDocs");
 
-            // 4. Map and assign from both request + student user
+            // Map and assign from both request + student user
             var application = request.Adapt<StudentApplication>();
             application.FullName = studentUser.FullName;
             application.Email = studentUser.Email;
             application.DocumentPath = documentPath;
             application.Feedback = "Your student application has been submitted successfully. Please wait while it is reviewed.";
 
-            // 5. Save to DB
+            // Save to DB
             await _applicationRepository.AddAsync(application);
 
-            // 6. Notify student (optional)
+            // Notify student (optional)
             await _notificationService.SendApplicationSubmittedAsync(application);
 
-            // 7. Map response
+            // Map response
             var response = application.Adapt<StudentApplicationResponse>();
             response.DocumentUrl = _urlHelper.BuildUrl(application.DocumentPath);
 
             return response;
         }
 
-        public async Task<StudentApplicationResponse?> GetApplicationByEmailAsync(string email)
+        public async Task<Response> GetApplicationByEmailAsync(string email)
         {
             var app = (await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == email);
 
-            if (app == null) return null;
+            if (app == null) 
+                return new Response { Message = "No application found for this email."};
 
             var response = app.Adapt<StudentApplicationResponse>();
             response.DocumentUrl = _urlHelper.BuildUrl(app.DocumentPath);
+
             return response;
         }
     }

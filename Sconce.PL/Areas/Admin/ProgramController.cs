@@ -9,7 +9,7 @@ namespace Sconce.PL.Areas.Admin
     [Route("api/[area]/[controller]")]
     [ApiController]
     [Area("Admin")]
-    //[Authorize(Roles = "Admin,Super Admin")]
+    [Authorize(Roles = "Admin,Super Admin")]
     public class ProgramController : ControllerBase
     {
         private readonly IProgramService _programService;

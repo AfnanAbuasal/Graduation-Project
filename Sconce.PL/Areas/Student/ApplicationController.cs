@@ -29,7 +29,6 @@ namespace Sconce.PL.Areas.Student
         public async Task<IActionResult> GetStatus([FromQuery] string email)
         {
             var response = await _applicationService.GetApplicationByEmailAsync(email);
-            if (response == null) return NotFound("No application found for this email.");
             return Ok(response);
         }
     }

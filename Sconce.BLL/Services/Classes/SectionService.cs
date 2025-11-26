@@ -28,7 +28,7 @@ namespace Sconce.BLL.Services.Classes
             // Ensure the course exists before adding section
             var course = await _courseRepository.GetByIdAsync(request.CourseId);
             if (course == null)
-                throw new InvalidOperationException("Course not found. Please create the course first.");
+                throw new InvalidOperationException("Course not found.");
 
             var section = request.Adapt<Section>();
             return await _sectionRepository.AddAsync(section);
