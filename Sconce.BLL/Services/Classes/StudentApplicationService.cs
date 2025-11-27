@@ -35,18 +35,18 @@ namespace Sconce.BLL.Services.Classes
             _urlHelper = urlHelper;
         }
 
-        public async Task<Response> SubmitApplicationAsync(StudentApplicationRequest request)
+        public async Task<(bool Success, Response Response)> SubmitApplicationAsync(StudentApplicationRequest request)
         {
             // Ensure a registered user exists
             var studentUser = await _userManager.FindByEmailAsync(request.Email);
             if (studentUser == null)
-                return new Response { Message = "No student account found with this email." };
+                return (false, new Response { Message = "No student account found with this email." });
 
             // Prevent duplicate applications
             var existing = (await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == request.Email);
             if (existing != null)
-                return new Response { Message = "An application with this email already exists." };
+                return (false, new Response { Message = "An application with this email already exists." });
 
             // Save uploaded document
             var documentPath = await _fileService.SaveFileAsync(request.Document, "Uploads/StudentDocs");
@@ -67,22 +67,24 @@ namespace Sconce.BLL.Services.Classes
             // Map response
             var response = application.Adapt<StudentApplicationResponse>();
             response.DocumentUrl = _urlHelper.BuildUrl(application.DocumentPath);
+            response.Message = "";
 
-            return response;
+            return (true, response);
         }
 
-        public async Task<Response> GetApplicationByEmailAsync(string email)
+        public async Task<(bool Success, Response Response)> GetApplicationByEmailAsync(string email)
         {
             var app = (await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == email);
 
             if (app == null) 
-                return new Response { Message = "No application found for this email."};
+                return (false, new Response { Message = "No application found for this email." });
 
             var response = app.Adapt<StudentApplicationResponse>();
             response.DocumentUrl = _urlHelper.BuildUrl(app.DocumentPath);
+            response.Message = "";
 
-            return response;
+            return (true, response);
         }
     }
 }

@@ -22,28 +22,32 @@ namespace Sconce.PL.Areas.Identity
         public async Task<ActionResult<Response>> Login([FromBody] LoginRequest loginRequest)
         {
             var result = await _authenticationService.LoginAsync(loginRequest);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpGet("ConfirmEmail")]
         public async Task<ActionResult<Response>> ConfirmEmail([FromQuery] string token, [FromQuery] string userID)
         {
             var result = await _authenticationService.ConfirmEmailAsync(token, userID);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPost("ForgotPassword")]
         public async Task<ActionResult<Response>> ForgotPassword([FromBody] ForgotPasswordRequest forgotPasswordRequest)
         {
             var result = await _authenticationService.ForgotPasswordAsync(forgotPasswordRequest);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPatch("ResetPassword")]
         public async Task<ActionResult<Response>> ResetPassword([FromBody] ResetPasswordRequest resetPasswordRequest)
         {
             var result = await _authenticationService.ResetPasswordAsync(resetPasswordRequest);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
     }
 }

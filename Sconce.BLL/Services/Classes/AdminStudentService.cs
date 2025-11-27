@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -36,7 +37,7 @@ namespace Sconce.BLL.Services.Classes
             _parentInviteRepository = parentInviteRepository;
         }
 
-        public async Task<IEnumerable<StudentApplicationResponse>> GetAllApplicationsAsync(ApplicationStatus? status = null)
+        public async Task<IEnumerable<Response>> GetAllApplicationsAsync(ApplicationStatus? status = null)
         {
             var apps = await _applicationRepository.GetAllAsync();
             if (status.HasValue)
@@ -44,30 +45,35 @@ namespace Sconce.BLL.Services.Classes
 
             var responses = apps.Adapt<IEnumerable<StudentApplicationResponse>>().ToList();
             foreach (var res in responses)
+            {
                 res.DocumentUrl = _urlHelper.BuildUrl(res.DocumentPath);
+                res.Message = "";
+            }
 
             return responses;
         }
 
-        public async Task<StudentApplicationResponse?> GetApplicationByIdAsync(int id)
+        public async Task<(bool Success, Response Response)> GetApplicationByIdAsync(int id)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
-            if (app == null) return null;
+
+            if (app == null) return (false, new Response {  Message = "Application not found." });
 
             var response = app.Adapt<StudentApplicationResponse>();
             response.DocumentUrl = _urlHelper.BuildUrl(response.DocumentPath);
+            response.Message = "";
 
-            return response;
+            return (true, response);
         }
 
-        public async Task<bool> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback)
+        public async Task<(bool Success, Response Response)> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
             if (app == null)
-                return false;
+                return (false, new Response { Message = "Application not found."});
 
             if (app.ApplicationStatus != ApplicationStatus.Pending)
-                throw new InvalidOperationException("Only pending applications can be reviewed.");
+                return (false, new Response { Message = "Only pending applications can be reviewed." });
 
             app.ApplicationStatus = newStatus;
             app.Feedback = feedback;
@@ -80,7 +86,7 @@ namespace Sconce.BLL.Services.Classes
                     .OfType<Student>()
                     .FirstOrDefaultAsync(s => s.Email == app.Email);
                 if (studentUser == null)
-                    throw new InvalidOperationException("Student user not found.");
+                    return (false, new Response { Message = "Student user not found." });
 
                 // Move application data to Student account
                 studentUser.DateOfBirth = app.DateOfBirth;
@@ -91,7 +97,11 @@ namespace Sconce.BLL.Services.Classes
                 // Update student user in Identity
                 var result = await _userManager.UpdateAsync(studentUser);
                 if (!result.Succeeded)
-                    throw new Exception(string.Join("; ", result.Errors.Select(e => e.Description)));
+                    return (false, new ErrorResponse
+                    {
+                        Errors = result.Errors.Select(e => e.Description).ToList(),
+                        Message = "Failed to update student user."
+                    });
 
                 // Notify student of approval
                 await _notificationService.SendApplicationApprovedAsync(app);
@@ -123,7 +133,7 @@ namespace Sconce.BLL.Services.Classes
                 await _notificationService.SendApplicationRejectedAsync(app);
             }
 
-            return true;
+            return (true, new Response { Message = "Application Reviewed Successfully."});
         }
     }
 }

@@ -36,14 +36,24 @@ namespace Sconce.BLL.Services.Classes
             _urlHelper = urlHelper;
         }
 
-        public async Task<InstructorApplicationResponse> SubmitApplicationAsync(InstructorApplicationRequest request)
+        public async Task<(bool Success, Response Response)> SubmitApplicationAsync(InstructorApplicationRequest request)
         {
             if(await _userManager.FindByEmailAsync(request.Email) != null)
-                throw new InvalidOperationException("An account with this email already exists.");
-
+            {
+                return (false, new Response
+                {
+                    Message = "An account with this email already exists."
+                });
+            }
+            
             if ((await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == request.Email) != null)
-                throw new InvalidOperationException("An application with this email already exists.");
+            {
+                return (false, new Response
+                {
+                    Message = "An application with this email already exists."
+                });
+            }
 
             var cvPath = await _fileService.SaveFileAsync(request.CV, "Uploads/CVs");
 
@@ -57,20 +67,25 @@ namespace Sconce.BLL.Services.Classes
 
             var response = app.Adapt<InstructorApplicationResponse>();
             response.CVUrl = _urlHelper.BuildUrl(app.CVPath);
+            response.Message = "";
 
-            return response;
+            return (true, response);
         }
-        public async Task<InstructorApplicationResponse?> GetApplicationByEmailAsync(string email)
+        public async Task<(bool Success, Response Response)> GetApplicationByEmailAsync(string email)
         {
             var app = (await _applicationRepository.GetAllAsync())
                     .FirstOrDefault(a => a.Email == email);
 
-            if (app == null) return null;
+            if (app == null)
+            { 
+                return (false, new Response { Message = "No application found for this email." });
+            }
 
             var response = app.Adapt<InstructorApplicationResponse>();
             response.CVUrl = _urlHelper.BuildUrl(app.CVPath);
+            response.Message = "";
 
-            return response;
+            return (true, response);
         }
     }
 }

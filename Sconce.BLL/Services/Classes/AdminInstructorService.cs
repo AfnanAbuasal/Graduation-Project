@@ -36,7 +36,7 @@ namespace Sconce.BLL.Services.Classes
             _urlHelper = urlHelper;
         }
 
-        public async Task<IEnumerable<InstructorApplicationResponse>> GetAllApplicationsAsync(ApplicationStatus? status = null)
+        public async Task<IEnumerable<Response>> GetAllApplicationsAsync(ApplicationStatus? status = null)
         {
             var apps = await _applicationRepository.GetAllAsync();
             if (status.HasValue)
@@ -46,30 +46,32 @@ namespace Sconce.BLL.Services.Classes
             foreach (var res in responses)
             {
                 res.CVUrl = _urlHelper.BuildUrl(res.CVPath);
+                res.Message = "";
             }
 
             return responses;
         }
 
-        public async Task<InstructorApplicationResponse?> GetApplicationByIdAsync(int id)
+        public async Task<(bool Success, Response Response)> GetApplicationByIdAsync(int id)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
-            if (app == null) return null;
+            if (app == null) return (false, new Response { Message = "Application not found." });
 
             var response = app.Adapt<InstructorApplicationResponse>();
             response.CVUrl = _urlHelper.BuildUrl(response.CVPath);
+            response.Message = "";
 
-            return response;
+            return (true, response);
         }
 
-        public async Task<bool> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback)
+        public async Task<(bool Success, Response Response)> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
             if (app == null)
-                return false;
+                return (false, new Response { Message = "Application not found."});
 
             if (app.ApplicationStatus == ApplicationStatus.Approved || app.ApplicationStatus == ApplicationStatus.Rejected)
-                throw new InvalidOperationException("Only pending applications can be reviewed.");
+                return (false, new Response { Message = "Only pending applications can be reviewed." });
 
             app.ApplicationStatus = newStatus;
             app.Feedback = feedback;
@@ -79,7 +81,7 @@ namespace Sconce.BLL.Services.Classes
             if (newStatus == ApplicationStatus.Approved)
             {
                 var existingUser = await _userManager.FindByEmailAsync(app.Email);
-                if (existingUser != null) return true; // user already exists (safety)
+                if (existingUser != null) return (false, new Response { Message = "User with the associated email already exists."}); // safety
 
                 var instructorUser = new Instructor
                 {
@@ -103,7 +105,11 @@ namespace Sconce.BLL.Services.Classes
 
                 var result = await _userManager.CreateAsync(instructorUser, defaultPassword);
                 if (!result.Succeeded)
-                    return false;
+                    return (false, new ErrorResponse
+                    {
+                        Errors = result.Errors.Select(e => e.Description).ToList(),
+                        Message = "Application not found."
+                    });
 
                 // Ensure role exists
                 if (!await _roleManager.RoleExistsAsync("Instructor"))
@@ -124,7 +130,7 @@ namespace Sconce.BLL.Services.Classes
             {
                 await _notificationService.SendApplicationRejectedAsync(app);
             }
-            return true;
+            return (true, new Response { Message = "Application Reviewed Successfully."});
         }
     }
 }

@@ -22,16 +22,16 @@ namespace Sconce.PL.Areas.Parent
         public async Task<ActionResult<Response>> RegisterParent([FromBody] ParentRegisterRequest request)
         {
             var result = await _authenticationService.RegisterParentAsync(request);
-            if (result is ErrorResponse) return BadRequest(result);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPost("RegisterParentWithInvite")]
-        public async Task<IActionResult> RegisterParentWithInvite([FromBody] ParentRegisterWithInviteRequest request)
+        public async Task<ActionResult<Response>> RegisterParentWithInvite([FromBody] ParentRegisterWithInviteRequest request)
         {
             var result = await _authenticationService.RegisterParentWithInviteAsync(request);
-            if (result is ErrorResponse) return BadRequest(result);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
     }
 }

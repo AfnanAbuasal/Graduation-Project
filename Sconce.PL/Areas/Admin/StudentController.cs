@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
+using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models.Enums;
 
 namespace Sconce.PL.Areas.Admin
@@ -28,19 +29,19 @@ namespace Sconce.PL.Areas.Admin
         }
 
         [HttpGet("Applications/{id}")]
-        public async Task<IActionResult> GetApplicationById([FromRoute] int id)
+        public async Task<ActionResult<Response>> GetApplicationById([FromRoute] int id)
         {
             var result = await _adminStudentService.GetApplicationByIdAsync(id);
-            if (result == null) return NotFound("Application not found.");
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPost("Applications/{id}/Review")]
-        public async Task<IActionResult> ReviewApplication([FromRoute] int id, [FromBody] ApplicationReviewRequest request)
+        public async Task<ActionResult<Response>> ReviewApplication([FromRoute] int id, [FromBody] ApplicationReviewRequest request)
         {
-            var success = await _adminStudentService.ReviewApplicationAsync(id, request.ApplicationStatus, request.Feedback);
-            if (!success) return BadRequest("Failed to review the application.");
-            return Ok("Application reviewed successfully.");
+            var result = await _adminStudentService.ReviewApplicationAsync(id, request.ApplicationStatus, request.Feedback);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
     }
 }

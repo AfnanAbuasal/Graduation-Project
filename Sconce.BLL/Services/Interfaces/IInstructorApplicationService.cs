@@ -10,7 +10,7 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IInstructorApplicationService
     {
-        Task<InstructorApplicationResponse> SubmitApplicationAsync(InstructorApplicationRequest request);
-        Task<InstructorApplicationResponse?> GetApplicationByEmailAsync(string email);
+        Task<(bool Success, Response Response)> SubmitApplicationAsync(InstructorApplicationRequest request);
+        Task<(bool Success, Response Response)> GetApplicationByEmailAsync(string email);
     }
 }

@@ -69,6 +69,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<ISectionRepository, SectionRepository>();
             builder.Services.AddScoped<ISectionService, SectionService>();
+            builder.Services.AddScoped<IDbService, DbService>();
 
             // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(

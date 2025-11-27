@@ -409,6 +409,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Frontend.DbController",
+    "Method": "DeleteUserByEmail",
+    "RelativePath": "api/Db/DeleteUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Identity.AccountController",
     "Method": "ConfirmEmail",
     "RelativePath": "api/Identity/Account/ConfirmEmail",
@@ -429,7 +445,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "Sconce.DAL.DTO.Responses.Response",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -455,7 +471,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "Sconce.DAL.DTO.Responses.Response",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -481,7 +497,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Sconce.DAL.DTO.Responses.UserResponse",
+        "Type": "Sconce.DAL.DTO.Responses.Response",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -507,7 +523,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "Sconce.DAL.DTO.Responses.Response",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -615,7 +631,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Sconce.DAL.DTO.Responses.UserResponse",
+        "Type": "Sconce.DAL.DTO.Responses.Response",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -673,7 +689,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Sconce.DAL.DTO.Responses.UserResponse",
+        "Type": "Sconce.DAL.DTO.Responses.Response",
         "MediaTypes": [
           "text/plain",
           "application/json",

@@ -22,12 +22,12 @@ namespace Sconce.PL.Areas.Student
         public async Task<ActionResult<Response>> RegisterStudent(StudentRegisterRequest registerRequest)
         {
             var result = await _authenticationService.RegisterStudentAsync(registerRequest);
-            if (result is ErrorResponse) return BadRequest(result);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpGet("ApproveParentLink")]
-        public async Task<IActionResult> ApproveParentLink([FromQuery] string token)
+        public async Task<ActionResult<Response>> ApproveParentLink([FromQuery] string token)
         {
             var result = await _authenticationService.ApproveParentLinkAsync(token);
             if (!result.Success) return BadRequest(result.Response);
