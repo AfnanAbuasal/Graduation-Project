@@ -59,9 +59,9 @@ namespace Sconce.BLL.Services.Classes
             if (!await _userManager.CheckPasswordAsync(user, loginRequest.Password))
                 return (false, new Response { Message = "Invalid Email or Password." });
 
-            return (true, new SuccessResponse { Token = await GenerateTokenAsync(user), Message = "Login Successsfull."});
+            return (true, new SuccessResponse { Token = await GenerateTokenAsync(user), Message = "Login Successsfull." });
         }
-    
+
         private async Task<string> GenerateTokenAsync(ApplicationUser user)
         {
             var userClaims = new List<Claim>()
@@ -72,7 +72,7 @@ namespace Sconce.BLL.Services.Classes
                 new Claim(ClaimTypes.UserData, user.UserName)
             };
             var roles = await _userManager.GetRolesAsync(user);
-            foreach(var role in roles)
+            foreach (var role in roles)
             {
                 userClaims.Add(new Claim(ClaimTypes.Role, role));
             }

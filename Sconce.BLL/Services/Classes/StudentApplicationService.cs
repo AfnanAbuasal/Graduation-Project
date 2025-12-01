@@ -77,7 +77,7 @@ namespace Sconce.BLL.Services.Classes
             var app = (await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == email);
 
-            if (app == null) 
+            if (app == null)
                 return (false, new Response { Message = "No application found for this email." });
 
             var response = app.Adapt<StudentApplicationResponse>();

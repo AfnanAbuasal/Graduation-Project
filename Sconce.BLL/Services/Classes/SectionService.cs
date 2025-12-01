@@ -23,15 +23,15 @@ namespace Sconce.BLL.Services.Classes
             _courseRepository = courseRepository;
         }
 
-        public override async Task<int> CreateAsync(SectionRequest request)
+        public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SectionRequest request)
         {
             // Ensure the course exists before adding section
             var course = await _courseRepository.GetByIdAsync(request.CourseId);
-            if (course == null)
-                throw new InvalidOperationException("Course not found.");
+            if (course == null) return (0, new Response { Message = "Course not found. Please create the course first." });
 
             var section = request.Adapt<Section>();
-            return await _sectionRepository.AddAsync(section);
+            var number = await _sectionRepository.AddAsync(section);
+            return (number, new Response { Message = $"{number} record(s) created successfully." });
         }
     }
 }

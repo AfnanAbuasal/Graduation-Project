@@ -1,6 +1,6 @@
 ﻿using Mapster;
-using MapsterMapper;
 using Sconce.BLL.Services.Interfaces;
+using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
 using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Repositories.Interfaces;
@@ -14,6 +14,7 @@ namespace Sconce.BLL.Services.Classes
 {
     public class GenericService<TRequest, TResponse, TEntity> : IGenericService<TRequest, TResponse, TEntity>
     where TEntity : BaseModel
+    where TResponse : Response
     {
         private readonly IGenericRepository<TEntity> _repository;
 
@@ -21,20 +22,15 @@ namespace Sconce.BLL.Services.Classes
         {
             _repository = repository;
         }
-        public virtual async Task<int> CreateAsync(TRequest request)
+
+        public virtual async Task<(int NumberOfEntries, Response Response)> CreateAsync(TRequest request)
         {
             var entity = request.Adapt<TEntity>();
-            return await _repository.AddAsync(entity);
+            var number = await _repository.AddAsync(entity);
+            return (number, new Response { Message = $"{number} record(s) created successfully." });
         }
 
-        public async Task<int> DeleteAsync(int Id)
-        {
-            var entity = await _repository.GetByIdAsync(Id);
-            if (entity == null) return 0;
-            return await _repository.DeleteAsync(entity);
-        }
-
-        public async Task<IEnumerable<TResponse>> GetAllAsync(bool onlyActive = false)
+        public async Task<IEnumerable<Response>> GetAllAsync(bool onlyActive = false)
         {
             var entities = await _repository.GetAllAsync();
             if (onlyActive)
@@ -43,29 +39,53 @@ namespace Sconce.BLL.Services.Classes
             return entities.Adapt<IEnumerable<TResponse>>();
         }
 
-        public async Task<TResponse?> GetByIdAsync(int Id)
+        public async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
         {
             var entity = await _repository.GetByIdAsync(Id);
-            return entity == null ? default : entity.Adapt<TResponse>();
+
+            if (entity == null)
+                return (false, new Response { Message = "Entity not found." });
+
+            return (true, entity.Adapt<TResponse>());
         }
 
-        public async Task<bool> ToggleStatusAsync(int ID)
+        public async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int ID, TRequest request)
         {
             var entity = await _repository.GetByIdAsync(ID);
-            if (entity == null) return false;
-
-            entity.Status = entity.Status == Status.Active ? Status.Inactive : Status.Active;
-            await _repository.UpdateAsync(entity);
-            return true;
-        }
-
-        public async Task<int> UpdateAsync(int ID, TRequest request)
-        {
-            var entity = await _repository.GetByIdAsync(ID);
-            if (entity == null) return 0;
+            if (entity == null)
+                return (0, new Response { Message = "Entity not found." });
 
             request.Adapt(entity);
-            return await _repository.UpdateAsync(entity);
+
+            var number = await _repository.UpdateAsync(entity);
+
+            return (number, new Response { Message = $"{number} record(s) updated successfully." });
+        }
+
+        public async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id)
+        {
+            var entity = await _repository.GetByIdAsync(Id);
+
+            if (entity == null)
+                return (0, new Response { Message = "Entity not found." });
+
+            var number = await _repository.DeleteAsync(entity);
+
+            return (number, new Response { Message = $"{number} record(s) deleted successfully." });
+        }
+
+        public async Task<(bool Success, Response Response)> ToggleStatusAsync(int ID)
+        {
+            var entity = await _repository.GetByIdAsync(ID);
+
+            if (entity == null)
+                return (false, new Response { Message = "Entity not found." });
+
+            entity.Status = entity.Status == Status.Active ? Status.Inactive : Status.Active;
+
+            await _repository.UpdateAsync(entity);
+
+            return (true, new Response { Message = "Status toggled successfully." });
         }
     }
 }

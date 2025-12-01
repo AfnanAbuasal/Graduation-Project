@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
+using Sconce.DAL.DTO.Responses;
 
 namespace Sconce.PL.Areas.Admin
 {
@@ -20,66 +21,56 @@ namespace Sconce.PL.Areas.Admin
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] bool onlyActive = false)
+        public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
             var courses = await _courseService.GetAllAsync(onlyActive);
             return Ok(courses);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
-            var course = await _courseService.GetByIdAsync(id);
-            if (course == null)
-                return NotFound("Course not found.");
-            return Ok(course);
+            var result = await _courseService.GetByIdAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CourseRequest request)
+        public async Task<ActionResult<Response>> Create([FromBody] CourseRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var id = await _courseService.CreateAsync(request);
-            if (id <= 0)
-                return BadRequest("Failed to create course.");
-
-            var created = await _courseService.GetByIdAsync(id);
-            return CreatedAtAction(nameof(GetById), new { id }, created);
+            var result = await _courseService.CreateAsync(request);
+            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CourseRequest request)
+        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] CourseRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var result = await _courseService.UpdateAsync(id, request);
-            if (result <= 0)
-                return NotFound("Course not found or update failed.");
-
-            return Ok("Course updated successfully.");
+            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
             var result = await _courseService.DeleteAsync(id);
-            if (result <= 0)
-                return NotFound("Course not found or delete failed.");
-
-            return Ok("Course deleted successfully.");
+            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
 
         [HttpPatch("{id}/ToggleStatus")]
-        public async Task<IActionResult> ToggleStatus([FromRoute] int id)
+        public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {
-            var success = await _courseService.ToggleStatusAsync(id);
-            if (!success)
-                return NotFound("Course not found.");
-
-            return Ok("Course status toggled successfully.");
+            var result = await _courseService.ToggleStatusAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
     }
 }

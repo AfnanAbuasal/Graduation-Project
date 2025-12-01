@@ -57,7 +57,7 @@ namespace Sconce.BLL.Services.Classes
         {
             var app = await _applicationRepository.GetByIdAsync(id);
 
-            if (app == null) return (false, new Response {  Message = "Application not found." });
+            if (app == null) return (false, new Response { Message = "Application not found." });
 
             var response = app.Adapt<StudentApplicationResponse>();
             response.DocumentUrl = _urlHelper.BuildUrl(response.DocumentPath);
@@ -70,7 +70,7 @@ namespace Sconce.BLL.Services.Classes
         {
             var app = await _applicationRepository.GetByIdAsync(id);
             if (app == null)
-                return (false, new Response { Message = "Application not found."});
+                return (false, new Response { Message = "Application not found." });
 
             if (app.ApplicationStatus != ApplicationStatus.Pending)
                 return (false, new Response { Message = "Only pending applications can be reviewed." });
@@ -133,7 +133,7 @@ namespace Sconce.BLL.Services.Classes
                 await _notificationService.SendApplicationRejectedAsync(app);
             }
 
-            return (true, new Response { Message = "Application Reviewed Successfully."});
+            return (true, new Response { Message = "Application Reviewed Successfully." });
         }
     }
 }

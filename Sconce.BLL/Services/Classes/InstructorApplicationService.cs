@@ -38,14 +38,14 @@ namespace Sconce.BLL.Services.Classes
 
         public async Task<(bool Success, Response Response)> SubmitApplicationAsync(InstructorApplicationRequest request)
         {
-            if(await _userManager.FindByEmailAsync(request.Email) != null)
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
                 return (false, new Response
                 {
                     Message = "An account with this email already exists."
                 });
             }
-            
+
             if ((await _applicationRepository.GetAllAsync())
                 .FirstOrDefault(a => a.Email == request.Email) != null)
             {
@@ -77,7 +77,7 @@ namespace Sconce.BLL.Services.Classes
                     .FirstOrDefault(a => a.Email == email);
 
             if (app == null)
-            { 
+            {
                 return (false, new Response { Message = "No application found for this email." });
             }
 

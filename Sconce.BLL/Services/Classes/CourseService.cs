@@ -22,15 +22,15 @@ namespace Sconce.BLL.Services.Classes
             _programRepository = programRepository;
         }
 
-        public override async Task<int> CreateAsync(CourseRequest request)
+        public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(CourseRequest request)
         {
             // Ensure Program exists before creating course
             var program = await _programRepository.GetByIdAsync(request.ProgramId);
-            if (program == null)
-                throw new InvalidOperationException("Program not found. Please create the program first.");
+            if (program == null) return (0, new Response { Message = "Program not found. Please create the program first." });
 
             var course = request.Adapt<Course>();
-            return await _courseRepository.AddAsync(course);
+            var number = await _courseRepository.AddAsync(course);
+            return (number, new Response { Message = $"{number} record(s) created successfully." });
         }
     }
 }

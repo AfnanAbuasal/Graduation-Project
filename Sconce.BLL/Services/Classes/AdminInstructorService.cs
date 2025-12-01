@@ -68,7 +68,7 @@ namespace Sconce.BLL.Services.Classes
         {
             var app = await _applicationRepository.GetByIdAsync(id);
             if (app == null)
-                return (false, new Response { Message = "Application not found."});
+                return (false, new Response { Message = "Application not found." });
 
             if (app.ApplicationStatus == ApplicationStatus.Approved || app.ApplicationStatus == ApplicationStatus.Rejected)
                 return (false, new Response { Message = "Only pending applications can be reviewed." });
@@ -81,7 +81,7 @@ namespace Sconce.BLL.Services.Classes
             if (newStatus == ApplicationStatus.Approved)
             {
                 var existingUser = await _userManager.FindByEmailAsync(app.Email);
-                if (existingUser != null) return (false, new Response { Message = "User with the associated email already exists."}); // safety
+                if (existingUser != null) return (false, new Response { Message = "User with the associated email already exists." }); // safety
 
                 var instructorUser = new Instructor
                 {
@@ -130,7 +130,7 @@ namespace Sconce.BLL.Services.Classes
             {
                 await _notificationService.SendApplicationRejectedAsync(app);
             }
-            return (true, new Response { Message = "Application Reviewed Successfully."});
+            return (true, new Response { Message = "Application Reviewed Successfully." });
         }
     }
 }

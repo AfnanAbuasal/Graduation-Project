@@ -73,7 +73,8 @@ namespace Sconce.PL
 
             // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
-                options => {
+                options =>
+                {
                     options.Password.RequiredLength = 8;
                     options.Password.RequireUppercase = true;
                     options.Password.RequireLowercase = true;

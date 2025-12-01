@@ -32,7 +32,7 @@ namespace Sconce.DAL.Utilities
 
         //public async Task DataSeedingAsync()
         //{
-            
+
         //}
 
         public async Task IdentityDataSeedingAsync()

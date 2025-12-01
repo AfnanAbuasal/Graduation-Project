@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Sconce.BLL.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ namespace Sconce.BLL.Services.Classes
                 return null;
 
             var request = _accessor.HttpContext?.Request;
-            if (request == null) return relativePath; // fallback
 
             var baseUrl = $"{request.Scheme}://{request.Host}";
+
             return $"{baseUrl}{relativePath}";
         }
     }

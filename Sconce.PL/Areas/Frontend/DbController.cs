@@ -22,7 +22,7 @@ namespace Sconce.PL.Areas.Frontend
 
             if (isDeleted)
                 return Ok(new { Message = $"User with email {email} deleted successfully." });
-            
+
             return NotFound(new { Message = $"User with email {email} not found." });
         }
     }
