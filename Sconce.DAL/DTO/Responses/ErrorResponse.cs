@@ -8,6 +8,6 @@ namespace Sconce.DAL.DTO.Responses
 {
     public class ErrorResponse : Response
     {
-        public List<string> Errors { get; set; }
+        public List<string> Errors { get; set; } = new List<string>();
     }
 }

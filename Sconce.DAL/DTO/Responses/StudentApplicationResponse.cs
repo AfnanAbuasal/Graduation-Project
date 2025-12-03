@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Responses
 {
-    public class StudentApplicationResponse : Response
+    public class StudentApplicationResponse
     {
         public string Id { get; set; }
         public string FullName { get; set; }

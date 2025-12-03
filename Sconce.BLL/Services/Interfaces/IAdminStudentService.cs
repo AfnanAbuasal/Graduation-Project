@@ -10,7 +10,7 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IAdminStudentService
     {
-        Task<IEnumerable<Response>> GetAllApplicationsAsync(ApplicationStatus? status = null);
+        Task<Response> GetAllApplicationsAsync(ApplicationStatus? status = null);
         Task<(bool Success, Response Response)> GetApplicationByIdAsync(int id);
         Task<(bool Success, Response Response)> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback);
     }

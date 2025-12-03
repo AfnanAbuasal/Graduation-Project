@@ -36,7 +36,7 @@ namespace Sconce.BLL.Services.Classes
             _urlHelper = urlHelper;
         }
 
-        public async Task<IEnumerable<Response>> GetAllApplicationsAsync(ApplicationStatus? status = null)
+        public async Task<Response> GetAllApplicationsAsync(ApplicationStatus? status = null)
         {
             var apps = await _applicationRepository.GetAllAsync();
             if (status.HasValue)
@@ -46,32 +46,37 @@ namespace Sconce.BLL.Services.Classes
             foreach (var res in responses)
             {
                 res.CVUrl = _urlHelper.BuildUrl(res.CVPath);
-                res.Message = "";
             }
 
-            return responses;
+            var result = new SuccessResponse<IEnumerable<InstructorApplicationResponse>>();
+            result.Data = responses;
+
+            return result;
         }
 
         public async Task<(bool Success, Response Response)> GetApplicationByIdAsync(int id)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
-            if (app == null) return (false, new Response { Message = "Application not found." });
+            if (app == null)
+                return (false, new ErrorResponse { Errors = new List<string> { "Application not found." } });
 
             var response = app.Adapt<InstructorApplicationResponse>();
             response.CVUrl = _urlHelper.BuildUrl(response.CVPath);
-            response.Message = "";
 
-            return (true, response);
+            var result = new SuccessResponse<InstructorApplicationResponse>();
+            result.Data = response;
+
+            return (true, result);
         }
 
         public async Task<(bool Success, Response Response)> ReviewApplicationAsync(int id, ApplicationStatus newStatus, string feedback)
         {
             var app = await _applicationRepository.GetByIdAsync(id);
             if (app == null)
-                return (false, new Response { Message = "Application not found." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Application not found." } });
 
             if (app.ApplicationStatus == ApplicationStatus.Approved || app.ApplicationStatus == ApplicationStatus.Rejected)
-                return (false, new Response { Message = "Only pending applications can be reviewed." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Only pending applications can be reviewed." } });
 
             app.ApplicationStatus = newStatus;
             app.Feedback = feedback;
@@ -81,7 +86,8 @@ namespace Sconce.BLL.Services.Classes
             if (newStatus == ApplicationStatus.Approved)
             {
                 var existingUser = await _userManager.FindByEmailAsync(app.Email);
-                if (existingUser != null) return (false, new Response { Message = "User with the associated email already exists." }); // safety
+                if (existingUser != null)
+                    return (false, new ErrorResponse { Errors = new List<string> { "User with the associated email already exists." } }); // safety
 
                 var instructorUser = new Instructor
                 {
@@ -105,11 +111,7 @@ namespace Sconce.BLL.Services.Classes
 
                 var result = await _userManager.CreateAsync(instructorUser, defaultPassword);
                 if (!result.Succeeded)
-                    return (false, new ErrorResponse
-                    {
-                        Errors = result.Errors.Select(e => e.Description).ToList(),
-                        Message = "Application not found."
-                    });
+                    return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
 
                 // Ensure role exists
                 if (!await _roleManager.RoleExistsAsync("Instructor"))
@@ -130,7 +132,7 @@ namespace Sconce.BLL.Services.Classes
             {
                 await _notificationService.SendApplicationRejectedAsync(app);
             }
-            return (true, new Response { Message = "Application Reviewed Successfully." });
+            return (true, new SuccessResponse<string> { Data = "Application Reviewed Successfully." });
         }
     }
 }

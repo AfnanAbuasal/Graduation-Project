@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Responses
 {
-    public class SuccessResponse : Response
+    public class SuccessResponse<T> : Response
     {
-        public string Token { get; set; }
+        public T Data { get; set; }
     }
 }

@@ -51,15 +51,15 @@ namespace Sconce.BLL.Services.Classes
             var user = await _userManager.FindByEmailAsync(loginRequest.Email);
 
             if (user is null)
-                return (false, new Response { Message = "Invalid Email or Password." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Invalid Email or Password." } });
 
             if (!await _userManager.IsEmailConfirmedAsync(user))
-                return (false, new Response { Message = "Please Confirm Your Email First." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Please Confirm Your Email First." } });
 
             if (!await _userManager.CheckPasswordAsync(user, loginRequest.Password))
-                return (false, new Response { Message = "Invalid Email or Password." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Invalid Email or Password." } });
 
-            return (true, new SuccessResponse { Token = await GenerateTokenAsync(user), Message = "Login Successsfull." });
+            return (true, new SuccessResponse<string> { Data = await GenerateTokenAsync(user) });
         }
 
         private async Task<string> GenerateTokenAsync(ApplicationUser user)
@@ -95,23 +95,17 @@ namespace Sconce.BLL.Services.Classes
             var user = await _userManager.FindByIdAsync(userID);
 
             if (user is null)
-                return (false, new Response { Message = "User not Found." });
+                return (false, new ErrorResponse { Errors = new List<string> { "User not Found." } });
 
             if (user.EmailConfirmed)
-                return (true, new Response { Message = "Email Already Confirmed." });
+                return (true, new SuccessResponse<string> { Data = "Email Already Confirmed." });
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
             if (!result.Succeeded)
-            {
-                return (false, new ErrorResponse
-                {
-                    Errors = result.Errors.Select(e => e.Description).ToList(),
-                    Message = "Email Confirmation Failed."
-                });
-            }
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
 
-            return (true, new Response { Message = "Email Confirmed Successfully!" });
+            return (true, new SuccessResponse<string> { Data = "Email Confirmed Successfully." });
         }
 
         public async Task<(bool Success, Response Response)> ForgotPasswordAsync(ForgotPasswordRequest forgotPasswordRequest)
@@ -119,7 +113,7 @@ namespace Sconce.BLL.Services.Classes
             var user = await _userManager.FindByEmailAsync(forgotPasswordRequest.Email);
 
             if (user is null)
-                return (false, new Response { Message = "User not Found." });
+                return (false, new ErrorResponse { Errors = new List<string> { "User not Found." } });
 
             var random = new Random();
             var code = random.Next(1000, 9999).ToString();
@@ -131,7 +125,7 @@ namespace Sconce.BLL.Services.Classes
 
             await _notificationService.SendPasswordResetCodeAsync(forgotPasswordRequest, code);
 
-            return (true, new Response { Message = "Please check your email inbox." });
+            return (true, new SuccessResponse<string> { Data = "Please check your email inbox." });
         }
 
         public async Task<(bool Success, Response Response)> ResetPasswordAsync(ResetPasswordRequest resetPasswordRequest)
@@ -139,13 +133,13 @@ namespace Sconce.BLL.Services.Classes
             var user = await _userManager.FindByEmailAsync(resetPasswordRequest.Email);
 
             if (user is null)
-                return (false, new Response { Message = "User not Found." });
+                return (false, new ErrorResponse { Errors = new List<string> { "User not Found." } });
 
             if (user.PasswordResetCode != resetPasswordRequest.Code)
-                return (false, new Response { Message = "Wrong Code." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Wrong Code." } });
 
             if (user.PasswordResetCodeExpiration < DateTime.UtcNow)
-                return (false, new Response { Message = "Code Expired." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Code Expired." } });
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -153,7 +147,7 @@ namespace Sconce.BLL.Services.Classes
 
             if (result.Succeeded) await _notificationService.SendPasswordResetSuccessAsync(resetPasswordRequest, user);
 
-            return (true, new Response { Message = "Password Reset Successfully!" });
+            return (true, new SuccessResponse<string> { Data = "Password Reset Successfully." });
         }
 
         // Student Registration
@@ -168,13 +162,7 @@ namespace Sconce.BLL.Services.Classes
 
             var result = await _userManager.CreateAsync(student, registerRequest.Password);
             if (!result.Succeeded)
-            {
-                return (false, new ErrorResponse
-                {
-                    Errors = result.Errors.Select(e => e.Description).ToList(),
-                    Message = "Registration failed."
-                });
-            }
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
 
             await _userManager.AddToRoleAsync(student, "Student");
 
@@ -185,11 +173,7 @@ namespace Sconce.BLL.Services.Classes
 
             await _notificationService.SendConfirmEmailAsync(student, confirmationUrl);
 
-            return (true, new SuccessResponse
-            {
-                Token = student.Email,
-                Message = "Registration successful. Please check your inbox to verify your email."
-            });
+            return (true, new SuccessResponse<string> { Data = "Please check your inbox to verify your email." });
         }
 
         public async Task<(bool Success, Response Response)> ApproveParentLinkAsync(string token)
@@ -199,7 +183,7 @@ namespace Sconce.BLL.Services.Classes
                 .FirstOrDefault(l => l.Token == token && !l.IsUsed && l.ExpiresAt > DateTime.UtcNow);
 
             if (link == null)
-                return (false, new Response { Message = "Invalid or expired token." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Invalid or expired token." } });
 
             // Mark as approved
             link.IsUsed = true;
@@ -215,7 +199,7 @@ namespace Sconce.BLL.Services.Classes
                 .FirstOrDefaultAsync(s => s.Email == link.StudentEmail);
 
             if (parent == null || student == null)
-                return (false, new Response { Message = "Parent or student not found." });
+                return (false, new ErrorResponse { Errors = new List<string> { "Parent or student not found." } });
 
             // Create relationship
             var relation = new StudentParent
@@ -240,7 +224,7 @@ namespace Sconce.BLL.Services.Classes
             await _notificationService.SendParentLinkedAsync(student, parent, link.RelationshipWithStudent);
             await _notificationService.SendStudentLinkedAsync(parent, student, emailConfirmationURL);
 
-            return (true, new Response { Message = "Parent link approved successfully!" });
+            return (true, new SuccessResponse<string> { Data = "Parent link approved successfully." });
         }
 
         // Parent
@@ -251,29 +235,26 @@ namespace Sconce.BLL.Services.Classes
             .FirstOrDefaultAsync(s => s.Email == request.StudentEmail);
 
             if (student == null)
-                return (false, new Response { Message = "No student found with the provided email." });
+                return (false, new ErrorResponse { Errors = new List<string> { "No student found with the provided email." } });
 
             var studentApplication = (await _studentApplicationRepository.GetAllAsync())
             .FirstOrDefault(a => a.Email == request.StudentEmail);
 
             if (studentApplication == null)
-                return (false, new Response
-                {
-                    Message = "The student has not yet submitted their application. Please ask them to submit it first."
-                });
+                return (false, new ErrorResponse { Errors = new List<string> { "The student has not yet submitted their application. Please ask them to submit it first." } });
 
             switch (studentApplication.ApplicationStatus)
             {
                 case ApplicationStatus.Pending:
-                    return (false, new Response
+                    return (false, new ErrorResponse
                     {
-                        Message = "The student's application is still under review. Please try again once it has been approved."
+                        Errors = new List<string> { "The student's application is still under review. Please try again once it has been approved." }
                     });
 
                 case ApplicationStatus.Rejected:
-                    return (false, new Response
+                    return (false, new ErrorResponse
                     {
-                        Message = "Sorry, the student's application was rejected and cannot be linked at this time."
+                        Errors = new List<string> { "Sorry, the student's application was rejected and cannot be linked at this time." }
                     });
 
                 case ApplicationStatus.Approved:
@@ -291,13 +272,7 @@ namespace Sconce.BLL.Services.Classes
 
             var result = await _userManager.CreateAsync(parent, request.Password);
             if (!result.Succeeded)
-            {
-                return (false, new ErrorResponse
-                {
-                    Errors = result.Errors.Select(e => e.Description).ToList(),
-                    Message = "Registration failed."
-                });
-            }
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
 
             await _userManager.AddToRoleAsync(parent, "Parent");
 
@@ -317,11 +292,7 @@ namespace Sconce.BLL.Services.Classes
             var approvalUrl = _urlHelper.BuildUrl($"/api/Student/Account/ApproveParentLink?token={token}");
             await _notificationService.SendParentLinkRequestAsync(parent, student, request.RelationshipWithStudent, approvalUrl);
 
-            return (true, new SuccessResponse
-            {
-                Token = parent.Email,
-                Message = "Registration successful. Please check your inbox to verify your email."
-            });
+            return (true, new SuccessResponse<string> { Data = "Please check your inbox to verify your email." });
         }
 
         public async Task<(bool Success, Response Response)> RegisterParentWithInviteAsync(ParentRegisterWithInviteRequest request)
@@ -330,11 +301,11 @@ namespace Sconce.BLL.Services.Classes
                 .FirstOrDefault(i => i.Token == request.Token);
 
             if (invite == null || invite.IsUsed || invite.ExpiresAt < DateTime.UtcNow)
-                return (false, new Response { Message = "This invitation link is invalid or has expired." });
+                return (false, new ErrorResponse { Errors = new List<string> { "This invitation link is invalid or has expired." } });
 
             var existingUser = await _userManager.FindByEmailAsync(invite.GuardianEmail);
             if (existingUser != null)
-                return (false, new Response { Message = "An account with this email already exists." });
+                return (false, new ErrorResponse { Errors = new List<string> { "An account with this email already exists." } });
 
             // Create the parent user
             var parent = new Parent
@@ -348,13 +319,7 @@ namespace Sconce.BLL.Services.Classes
 
             var result = await _userManager.CreateAsync(parent, request.Password);
             if (!result.Succeeded)
-            {
-                return (false, new ErrorResponse
-                {
-                    Errors = result.Errors.Select(e => e.Description).ToList(),
-                    Message = "Registration failed."
-                });
-            }
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
 
             await _userManager.AddToRoleAsync(parent, "Parent");
 
@@ -367,7 +332,7 @@ namespace Sconce.BLL.Services.Classes
                 .FirstOrDefault(s => s.Id == invite.StudentId);
 
             if (student == null)
-                return (false, new Response { Message = "The student associated with this invite could not be found." });
+                return (false, new ErrorResponse { Errors = new List<string> { "The student associated with this invite could not be found." } });
 
             var studentParent = new StudentParent
             {
@@ -391,11 +356,7 @@ namespace Sconce.BLL.Services.Classes
             await _notificationService.SendParentLinkedAsync(student, parent, request.RelationshipWithStudent);
             await _notificationService.SendStudentLinkedAsync(parent, student, emailConfirmationURL);
 
-            return (true, new SuccessResponse
-            {
-                Token = parent.Email,
-                Message = "Registration successful. Please check your inbox to verify your email."
-            });
+            return (true, new SuccessResponse<string> { Data = "Please check your inbox to verify your email." });
         }
     }
 }

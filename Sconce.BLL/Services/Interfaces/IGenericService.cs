@@ -10,10 +10,9 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IGenericService<TRequest, TResponse, TEntity>
     where TEntity : BaseModel
-    where TResponse : Response
     {
         Task<(int NumberOfEntries, Response Response)> CreateAsync(TRequest request);
-        Task<IEnumerable<Response>> GetAllAsync(bool onlyActive = false);
+        Task<Response> GetAllAsync(bool onlyActive = false);
         Task<(bool Success, Response Response)> GetByIdAsync(int Id);
         Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id);
         Task<(int NumberOfEntries, Response Response)> UpdateAsync(int Id, TRequest request);
