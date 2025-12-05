@@ -41,7 +41,7 @@ namespace Sconce.DAL.Extensions
         {
             return status switch
             {
-                ApplicationStatus.Pending => "Pending Review",
+                ApplicationStatus.Pending => "Pending",
                 ApplicationStatus.Approved => "Approved",
                 ApplicationStatus.Rejected => "Rejected",
                 _ => "Unknown"

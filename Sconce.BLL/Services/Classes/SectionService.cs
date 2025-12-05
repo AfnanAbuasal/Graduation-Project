@@ -27,11 +27,11 @@ namespace Sconce.BLL.Services.Classes
         {
             // Ensure the course exists before adding section
             var course = await _courseRepository.GetByIdAsync(request.CourseId);
-            if (course == null) return (0, new ErrorResponse { Errors = new List<string> { "Course not found. Please create the course first." } });
+            if (course == null) return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
 
             var section = request.Adapt<Section>();
-            var number = await _sectionRepository.AddAsync(section);
-            return (number, new SuccessResponse<string> { Data = $"{number} record(s) created successfully." });
+            var rows = await _sectionRepository.AddAsync(section);
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
         }
     }
 }
