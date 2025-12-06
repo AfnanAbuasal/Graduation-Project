@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf"
+    },
+    {
       "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "PackagePath": "staticwebassets\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf"
     },

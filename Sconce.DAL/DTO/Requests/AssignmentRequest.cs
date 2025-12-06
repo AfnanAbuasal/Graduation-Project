@@ -12,6 +12,8 @@ namespace Sconce.DAL.DTO.Requests
         public string Title { get; set; }
         public string? Description { get; set; }
         public DateTime DueDate { get; set; }
+        public decimal MinGrade { get; set; }
+        public decimal MaxGrade { get; set; }
         public int SectionId { get; set; }
         public IFormFile? File { get; set; }
     }
