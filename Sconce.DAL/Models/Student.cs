@@ -12,6 +12,7 @@ namespace Sconce.DAL.Models
     {
         public string DocumentPath { get; set; } // path to the uploaded ID/BirthCertificate file
         public LevelOfProficiency LevelOfProficiency { get; set; } = LevelOfProficiency.None;
+        public ReferralSource ReferralSource { get; set; } = ReferralSource.Other;
         public ICollection<StudentParent> StudentParents { get; set; } = new List<StudentParent>();
     }
 }
