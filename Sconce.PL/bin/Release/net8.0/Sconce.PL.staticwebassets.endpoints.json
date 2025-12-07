@@ -3,6 +3,88 @@
   "ManifestType": "Build",
   "Endpoints": [
     {
+      "Route": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
+      "AssetFile": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234953"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 04 Dec 2025 09:43:10 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kdy6iy9aug"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
+      "AssetFile": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234953"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 04 Dec 2025 09:43:10 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.kls6ms5siy.pdf",
       "AssetFile": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "Selectors": [],

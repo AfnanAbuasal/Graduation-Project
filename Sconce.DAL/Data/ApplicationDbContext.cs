@@ -35,13 +35,13 @@ namespace Sconce.DAL.Data
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
+        { 
             base.OnModelCreating(builder);
 
             builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.Entity<IdentityUserRole<string>>().ToTable("UsersRoles");
-            //Ignore other tables
+            // Ignore tables we don't need
             builder.Ignore<IdentityUserToken<string>>();
             builder.Ignore<IdentityUserLogin<string>>();
             builder.Ignore<IdentityUserClaim<string>>();
@@ -63,6 +63,12 @@ namespace Sconce.DAL.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            // MinGrade & MaxGrade precision
+            builder.Entity<Assignment>(entity =>
+            {
+                entity.Property(a => a.MinGrade).HasColumnType("decimal(5,2)");
+                entity.Property(a => a.MaxGrade).HasColumnType("decimal(5,2)");
+            });
         }
     }
 }

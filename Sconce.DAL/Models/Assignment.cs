@@ -16,5 +16,6 @@ namespace Sconce.DAL.Models
         public string? FilePath { get; set; }
         public int SectionId { get; set; }
         public Section Section { get; set; }
+        public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
     }
 }

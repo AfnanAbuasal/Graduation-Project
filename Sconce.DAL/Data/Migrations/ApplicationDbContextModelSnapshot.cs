@@ -185,10 +185,10 @@ namespace Sconce.DAL.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("MaxGrade")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<decimal>("MinGrade")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
@@ -600,6 +600,9 @@ namespace Sconce.DAL.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LevelOfProficiency")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReferralSource")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Student");
