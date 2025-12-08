@@ -17,11 +17,22 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ICourseRepository _courseRepository;
+        private readonly IStudentApplicationRepository _studentApplicationRepository;
+        private readonly IInstructorApplicationRepository _instructorApplicationRepository;
+        private readonly IDropoutRepository _dropoutRequestRepository;
 
-        public DashboardService(UserManager<ApplicationUser> userManager, ICourseRepository courseRepository)
+        public DashboardService(
+            UserManager<ApplicationUser> userManager, 
+            ICourseRepository courseRepository,
+            IStudentApplicationRepository studentApplicationRepository,
+            IInstructorApplicationRepository instructorApplicationRepository,
+            IDropoutRepository dropoutRequestRepository)
         {
             _userManager = userManager;
             _courseRepository = courseRepository;
+            _studentApplicationRepository = studentApplicationRepository;
+            _instructorApplicationRepository = instructorApplicationRepository;
+            _dropoutRequestRepository = dropoutRequestRepository;
         }
 
         public async Task<Response> GetDashboardStatsAsync()
@@ -38,11 +49,27 @@ namespace Sconce.BLL.Services.Classes
             var courses = await _courseRepository.GetAllAsync();
             var activeCourses = courses.Count(c => c.Status == Status.Active);
 
+            // Count pending student applications
+            var studentApps = await _studentApplicationRepository.GetAllAsync();
+            var pendingStudentApps = studentApps.Count(a => a.ApplicationStatus == ApplicationStatus.Pending);
+
+            // Count pending instructor applications
+            var instructorApps = await _instructorApplicationRepository.GetAllAsync();
+            var pendingInstructorApps = instructorApps.Count(a => a.ApplicationStatus == ApplicationStatus.Pending);
+
+            var pendingApplications = pendingStudentApps + pendingInstructorApps;
+
+            // Count pending dropout requests
+            var dropouts = await _dropoutRequestRepository.GetAllAsync();
+            var pendingDropouts = dropouts.Count(d => d.ApplicationStatus == ApplicationStatus.Pending);
+
             var stats = new DashboardStatsResponse
             {
                 TotalStudents = totalStudents,
                 TotalInstructors = totalInstructors,
-                ActiveCourses = activeCourses
+                ActiveCourses = activeCourses,
+                PendingApplications = pendingApplications,
+                PendingDropouts = pendingDropouts
             };
 
             return new SuccessResponse<DashboardStatsResponse> { Data = stats };

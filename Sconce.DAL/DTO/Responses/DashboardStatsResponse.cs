@@ -11,5 +11,7 @@ namespace Sconce.DAL.DTO.Responses
         public int TotalStudents { get; set; }
         public int TotalInstructors { get; set; }
         public int ActiveCourses { get; set; }
+        public int PendingApplications { get; set; }
+        public int PendingDropouts { get; set; }
     }
 }
