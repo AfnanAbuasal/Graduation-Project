@@ -1,2 +1,3 @@
 wwwroot\Uploads\CVs\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf
+wwwroot\Uploads\CVs\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf
 wwwroot\Uploads\StudentDocs\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf

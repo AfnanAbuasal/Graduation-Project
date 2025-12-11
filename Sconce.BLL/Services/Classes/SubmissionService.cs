@@ -1,4 +1,5 @@
 using Mapster;
+using Microsoft.AspNetCore.Http;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
@@ -16,20 +17,31 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
 {
     private readonly ISubmissionRepository _submissionRepository;
     private readonly IAssignmentRepository _assignmentRepository;
+    private readonly IFileService _fileService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public SubmissionService(
         ISubmissionRepository submissionRepository,
         IFileService fileService,
         IUrlHelper urlHelper,
-        IAssignmentRepository assignmentRepository)
+        IAssignmentRepository assignmentRepository,
+        IHttpContextAccessor httpContextAccessor)
         : base(submissionRepository, fileService, urlHelper, "Uploads/Submissions")
     {
         _submissionRepository = submissionRepository;
         _assignmentRepository = assignmentRepository;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SubmissionRequest request)
     {
+        // Get StudentId from JWT claims
+        var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value 
+            ?? _httpContextAccessor.HttpContext?.User?.FindFirst("nameid")?.Value;
+
+        if (string.IsNullOrEmpty(studentId))
+            return (0, new ErrorResponse { Errors = ["User not authenticated."] });
+
         // Validate that the assignment exists and is not past the due date
         var assignment = await _assignmentRepository.GetByIdAsync(request.AssignmentId);
 
@@ -39,8 +51,16 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         if (DateTime.UtcNow > assignment.DueDate)
             return (0, new ErrorResponse { Errors = ["Assignment submission deadline has passed."] });
 
-        // If validation passes, proceed with the base implementation
-        return await base.CreateAsync(request);
+        // Create submission with StudentId from JWT
+        var submission = request.Adapt<Submission>();
+        submission.StudentId = studentId;
+
+        if (request.File != null)
+            submission.FilePath = await _fileService.SaveFileAsync(request.File, "Uploads/Submissions");
+
+        var rows = await _submissionRepository.AddAsync(submission);
+
+        return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
     }
 
     public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, SubmissionRequest request)
