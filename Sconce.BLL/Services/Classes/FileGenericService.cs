@@ -36,7 +36,7 @@ public class FileGenericService<TRequest, TResponse, TEntity>
         _folder = folder;
     }
 
-    public async Task<(int NumberOfEntries, Response Response)> CreateAsync(TRequest request)
+    public virtual async Task<(int NumberOfEntries, Response Response)> CreateAsync(TRequest request)
     {
         var entity = request.Adapt<TEntity>();
 
@@ -90,7 +90,7 @@ public class FileGenericService<TRequest, TResponse, TEntity>
         return new SuccessResponse<IEnumerable<TResponse>> { Data = responseList };
     }
 
-    public async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, TRequest request)
+    public virtual async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, TRequest request)
     {
         var entity = await _repository.GetByIdAsync(id);
         if (entity == null)

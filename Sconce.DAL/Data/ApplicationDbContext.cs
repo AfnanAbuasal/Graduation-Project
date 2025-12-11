@@ -63,11 +63,17 @@ namespace Sconce.DAL.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // MinGrade & MaxGrade precision
+            // MinGrade & MaxGrade precision in Assignment
             builder.Entity<Assignment>(entity =>
             {
                 entity.Property(a => a.MinGrade).HasColumnType("decimal(5,2)");
                 entity.Property(a => a.MaxGrade).HasColumnType("decimal(5,2)");
+            });
+
+            // Grade precision in Submission
+            builder.Entity<Submission>(entity =>
+            {
+                entity.Property(s => s.Grade).HasColumnType("decimal(5,2)");
             });
         }
     }
