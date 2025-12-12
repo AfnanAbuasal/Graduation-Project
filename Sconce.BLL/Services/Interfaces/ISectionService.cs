@@ -11,5 +11,7 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface ISectionService : IGenericService<SectionRequest, SectionResponse, Section>
     {
+        Task<(bool Success, Response Response)> AssignInstructorAsync(int sectionId, string instructorId);
+        Task<(bool Success, Response Response)> UnassignInstructorAsync(int sectionId);
     }
 }

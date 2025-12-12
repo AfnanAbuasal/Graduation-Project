@@ -16,6 +16,8 @@ namespace Sconce.DAL.DTO.Responses
         public string? Description { get; set; }
         public int CourseId { get; set; }
         public string? CourseName { get; set; }
+        public string? InstructorId { get; set; }
+        public string? InstructorName { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();

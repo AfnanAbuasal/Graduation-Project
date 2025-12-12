@@ -11,6 +11,10 @@ namespace Sconce.DAL.Models
     {
         public string Name { get; set; }
         public string? Description { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public int Capacity { get; set; }
+        public int Level { get; set; }
         public int ProgramId { get; set; }
         public Program Program { get; set; }
         public ICollection<Section> Sections { get; set; } = new List<Section>();

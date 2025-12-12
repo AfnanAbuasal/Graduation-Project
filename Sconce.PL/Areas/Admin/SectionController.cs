@@ -73,5 +73,21 @@ namespace Sconce.PL.Areas.Admin
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        [HttpPatch("{id}/AssignInstructor")]
+        public async Task<ActionResult<Response>> AssignInstructor([FromRoute] int id, [FromBody] string instructorId)
+        {
+            var result = await _sectionService.AssignInstructorAsync(id, instructorId);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
+        [HttpPatch("{id}/UnassignInstructor")]
+        public async Task<ActionResult<Response>> UnassignInstructor([FromRoute] int id)
+        {
+            var result = await _sectionService.UnassignInstructorAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }

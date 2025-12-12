@@ -17,10 +17,13 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly ISectionRepository _sectionRepository;
         private readonly ICourseRepository _courseRepository;
-        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository) : base(sectionRepository)
+        private readonly IGenericRepository<Instructor> _instructorRepository;
+
+        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, IGenericRepository<Instructor> instructorRepository) : base(sectionRepository)
         {
             _sectionRepository = sectionRepository;
             _courseRepository = courseRepository;
+            _instructorRepository = instructorRepository;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SectionRequest request)
@@ -29,9 +32,45 @@ namespace Sconce.BLL.Services.Classes
             var course = await _courseRepository.GetByIdAsync(request.CourseId);
             if (course == null) return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
 
+            // Validate instructor if provided
+            if (!string.IsNullOrEmpty(request.InstructorId))
+            {
+                var instructor = await _instructorRepository.GetByIdAsync(request.InstructorId);
+                if (instructor == null)
+                    return (0, new ErrorResponse { Errors = [$"Instructor with Id: {request.InstructorId} not found."] });
+            }
+
             var section = request.Adapt<Section>();
             var rows = await _sectionRepository.AddAsync(section);
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
+        }
+
+        public async Task<(bool Success, Response Response)> AssignInstructorAsync(int sectionId, string instructorId)
+        {
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section == null)
+                return (false, new ErrorResponse { Errors = ["Section not found."] });
+
+            var instructor = await _instructorRepository.GetByIdAsync(instructorId);
+            if (instructor == null)
+                return (false, new ErrorResponse { Errors = ["Instructor not found."] });
+
+            section.InstructorId = instructorId;
+            await _sectionRepository.UpdateAsync(section);
+
+            return (true, new SuccessResponse<string> { Data = $"Instructor assigned to section successfully." });
+        }
+
+        public async Task<(bool Success, Response Response)> UnassignInstructorAsync(int sectionId)
+        {
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section == null)
+                return (false, new ErrorResponse { Errors = ["Section not found."] });
+
+            section.InstructorId = null;
+            await _sectionRepository.UpdateAsync(section);
+
+            return (true, new SuccessResponse<string> { Data = "Instructor unassigned from section successfully." });
         }
     }
 }

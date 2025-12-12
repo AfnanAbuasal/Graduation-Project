@@ -9,5 +9,7 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface ISectionRepository : IGenericRepository<Section>
     {
+        Task<Section?> GetByIdWithInstructorAsync(int id);
+        Task<IEnumerable<Section>> GetAllWithInstructorAsync();
     }
 }

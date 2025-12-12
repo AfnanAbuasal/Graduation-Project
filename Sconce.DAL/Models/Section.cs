@@ -13,5 +13,7 @@ namespace Sconce.DAL.Models
         public string? Description { get; set; }
         public int CourseId { get; set; }
         public Course Course { get; set; }
+        public string? InstructorId { get; set; }
+        public Instructor? Instructor { get; set; }
     }
 }
