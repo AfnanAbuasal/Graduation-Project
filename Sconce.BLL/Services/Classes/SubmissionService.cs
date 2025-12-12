@@ -1,5 +1,6 @@
 using Mapster;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
@@ -18,6 +19,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
     private readonly ISubmissionRepository _submissionRepository;
     private readonly IAssignmentRepository _assignmentRepository;
     private readonly IFileService _fileService;
+    private readonly IUrlHelper _urlHelper;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public SubmissionService(
@@ -30,14 +32,15 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
     {
         _submissionRepository = submissionRepository;
         _assignmentRepository = assignmentRepository;
+        _fileService = fileService;
+        _urlHelper = urlHelper;
         _httpContextAccessor = httpContextAccessor;
     }
 
     public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SubmissionRequest request)
     {
         // Get StudentId from JWT claims
-        var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value 
-            ?? _httpContextAccessor.HttpContext?.User?.FindFirst("nameid")?.Value;
+        var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
         if (string.IsNullOrEmpty(studentId))
             return (0, new ErrorResponse { Errors = ["User not authenticated."] });
@@ -63,12 +66,39 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
     }
 
+    public override async Task<Response> GetAllAsync(bool onlyActive = false)
+    {
+        var list = await _submissionRepository.GetAllWithStudentAsync();
+
+        if (onlyActive)
+            list = list.Where(x => x.Status == Sconce.DAL.Models.Enums.Status.Active);
+
+        var responseList = new List<SubmissionResponse>();
+
+        foreach (var entity in list)
+        {
+            var dto = entity.Adapt<SubmissionResponse>();
+            dto.FileUrl = _urlHelper.BuildUrl(entity.FilePath);
+            dto.StudentName = entity.Student?.FullName;
+
+            responseList.Add(dto);
+        }
+
+        return new SuccessResponse<IEnumerable<SubmissionResponse>> { Data = responseList };
+    }
+
     public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, SubmissionRequest request)
     {
         var submission = await _submissionRepository.GetByIdAsync(id);
 
         if (submission == null)
             return (0, new ErrorResponse { Errors = ["Submission not found."] });
+
+        // Get StudentId from JWT claims and verify ownership
+        var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(studentId) || submission.StudentId != studentId)
+            return (0, new ErrorResponse { Errors = ["Not authorized to update this submission."] });
 
         // Validate that the assignment is not past the due date
         var assignment = await _assignmentRepository.GetByIdAsync(submission.AssignmentId);

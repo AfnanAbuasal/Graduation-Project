@@ -3,6 +3,88 @@
   "ManifestType": "Build",
   "Endpoints": [
     {
+      "Route": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.cz8pxc0key.pdf",
+      "AssetFile": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1708227"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:11 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cz8pxc0key"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "AssetFile": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1708227"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:11 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
       "AssetFile": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
       "Selectors": [],
@@ -167,6 +249,88 @@
       ]
     },
     {
+      "Route": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.gsbkspre5p.pdf",
+      "AssetFile": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:48:06 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gsbkspre5p"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "AssetFile": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:48:06 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.kls6ms5siy.pdf",
       "AssetFile": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "Selectors": [],
@@ -245,6 +409,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.8qwo8a6p4o.pdf",
+      "AssetFile": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:28 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8qwo8a6p4o"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "AssetFile": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:28 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
         }
       ]
     }

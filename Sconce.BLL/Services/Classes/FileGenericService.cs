@@ -67,7 +67,7 @@ public class FileGenericService<TRequest, TResponse, TEntity>
         return (true, new SuccessResponse<TResponse> { Data = dto });
     }
 
-    public async Task<Response> GetAllAsync(bool onlyActive = false)
+    public virtual async Task<Response> GetAllAsync(bool onlyActive = false)
     {
         var list = await _repository.GetAllAsync();
 

@@ -29,6 +29,7 @@ namespace Sconce.DAL.Data
 
         // Materials
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<Submission> Submissions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

@@ -1,6 +1,7 @@
 using Sconce.DAL.Data;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,19 @@ namespace Sconce.DAL.Repositories.Classes
 {
     public class SubmissionRepository : GenericRepository<Submission>, ISubmissionRepository
     {
-        public SubmissionRepository(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
+
+        public SubmissionRepository(ApplicationDbContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Submission>> GetAllWithStudentAsync()
+        {
+            return await _context.Submissions
+                .Include(s => s.Student)
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

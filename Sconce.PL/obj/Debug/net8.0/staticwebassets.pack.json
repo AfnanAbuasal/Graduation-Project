@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Assignments\\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\Assignments\\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf"
+    },
+    {
       "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
       "PackagePath": "staticwebassets\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf"
     },
@@ -9,8 +13,16 @@
       "PackagePath": "staticwebassets\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf"
     },
     {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf"
+    },
+    {
       "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "PackagePath": "staticwebassets\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf"
+    },
+    {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Sconce.PL.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
