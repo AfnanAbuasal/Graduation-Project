@@ -66,6 +66,20 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
     }
 
+    public override async Task<(bool Success, Response Response)> GetByIdAsync(int id)
+    {
+        var submission = await _submissionRepository.GetByIdWithStudentAsync(id);
+
+        if (submission == null)
+            return (false, new ErrorResponse { Errors = ["Not Found."] });
+
+        var dto = submission.Adapt<SubmissionResponse>();
+        dto.FileUrl = _urlHelper.BuildUrl(submission.FilePath);
+        dto.StudentName = submission.Student?.FullName;
+
+        return (true, new SuccessResponse<SubmissionResponse> { Data = dto });
+    }
+
     public override async Task<Response> GetAllAsync(bool onlyActive = false)
     {
         var list = await _submissionRepository.GetAllWithStudentAsync();
@@ -85,6 +99,25 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         }
 
         return new SuccessResponse<IEnumerable<SubmissionResponse>> { Data = responseList };
+    }
+
+    public async Task<(bool Success, Response Response)> GetMySubmissionByAssignmentAsync(int assignmentId)
+    {
+        var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(studentId))
+            return (false, new ErrorResponse { Errors = ["User not authenticated."] });
+
+        var submission = await _submissionRepository.GetByAssignmentAndStudentAsync(assignmentId, studentId);
+
+        if (submission == null)
+            return (false, new ErrorResponse { Errors = ["Submission not found."] });
+
+        var dto = submission.Adapt<SubmissionResponse>();
+        dto.FileUrl = _urlHelper.BuildUrl(submission.FilePath);
+        dto.StudentName = submission.Student?.FullName;
+
+        return (true, new SuccessResponse<SubmissionResponse> { Data = dto });
     }
 
     public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, SubmissionRequest request)

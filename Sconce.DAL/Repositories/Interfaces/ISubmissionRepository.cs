@@ -10,5 +10,7 @@ namespace Sconce.DAL.Repositories.Interfaces
     public interface ISubmissionRepository : IGenericRepository<Submission>
     {
         Task<IEnumerable<Submission>> GetAllWithStudentAsync();
+        Task<Submission?> GetByIdWithStudentAsync(int id);
+        Task<Submission?> GetByAssignmentAndStudentAsync(int assignmentId, string studentId);
     }
 }

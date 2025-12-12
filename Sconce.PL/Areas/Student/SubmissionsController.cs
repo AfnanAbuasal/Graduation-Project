@@ -31,6 +31,14 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        [HttpGet("assignment/{assignmentId}")]
+        public async Task<ActionResult<Response>> GetMySubmission([FromRoute] int assignmentId)
+        {
+            var result = await _submissionService.GetMySubmissionByAssignmentAsync(assignmentId);
+            if (!result.Success) return NotFound(result.Response);
+            return Ok(result.Response);
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromForm] SubmissionRequest request)
         {

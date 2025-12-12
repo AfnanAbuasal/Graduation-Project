@@ -72,5 +72,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"409309"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\u0022"},{"Name":"Last-Modified","Value":"Thu, 11 Dec 2025 14:55:28 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.8qwo8a6p4o.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Submissions\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8qwo8a6p4o"},{"Name":"integrity","Value":"sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"409309"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Dec 2025 09:54:49 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Submissions\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"409309"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Dec 2025 09:54:49 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
   </ItemGroup>
 </Project>

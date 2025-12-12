@@ -26,5 +26,21 @@ namespace Sconce.DAL.Repositories.Classes
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<Submission?> GetByIdWithStudentAsync(int id)
+        {
+            return await _context.Submissions
+                .Include(s => s.Student)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<Submission?> GetByAssignmentAndStudentAsync(int assignmentId, string studentId)
+        {
+            return await _context.Submissions
+                .Include(s => s.Student)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.AssignmentId == assignmentId && s.StudentId == studentId);
+        }
     }
 }

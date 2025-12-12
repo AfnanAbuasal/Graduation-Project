@@ -48,7 +48,7 @@ public class FileGenericService<TRequest, TResponse, TEntity>
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
     }
 
-    public async Task<(bool Success, Response Response)> GetByIdAsync(int id)
+    public virtual async Task<(bool Success, Response Response)> GetByIdAsync(int id)
     {
         var entity = await _repository.GetByIdAsync(id);
         if (entity == null)

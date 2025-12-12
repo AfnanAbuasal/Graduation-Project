@@ -1643,5 +1643,31 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.SubmissionsController",
+    "Method": "GetMySubmission",
+    "RelativePath": "api/Student/Submissions/assignment/{assignmentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "assignmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

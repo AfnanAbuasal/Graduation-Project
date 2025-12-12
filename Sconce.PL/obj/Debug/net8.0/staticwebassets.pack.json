@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf"
     },
     {
+      "Id": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf",
+      "PackagePath": "staticwebassets\\Uploads\\Submissions\\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Sconce.PL.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
