@@ -13,6 +13,7 @@ namespace Sconce.DAL.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int PlannedCourseCount { get; set; }
+        public int ActualCourseCount { get; set; } = 0;
         public ICollection<Course> Courses { get; set; } = new List<Course>();
     }
 }

@@ -2269,6 +2269,105 @@
         }
       }
     },
+    "/api/Admin/Section/{id}/AssignInstructor": {
+      "patch": {
+        "tags": [
+          "Section"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Section/{id}/UnassignInstructor": {
+      "patch": {
+        "tags": [
+          "Section"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Admin/Student/Applications": {
       "get": {
         "tags": [
@@ -2755,8 +2854,12 @@
       },
       "CourseRequest": {
         "required": [
+          "capacity",
+          "endDate",
+          "level",
           "name",
-          "programId"
+          "programId",
+          "startDate"
         ],
         "type": "object",
         "properties": {
@@ -2767,6 +2870,22 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
           },
           "programId": {
             "type": "integer",
@@ -2932,7 +3051,10 @@
       },
       "ProgramRequest": {
         "required": [
-          "name"
+          "endDate",
+          "name",
+          "plannedCourseCount",
+          "startDate"
         ],
         "type": "object",
         "properties": {
@@ -2943,6 +3065,18 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "plannedCourseCount": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2998,6 +3132,10 @@
           "courseId": {
             "type": "integer",
             "format": "int32"
+          },
+          "instructorId": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

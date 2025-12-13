@@ -17,6 +17,7 @@ namespace Sconce.DAL.DTO.Responses
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int PlannedCourseCount { get; set; }
+        public int ActualCourseCount { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();

@@ -30,6 +30,14 @@ namespace Sconce.BLL.Services.Classes
 
             var course = request.Adapt<Course>();
             var rows = await _courseRepository.AddAsync(course);
+
+            // Increment ActualCourseCount
+            if (rows > 0)
+            {
+                program.ActualCourseCount++;
+                await _programRepository.UpdateAsync(program);
+            }
+
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
         }
     }

@@ -634,8 +634,65 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "AssignInstructor",
+    "RelativePath": "api/Admin/Section/{id}/AssignInstructor",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "instructorId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
     "Method": "ToggleStatus",
     "RelativePath": "api/Admin/Section/{id}/ToggleStatus",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "Method": "UnassignInstructor",
+    "RelativePath": "api/Admin/Section/{id}/UnassignInstructor",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
@@ -17,13 +18,13 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly ISectionRepository _sectionRepository;
         private readonly ICourseRepository _courseRepository;
-        private readonly IGenericRepository<Instructor> _instructorRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, IGenericRepository<Instructor> instructorRepository) : base(sectionRepository)
+        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, UserManager<ApplicationUser> userManager) : base(sectionRepository)
         {
             _sectionRepository = sectionRepository;
             _courseRepository = courseRepository;
-            _instructorRepository = instructorRepository;
+            _userManager = userManager;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SectionRequest request)
@@ -35,7 +36,7 @@ namespace Sconce.BLL.Services.Classes
             // Validate instructor if provided
             if (!string.IsNullOrEmpty(request.InstructorId))
             {
-                var instructor = await _instructorRepository.GetByIdAsync(request.InstructorId);
+                var instructor = await _userManager.FindByIdAsync(request.InstructorId);
                 if (instructor == null)
                     return (0, new ErrorResponse { Errors = [$"Instructor with Id: {request.InstructorId} not found."] });
             }
@@ -51,7 +52,7 @@ namespace Sconce.BLL.Services.Classes
             if (section == null)
                 return (false, new ErrorResponse { Errors = ["Section not found."] });
 
-            var instructor = await _instructorRepository.GetByIdAsync(instructorId);
+            var instructor = await _userManager.FindByIdAsync(instructorId);
             if (instructor == null)
                 return (false, new ErrorResponse { Errors = ["Instructor not found."] });
 
