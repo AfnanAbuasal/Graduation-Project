@@ -43,7 +43,6 @@ namespace Sconce.PL.Areas.Admin
             var result = await _programService.CreateAsync(request);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
-            //return CreatedAtAction(nameof(GetById), new { id }, created);
         }
 
         [HttpPut("{id}")]
