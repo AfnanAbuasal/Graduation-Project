@@ -56,6 +56,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<ISeedData, SeedData>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
             builder.Services.AddScoped<IAdminInstructorService, AdminInstructorService>();
+            builder.Services.AddScoped<IAdminUserService, AdminUserService>();
             builder.Services.AddScoped<IUrlHelper, UrlHelper>();
             builder.Services.AddScoped<IStudentApplicationRepository, StudentApplicationRepository>();
             builder.Services.AddScoped<IStudentApplicationService, StudentApplicationService>();

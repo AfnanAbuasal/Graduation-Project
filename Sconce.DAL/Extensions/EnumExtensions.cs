@@ -59,5 +59,17 @@ namespace Sconce.DAL.Extensions
                 _ => "Unknown"
             };
         }
+
+        // User Types
+        public static string ToDisplayString(this UserType userType)
+        {
+            return userType switch
+            {
+                UserType.Student => "Student",
+                UserType.Instructor => "Instructor",
+                UserType.Parent => "Parent",
+                _ => "Unknown"
+            };
+        }
     }
 }
