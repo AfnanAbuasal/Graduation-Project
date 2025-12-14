@@ -75,9 +75,9 @@ namespace Sconce.PL.Areas.Admin
         }
 
         [HttpPatch("{id}/AssignInstructor")]
-        public async Task<ActionResult<Response>> AssignInstructor([FromRoute] int id, [FromBody] string instructorId)
+        public async Task<ActionResult<Response>> AssignInstructor([FromRoute] int id, [FromBody] AssignInstructorRequest request)
         {
-            var result = await _sectionService.AssignInstructorAsync(id, instructorId);
+            var result = await _sectionService.AssignInstructorAsync(id, request.InstructorId);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }

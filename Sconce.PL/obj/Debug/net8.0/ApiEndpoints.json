@@ -646,8 +646,8 @@
         "IsRequired": true
       },
       {
-        "Name": "instructorId",
-        "Type": "System.String",
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.AssignInstructorRequest",
         "IsRequired": true
       }
     ],

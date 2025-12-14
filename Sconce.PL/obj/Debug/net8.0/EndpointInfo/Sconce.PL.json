@@ -2289,17 +2289,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/AssignInstructorRequest"
               }
             },
             "text/json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/AssignInstructorRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/AssignInstructorRequest"
               }
             }
           }
@@ -2929,9 +2929,21 @@
         "type": "integer",
         "format": "int32"
       },
+      "AssignInstructorRequest": {
+        "required": [
+          "instructorId"
+        ],
+        "type": "object",
+        "properties": {
+          "instructorId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "CourseRequest": {
         "required": [
-          "capacity",
           "endDate",
           "level",
           "name",
@@ -2950,15 +2962,11 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
-          },
-          "capacity": {
-            "type": "integer",
-            "format": "int32"
+            "format": "date"
           },
           "level": {
             "type": "integer",
@@ -3145,11 +3153,11 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "plannedCourseCount": {
             "type": "integer",
@@ -3193,6 +3201,7 @@
       },
       "SectionRequest": {
         "required": [
+          "capacity",
           "courseId",
           "name"
         ],
@@ -3205,6 +3214,10 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32"
           },
           "courseId": {
             "type": "integer",

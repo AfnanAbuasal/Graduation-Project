@@ -16,7 +16,6 @@ namespace Sconce.DAL.DTO.Responses
         public string? Description { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
-        public int Capacity { get; set; }
         public int Level { get; set; }
         public int ProgramId { get; set; }
         public string? ProgramName { get; set; }

@@ -11,6 +11,7 @@ namespace Sconce.DAL.DTO.Requests
     {
         [Required] public string Name { get; set; }
         public string? Description { get; set; }
+        [Required] public int Capacity { get; set; }
         [Required] public int CourseId { get; set; }
         public string? InstructorId { get; set; }
     }

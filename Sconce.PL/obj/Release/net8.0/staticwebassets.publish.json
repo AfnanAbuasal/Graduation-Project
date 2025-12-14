@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YqxmrBYeCx6XjvGbpIjoQe00+wckCycxsEr5qMrO6os=",
+  "Hash": "JCdDDu8XxcP82A0y1vHueOF7d8yGN8pXXIa4g5JLZUg=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -16,6 +16,27 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Assignments\\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "cz8pxc0key",
+      "Integrity": "SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Assignments\\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf"
+    },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
       "SourceId": "Sconce.PL",
@@ -38,6 +59,48 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf"
     },
     {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/CVs/ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kdy6iy9aug",
+      "Integrity": "eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gsbkspre5p",
+      "Integrity": "ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf"
+    },
+    {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "SourceId": "Sconce.PL",
       "SourceType": "Discovered",
@@ -57,9 +120,133 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8qwo8a6p4o",
+      "Integrity": "UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8qwo8a6p4o",
+      "Integrity": "UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Submissions\\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf"
     }
   ],
   "Endpoints": [
+    {
+      "Route": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.cz8pxc0key.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Assignments\\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1708227"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cz8pxc0key"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Assignments/29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Assignments\\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1708227"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SJXN5GFFHkq+tFj9jCmVEZw7AuB+6oKATtQwnUMfHys="
+        }
+      ]
+    },
     {
       "Route": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
       "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
@@ -143,6 +330,170 @@
       ]
     },
     {
+      "Route": "Uploads/CVs/ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234953"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 10 Dec 2025 18:45:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kdy6iy9aug"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/CVs/ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/CVs/ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234953"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 10 Dec 2025 18:45:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.gsbkspre5p.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:48:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gsbkspre5p"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:48:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/StudentDocs/e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.kls6ms5siy.pdf",
       "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
       "Selectors": [],
@@ -221,6 +572,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-SOwWjR0eGDcaQO3nwdX7STMXz+y/+CkE8uIySRnyxrY="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.8qwo8a6p4o.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8qwo8a6p4o"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Submissions/7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\7e8d91c0-bd2f-4dd2-a239-a5c14ff7532c_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Dec 2025 14:55:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.8qwo8a6p4o.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 12 Dec 2025 09:54:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8qwo8a6p4o"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Submissions/ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Submissions\\ab106d58-8a38-436e-be2e-965f964671a7_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 12 Dec 2025 09:54:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
         }
       ]
     }
