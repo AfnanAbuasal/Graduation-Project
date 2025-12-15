@@ -14,6 +14,8 @@ namespace Sconce.DAL.Models
         public DateOnly EndDate { get; set; }
         public int PlannedCourseCount { get; set; }
         public int ActualCourseCount { get; set; } = 0;
+        public int? PrerequisiteProgramId { get; set; }
+        public Program PrerequisiteProgram { get; set; }
         public ICollection<Course> Courses { get; set; } = new List<Course>();
     }
 }

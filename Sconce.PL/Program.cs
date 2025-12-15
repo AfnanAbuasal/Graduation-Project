@@ -139,9 +139,9 @@ namespace Sconce.PL
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-
             app.UseCors(userPolicy);
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
