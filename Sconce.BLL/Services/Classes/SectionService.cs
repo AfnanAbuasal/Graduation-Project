@@ -67,6 +67,27 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<SectionResponse>> { Data = responseList };
         }
 
+        public async Task<Response> GetByInstructorAsync(string instructorId, bool onlyActive = false)
+        {
+            var list = await _sectionRepository.GetByInstructorIdWithInstructorAsync(instructorId);
+
+            if (onlyActive)
+                list = list.Where(x => x.Status == Sconce.DAL.Models.Enums.Status.Active);
+
+            var responseList = new List<SectionResponse>();
+
+            foreach (var entity in list)
+            {
+                var dto = entity.Adapt<SectionResponse>();
+                dto.CourseName = entity.Course?.Name;
+                dto.InstructorName = entity.Instructor?.FullName;
+
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<SectionResponse>> { Data = responseList };
+        }
+
         public async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
         {
             var entity = await _sectionRepository.GetByIdWithInstructorAsync(Id);

@@ -36,6 +36,16 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        [HttpGet("ByInstructor/{instructorId}")]
+        public async Task<ActionResult<Response>> GetByInstructor([FromRoute] string instructorId, [FromQuery] bool onlyActive = false)
+        {
+            if (string.IsNullOrWhiteSpace(instructorId))
+                return BadRequest(new ErrorResponse { Errors = ["InstructorId is required."] });
+
+            var result = await _sectionService.GetByInstructorAsync(instructorId, onlyActive);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromBody] SectionRequest request)
         {
