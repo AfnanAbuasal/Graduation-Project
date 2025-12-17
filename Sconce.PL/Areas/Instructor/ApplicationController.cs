@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Instructor
             _applicationService = applicationService;
         }
 
+        // Submits a new instructor application.
         [HttpPost("Apply")]
         public async Task<ActionResult<Response>> Apply([FromForm] InstructorApplicationRequest request)
         {
@@ -28,6 +29,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Retrieves the application status for an instructor by email.
         [HttpGet("Status")]
         public async Task<ActionResult<Response>> GetStatus([FromQuery] string email)
         {

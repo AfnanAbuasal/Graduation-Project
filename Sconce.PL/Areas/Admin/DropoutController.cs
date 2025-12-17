@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Admin
             _dropoutService = dropoutService;
         }
 
+        // Lists all dropout requests, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
@@ -27,6 +28,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(requests);
         }
 
+        // Shows details for a specific dropout request.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -35,6 +37,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Reviews and updates the status of a dropout request.
         [HttpPatch("{id}/Review")]
         public async Task<ActionResult<Response>> ReviewRequest([FromRoute] int id, [FromBody] ApplicationReviewRequest request)
         {

@@ -19,8 +19,8 @@ namespace Sconce.PL.Areas.Instructor
             _sectionService = sectionService;
         }
 
-        // GET: api/Instructor/Sections/My?onlyActive=true
-        [HttpGet("My")]
+        // Lists sections assigned to the current instructor.
+        [HttpGet("MySections")]
         public async Task<ActionResult<Response>> GetMySections([FromQuery] bool onlyActive = false)
         {
             var instructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);

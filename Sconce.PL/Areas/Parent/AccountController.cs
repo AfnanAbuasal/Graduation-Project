@@ -18,6 +18,7 @@ namespace Sconce.PL.Areas.Parent
             _authenticationService = authenticationService;
         }
 
+        // Registers a new parent account. (This is for parents signing up independently.)
         [HttpPost("RegisterParent")]
         public async Task<ActionResult<Response>> RegisterParent([FromBody] ParentRegisterRequest request)
         {
@@ -26,6 +27,7 @@ namespace Sconce.PL.Areas.Parent
             return Ok(result.Response);
         }
 
+        // Registers a new parent account using an invite token. (This is when a parent is invited by a student.)
         [HttpPost("RegisterParentWithInvite")]
         public async Task<ActionResult<Response>> RegisterParentWithInvite([FromBody] ParentRegisterWithInviteRequest request)
         {

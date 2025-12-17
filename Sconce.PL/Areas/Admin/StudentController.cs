@@ -21,6 +21,7 @@ namespace Sconce.PL.Areas.Admin
             _adminStudentService = adminStudentService;
         }
 
+        // Lists all student applications, optionally filtered by status.
         [HttpGet("Applications")]
         public async Task<IActionResult> GetAllApplications([FromQuery] ApplicationStatus? status = null)
         {
@@ -28,6 +29,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result);
         }
 
+        // Shows details for a specific student application.
         [HttpGet("Applications/{id}")]
         public async Task<ActionResult<Response>> GetApplicationById([FromRoute] int id)
         {
@@ -36,6 +38,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Reviews and updates the status of a student application.
         [HttpPost("Applications/{id}/Review")]
         public async Task<ActionResult<Response>> ReviewApplication([FromRoute] int id, [FromBody] ApplicationReviewRequest request)
         {

@@ -3302,10 +3302,6 @@
             "minLength": 1,
             "type": "string"
           },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
           "capacity": {
             "type": "integer",
             "format": "int32"

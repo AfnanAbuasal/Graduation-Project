@@ -18,6 +18,7 @@ namespace Sconce.PL.Areas.Identity
             _authenticationService = authenticationService;
         }
 
+        // Authenticates a user with their credentials.
         [HttpPost("Login")]
         public async Task<ActionResult<Response>> Login([FromBody] LoginRequest loginRequest)
         {
@@ -26,6 +27,7 @@ namespace Sconce.PL.Areas.Identity
             return Ok(result.Response);
         }
 
+        // Confirms a user's email using the verification token and user identifier.
         [HttpGet("ConfirmEmail")]
         public async Task<ActionResult<Response>> ConfirmEmail([FromQuery] string token, [FromQuery] string userID)
         {
@@ -34,6 +36,7 @@ namespace Sconce.PL.Areas.Identity
             return Ok(result.Response);
         }
 
+        // Starts the password reset flow by sending a reset email.
         [HttpPost("ForgotPassword")]
         public async Task<ActionResult<Response>> ForgotPassword([FromBody] ForgotPasswordRequest forgotPasswordRequest)
         {
@@ -42,6 +45,7 @@ namespace Sconce.PL.Areas.Identity
             return Ok(result.Response);
         }
 
+        // Resets a user's password using the provided token and new password.
         [HttpPatch("ResetPassword")]
         public async Task<ActionResult<Response>> ResetPassword([FromBody] ResetPasswordRequest resetPasswordRequest)
         {

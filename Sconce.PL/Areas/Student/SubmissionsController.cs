@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Student
             _submissionService = submissionService;
         }
 
+        // Submits a new assignment submission.
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromForm] SubmissionRequest request)
         {
@@ -31,6 +32,7 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        // Retrieves a student's submission for a specific assignment.
         [HttpGet("assignment/{assignmentId}")]
         public async Task<ActionResult<Response>> GetMySubmission([FromRoute] int assignmentId)
         {
@@ -39,6 +41,7 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        // Updates an existing submission.
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromForm] SubmissionRequest request)
         {
@@ -50,6 +53,7 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        // Deletes a submission.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {

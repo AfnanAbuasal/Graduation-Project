@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Admin
             _courseService = courseService;
         }
 
+        // Lists all courses, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
@@ -27,6 +28,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(courses);
         }
 
+        // Shows details for a specific course.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -35,6 +37,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Adds a new course.
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromBody] CourseRequest request)
         {
@@ -46,6 +49,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Updates an existing course.
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] CourseRequest request)
         {
@@ -57,6 +61,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Removes a course.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
@@ -65,6 +70,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Enables or disables a course.
         [HttpPatch("{id}/ToggleStatus")]
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {

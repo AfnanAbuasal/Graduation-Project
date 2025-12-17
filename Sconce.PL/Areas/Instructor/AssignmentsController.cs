@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Instructor
             _assignmentService = assignmentService;
         }
 
+        // Lists all assignments, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
@@ -27,6 +28,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(assignments);
         }
 
+        // Shows details for a specific assignment.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -35,6 +37,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Creates a new assignment.
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromForm] AssignmentRequest request)
         {
@@ -46,6 +49,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Updates an existing assignment.
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromForm] AssignmentRequest request)
         {
@@ -57,6 +61,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Deletes an assignment.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
@@ -65,6 +70,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Enables or disables an assignment.
         [HttpPatch("{id}/ToggleStatus")]
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {

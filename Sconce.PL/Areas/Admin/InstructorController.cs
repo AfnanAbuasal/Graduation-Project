@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Admin
             _adminInstructorService = adminInstructorService;
         }
 
+        // Lists all instructor applications, optionally filtered by status.
         [HttpGet("Applications")]
         public async Task<IActionResult> GetAll([FromQuery] ApplicationStatus? status)
         {
@@ -27,6 +28,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result);
         }
 
+        // Shows details for a specific instructor application.
         [HttpGet("Applications/{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -35,6 +37,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Reviews and updates the status of an instructor application.
         [HttpPost("Applications/{id}/Review")]
         public async Task<ActionResult<Response>> Review([FromRoute] int id, [FromBody] ApplicationReviewRequest request)
         {

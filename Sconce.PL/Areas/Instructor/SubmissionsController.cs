@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Instructor
             _submissionService = submissionService;
         }
 
+        // Lists all submissions, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
@@ -27,6 +28,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(submissions);
         }
 
+        // Shows details for a specific submission.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -35,6 +37,7 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Grades a student submission.
         [HttpPatch("{id}/Grade")]
         public async Task<ActionResult<Response>> Grade([FromRoute] int id, [FromBody] GradeSubmissionRequest request)
         {

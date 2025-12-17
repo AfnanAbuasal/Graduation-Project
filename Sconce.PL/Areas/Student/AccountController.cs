@@ -18,6 +18,7 @@ namespace Sconce.PL.Areas.Student
             _authenticationService = authenticationService;
         }
 
+        // Registers a new student account.
         [HttpPost("RegisterStudent")]
         public async Task<ActionResult<Response>> RegisterStudent(StudentRegisterRequest registerRequest)
         {
@@ -26,6 +27,7 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        // Approves a parent link using a verification token.
         [HttpGet("ApproveParentLink")]
         public async Task<ActionResult<Response>> ApproveParentLink([FromQuery] string token)
         {

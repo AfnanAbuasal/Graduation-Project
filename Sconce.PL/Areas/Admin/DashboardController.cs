@@ -19,6 +19,7 @@ namespace Sconce.PL.Areas.Admin
             _dashboardService = dashboardService;
         }
 
+        // Retrieves dashboard statistics and overview data.
         [HttpGet("Stats")]
         public async Task<ActionResult<Response>> GetStats()
         {

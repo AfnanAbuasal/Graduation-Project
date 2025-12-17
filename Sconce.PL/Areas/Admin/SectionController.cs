@@ -21,6 +21,7 @@ namespace Sconce.PL.Areas.Admin
             _sectionService = sectionService;
         }
 
+        // Lists all sections, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
@@ -28,6 +29,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(sections);
         }
 
+        // Shows details for a specific section.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -36,6 +38,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Lists sections assigned to a specific instructor.
         [HttpGet("ByInstructor/{instructorId}")]
         public async Task<ActionResult<Response>> GetByInstructor([FromRoute] string instructorId, [FromQuery] bool onlyActive = false)
         {
@@ -46,6 +49,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result);
         }
 
+        // Adds a new section.
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromBody] SectionRequest request)
         {
@@ -57,6 +61,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Updates an existing section.
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] SectionRequest request)
         {
@@ -68,6 +73,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Removes a section.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
@@ -76,6 +82,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Enables or disables a section.
         [HttpPatch("{id}/ToggleStatus")]
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {
@@ -84,6 +91,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Assigns an instructor to a section.
         [HttpPatch("{id}/AssignInstructor")]
         public async Task<ActionResult<Response>> AssignInstructor([FromRoute] int id, [FromBody] AssignInstructorRequest request)
         {
@@ -92,6 +100,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Removes an instructor assignment from a section.
         [HttpPatch("{id}/UnassignInstructor")]
         public async Task<ActionResult<Response>> UnassignInstructor([FromRoute] int id)
         {

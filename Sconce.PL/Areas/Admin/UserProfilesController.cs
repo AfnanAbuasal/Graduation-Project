@@ -24,6 +24,7 @@ namespace Sconce.PL.Areas.Admin
             _adminUserService = adminUserService;
         }
 
+        // Lists all user profiles, optionally filtered by user type.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] UserType? type = null)
         {
@@ -31,6 +32,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result);
         }
 
+        // Shows details for a specific user profile.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] string id)
         {

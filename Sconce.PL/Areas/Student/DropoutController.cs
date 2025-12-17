@@ -20,6 +20,7 @@ namespace Sconce.PL.Areas.Student
             _dropoutService = dropoutService;
         }
 
+        // Submits a new dropout request.
         [HttpPost]
         public async Task<ActionResult<Response>> RequestDropout([FromBody] DropoutRequest request)
         {
@@ -31,6 +32,7 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        // Updates an existing dropout request.
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> UpdateRequest([FromRoute] int id, [FromBody] DropoutRequest request)
         {
@@ -42,6 +44,7 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
+        // Cancels a dropout request.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> CancelRequest([FromRoute] int id)
         {

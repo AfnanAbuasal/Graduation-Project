@@ -19,6 +19,7 @@ namespace Sconce.PL.Areas.Admin
             _programService = programService;
         }
 
+        // Lists all programs, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
@@ -26,6 +27,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(programs);
         }
 
+        // Shows details for a specific program.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
@@ -34,6 +36,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Adds a new program.
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromBody] ProgramRequest request)
         {
@@ -45,6 +48,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Updates an existing program.
         [HttpPut("{id}")]
         public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] ProgramRequest request)
         {
@@ -56,6 +60,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Removes a program.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
@@ -64,6 +69,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result.Response);
         }
 
+        // Enables or disables a program.
         [HttpPatch("{id}/ToggleStatus")]
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {
