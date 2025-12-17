@@ -4,6 +4,7 @@ using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Repositories.Classes;
 using Sconce.DAL.Repositories.Interfaces;
 using System;
@@ -51,7 +52,7 @@ namespace Sconce.BLL.Services.Classes
             var list = await _sectionRepository.GetAllWithInstructorAsync();
 
             if (onlyActive)
-                list = list.Where(x => x.Status == Sconce.DAL.Models.Enums.Status.Active);
+                list = list.Where(x => x.Status == Status.Active);
 
             var responseList = new List<SectionResponse>();
 
@@ -59,6 +60,8 @@ namespace Sconce.BLL.Services.Classes
             {
                 var dto = entity.Adapt<SectionResponse>();
                 dto.CourseName = entity.Course?.Name;
+                dto.StartDate = entity.Course?.StartDate ?? default;
+                dto.EndDate = entity.Course?.EndDate ?? default;
                 dto.InstructorName = entity.Instructor?.FullName;
 
                 responseList.Add(dto);
@@ -72,7 +75,7 @@ namespace Sconce.BLL.Services.Classes
             var list = await _sectionRepository.GetByInstructorIdWithInstructorAsync(instructorId);
 
             if (onlyActive)
-                list = list.Where(x => x.Status == Sconce.DAL.Models.Enums.Status.Active);
+                list = list.Where(x => x.Status == Status.Active);
 
             var responseList = new List<SectionResponse>();
 
@@ -80,6 +83,8 @@ namespace Sconce.BLL.Services.Classes
             {
                 var dto = entity.Adapt<SectionResponse>();
                 dto.CourseName = entity.Course?.Name;
+                dto.StartDate = entity.Course?.StartDate ?? default;
+                dto.EndDate = entity.Course?.EndDate ?? default;
                 dto.InstructorName = entity.Instructor?.FullName;
 
                 responseList.Add(dto);
@@ -96,6 +101,8 @@ namespace Sconce.BLL.Services.Classes
 
             var dto = entity.Adapt<SectionResponse>();
             dto.CourseName = entity.Course?.Name;
+            dto.StartDate = entity.Course?.StartDate ?? default;
+            dto.EndDate = entity.Course?.EndDate ?? default;
             dto.InstructorName = entity.Instructor?.FullName;
 
             return (true, new SuccessResponse<SectionResponse> { Data = dto });

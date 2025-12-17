@@ -48,7 +48,7 @@ where TEntity : BaseModel
         return (true, new SuccessResponse<TResponse> { Data = entity.Adapt<TResponse>() });
     }
 
-    public async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int ID, TRequest request)
+    public virtual async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int ID, TRequest request)
     {
         var entity = await _repository.GetByIdAsync(ID);
         if (entity == null)

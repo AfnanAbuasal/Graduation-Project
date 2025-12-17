@@ -10,7 +10,6 @@ namespace Sconce.DAL.Models
     public class Section : BaseModel
     {
         public string Name { get; set; }
-        public string? Description { get; set; }
         public int Capacity { get; set; }
         public int CourseId { get; set; }
         public Course Course { get; set; }
