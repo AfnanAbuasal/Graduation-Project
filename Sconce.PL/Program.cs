@@ -72,6 +72,8 @@ namespace Sconce.PL
             builder.Services.AddScoped<ISectionService, SectionService>();
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
             builder.Services.AddScoped<IAssignmentService, AssignmentService>();
+            builder.Services.AddScoped<ITextRepository, TextRepository>();
+            builder.Services.AddScoped<ITextService, TextService>();
             builder.Services.AddScoped<ISubmissionRepository, SubmissionRepository>();
             builder.Services.AddScoped<ISubmissionService, SubmissionService>();
             builder.Services.AddScoped<IDropoutRepository, DropoutRepository>();

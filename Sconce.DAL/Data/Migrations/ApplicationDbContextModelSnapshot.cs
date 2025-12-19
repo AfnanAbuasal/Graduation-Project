@@ -757,10 +757,6 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("InstructorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -954,6 +950,9 @@ namespace Sconce.DAL.Data.Migrations
                                 {
                                     b2.Property<int>("ZoomDataZoomMeetingId")
                                         .HasColumnType("int");
+
+                                    b2.Property<bool>("JoinBeforeHost")
+                                        .HasColumnType("bit");
 
                                     b2.Property<bool>("MuteUponEntry")
                                         .HasColumnType("bit");

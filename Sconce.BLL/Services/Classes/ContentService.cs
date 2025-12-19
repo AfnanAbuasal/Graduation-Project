@@ -46,7 +46,6 @@ namespace Sconce.BLL.Services.Classes
 					Title = zoomMeeting.Title,
 					Description = zoomMeeting.Description,
 					Url = zoomMeeting.Url,
-					InstructorId = zoomMeeting.InstructorId,
 					ZoomData = zoomMeeting.ZoomData?.Adapt<ZoomDataResponse>()
 				};
 			}

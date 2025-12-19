@@ -15,7 +15,6 @@ namespace Sconce.DAL.DTO.Responses
 		public int SectionId { get; set; }
 		public int WeekNumber { get; set; }
 		public string Type { get; set; } = string.Empty;
-		public string InstructorId { get; set; } = string.Empty;
 		public DateTime CreatedAt { get; set; }
 		public ZoomDataResponse? ZoomData { get; set; }
 	}
@@ -31,6 +30,7 @@ namespace Sconce.DAL.DTO.Responses
 
 	public class ZoomSettingsResponse
 	{
+		public bool JoinBeforeHost { get; set; }
 		public bool WaitingRoom { get; set; }
 		public bool MuteUponEntry { get; set; }
 	}

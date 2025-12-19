@@ -29,6 +29,7 @@ namespace Sconce.DAL.Models
 	[Owned]
 	public class ZoomSettings
 	{
+		public bool JoinBeforeHost { get; set; }
 		public bool WaitingRoom { get; set; }
 		public bool MuteUponEntry { get; set; }
 	}

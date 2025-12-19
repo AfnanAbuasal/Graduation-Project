@@ -85,6 +85,88 @@
       ]
     },
     {
+      "Route": "Uploads/Assignments/e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.8qwo8a6p4o.pdf",
+      "AssetFile": "Uploads/Assignments/e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 19 Dec 2025 14:46:20 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8qwo8a6p4o"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Assignments/e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Assignments/e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf",
+      "AssetFile": "Uploads/Assignments/e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 19 Dec 2025 14:46:20 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
       "AssetFile": "Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
       "Selectors": [],

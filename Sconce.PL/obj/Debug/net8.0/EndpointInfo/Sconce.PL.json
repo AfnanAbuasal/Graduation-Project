@@ -3758,6 +3758,9 @@
       "ZoomSettingsRequest": {
         "type": "object",
         "properties": {
+          "joinBeforeHost": {
+            "type": "boolean"
+          },
           "waitingRoom": {
             "type": "boolean"
           },

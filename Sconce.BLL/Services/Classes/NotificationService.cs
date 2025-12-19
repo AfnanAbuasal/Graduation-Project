@@ -46,7 +46,7 @@ namespace Sconce.BLL.Services.Classes
                 <p>We’re excited to let you know that your application to join Sconce has been <b>approved</b>.</p>
                 <p>To activate your account, please confirm your email by clicking the button below:</p>
                 <a href='{emailConfirmationURL}' 
-                   style='background-color:#1abc9c;color:white;padding:10px 20px;
+                   style='background-color:#58ACAA;color:white;padding:10px 20px;
                           text-decoration:none;border-radius:5px;'>Confirm Email</a>
                 <p>Once confirmed, you’ll be able to log in using:</p>
                 <ul>
@@ -141,7 +141,7 @@ namespace Sconce.BLL.Services.Classes
                 wants to link their account to yours on Sconce.</p>
                 <p>If you recognize this request, click the button below to approve:</p>
                 <a href='{approvalUrl}' 
-                   style='background-color:#1abc9c;color:white;padding:10px 20px;
+                   style='background-color:#58ACAA;color:white;padding:10px 20px;
                           text-decoration:none;border-radius:5px;'>Approve</a>
                 <br/><br/>
                 <p>If you don’t recognize this person, ignore this message.</p>
@@ -184,7 +184,7 @@ namespace Sconce.BLL.Services.Classes
                 <p>To stay connected and monitor your child's progress, please create your parent account by clicking the button below:</p>
                 <br/>
                 <a href='{invitationUrl}' 
-                   style='background-color:#1abc9c;color:white;
+                   style='background-color:#58ACAA;color:white;
                           padding:10px 20px;text-decoration:none;
                           border-radius:5px;'>Create Parent Account</a>
                 <br/><br/>
@@ -210,7 +210,7 @@ namespace Sconce.BLL.Services.Classes
                 </ul>
                 <p>To activate your account, please confirm your email by clicking the button below:</p>
                 <a href='{emailConfirmationURL}' 
-                   style='background-color:#1abc9c;color:white;padding:10px 20px;
+                   style='background-color:#58ACAA;color:white;padding:10px 20px;
                           text-decoration:none;border-radius:5px;'>Confirm Email</a>
                 <br/><br/>
                 <p style='font-size:12px;color:#777;'>If the button doesn’t work, copy and paste this link into your browser:<br/>{emailConfirmationURL}</p>
@@ -231,20 +231,20 @@ namespace Sconce.BLL.Services.Classes
                 "Welcome to Sconce – Confirm Your Email",
                 $@"
                 <div style='font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>
-                    <h2 style='color: #2c3e50;'>Welcome to <span style='color: #1abc9c;'>Sconce</span>!</h2>
+                    <h2 style='color: #2c3e50;'>Welcome to <span style='color: #58ACAA;'>Sconce</span>!</h2>
                     <p>Hi <strong>{user.FullName}</strong>,</p>
 
                     <p>We’re thrilled to have you join our learning community! To get started, please confirm your email address by clicking the button below:</p>
 
                     <div style='text-align: center; margin: 25px 0;'>
                         <a href='{emailConfirmationURL}' 
-                            style='background-color: #1abc9c; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>
+                            style='background-color: #58ACAA; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>
                             Confirm Email
                         </a>
                     </div>
 
                     <p>If the button doesn’t work, you can also copy and paste this link into your browser:</p>
-                    <p style='word-break: break-all; color: #1abc9c;'>{emailConfirmationURL}</p>
+                    <p style='word-break: break-all; color: #58ACAA;'>{emailConfirmationURL}</p>
 
                     <p>Thank you for joining us – we’re excited to see you shine!</p>
 
@@ -260,13 +260,13 @@ namespace Sconce.BLL.Services.Classes
                 "Reset Your Sconce Password",
                 $@"
                 <div style='font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>
-                    <h2 style='color: #2c3e50;'>Reset Your <span style='color: #1abc9c;'>Sconce</span> Password</h2>
+                    <h2 style='color: #2c3e50;'>Reset Your <span style='color: #58ACAA;'>Sconce</span> Password</h2>
 
                     <p>Hello,</p>
                     <p>We received a request to reset your password. Use the verification code below to proceed:</p>
 
                     <div style='text-align: center; margin: 25px 0;'>
-                        <div style='display: inline-block; background-color: #1abc9c; color: white; padding: 12px 25px; border-radius: 5px; font-size: 24px; letter-spacing: 2px; font-weight: bold;'>
+                        <div style='display: inline-block; background-color: #58ACAA; color: white; padding: 12px 25px; border-radius: 5px; font-size: 24px; letter-spacing: 2px; font-weight: bold;'>
                             {code}
                         </div>
                     </div>

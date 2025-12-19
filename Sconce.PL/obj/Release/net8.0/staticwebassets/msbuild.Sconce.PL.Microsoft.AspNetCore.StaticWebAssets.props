@@ -18,6 +18,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Assignments\29dbef52-f07b-48d8-8fc4-a149b9743a1a_OksanaMATSKIV_Thesis.pdf'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Assignments\e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/Assignments/e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>8qwo8a6p4o</Fingerprint>
+      <Integrity>UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Assignments\e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf'))">
       <SourceType>Package</SourceType>
       <SourceId>Sconce.PL</SourceId>

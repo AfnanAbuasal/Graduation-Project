@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sconce.DAL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76bd30b3cbeaecdfeae113fba1d1da38c551dfb1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f20a0eda049caf4bc227c46047af8194b32e16cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sconce.DAL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sconce.DAL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

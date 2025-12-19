@@ -27,6 +27,7 @@ namespace Sconce.DAL.DTO.Requests
 
 	public class ZoomSettingsRequest
 	{
+		public bool JoinBeforeHost { get; set; }
 		public bool WaitingRoom { get; set; }
 		public bool MuteUponEntry { get; set; }
 	}
