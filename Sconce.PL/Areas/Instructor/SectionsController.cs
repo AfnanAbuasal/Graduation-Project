@@ -13,10 +13,12 @@ namespace Sconce.PL.Areas.Instructor
     public class SectionsController : ControllerBase
     {
         private readonly ISectionService _sectionService;
+        private readonly IContentService _contentService;
 
-        public SectionsController(ISectionService sectionService)
+        public SectionsController(ISectionService sectionService, IContentService contentService)
         {
             _sectionService = sectionService;
+            _contentService = contentService;
         }
 
         // Lists sections assigned to the current instructor.
@@ -28,6 +30,14 @@ namespace Sconce.PL.Areas.Instructor
                 return Unauthorized(new ErrorResponse { Errors = ["Unable to determine the current instructor."] });
 
             var result = await _sectionService.GetByInstructorAsync(instructorId, onlyActive);
+            return Ok(result);
+        }
+
+        // Gets all content items for a section, organized by week.
+        [HttpGet("{sectionId}/Content")]
+        public async Task<ActionResult<Response>> GetSectionContent([FromRoute] int sectionId)
+        {
+            var result = await _contentService.GetBySectionIdAsync(sectionId);
             return Ok(result);
         }
     }

@@ -28,7 +28,9 @@ namespace Sconce.DAL.Data
         public DbSet<Section> Sections { get; set; }
 
         // Materials
+        public DbSet<Content> Contents { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<ZoomMeeting> ZoomMeetings { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Dropout> Dropouts { get; set; }
 
