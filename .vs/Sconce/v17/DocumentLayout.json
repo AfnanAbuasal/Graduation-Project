@@ -1,7 +1,32 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251219104940_ZoomMeetings\u0026ContentsTables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sconce.DAL\\Data\\Migrations\\20251219104940_ZoomMeetings\u0026ContentsTables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\student\\sectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\student\\sectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\instructor\\sectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\instructor\\sectionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|d:\\graduationproject\\sconce\\sconce.bll\\services\\classes\\contentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|solutionrelative:sconce.bll\\services\\classes\\contentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\repositories\\classes\\contentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\repositories\\classes\\contentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +34,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20251219104940_ZoomMeetings\u0026ContentsTables.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251219104940_ZoomMeetings\u0026ContentsTables.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20251219104940_ZoomMeetings\u0026ContentsTables.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251219104940_ZoomMeetings\u0026ContentsTables.cs",
+              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20251219104940_ZoomMeetings\u0026ContentsTables.cs",
+              "ViewState": "AgIAAJQAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:49:41.053Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SectionsController.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\SectionsController.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Student\\SectionsController.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\SectionsController.cs",
+              "RelativeToolTip": "Sconce.PL\\Areas\\Student\\SectionsController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA2wA0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:46:25.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SectionsController.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Instructor\\SectionsController.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Instructor\\SectionsController.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Instructor\\SectionsController.cs",
+              "RelativeToolTip": "Sconce.PL\\Areas\\Instructor\\SectionsController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAcwA8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:46:19.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ContentService.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Classes\\ContentService.cs",
+              "RelativeDocumentMoniker": "Sconce.BLL\\Services\\Classes\\ContentService.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Classes\\ContentService.cs",
+              "RelativeToolTip": "Sconce.BLL\\Services\\Classes\\ContentService.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAADwvw8AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:45:23.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ContentRepository.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Repositories\\Classes\\ContentRepository.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Repositories\\Classes\\ContentRepository.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Repositories\\Classes\\ContentRepository.cs",
+              "RelativeToolTip": "Sconce.DAL\\Repositories\\Classes\\ContentRepository.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAADwvxcAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:45:01.232Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Sconce.DAL\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAA0wB8AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T10:43:17.763Z",
+              "EditorCaption": ""
             }
           ]
         }

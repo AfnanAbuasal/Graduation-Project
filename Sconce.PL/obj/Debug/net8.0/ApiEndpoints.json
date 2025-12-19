@@ -1331,6 +1331,32 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.SectionsController",
+    "Method": "GetSectionContent",
+    "RelativePath": "api/Instructor/Sections/{sectionId}/Content",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.SectionsController",
     "Method": "GetMySections",
     "RelativePath": "api/Instructor/Sections/MySections",
     "HttpMethod": "GET",
@@ -1872,6 +1898,32 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.SectionsController",
+    "Method": "GetSectionContent",
+    "RelativePath": "api/Student/Sections/{sectionId}/Content",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
         "Type": "System.Int32",
         "IsRequired": true
       }

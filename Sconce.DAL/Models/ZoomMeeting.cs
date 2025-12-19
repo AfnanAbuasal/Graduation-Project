@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,10 @@ namespace Sconce.DAL.Models
 		public string Title { get; set; } = string.Empty;
 		public string? Description { get; set; }
 		public string Url { get; set; } = string.Empty;
-		public string InstructorId { get; set; } = string.Empty;
-
 		public ZoomData? ZoomData { get; set; }
 	}
 
+	[Owned]
 	public class ZoomData
 	{
 		public string MeetingId { get; set; } = string.Empty;
@@ -26,6 +26,7 @@ namespace Sconce.DAL.Models
 		public ZoomSettings? Settings { get; set; }
 	}
 
+	[Owned]
 	public class ZoomSettings
 	{
 		public bool WaitingRoom { get; set; }
