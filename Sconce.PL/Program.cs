@@ -131,6 +131,7 @@ namespace Sconce.PL
                 {
                     options.WithOpenApiRoutePattern("swagger/v1/swagger.json");
                 });
+                app.UseHsts();
             }
 
             // Data Seeding
