@@ -115,7 +115,7 @@ public class FileGenericService<TRequest, TResponse, TEntity>
         });
     }
 
-    public async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int id)
+    public virtual async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int id)
     {
         var entity = await _repository.GetByIdAsync(id);
         if (entity == null)

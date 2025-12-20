@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sconce.DAL.Models.Enums;
 
 namespace Sconce.BLL.Services.Classes;
 
@@ -21,13 +22,15 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
     private readonly IFileService _fileService;
     private readonly IUrlHelper _urlHelper;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly INotificationService _notificationService;
 
     public SubmissionService(
         ISubmissionRepository submissionRepository,
         IFileService fileService,
         IUrlHelper urlHelper,
         IAssignmentRepository assignmentRepository,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor,
+        INotificationService notificationService)
         : base(submissionRepository, fileService, urlHelper, "Uploads/Submissions")
     {
         _submissionRepository = submissionRepository;
@@ -35,6 +38,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         _fileService = fileService;
         _urlHelper = urlHelper;
         _httpContextAccessor = httpContextAccessor;
+        _notificationService = notificationService;
     }
 
     public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SubmissionRequest request)
@@ -63,6 +67,14 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
 
         var rows = await _submissionRepository.AddAsync(submission);
 
+        if (rows > 0)
+        {
+            var submissionWithStudent = await _submissionRepository.GetByIdWithStudentAsync(submission.Id);
+
+            if (submissionWithStudent != null)
+                await _notificationService.SendSubmissionCreatedAsync(submissionWithStudent, assignment);
+        }
+
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
     }
 
@@ -85,7 +97,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         var list = await _submissionRepository.GetAllWithStudentAsync();
 
         if (onlyActive)
-            list = list.Where(x => x.Status == Sconce.DAL.Models.Enums.Status.Active);
+            list = list.Where(x => x.Status == Status.Active);
 
         var responseList = new List<SubmissionResponse>();
 
@@ -120,6 +132,34 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         return (true, new SuccessResponse<SubmissionResponse> { Data = dto });
     }
 
+    public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int id)
+    {
+        var submission = await _submissionRepository.GetByIdWithStudentAsync(id);
+
+        if (submission == null)
+            return (0, new ErrorResponse { Errors = ["Submission not found."] });
+
+        var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(studentId) || submission.StudentId != studentId)
+            return (0, new ErrorResponse { Errors = ["Not authorized to delete this submission."] });
+
+        var assignment = await _assignmentRepository.GetByIdAsync(submission.AssignmentId);
+
+        if (assignment == null)
+            return (0, new ErrorResponse { Errors = ["Assignment not found."] });
+
+        if (DateTime.UtcNow > assignment.DueDate)
+            return (0, new ErrorResponse { Errors = ["Assignment submission deadline has passed. Cannot delete submission."] });
+
+        var (rows, response) = await base.DeleteAsync(id);
+
+        if (rows > 0)
+            await _notificationService.SendSubmissionDeletedAsync(submission, assignment);
+
+        return (rows, response);
+    }
+
     public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, SubmissionRequest request)
     {
         var submission = await _submissionRepository.GetByIdAsync(id);
@@ -142,8 +182,32 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         if (DateTime.UtcNow > assignment.DueDate)
             return (0, new ErrorResponse { Errors = ["Assignment submission deadline has passed. Cannot update submission."] });
 
-        // If validation passes, proceed with the base implementation
-        return await base.UpdateAsync(id, request);
+        request.Adapt(submission);
+
+        if (request.File != null)
+        {
+            if (!string.IsNullOrEmpty(submission.FilePath))
+                _fileService.DeleteFileAsync(submission.FilePath);
+
+            submission.FilePath = await _fileService.SaveFileAsync(request.File, "Uploads/Submissions");
+        }
+
+        submission.UpdatedAt = DateTime.UtcNow;
+
+        var rows = await _submissionRepository.UpdateAsync(submission);
+
+        if (rows > 0)
+        {
+            var submissionWithStudent = await _submissionRepository.GetByIdWithStudentAsync(id);
+
+            if (submissionWithStudent != null)
+                await _notificationService.SendSubmissionUpdatedAsync(submissionWithStudent, assignment);
+        }
+
+        return (rows, new SuccessResponse<string>
+        {
+            Data = $"{rows} record(s) updated successfully."
+        });
     }
 
     public async Task<(bool Success, Response Response)> GradeSubmissionAsync(int submissionId, GradeSubmissionRequest request)
@@ -158,6 +222,12 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         submission.GradedAt = DateTime.UtcNow;
 
         await _submissionRepository.UpdateAsync(submission);
+
+        var submissionWithStudent = await _submissionRepository.GetByIdWithStudentAsync(submissionId);
+        var assignment = await _assignmentRepository.GetByIdAsync(submission.AssignmentId);
+
+        if (submissionWithStudent != null && assignment != null)
+            await _notificationService.SendSubmissionGradedAsync(submissionWithStudent, assignment);
 
         return (true, new SuccessResponse<string> { Data = "AssignmentSubmission graded successfully." });
     }

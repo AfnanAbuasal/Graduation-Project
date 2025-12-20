@@ -299,6 +299,86 @@ namespace Sconce.BLL.Services.Classes
             );
         }
 
+        // Submission Emails
+        public async Task SendSubmissionCreatedAsync(Submission submission, Assignment assignment)
+        {
+            if (submission.Student?.Email == null)
+                return;
+
+            await _emailSender.SendEmailAsync(
+                submission.Student.Email,
+                $"Submission received for {assignment.Title}",
+                $@"
+                <h2>Hello {submission.Student.FullName},</h2>
+                <p>We have received your submission for <b>{assignment.Title}</b>.</p>
+                <p><b>Submitted at:</b> {submission.SubmittedAt:u}</p>
+                <p>If you need to make changes before the deadline, you can resubmit.</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendSubmissionUpdatedAsync(Submission submission, Assignment assignment)
+        {
+            if (submission.Student?.Email == null)
+                return;
+
+            await _emailSender.SendEmailAsync(
+                submission.Student.Email,
+                $"Submission updated for {assignment.Title}",
+                $@"
+                <h2>Hello {submission.Student.FullName},</h2>
+                <p>Your submission for <b>{assignment.Title}</b> has been updated.</p>
+                <p><b>Updated at:</b> {submission.UpdatedAt:u}</p>
+                <p>If this wasn’t you, please contact support immediately.</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendSubmissionDeletedAsync(Submission submission, Assignment assignment)
+        {
+            if (submission.Student?.Email == null)
+                return;
+
+            await _emailSender.SendEmailAsync(
+                submission.Student.Email,
+                $"Submission deleted for {assignment.Title}",
+                $@"
+                <h2>Hello {submission.Student.FullName},</h2>
+                <p>Your submission for <b>{assignment.Title}</b> has been deleted.</p>
+                <p>If you deleted this by mistake, you may resubmit before the deadline.</p>
+                <p>If this wasn’t you, please contact support immediately.</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendSubmissionGradedAsync(Submission submission, Assignment assignment)
+        {
+            if (submission.Student?.Email == null)
+                return;
+
+            var gradeText = submission.Grade.HasValue ? submission.Grade.Value.ToString("0.##") : "N/A";
+            var feedback = string.IsNullOrWhiteSpace(submission.Feedback) ? "No feedback provided." : submission.Feedback;
+
+            await _emailSender.SendEmailAsync(
+                submission.Student.Email,
+                $"Your {assignment.Title} submission has been graded",
+                $@"
+                <h2>Hello {submission.Student.FullName},</h2>
+                <p>Your submission for <b>{assignment.Title}</b> has been graded.</p>
+                <ul>
+                    <li><b>Grade:</b> {gradeText}</li>
+                    <li><b>Feedback:</b> {feedback}</li>
+                    <li><b>Graded at:</b> {submission.GradedAt:u}</li>
+                </ul>
+                <p>Keep up the great work!</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
 
     }
 }

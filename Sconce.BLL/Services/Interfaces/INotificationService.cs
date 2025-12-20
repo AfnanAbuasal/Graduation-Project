@@ -23,5 +23,9 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendConfirmEmailAsync(ApplicationUser user, string emailConfirmationURL);
         Task SendPasswordResetCodeAsync(ForgotPasswordRequest forgotPasswordRequest, string code);
         Task SendPasswordResetSuccessAsync(ResetPasswordRequest resetPasswordRequest, ApplicationUser user);
+        Task SendSubmissionCreatedAsync(Submission submission, Assignment assignment);
+        Task SendSubmissionUpdatedAsync(Submission submission, Assignment assignment);
+        Task SendSubmissionDeletedAsync(Submission submission, Assignment assignment);
+        Task SendSubmissionGradedAsync(Submission submission, Assignment assignment);
     }
 }
