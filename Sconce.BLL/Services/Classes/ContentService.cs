@@ -41,7 +41,7 @@ namespace Sconce.BLL.Services.Classes
 					Id = zoomMeeting.Id,
 					SectionId = zoomMeeting.SectionId,
 					WeekNumber = zoomMeeting.WeekNumber,
-					Type = "zoom",
+					Type = zoomMeeting.Type,
 					CreatedAt = zoomMeeting.CreatedAt,
 					Title = zoomMeeting.Title,
 					Description = zoomMeeting.Description,
@@ -56,14 +56,27 @@ namespace Sconce.BLL.Services.Classes
 					Id = assignment.Id,
 					SectionId = assignment.SectionId,
 					WeekNumber = assignment.WeekNumber,
-					Type = "assignment",
+					Type = assignment.Type,
 					CreatedAt = assignment.CreatedAt,
 					Title = assignment.Title,
 					Description = assignment.Description,
 					DueDate = assignment.DueDate,
 					MinGrade = assignment.MinGrade,
 					MaxGrade = assignment.MaxGrade,
-					FileUrl = assignment.FilePath // TODO: resolve to download URL if needed
+					FileUrl = assignment.FilePath
+				};
+			}
+			else if (content is Text text)
+			{
+				return new TextResponse
+				{
+					Id = text.Id,
+					SectionId = text.SectionId,
+					WeekNumber = text.WeekNumber,
+					Type = text.Type,
+					CreatedAt = text.CreatedAt,
+					Title = text.Title,
+					Body = text.Body
 				};
 			}
 
