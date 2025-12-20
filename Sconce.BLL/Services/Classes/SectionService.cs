@@ -70,12 +70,21 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<SectionResponse>> { Data = responseList };
         }
 
-        public async Task<Response> GetByInstructorAsync(string instructorId, bool onlyActive = false)
+        public async Task<Response> GetByInstructorAsync(string instructorId, bool onlyActive = false, string? sortBy = null)
         {
             var list = await _sectionRepository.GetByInstructorIdWithInstructorAsync(instructorId);
 
             if (onlyActive)
                 list = list.Where(x => x.Status == Status.Active);
+
+            // Apply sorting
+            list = sortBy?.ToLower() switch
+            {
+                "name" => list.OrderBy(x => x.Course?.Name),
+                "lastaccessed" => list.OrderByDescending(x => x.UpdatedAt),
+                "updatedat" => list.OrderByDescending(x => x.UpdatedAt),
+                _ => list
+            };
 
             var responseList = new List<SectionResponse>();
 
@@ -119,6 +128,7 @@ namespace Sconce.BLL.Services.Classes
                 return (false, new ErrorResponse { Errors = ["Instructor not found."] });
 
             section.InstructorId = instructorId;
+            section.UpdatedAt = DateTime.UtcNow;
             await _sectionRepository.UpdateAsync(section);
 
             return (true, new SuccessResponse<string> { Data = $"Instructor assigned to section successfully." });
@@ -131,6 +141,7 @@ namespace Sconce.BLL.Services.Classes
                 return (false, new ErrorResponse { Errors = ["Section not found."] });
 
             section.InstructorId = null;
+            section.UpdatedAt = DateTime.UtcNow;
             await _sectionRepository.UpdateAsync(section);
 
             return (true, new SuccessResponse<string> { Data = "Instructor unassigned from section successfully." });

@@ -80,6 +80,7 @@ namespace Sconce.BLL.Services.Classes
 
             app.ApplicationStatus = newStatus;
             app.Feedback = feedback;
+            app.UpdatedAt = DateTime.UtcNow;
 
             await _applicationRepository.UpdateAsync(app);
 

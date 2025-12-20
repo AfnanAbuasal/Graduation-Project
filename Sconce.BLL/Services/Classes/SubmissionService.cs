@@ -187,7 +187,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         if (request.File != null)
         {
             if (!string.IsNullOrEmpty(submission.FilePath))
-                _fileService.DeleteFileAsync(submission.FilePath);
+                await _fileService.DeleteFileAsync(submission.FilePath);
 
             submission.FilePath = await _fileService.SaveFileAsync(request.File, "Uploads/Submissions");
         }
@@ -220,6 +220,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         submission.Grade = request.Grade;
         submission.Feedback = request.Feedback;
         submission.GradedAt = DateTime.UtcNow;
+        submission.UpdatedAt = DateTime.UtcNow;
 
         await _submissionRepository.UpdateAsync(submission);
 

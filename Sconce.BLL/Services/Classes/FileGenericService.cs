@@ -102,10 +102,12 @@ public class FileGenericService<TRequest, TResponse, TEntity>
         if (request.File != null)
         {
             if (!string.IsNullOrEmpty(entity.FilePath))
-                _fileService.DeleteFileAsync(entity.FilePath);
+                await _fileService.DeleteFileAsync(entity.FilePath);
 
             entity.FilePath = await _fileService.SaveFileAsync(request.File, _folder);
         }
+
+        entity.UpdatedAt = DateTime.UtcNow;
 
         var rows = await _repository.UpdateAsync(entity);
 
@@ -123,7 +125,7 @@ public class FileGenericService<TRequest, TResponse, TEntity>
 
         // delete file
         if (!string.IsNullOrEmpty(entity.FilePath))
-            _fileService.DeleteFileAsync(entity.FilePath);
+            await _fileService.DeleteFileAsync(entity.FilePath);
 
         var rows = await _repository.DeleteAsync(entity);
 
@@ -141,6 +143,8 @@ public class FileGenericService<TRequest, TResponse, TEntity>
             return (false, new ErrorResponse { Errors = ["Not Found."] });
 
         entity.Status = entity.Status == Status.Active ? Status.Inactive : Status.Active;
+
+        entity.UpdatedAt = DateTime.UtcNow;
 
         await _repository.UpdateAsync(entity);
 

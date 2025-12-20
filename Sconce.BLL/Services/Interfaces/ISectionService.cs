@@ -13,6 +13,6 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<(bool Success, Response Response)> AssignInstructorAsync(int sectionId, string instructorId);
         Task<(bool Success, Response Response)> UnassignInstructorAsync(int sectionId);
-        Task<Response> GetByInstructorAsync(string instructorId, bool onlyActive = false);
+        Task<Response> GetByInstructorAsync(string instructorId, bool onlyActive = false, string? sortBy = null);
     }
 }

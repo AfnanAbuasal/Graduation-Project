@@ -188,6 +188,7 @@ namespace Sconce.BLL.Services.Classes
             // Mark as approved
             link.IsUsed = true;
             link.IsApproved = true;
+            link.UpdatedAt = DateTime.UtcNow;
             await _parentLinkRepository.UpdateAsync(link);
 
             // Fetch related users
@@ -325,6 +326,7 @@ namespace Sconce.BLL.Services.Classes
 
             // Mark invite as used
             invite.IsUsed = true;
+            invite.UpdatedAt = DateTime.UtcNow;
             await _parentInviteRepository.UpdateAsync(invite);
 
             // Link parent to student

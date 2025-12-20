@@ -23,13 +23,13 @@ namespace Sconce.PL.Areas.Instructor
 
         // Lists sections assigned to the current instructor.
         [HttpGet("MySections")]
-        public async Task<ActionResult<Response>> GetMySections([FromQuery] bool onlyActive = false)
+        public async Task<ActionResult<Response>> GetMySections([FromQuery] bool onlyActive = false, [FromQuery] string? sortBy = null)
         {
             var instructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrWhiteSpace(instructorId))
                 return Unauthorized(new ErrorResponse { Errors = ["Unable to determine the current instructor."] });
 
-            var result = await _sectionService.GetByInstructorAsync(instructorId, onlyActive);
+            var result = await _sectionService.GetByInstructorAsync(instructorId, onlyActive, sortBy);
             return Ok(result);
         }
 

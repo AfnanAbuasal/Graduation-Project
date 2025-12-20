@@ -56,6 +56,8 @@ where TEntity : BaseModel
 
         request.Adapt(entity);
 
+        entity.UpdatedAt = DateTime.UtcNow;
+
         var rows = await _repository.UpdateAsync(entity);
 
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
@@ -81,6 +83,8 @@ where TEntity : BaseModel
             return (false, new ErrorResponse { Errors = ["Not Found."] });
 
         entity.Status = entity.Status == Status.Active ? Status.Inactive : Status.Active;
+
+        entity.UpdatedAt = DateTime.UtcNow;
 
         await _repository.UpdateAsync(entity);
 

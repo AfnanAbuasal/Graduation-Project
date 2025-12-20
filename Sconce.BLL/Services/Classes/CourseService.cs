@@ -54,6 +54,7 @@ namespace Sconce.BLL.Services.Classes
             if (rows > 0)
             {
                 program.ActualCourseCount++;
+                program.UpdatedAt = DateTime.UtcNow;
                 await _programRepository.UpdateAsync(program);
             }
 
@@ -91,9 +92,32 @@ namespace Sconce.BLL.Services.Classes
             if (overlapping)
                 return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this program."] });
 
+            // If program changed, update both old and new program counts
+            var oldProgramId = existing.ProgramId;
+            var newProgramId = request.ProgramId;
+
             // Apply updates
             request.Adapt(existing);
+            existing.UpdatedAt = DateTime.UtcNow;
             var rows = await _courseRepository.UpdateAsync(existing);
+
+            if (rows > 0 && oldProgramId != newProgramId)
+            {
+                // Decrement old program count
+                var oldProgram = await _programRepository.GetByIdAsync(oldProgramId);
+                if (oldProgram != null)
+                {
+                    oldProgram.ActualCourseCount--;
+                    oldProgram.UpdatedAt = DateTime.UtcNow;
+                    await _programRepository.UpdateAsync(oldProgram);
+                }
+
+                // Increment new program count
+                program.ActualCourseCount++;
+                program.UpdatedAt = DateTime.UtcNow;
+                await _programRepository.UpdateAsync(program);
+            }
+
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
         }
     }
