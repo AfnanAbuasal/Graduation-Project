@@ -27,5 +27,10 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendSubmissionUpdatedAsync(Submission submission, Assignment assignment);
         Task SendSubmissionDeletedAsync(Submission submission, Assignment assignment);
         Task SendSubmissionGradedAsync(Submission submission, Assignment assignment);
+        Task SendDropoutRequestedAsync(Dropout dropout);
+        Task SendDropoutUpdatedAsync(Dropout dropout);
+        Task SendDropoutCancelledAsync(Dropout dropout);
+        Task SendDropoutApprovedAsync(Dropout dropout);
+        Task SendDropoutRejectedAsync(Dropout dropout, string feedback);
     }
 }
