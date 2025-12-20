@@ -61,7 +61,7 @@ where TEntity : BaseModel
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
     }
 
-    public async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id)
+    public virtual async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id)
     {
         var entity = await _repository.GetByIdAsync(Id);
 

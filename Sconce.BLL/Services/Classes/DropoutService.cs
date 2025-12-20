@@ -133,6 +133,8 @@ namespace Sconce.BLL.Services.Classes
                     await _notificationService.SendDropoutRejectedAsync(dropoutWithStudent, feedback);
             }
 
+            // remove student from the program if approved
+
             var message = newStatus == ApplicationStatus.Approved
                 ? "Dropout request approved."
                 : "Dropout request rejected.";
