@@ -15,11 +15,11 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class UserProfilesController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IAdminUserService _adminUserService;
 
-        public UserProfilesController(IAdminUserService adminUserService)
+        public UsersController(IAdminUserService adminUserService)
         {
             _adminUserService = adminUserService;
         }
