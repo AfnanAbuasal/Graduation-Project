@@ -231,7 +231,7 @@ namespace Sconce.DAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProgramId")
+                    b.Property<int>("LevelId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -242,7 +242,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgramId");
+                    b.HasIndex("LevelId");
 
                     b.ToTable("Courses");
                 });
@@ -261,7 +261,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProgramId")
+                    b.Property<int>("LevelId")
                         .HasColumnType("int");
 
                     b.Property<string>("Reasons")
@@ -280,7 +280,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgramId");
+                    b.HasIndex("LevelId");
 
                     b.HasIndex("StudentId");
 
@@ -448,7 +448,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.ToTable("ParentLinks");
                 });
 
-            modelBuilder.Entity("Sconce.DAL.Models.Program", b =>
+            modelBuilder.Entity("Sconce.DAL.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -727,20 +727,20 @@ namespace Sconce.DAL.Data.Migrations
 
             modelBuilder.Entity("Sconce.DAL.Models.Course", b =>
                 {
-                    b.HasOne("Sconce.DAL.Models.Program", "Program")
+                    b.HasOne("Sconce.DAL.Models.Order", "Order")
                         .WithMany("Courses")
-                        .HasForeignKey("ProgramId")
+                        .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Program");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Dropout", b =>
                 {
-                    b.HasOne("Sconce.DAL.Models.Program", "Program")
+                    b.HasOne("Sconce.DAL.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("ProgramId")
+                        .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -750,7 +750,7 @@ namespace Sconce.DAL.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Program");
+                    b.Navigation("Order");
 
                     b.Navigation("Student");
                 });
@@ -836,7 +836,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Navigation("Sections");
                 });
 
-            modelBuilder.Entity("Sconce.DAL.Models.Program", b =>
+            modelBuilder.Entity("Sconce.DAL.Models.Order", b =>
                 {
                     b.Navigation("Courses");
                 });

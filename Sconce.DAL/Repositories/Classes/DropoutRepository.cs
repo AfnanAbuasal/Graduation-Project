@@ -23,7 +23,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Dropouts
                 .Include(d => d.Student)
-                .Include(d => d.Program)
+                .Include(d => d.Level)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(d => d.Id == id);
         }

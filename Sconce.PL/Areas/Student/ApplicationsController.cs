@@ -6,30 +6,30 @@ using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 
-namespace Sconce.PL.Areas.Instructor
+namespace Sconce.PL.Areas.Student
 {
     [Route("api/[area]/[controller]")]
     [ApiController]
-    [Area("Instructor")]
-    public class ApplicationController : ControllerBase
+    [Area("Student")]
+    public class ApplicationsController : ControllerBase
     {
-        private readonly IInstructorApplicationService _applicationService;
+        private readonly IStudentApplicationService _applicationService;
 
-        public ApplicationController(IInstructorApplicationService applicationService)
+        public ApplicationsController(IStudentApplicationService applicationService)
         {
             _applicationService = applicationService;
         }
 
-        // Submits a new instructor application.
+        // Submits a new student application.
         [HttpPost("Apply")]
-        public async Task<ActionResult<Response>> Apply([FromForm] InstructorApplicationRequest request)
+        public async Task<ActionResult<Response>> Apply([FromForm] StudentApplicationRequest request)
         {
             var result = await _applicationService.SubmitApplicationAsync(request);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Retrieves the application status for an instructor by email.
+        // Retrieves the application status for a student by email.
         [HttpGet("Status")]
         public async Task<ActionResult<Response>> GetStatus([FromQuery] string email)
         {

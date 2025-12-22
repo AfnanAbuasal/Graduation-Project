@@ -53,7 +53,7 @@ namespace Sconce.DAL.Data.Migrations
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<int>(
-                name: "Level",
+                name: "Order",
                 table: "Courses",
                 type: "int",
                 nullable: false,
@@ -115,7 +115,7 @@ namespace Sconce.DAL.Data.Migrations
                 table: "Courses");
 
             migrationBuilder.DropColumn(
-                name: "Level",
+                name: "Order",
                 table: "Courses");
 
             migrationBuilder.DropColumn(

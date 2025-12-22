@@ -11,11 +11,11 @@ namespace Sconce.PL.Areas.Student
     [ApiController]
     [Area("Student")]
     [Authorize(Roles = "Student")]
-    public class DropoutController : ControllerBase
+    public class DropoutsController : ControllerBase
     {
         private readonly IDropoutService _dropoutService;
 
-        public DropoutController(IDropoutService dropoutService)
+        public DropoutsController(IDropoutService dropoutService)
         {
             _dropoutService = dropoutService;
         }

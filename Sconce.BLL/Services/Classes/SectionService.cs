@@ -82,7 +82,6 @@ namespace Sconce.BLL.Services.Classes
             {
                 "name" => list.OrderBy(x => x.Course?.Name),
                 "lastaccessed" => list.OrderByDescending(x => x.UpdatedAt),
-                "updatedat" => list.OrderByDescending(x => x.UpdatedAt),
                 _ => list
             };
 

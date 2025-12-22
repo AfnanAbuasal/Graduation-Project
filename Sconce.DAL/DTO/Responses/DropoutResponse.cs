@@ -13,8 +13,8 @@ namespace Sconce.DAL.DTO.Responses
         public string Reasons { get; set; }
         public ApplicationStatus ApplicationStatus { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int ProgramId { get; set; }
-        public string ProgramName { get; set; }
+        public int LevelId { get; set; }
+        public string LevelName { get; set; }
         public string StudentId { get; set; }
         public string StudentName { get; set; }
     }

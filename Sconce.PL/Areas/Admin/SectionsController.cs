@@ -12,11 +12,11 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class SectionController : ControllerBase
+    public class SectionsController : ControllerBase
     {
         private readonly ISectionService _sectionService;
 
-        public SectionController(ISectionService sectionService)
+        public SectionsController(ISectionService sectionService)
         {
             _sectionService = sectionService;
         }

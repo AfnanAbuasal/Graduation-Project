@@ -11,7 +11,7 @@ namespace Sconce.DAL.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "PrerequisiteProgramId",
+                name: "PrerequisiteLevelId",
                 table: "Programs",
                 type: "int",
                 nullable: true);
@@ -19,12 +19,12 @@ namespace Sconce.DAL.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Programs_PrerequisiteProgramId",
                 table: "Programs",
-                column: "PrerequisiteProgramId");
+                column: "PrerequisiteLevelId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Programs_Programs_PrerequisiteProgramId",
                 table: "Programs",
-                column: "PrerequisiteProgramId",
+                column: "PrerequisiteLevelId",
                 principalTable: "Programs",
                 principalColumn: "Id");
         }
@@ -41,7 +41,7 @@ namespace Sconce.DAL.Data.Migrations
                 table: "Programs");
 
             migrationBuilder.DropColumn(
-                name: "PrerequisiteProgramId",
+                name: "PrerequisiteLevelId",
                 table: "Programs");
         }
     }

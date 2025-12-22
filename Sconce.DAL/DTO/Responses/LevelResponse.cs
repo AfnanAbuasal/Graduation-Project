@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Responses
 {
-    public class ProgramResponse
+    public class LevelResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +18,7 @@ namespace Sconce.DAL.DTO.Responses
         public DateOnly EndDate { get; set; }
         public int PlannedCourseCount { get; set; }
         public int ActualCourseCount { get; set; }
-        public int? PrerequisiteProgramId { get; set; }
+        public int? PrerequisiteLevelId { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();

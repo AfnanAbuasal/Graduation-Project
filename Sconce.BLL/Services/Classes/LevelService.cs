@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Sconce.BLL.Services.Classes
 {
-    public class ProgramService : GenericService<ProgramRequest, ProgramResponse, Program>, IProgramService
+    public class LevelService : GenericService<LevelRequest, LevelResponse, Level>, ILevelService
     {
-        public ProgramService(IProgramRepository programRepository) : base(programRepository)
+        public LevelService(ILevelRepository programRepository) : base(programRepository)
         {
         }
     }

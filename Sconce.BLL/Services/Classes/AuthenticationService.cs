@@ -84,7 +84,7 @@ namespace Sconce.BLL.Services.Classes
                 //issuer: _config["Jwt:Issuer"],
                 //audience: _config["Jwt:Audience"],
                 claims: userClaims,
-                expires: DateTime.Now.AddDays(15),
+                expires: DateTime.Now.AddDays(3),
                 signingCredentials: credentials
             );
             return new JwtSecurityTokenHandler().WriteToken(token);

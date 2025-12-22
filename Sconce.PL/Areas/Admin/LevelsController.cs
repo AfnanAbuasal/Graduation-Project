@@ -11,70 +11,69 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class CourseController : ControllerBase
+    public class LevelsController : ControllerBase
     {
-        private readonly ICourseService _courseService;
-
-        public CourseController(ICourseService courseService)
+        private readonly ILevelService _levelService;
+        public LevelsController(ILevelService levelService)
         {
-            _courseService = courseService;
+            _levelService = levelService;
         }
 
-        // Lists all courses, optionally only the active ones.
+        // Lists all levels, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
-            var courses = await _courseService.GetAllAsync(onlyActive);
-            return Ok(courses);
+            var levels = await _levelService.GetAllAsync(onlyActive);
+            return Ok(levels);
         }
 
-        // Shows details for a specific course.
+        // Shows details for a specific level.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
-            var result = await _courseService.GetByIdAsync(id);
+            var result = await _levelService.GetByIdAsync(id);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Adds a new course.
+        // Adds a new level.
         [HttpPost]
-        public async Task<ActionResult<Response>> Create([FromBody] CourseRequest request)
+        public async Task<ActionResult<Response>> Create([FromBody] LevelRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _courseService.CreateAsync(request);
+            var result = await _levelService.CreateAsync(request);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Updates an existing course.
+        // Updates an existing level.
         [HttpPut("{id}")]
-        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] CourseRequest request)
+        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] LevelRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _courseService.UpdateAsync(id, request);
+            var result = await _levelService.UpdateAsync(id, request);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Removes a course.
+        // Removes a level.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
-            var result = await _courseService.DeleteAsync(id);
+            var result = await _levelService.DeleteAsync(id);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Enables or disables a course.
+        // Enables or disables a level.
         [HttpPatch("{id}/ToggleStatus")]
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {
-            var result = await _courseService.ToggleStatusAsync(id);
+            var result = await _levelService.ToggleStatusAsync(id);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }

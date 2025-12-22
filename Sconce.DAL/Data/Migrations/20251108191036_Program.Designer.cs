@@ -321,7 +321,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.ToTable("ParentLinks");
                 });
 
-            modelBuilder.Entity("Sconce.DAL.Models.Program", b =>
+            modelBuilder.Entity("Sconce.DAL.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

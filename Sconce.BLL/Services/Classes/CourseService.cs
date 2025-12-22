@@ -15,37 +15,37 @@ namespace Sconce.BLL.Services.Classes
     public class CourseService : GenericService<CourseRequest, CourseResponse, Course>, ICourseService
     {
         private readonly ICourseRepository _courseRepository;
-        private readonly IProgramRepository _programRepository;
-        public CourseService(ICourseRepository courseRepository, IProgramRepository programRepository) : base(courseRepository)
+        private readonly ILevelRepository _levelRepository;
+        public CourseService(ICourseRepository courseRepository, ILevelRepository levelRepository) : base(courseRepository)
         {
             _courseRepository = courseRepository;
-            _programRepository = programRepository;
+            _levelRepository = levelRepository;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(CourseRequest request)
         {
-            // Ensure Program exists before creating course
-            var program = await _programRepository.GetByIdAsync(request.ProgramId);
-            if (program == null) return (0, new ErrorResponse { Errors = [$"Program with Id: {request.ProgramId} not found."] });
+            // Ensure Level exists before creating course
+            var level = await _levelRepository.GetByIdAsync(request.LevelId);
+            if (level == null) return (0, new ErrorResponse { Errors = [$"Level with Id: {request.LevelId} not found."] });
 
             // Validate course dates are logical
             if (request.StartDate > request.EndDate)
                 return (0, new ErrorResponse { Errors = ["Course StartDate must be on or before EndDate."] });
 
-            // Validate course duration fits within program duration
-            if (request.StartDate < program.StartDate || request.EndDate > program.EndDate)
+            // Validate course duration fits within level duration
+            if (request.StartDate < level.StartDate || request.EndDate > level.EndDate)
                 return (0, new ErrorResponse { Errors = [
-                    $"Course dates must be within program window {program.StartDate:yyyy-MM-dd} to {program.EndDate:yyyy-MM-dd}."
+                    $"Course dates must be within level window {level.StartDate:yyyy-MM-dd} to {level.EndDate:yyyy-MM-dd}."
                 ] });
 
-            // Validate no overlap with other courses in the same program
+            // Validate no overlap with other courses in the same level
             var allCourses = await _courseRepository.GetAllAsync();
             var overlapping = allCourses
-                .Where(c => c.ProgramId == request.ProgramId)
+                .Where(c => c.LevelId == request.LevelId)
                 .Any(c => request.StartDate <= c.EndDate && request.EndDate >= c.StartDate);
 
             if (overlapping)
-                return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this program."] });
+                return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this level."] });
 
             var course = request.Adapt<Course>();
             var rows = await _courseRepository.AddAsync(course);
@@ -53,9 +53,9 @@ namespace Sconce.BLL.Services.Classes
             // Increment ActualCourseCount
             if (rows > 0)
             {
-                program.ActualCourseCount++;
-                program.UpdatedAt = DateTime.UtcNow;
-                await _programRepository.UpdateAsync(program);
+                level.ActualCourseCount++;
+                level.UpdatedAt = DateTime.UtcNow;
+                await _levelRepository.UpdateAsync(level);
             }
 
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
@@ -68,54 +68,54 @@ namespace Sconce.BLL.Services.Classes
             if (existing == null)
                 return (0, new ErrorResponse { Errors = ["Not Found."] });
 
-            // Ensure target program exists
-            var program = await _programRepository.GetByIdAsync(request.ProgramId);
-            if (program == null)
-                return (0, new ErrorResponse { Errors = [$"Program with Id: {request.ProgramId} not found."] });
+            // Ensure target level exists
+            var level = await _levelRepository.GetByIdAsync(request.LevelId);
+            if (level == null)
+                return (0, new ErrorResponse { Errors = [$"Level with Id: {request.LevelId} not found."] });
 
             // Validate logical dates
             if (request.StartDate > request.EndDate)
                 return (0, new ErrorResponse { Errors = ["Course StartDate must be on or before EndDate."] });
 
-            // Validate within program boundaries
-            if (request.StartDate < program.StartDate || request.EndDate > program.EndDate)
+            // Validate within level boundaries
+            if (request.StartDate < level.StartDate || request.EndDate > level.EndDate)
                 return (0, new ErrorResponse { Errors = [
-                    $"Course dates must be within program window {program.StartDate:yyyy-MM-dd} to {program.EndDate:yyyy-MM-dd}."
+                    $"Course dates must be within level window {level.StartDate:yyyy-MM-dd} to {level.EndDate:yyyy-MM-dd}."
                 ] });
 
-            // Validate no overlap with other courses in the same program (exclude self)
+            // Validate no overlap with other courses in the same level (exclude self)
             var allCourses = await _courseRepository.GetAllAsync();
             var overlapping = allCourses
-                .Where(c => c.ProgramId == request.ProgramId && c.Id != ID)
+                .Where(c => c.LevelId == request.LevelId && c.Id != ID)
                 .Any(c => request.StartDate <= c.EndDate && request.EndDate >= c.StartDate);
 
             if (overlapping)
-                return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this program."] });
+                return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this level."] });
 
-            // If program changed, update both old and new program counts
-            var oldProgramId = existing.ProgramId;
-            var newProgramId = request.ProgramId;
+            // If level changed, update both old and new level counts
+            var oldLevelId = existing.LevelId;
+            var newLevelId = request.LevelId;
 
             // Apply updates
             request.Adapt(existing);
             existing.UpdatedAt = DateTime.UtcNow;
             var rows = await _courseRepository.UpdateAsync(existing);
 
-            if (rows > 0 && oldProgramId != newProgramId)
+            if (rows > 0 && oldLevelId != newLevelId)
             {
-                // Decrement old program count
-                var oldProgram = await _programRepository.GetByIdAsync(oldProgramId);
-                if (oldProgram != null)
+                // Decrement old level count
+                var oldLevel = await _levelRepository.GetByIdAsync(oldLevelId);
+                if (oldLevel != null)
                 {
-                    oldProgram.ActualCourseCount--;
-                    oldProgram.UpdatedAt = DateTime.UtcNow;
-                    await _programRepository.UpdateAsync(oldProgram);
+                    oldLevel.ActualCourseCount--;
+                    oldLevel.UpdatedAt = DateTime.UtcNow;
+                    await _levelRepository.UpdateAsync(oldLevel);
                 }
 
-                // Increment new program count
-                program.ActualCourseCount++;
-                program.UpdatedAt = DateTime.UtcNow;
-                await _programRepository.UpdateAsync(program);
+                // Increment new level count
+                level.ActualCourseCount++;
+                level.UpdatedAt = DateTime.UtcNow;
+                await _levelRepository.UpdateAsync(level);
             }
 
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });

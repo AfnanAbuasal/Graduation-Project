@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.Repositories.Classes
 {
-    public class ProgramRepository : GenericRepository<Program>, IProgramRepository
+    public class LevelRepository : GenericRepository<Level>, ILevelRepository
     {
-        public ProgramRepository(ApplicationDbContext context) : base(context) { }
+        public LevelRepository(ApplicationDbContext context) : base(context) { }
     }
 }

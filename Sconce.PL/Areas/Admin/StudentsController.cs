@@ -12,11 +12,11 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class StudentController : ControllerBase
+    public class StudentsController : ControllerBase
     {
         private readonly IAdminStudentService _adminStudentService;
 
-        public StudentController(IAdminStudentService adminStudentService)
+        public StudentsController(IAdminStudentService adminStudentService)
         {
             _adminStudentService = adminStudentService;
         }

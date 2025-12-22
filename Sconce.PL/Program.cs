@@ -64,8 +64,8 @@ namespace Sconce.PL
             builder.Services.AddScoped<IParentInviteRepository, ParentInviteRepository>();
             builder.Services.AddScoped<IParentLinkRepository, ParentLinkRepository>();
             builder.Services.AddScoped<IStudentParentRepository, StudentParentRepository>();
-            builder.Services.AddScoped<IProgramService, ProgramService>();
-            builder.Services.AddScoped<IProgramRepository, ProgramRepository>();
+            builder.Services.AddScoped<ILevelService, LevelService>();
+            builder.Services.AddScoped<ILevelRepository, LevelRepository>();
             builder.Services.AddScoped<ICourseService, CourseService>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<ISectionRepository, SectionRepository>();

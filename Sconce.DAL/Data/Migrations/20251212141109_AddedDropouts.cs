@@ -45,7 +45,7 @@ namespace Sconce.DAL.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Dropouts_ProgramId",
                 table: "Dropouts",
-                column: "ProgramId");
+                column: "LevelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dropouts_StudentId",

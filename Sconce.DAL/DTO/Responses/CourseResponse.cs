@@ -16,9 +16,9 @@ namespace Sconce.DAL.DTO.Responses
         public string? Description { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
-        public int Level { get; set; }
-        public int ProgramId { get; set; }
-        public string? ProgramName { get; set; }
+        public int Order { get; set; }
+        public int LevelId { get; set; }
+        public string? LevelName { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();

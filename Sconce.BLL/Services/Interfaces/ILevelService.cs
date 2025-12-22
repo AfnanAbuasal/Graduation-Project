@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Sconce.BLL.Services.Interfaces
 {
-    public interface IProgramService : IGenericService<ProgramRequest, ProgramResponse, Program>
+    public interface ILevelService : IGenericService<LevelRequest, LevelResponse, Level>
     {
     }
 }

@@ -20,7 +20,7 @@ namespace Sconce.DAL.Extensions
             };
         }
 
-        // Level of Proficiency
+        // Order of Proficiency
         public static string ToDisplayString(this LevelOfProficiency level)
         {
             return level switch

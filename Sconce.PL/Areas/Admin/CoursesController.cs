@@ -11,69 +11,70 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class ProgramController : ControllerBase
+    public class CoursesController : ControllerBase
     {
-        private readonly IProgramService _programService;
-        public ProgramController(IProgramService programService)
+        private readonly ICourseService _courseService;
+
+        public CoursesController(ICourseService courseService)
         {
-            _programService = programService;
+            _courseService = courseService;
         }
 
-        // Lists all programs, optionally only the active ones.
+        // Lists all courses, optionally only the active ones.
         [HttpGet]
         public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
         {
-            var programs = await _programService.GetAllAsync(onlyActive);
-            return Ok(programs);
+            var courses = await _courseService.GetAllAsync(onlyActive);
+            return Ok(courses);
         }
 
-        // Shows details for a specific program.
+        // Shows details for a specific course.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
-            var result = await _programService.GetByIdAsync(id);
+            var result = await _courseService.GetByIdAsync(id);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Adds a new program.
+        // Adds a new course.
         [HttpPost]
-        public async Task<ActionResult<Response>> Create([FromBody] ProgramRequest request)
+        public async Task<ActionResult<Response>> Create([FromBody] CourseRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _programService.CreateAsync(request);
+            var result = await _courseService.CreateAsync(request);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Updates an existing program.
+        // Updates an existing course.
         [HttpPut("{id}")]
-        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] ProgramRequest request)
+        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] CourseRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _programService.UpdateAsync(id, request);
+            var result = await _courseService.UpdateAsync(id, request);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Removes a program.
+        // Removes a course.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)
         {
-            var result = await _programService.DeleteAsync(id);
+            var result = await _courseService.DeleteAsync(id);
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
 
-        // Enables or disables a program.
+        // Enables or disables a course.
         [HttpPatch("{id}/ToggleStatus")]
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {
-            var result = await _programService.ToggleStatusAsync(id);
+            var result = await _courseService.ToggleStatusAsync(id);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }

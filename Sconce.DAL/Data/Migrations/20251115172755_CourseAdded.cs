@@ -38,7 +38,7 @@ namespace Sconce.DAL.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_ProgramId",
                 table: "Courses",
-                column: "ProgramId");
+                column: "LevelId");
         }
 
         /// <inheritdoc />

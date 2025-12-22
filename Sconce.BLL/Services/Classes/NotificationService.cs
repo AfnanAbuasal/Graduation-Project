@@ -390,7 +390,7 @@ namespace Sconce.BLL.Services.Classes
                 "Dropout request submitted",
                 $@"
                 <h2>Hello {dropout.Student.FullName},</h2>
-                <p>We have received your dropout request for <b>{dropout.Program?.Name ?? "the program"}</b>.</p>
+                <p>We have received your dropout request for <b>{dropout.Level?.Name ?? "the program"}</b>.</p>
                 <p><b>Submitted at:</b> {dropout.CreatedAt:u}</p>
                 <p><b>Status:</b> {dropout.ApplicationStatus}</p>
                 <p>Your request will be reviewed by our team. We'll notify you once a decision has been made.</p>
@@ -409,7 +409,7 @@ namespace Sconce.BLL.Services.Classes
                 "Dropout request updated",
                 $@"
                 <h2>Hello {dropout.Student.FullName},</h2>
-                <p>Your dropout request for <b>{dropout.Program?.Name ?? "the program"}</b> has been updated.</p>
+                <p>Your dropout request for <b>{dropout.Level?.Name ?? "the program"}</b> has been updated.</p>
                 <p><b>Updated at:</b> {dropout.UpdatedAt:u}</p>
                 <p>If this wasn't you, please contact support immediately.</p>
                 <br/>
@@ -427,7 +427,7 @@ namespace Sconce.BLL.Services.Classes
                 "Dropout request cancelled",
                 $@"
                 <h2>Hello {dropout.Student.FullName},</h2>
-                <p>Your dropout request for <b>{dropout.Program?.Name ?? "the program"}</b> has been cancelled.</p>
+                <p>Your dropout request for <b>{dropout.Level?.Name ?? "the program"}</b> has been cancelled.</p>
                 <p>If you cancelled this by mistake, you can submit a new request.</p>
                 <p>If this wasn't you, please contact support immediately.</p>
                 <br/>
@@ -445,7 +445,7 @@ namespace Sconce.BLL.Services.Classes
                 "Your dropout request has been approved",
                 $@"
                 <h2>Hello {dropout.Student.FullName},</h2>
-                <p>Your dropout request for <b>{dropout.Program?.Name ?? "the program"}</b> has been <b>approved</b>.</p>
+                <p>Your dropout request for <b>{dropout.Level?.Name ?? "the program"}</b> has been <b>approved</b>.</p>
                 <p>We’re processing the necessary steps. If you have questions, please reach out to support.</p>
                 <br/>
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
@@ -464,7 +464,7 @@ namespace Sconce.BLL.Services.Classes
                 "Your dropout request has been reviewed",
                 $@"
                 <h2>Hello {dropout.Student.FullName},</h2>
-                <p>Your dropout request for <b>{dropout.Program?.Name ?? "the program"}</b> has been <b>rejected</b>.</p>
+                <p>Your dropout request for <b>{dropout.Level?.Name ?? "the program"}</b> has been <b>rejected</b>.</p>
                 <p><b>Feedback:</b> {feedbackText}</p>
                 <p>If you believe this is an error or need further clarification, please contact support.</p>
                 <br/>

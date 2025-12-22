@@ -13,9 +13,9 @@ namespace Sconce.DAL.Models
         public string? Description { get; set; }
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
-        public int Level { get; set; }
-        public int ProgramId { get; set; }
-        public Program Program { get; set; }
+        public int Order { get; set; }
+        public int LevelId { get; set; }
+        public Level Level { get; set; }
         public ICollection<Section> Sections { get; set; } = new List<Section>();
     }
 }

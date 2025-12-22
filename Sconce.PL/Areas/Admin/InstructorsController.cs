@@ -12,10 +12,10 @@ namespace Sconce.PL.Areas.Admin
     [ApiController]
     [Area("Admin")]
     [Authorize(Roles = "Admin,Super Admin")]
-    public class InstructorController : ControllerBase
+    public class InstructorsController : ControllerBase
     {
         private readonly IAdminInstructorService _adminInstructorService;
-        public InstructorController(IAdminInstructorService adminInstructorService)
+        public InstructorsController(IAdminInstructorService adminInstructorService)
         {
             _adminInstructorService = adminInstructorService;
         }

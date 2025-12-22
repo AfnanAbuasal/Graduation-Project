@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.Repositories.Interfaces
 {
-    public interface IProgramRepository : IGenericRepository<Program>
+    public interface ILevelRepository : IGenericRepository<Level>
     {
     }
 }
