@@ -18,9 +18,13 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public string Country { get; set; }
         [Required] public string City { get; set; }
         public string? Street { get; set; }
-        [Required] public IFormFile Document { get; set; }
+
+        [Required]
+        [FileExtensions(Extensions = "pdf", ErrorMessage = "Please upload a valid pdf file.")]
+        public IFormFile Document { get; set; }
         public string? GuardianName { get; set; }
         public string? GuardianEmail { get; set; }
+
         [Required]
         [EnumDataType(typeof(LevelOfProficiency))]
         [Range((int)LevelOfProficiency.None, (int)LevelOfProficiency.C2, ErrorMessage = "Level of proficiency must be a valid option.")]

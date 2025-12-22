@@ -11,6 +11,8 @@ namespace Sconce.DAL.DTO.Requests
     public class SubmissionRequest : IFileRequest
     {
         [Required] public int AssignmentId { get; set; }
+        
+        [FileExtensions(Extensions = "pdf,doc,docx,txt", ErrorMessage = "Please upload a valid document file.")]
         public IFormFile? File { get; set; }
     }
 }

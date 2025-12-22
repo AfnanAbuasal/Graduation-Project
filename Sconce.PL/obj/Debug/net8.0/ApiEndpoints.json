@@ -473,6 +473,37 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
+    "Method": "IncreasePlannedCourseCount",
+    "RelativePath": "api/Admin/Levels/{id}/IncreasePlannedCourseCount",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.IncreasePlannedCountRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "ToggleStatus",
     "RelativePath": "api/Admin/Levels/{id}/ToggleStatus",
     "HttpMethod": "PATCH",
@@ -617,6 +648,37 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramsController",
+    "Method": "IncreasePlannedLevelCount",
+    "RelativePath": "api/Admin/Programs/{id}/IncreasePlannedLevelCount",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.IncreasePlannedCountRequest",
         "IsRequired": true
       }
     ],

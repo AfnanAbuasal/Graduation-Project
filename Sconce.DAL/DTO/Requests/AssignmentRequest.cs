@@ -17,6 +17,8 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public decimal MaxGrade { get; set; }
         [Required] public int SectionId { get; set; }
         [Required] public int WeekNumber { get; set; }
+
+        [FileExtensions(Extensions = "pdf,doc,docx,txt", ErrorMessage = "Please upload a valid document file.")]
         public IFormFile? File { get; set; }
     }
 }

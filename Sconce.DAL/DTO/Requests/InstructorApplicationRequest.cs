@@ -21,6 +21,9 @@ namespace Sconce.DAL.DTO.Requests
         public string? Street { get; set; }
         [Required] public int YearsOfExperience { get; set; }
         public bool ExperienceWithTeachingKids { get; set; } = false;
-        [Required] public IFormFile CV { get; set; }
+        
+        [Required]
+        [FileExtensions(Extensions = "pdf", ErrorMessage = "Please upload a valid pdf file.")]
+        public IFormFile CV { get; set; }
     }
 }
