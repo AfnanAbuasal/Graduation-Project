@@ -68,6 +68,12 @@ namespace Sconce.BLL.Services.Classes
                     $"Course dates must be within level window {level.StartDate:yyyy-MM-dd} to {level.EndDate:yyyy-MM-dd}."
                 ] });
 
+            // Validate order is within valid range
+            if (request.Order < 1 || request.Order > level.PlannedCourseCount)
+                return (0, new ErrorResponse { Errors = [
+                    $"Course order must be between 1 and {level.PlannedCourseCount} (Planned Course Count)."
+                ] });
+
             // Validate no overlap with other courses in the same level
             var allCourses = await _courseRepository.GetAllAsync();
             var overlapping = allCourses
@@ -76,6 +82,14 @@ namespace Sconce.BLL.Services.Classes
 
             if (overlapping)
                 return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this level."] });
+
+            // Validate order is unique within the level
+            var orderExists = allCourses
+                .Where(c => c.LevelId == request.LevelId)
+                .Any(c => c.Order == request.Order);
+
+            if (orderExists)
+                return (0, new ErrorResponse { Errors = [$"A course with order {request.Order} already exists in this level."] });
 
             var course = request.Adapt<Course>();
             var rows = await _courseRepository.AddAsync(course);
@@ -113,6 +127,12 @@ namespace Sconce.BLL.Services.Classes
                     $"Course dates must be within level window {level.StartDate:yyyy-MM-dd} to {level.EndDate:yyyy-MM-dd}."
                 ] });
 
+            // Validate order is within valid range
+            if (request.Order < 1 || request.Order > level.PlannedCourseCount)
+                return (0, new ErrorResponse { Errors = [
+                    $"Course order must be between 1 and {level.PlannedCourseCount} (Planned Course Count)."
+                ] });
+
             // Validate no overlap with other courses in the same level (exclude self)
             var allCourses = await _courseRepository.GetAllAsync();
             var overlapping = allCourses
@@ -121,6 +141,14 @@ namespace Sconce.BLL.Services.Classes
 
             if (overlapping)
                 return (0, new ErrorResponse { Errors = ["Course dates overlap with another course in this level."] });
+
+            // Validate order is unique within the level (exclude self)
+            var orderExists = allCourses
+                .Where(c => c.LevelId == request.LevelId && c.Id != ID)
+                .Any(c => c.Order == request.Order);
+
+            if (orderExists)
+                return (0, new ErrorResponse { Errors = [$"A course with order {request.Order} already exists in this level."] });
 
             // If level changed, update both old and new level counts
             var oldLevelId = existing.LevelId;

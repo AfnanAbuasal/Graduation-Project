@@ -392,6 +392,7 @@
                   "Document",
                   "Email",
                   "Gender",
+                  "LevelOfProficiency",
                   "PhoneNumber"
                 ],
                 "type": "object",
@@ -780,6 +781,14 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "DueDate",
+                  "MaxGrade",
+                  "MinGrade",
+                  "SectionId",
+                  "Title",
+                  "WeekNumber"
+                ],
                 "type": "object",
                 "properties": {
                   "Title": {
@@ -925,6 +934,14 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "DueDate",
+                  "MaxGrade",
+                  "MinGrade",
+                  "SectionId",
+                  "Title",
+                  "WeekNumber"
+                ],
                 "type": "object",
                 "properties": {
                   "Title": {
@@ -2063,6 +2080,266 @@
         }
       }
     },
+    "/api/Admin/Programs": {
+      "get": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "onlyActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Programs"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Programs/{id}": {
+      "get": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProgramRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Programs/{id}/ToggleStatus": {
+      "patch": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Student/Sections/{sectionId}/Content": {
       "get": {
         "tags": [
@@ -2724,6 +3001,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "AssignmentId"
+                ],
                 "type": "object",
                 "properties": {
                   "AssignmentId": {
@@ -2831,6 +3111,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "required": [
+                  "AssignmentId"
+                ],
                 "type": "object",
                 "properties": {
                   "AssignmentId": {
@@ -3735,14 +4018,18 @@
   "components": {
     "schemas": {
       "ApplicationReviewRequest": {
+        "required": [
+          "applicationStatus",
+          "feedback"
+        ],
         "type": "object",
         "properties": {
           "applicationStatus": {
             "$ref": "#/components/schemas/ApplicationStatus"
           },
           "feedback": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -3807,6 +4094,10 @@
         "additionalProperties": false
       },
       "DropoutRequest": {
+        "required": [
+          "levelId",
+          "reasons"
+        ],
         "type": "object",
         "properties": {
           "levelId": {
@@ -3814,18 +4105,21 @@
             "format": "int32"
           },
           "reasons": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "ForgotPasswordRequest": {
+        "required": [
+          "email"
+        ],
         "type": "object",
         "properties": {
           "email": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -3840,6 +4134,9 @@
         "format": "int32"
       },
       "GradeSubmissionRequest": {
+        "required": [
+          "grade"
+        ],
         "type": "object",
         "properties": {
           "grade": {
@@ -3871,6 +4168,7 @@
           "endDate",
           "name",
           "plannedCourseCount",
+          "programId",
           "startDate"
         ],
         "type": "object",
@@ -3895,6 +4193,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "programId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "prerequisiteLevelId": {
             "type": "integer",
             "format": "int32",
@@ -3904,15 +4206,19 @@
         "additionalProperties": false
       },
       "LoginRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
         "type": "object",
         "properties": {
           "email": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -3998,6 +4304,28 @@
         },
         "additionalProperties": false
       },
+      "ProgramRequest": {
+        "required": [
+          "name",
+          "plannedLevelCount"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "plannedLevelCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "ReferralSource": {
         "enum": [
           0,
@@ -4010,19 +4338,24 @@
         "format": "int32"
       },
       "ResetPasswordRequest": {
+        "required": [
+          "code",
+          "email",
+          "newPassword"
+        ],
         "type": "object",
         "properties": {
           "email": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "newPassword": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "code": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4059,19 +4392,25 @@
         "additionalProperties": false
       },
       "StudentRegisterRequest": {
+        "required": [
+          "email",
+          "fullName",
+          "password",
+          "referralSource"
+        ],
         "type": "object",
         "properties": {
           "email": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "fullName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "referralSource": {
             "$ref": "#/components/schemas/ReferralSource"
@@ -4080,6 +4419,10 @@
         "additionalProperties": false
       },
       "TextRequest": {
+        "required": [
+          "sectionId",
+          "weekNumber"
+        ],
         "type": "object",
         "properties": {
           "title": {
