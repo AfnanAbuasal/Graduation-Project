@@ -58,6 +58,12 @@ namespace Sconce.BLL.Services.Classes
             var level = await _levelRepository.GetByIdAsync(request.LevelId);
             if (level == null) return (0, new ErrorResponse { Errors = [$"Level with Id: {request.LevelId} not found."] });
 
+            // Validate that level has not reached its planned course count
+            if (level.ActualCourseCount >= level.PlannedCourseCount)
+                return (0, new ErrorResponse { Errors = [
+                    $"Cannot create course. Level has reached its planned course count ({level.PlannedCourseCount})."
+                ] });
+
             // Validate course dates are logical
             if (request.StartDate > request.EndDate)
                 return (0, new ErrorResponse { Errors = ["Course StartDate must be on or before EndDate."] });
@@ -177,6 +183,33 @@ namespace Sconce.BLL.Services.Classes
             }
 
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
+        }
+
+        public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int ID)
+        {
+            // Get the course to be deleted
+            var course = await _courseRepository.GetByIdAsync(ID);
+            if (course == null)
+                return (0, new ErrorResponse { Errors = ["Not Found."] });
+
+            var levelId = course.LevelId;
+
+            // Delete the course
+            var rows = await _courseRepository.DeleteAsync(course);
+
+            // Decrement ActualCourseCount if deletion was successful
+            if (rows > 0)
+            {
+                var level = await _levelRepository.GetByIdAsync(levelId);
+                if (level != null)
+                {
+                    level.ActualCourseCount--;
+                    level.UpdatedAt = DateTime.UtcNow;
+                    await _levelRepository.UpdateAsync(level);
+                }
+            }
+
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
     }
 }
