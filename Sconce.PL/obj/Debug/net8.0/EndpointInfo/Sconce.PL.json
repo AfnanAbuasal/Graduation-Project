@@ -376,10 +376,10 @@
         }
       }
     },
-    "/api/Student/Application/Apply": {
+    "/api/Student/Applications/Apply": {
       "post": {
         "tags": [
-          "Application"
+          "Applications"
         ],
         "requestBody": {
           "content": {
@@ -495,10 +495,10 @@
         }
       }
     },
-    "/api/Student/Application/Status": {
+    "/api/Student/Applications/Status": {
       "get": {
         "tags": [
-          "Application"
+          "Applications"
         ],
         "parameters": [
           {
@@ -533,10 +533,10 @@
         }
       }
     },
-    "/api/Instructor/Application/Apply": {
+    "/api/Instructor/Applications/Apply": {
       "post": {
         "tags": [
-          "Application"
+          "Applications"
         ],
         "requestBody": {
           "content": {
@@ -656,10 +656,10 @@
         }
       }
     },
-    "/api/Instructor/Application/Status": {
+    "/api/Instructor/Applications/Status": {
       "get": {
         "tags": [
-          "Application"
+          "Applications"
         ],
         "parameters": [
           {
@@ -1090,10 +1090,10 @@
         }
       }
     },
-    "/api/Admin/Course": {
+    "/api/Admin/Courses": {
       "get": {
         "tags": [
-          "Course"
+          "Courses"
         ],
         "parameters": [
           {
@@ -1130,7 +1130,7 @@
       },
       "post": {
         "tags": [
-          "Course"
+          "Courses"
         ],
         "requestBody": {
           "content": {
@@ -1175,10 +1175,10 @@
         }
       }
     },
-    "/api/Admin/Course/{id}": {
+    "/api/Admin/Courses/{id}": {
       "get": {
         "tags": [
-          "Course"
+          "Courses"
         ],
         "parameters": [
           {
@@ -1216,7 +1216,7 @@
       },
       "put": {
         "tags": [
-          "Course"
+          "Courses"
         ],
         "parameters": [
           {
@@ -1273,7 +1273,7 @@
       },
       "delete": {
         "tags": [
-          "Course"
+          "Courses"
         ],
         "parameters": [
           {
@@ -1310,10 +1310,10 @@
         }
       }
     },
-    "/api/Admin/Course/{id}/ToggleStatus": {
+    "/api/Admin/Courses/{id}/ToggleStatus": {
       "patch": {
         "tags": [
-          "Course"
+          "Courses"
         ],
         "parameters": [
           {
@@ -1400,10 +1400,10 @@
         }
       }
     },
-    "/api/Student/Dropout": {
+    "/api/Student/Dropouts": {
       "post": {
         "tags": [
-          "Dropout"
+          "Dropouts"
         ],
         "requestBody": {
           "content": {
@@ -1448,10 +1448,10 @@
         }
       }
     },
-    "/api/Student/Dropout/{id}": {
+    "/api/Student/Dropouts/{id}": {
       "put": {
         "tags": [
-          "Dropout"
+          "Dropouts"
         ],
         "parameters": [
           {
@@ -1508,7 +1508,7 @@
       },
       "delete": {
         "tags": [
-          "Dropout"
+          "Dropouts"
         ],
         "parameters": [
           {
@@ -1545,10 +1545,10 @@
         }
       }
     },
-    "/api/Admin/Dropout": {
+    "/api/Admin/Dropouts": {
       "get": {
         "tags": [
-          "Dropout"
+          "Dropouts"
         ],
         "parameters": [
           {
@@ -1584,10 +1584,10 @@
         }
       }
     },
-    "/api/Admin/Dropout/{id}": {
+    "/api/Admin/Dropouts/{id}": {
       "get": {
         "tags": [
-          "Dropout"
+          "Dropouts"
         ],
         "parameters": [
           {
@@ -1624,10 +1624,10 @@
         }
       }
     },
-    "/api/Admin/Dropout/{id}/Review": {
+    "/api/Admin/Dropouts/{id}/Review": {
       "patch": {
         "tags": [
-          "Dropout"
+          "Dropouts"
         ],
         "parameters": [
           {
@@ -1683,10 +1683,10 @@
         }
       }
     },
-    "/api/Admin/Instructor/Applications": {
+    "/api/Admin/Instructors/Applications": {
       "get": {
         "tags": [
-          "Instructor"
+          "Instructors"
         ],
         "parameters": [
           {
@@ -1704,10 +1704,10 @@
         }
       }
     },
-    "/api/Admin/Instructor/Applications/{id}": {
+    "/api/Admin/Instructors/Applications/{id}": {
       "get": {
         "tags": [
-          "Instructor"
+          "Instructors"
         ],
         "parameters": [
           {
@@ -1744,10 +1744,10 @@
         }
       }
     },
-    "/api/Admin/Instructor/Applications/{id}/Review": {
+    "/api/Admin/Instructors/Applications/{id}/Review": {
       "post": {
         "tags": [
-          "Instructor"
+          "Instructors"
         ],
         "parameters": [
           {
@@ -1803,10 +1803,10 @@
         }
       }
     },
-    "/api/Admin/Program": {
+    "/api/Admin/Levels": {
       "get": {
         "tags": [
-          "Program"
+          "Levels"
         ],
         "parameters": [
           {
@@ -1843,23 +1843,23 @@
       },
       "post": {
         "tags": [
-          "Program"
+          "Levels"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProgramRequest"
+                "$ref": "#/components/schemas/LevelRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProgramRequest"
+                "$ref": "#/components/schemas/LevelRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ProgramRequest"
+                "$ref": "#/components/schemas/LevelRequest"
               }
             }
           }
@@ -1888,10 +1888,10 @@
         }
       }
     },
-    "/api/Admin/Program/{id}": {
+    "/api/Admin/Levels/{id}": {
       "get": {
         "tags": [
-          "Program"
+          "Levels"
         ],
         "parameters": [
           {
@@ -1929,7 +1929,7 @@
       },
       "put": {
         "tags": [
-          "Program"
+          "Levels"
         ],
         "parameters": [
           {
@@ -1946,17 +1946,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProgramRequest"
+                "$ref": "#/components/schemas/LevelRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProgramRequest"
+                "$ref": "#/components/schemas/LevelRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ProgramRequest"
+                "$ref": "#/components/schemas/LevelRequest"
               }
             }
           }
@@ -1986,7 +1986,7 @@
       },
       "delete": {
         "tags": [
-          "Program"
+          "Levels"
         ],
         "parameters": [
           {
@@ -2023,416 +2023,10 @@
         }
       }
     },
-    "/api/Admin/Program/{id}/ToggleStatus": {
+    "/api/Admin/Levels/{id}/ToggleStatus": {
       "patch": {
         "tags": [
-          "Program"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Admin/Section": {
-      "get": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "onlyActive",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Section"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SectionRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SectionRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SectionRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Admin/Section/{id}": {
-      "get": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SectionRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SectionRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SectionRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Admin/Section/ByInstructor/{instructorId}": {
-      "get": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "instructorId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "onlyActive",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Admin/Section/{id}/ToggleStatus": {
-      "patch": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Admin/Section/{id}/AssignInstructor": {
-      "patch": {
-        "tags": [
-          "Section"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AssignInstructorRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AssignInstructorRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AssignInstructorRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Admin/Section/{id}/UnassignInstructor": {
-      "patch": {
-        "tags": [
-          "Section"
+          "Levels"
         ],
         "parameters": [
           {
@@ -2595,31 +2189,190 @@
         }
       }
     },
-    "/api/Admin/Student/Applications": {
+    "/api/Admin/Sections": {
       "get": {
         "tags": [
-          "Student"
+          "Sections"
         ],
         "parameters": [
           {
-            "name": "status",
+            "name": "onlyActive",
             "in": "query",
             "schema": {
-              "$ref": "#/components/schemas/ApplicationStatus"
+              "type": "boolean",
+              "default": false
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sections"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/Admin/Student/Applications/{id}": {
+    "/api/Admin/Sections/{id}": {
       "get": {
         "tags": [
-          "Student"
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sections"
         ],
         "parameters": [
           {
@@ -2656,10 +2409,257 @@
         }
       }
     },
-    "/api/Admin/Student/Applications/{id}/Review": {
+    "/api/Admin/Sections/ByInstructor/{instructorId}": {
+      "get": {
+        "tags": [
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "instructorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "onlyActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Sections/{id}/ToggleStatus": {
+      "patch": {
+        "tags": [
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Sections/{id}/AssignInstructor": {
+      "patch": {
+        "tags": [
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignInstructorRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignInstructorRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignInstructorRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Sections/{id}/UnassignInstructor": {
+      "patch": {
+        "tags": [
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Students/Applications": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/ApplicationStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Admin/Students/Applications/{id}": {
+      "get": {
+        "tags": [
+          "Students"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Students/Applications/{id}/Review": {
       "post": {
         "tags": [
-          "Student"
+          "Students"
         ],
         "parameters": [
           {
@@ -3772,9 +3772,9 @@
       "CourseRequest": {
         "required": [
           "endDate",
-          "level",
+          "levelId",
           "name",
-          "programId",
+          "order",
           "startDate"
         ],
         "type": "object",
@@ -3795,11 +3795,11 @@
             "type": "string",
             "format": "date"
           },
-          "level": {
+          "order": {
             "type": "integer",
             "format": "int32"
           },
-          "programId": {
+          "levelId": {
             "type": "integer",
             "format": "int32"
           }
@@ -3809,7 +3809,7 @@
       "DropoutRequest": {
         "type": "object",
         "properties": {
-          "programId": {
+          "levelId": {
             "type": "integer",
             "format": "int32"
           },
@@ -3865,6 +3865,43 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "LevelRequest": {
+        "required": [
+          "endDate",
+          "name",
+          "plannedCourseCount",
+          "startDate"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "plannedCourseCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prerequisiteLevelId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "LoginRequest": {
         "type": "object",
@@ -3957,43 +3994,6 @@
           "password": {
             "minLength": 8,
             "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ProgramRequest": {
-        "required": [
-          "endDate",
-          "name",
-          "plannedCourseCount",
-          "startDate"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "plannedCourseCount": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "prerequisiteProgramId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
           }
         },
         "additionalProperties": false

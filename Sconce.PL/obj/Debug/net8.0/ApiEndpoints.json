@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
     "Method": "GetAll",
-    "RelativePath": "api/Admin/Course",
+    "RelativePath": "api/Admin/Courses",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -26,9 +26,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
     "Method": "Create",
-    "RelativePath": "api/Admin/Course",
+    "RelativePath": "api/Admin/Courses",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -52,9 +52,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
     "Method": "GetById",
-    "RelativePath": "api/Admin/Course/{id}",
+    "RelativePath": "api/Admin/Courses/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -78,9 +78,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
     "Method": "Update",
-    "RelativePath": "api/Admin/Course/{id}",
+    "RelativePath": "api/Admin/Courses/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -109,9 +109,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
     "Method": "Delete",
-    "RelativePath": "api/Admin/Course/{id}",
+    "RelativePath": "api/Admin/Courses/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -135,9 +135,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.CourseController",
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
     "Method": "ToggleStatus",
-    "RelativePath": "api/Admin/Course/{id}/ToggleStatus",
+    "RelativePath": "api/Admin/Courses/{id}/ToggleStatus",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -181,9 +181,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.DropoutController",
+    "ContainingType": "Sconce.PL.Areas.Admin.DropoutsController",
     "Method": "GetAll",
-    "RelativePath": "api/Admin/Dropout",
+    "RelativePath": "api/Admin/Dropouts",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -207,9 +207,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.DropoutController",
+    "ContainingType": "Sconce.PL.Areas.Admin.DropoutsController",
     "Method": "GetById",
-    "RelativePath": "api/Admin/Dropout/{id}",
+    "RelativePath": "api/Admin/Dropouts/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -233,9 +233,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.DropoutController",
+    "ContainingType": "Sconce.PL.Areas.Admin.DropoutsController",
     "Method": "ReviewRequest",
-    "RelativePath": "api/Admin/Dropout/{id}/Review",
+    "RelativePath": "api/Admin/Dropouts/{id}/Review",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -264,9 +264,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.InstructorController",
+    "ContainingType": "Sconce.PL.Areas.Admin.InstructorsController",
     "Method": "GetAll",
-    "RelativePath": "api/Admin/Instructor/Applications",
+    "RelativePath": "api/Admin/Instructors/Applications",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -280,9 +280,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.InstructorController",
+    "ContainingType": "Sconce.PL.Areas.Admin.InstructorsController",
     "Method": "GetById",
-    "RelativePath": "api/Admin/Instructor/Applications/{id}",
+    "RelativePath": "api/Admin/Instructors/Applications/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -306,9 +306,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.InstructorController",
+    "ContainingType": "Sconce.PL.Areas.Admin.InstructorsController",
     "Method": "Review",
-    "RelativePath": "api/Admin/Instructor/Applications/{id}/Review",
+    "RelativePath": "api/Admin/Instructors/Applications/{id}/Review",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -337,9 +337,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "GetAll",
-    "RelativePath": "api/Admin/Program",
+    "RelativePath": "api/Admin/Levels",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -363,16 +363,16 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "Create",
-    "RelativePath": "api/Admin/Program",
+    "RelativePath": "api/Admin/Levels",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.ProgramRequest",
+        "Type": "Sconce.DAL.DTO.Requests.LevelRequest",
         "IsRequired": true
       }
     ],
@@ -389,9 +389,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "GetById",
-    "RelativePath": "api/Admin/Program/{id}",
+    "RelativePath": "api/Admin/Levels/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -415,9 +415,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "Update",
-    "RelativePath": "api/Admin/Program/{id}",
+    "RelativePath": "api/Admin/Levels/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -429,7 +429,7 @@
       },
       {
         "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.ProgramRequest",
+        "Type": "Sconce.DAL.DTO.Requests.LevelRequest",
         "IsRequired": true
       }
     ],
@@ -446,9 +446,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "Delete",
-    "RelativePath": "api/Admin/Program/{id}",
+    "RelativePath": "api/Admin/Levels/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -472,9 +472,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.ProgramController",
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
     "Method": "ToggleStatus",
-    "RelativePath": "api/Admin/Program/{id}/ToggleStatus",
+    "RelativePath": "api/Admin/Levels/{id}/ToggleStatus",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -498,9 +498,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "GetAll",
-    "RelativePath": "api/Admin/Section",
+    "RelativePath": "api/Admin/Sections",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -524,9 +524,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "Create",
-    "RelativePath": "api/Admin/Section",
+    "RelativePath": "api/Admin/Sections",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -550,9 +550,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "GetById",
-    "RelativePath": "api/Admin/Section/{id}",
+    "RelativePath": "api/Admin/Sections/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -576,9 +576,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "Update",
-    "RelativePath": "api/Admin/Section/{id}",
+    "RelativePath": "api/Admin/Sections/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -607,9 +607,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "Delete",
-    "RelativePath": "api/Admin/Section/{id}",
+    "RelativePath": "api/Admin/Sections/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -633,9 +633,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "AssignInstructor",
-    "RelativePath": "api/Admin/Section/{id}/AssignInstructor",
+    "RelativePath": "api/Admin/Sections/{id}/AssignInstructor",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -664,9 +664,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "ToggleStatus",
-    "RelativePath": "api/Admin/Section/{id}/ToggleStatus",
+    "RelativePath": "api/Admin/Sections/{id}/ToggleStatus",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -690,9 +690,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "UnassignInstructor",
-    "RelativePath": "api/Admin/Section/{id}/UnassignInstructor",
+    "RelativePath": "api/Admin/Sections/{id}/UnassignInstructor",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -716,9 +716,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.SectionController",
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "GetByInstructor",
-    "RelativePath": "api/Admin/Section/ByInstructor/{instructorId}",
+    "RelativePath": "api/Admin/Sections/ByInstructor/{instructorId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -747,9 +747,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
+    "ContainingType": "Sconce.PL.Areas.Admin.StudentsController",
     "Method": "GetAllApplications",
-    "RelativePath": "api/Admin/Student/Applications",
+    "RelativePath": "api/Admin/Students/Applications",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -763,9 +763,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
+    "ContainingType": "Sconce.PL.Areas.Admin.StudentsController",
     "Method": "GetApplicationById",
-    "RelativePath": "api/Admin/Student/Applications/{id}",
+    "RelativePath": "api/Admin/Students/Applications/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -789,9 +789,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Admin.StudentController",
+    "ContainingType": "Sconce.PL.Areas.Admin.StudentsController",
     "Method": "ReviewApplication",
-    "RelativePath": "api/Admin/Student/Applications/{id}/Review",
+    "RelativePath": "api/Admin/Students/Applications/{id}/Review",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -997,9 +997,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationController",
+    "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationsController",
     "Method": "Apply",
-    "RelativePath": "api/Instructor/Application/Apply",
+    "RelativePath": "api/Instructor/Applications/Apply",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -1073,9 +1073,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationController",
+    "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationsController",
     "Method": "GetStatus",
-    "RelativePath": "api/Instructor/Application/Status",
+    "RelativePath": "api/Instructor/Applications/Status",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1896,9 +1896,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Student.ApplicationController",
+    "ContainingType": "Sconce.PL.Areas.Student.ApplicationsController",
     "Method": "Apply",
-    "RelativePath": "api/Student/Application/Apply",
+    "RelativePath": "api/Student/Applications/Apply",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -1972,9 +1972,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Student.ApplicationController",
+    "ContainingType": "Sconce.PL.Areas.Student.ApplicationsController",
     "Method": "GetStatus",
-    "RelativePath": "api/Student/Application/Status",
+    "RelativePath": "api/Student/Applications/Status",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -2024,9 +2024,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Student.DropoutController",
+    "ContainingType": "Sconce.PL.Areas.Student.DropoutsController",
     "Method": "RequestDropout",
-    "RelativePath": "api/Student/Dropout",
+    "RelativePath": "api/Student/Dropouts",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -2050,9 +2050,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Student.DropoutController",
+    "ContainingType": "Sconce.PL.Areas.Student.DropoutsController",
     "Method": "UpdateRequest",
-    "RelativePath": "api/Student/Dropout/{id}",
+    "RelativePath": "api/Student/Dropouts/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -2081,9 +2081,9 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Student.DropoutController",
+    "ContainingType": "Sconce.PL.Areas.Student.DropoutsController",
     "Method": "CancelRequest",
-    "RelativePath": "api/Student/Dropout/{id}",
+    "RelativePath": "api/Student/Dropouts/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

@@ -223,14 +223,14 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<int>("Order")
+                    b.Property<int>("LevelId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LevelId")
+                    b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("StartDate")
@@ -359,6 +359,53 @@ namespace Sconce.DAL.Data.Migrations
                     b.ToTable("InstructorApplications");
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.Level", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActualCourseCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlannedCourseCount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PrerequisiteLevelId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrerequisiteLevelId");
+
+                    b.ToTable("Levels");
+                });
+
             modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
                 {
                     b.Property<int>("Id")
@@ -448,53 +495,6 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("ParentLinks");
-                });
-
-            modelBuilder.Entity("Sconce.DAL.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ActualCourseCount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly>("EndDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PlannedCourseCount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PrerequisiteLevelId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PrerequisiteLevelId");
-
-                    b.ToTable("Programs");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Section", b =>
@@ -826,18 +826,18 @@ namespace Sconce.DAL.Data.Migrations
 
             modelBuilder.Entity("Sconce.DAL.Models.Course", b =>
                 {
-                    b.HasOne("Sconce.DAL.Models.Order", "Order")
+                    b.HasOne("Sconce.DAL.Models.Level", "Level")
                         .WithMany("Courses")
                         .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("Level");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Dropout", b =>
                 {
-                    b.HasOne("Sconce.DAL.Models.Order", "Order")
+                    b.HasOne("Sconce.DAL.Models.Level", "Level")
                         .WithMany()
                         .HasForeignKey("LevelId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -849,9 +849,18 @@ namespace Sconce.DAL.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("Level");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Level", b =>
+                {
+                    b.HasOne("Sconce.DAL.Models.Level", "PrerequisiteLevel")
+                        .WithMany()
+                        .HasForeignKey("PrerequisiteLevelId");
+
+                    b.Navigation("PrerequisiteLevel");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
@@ -874,15 +883,6 @@ namespace Sconce.DAL.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("Sconce.DAL.Models.Order", b =>
-                {
-                    b.HasOne("Sconce.DAL.Models.Order", "PrerequisiteLevel")
-                        .WithMany()
-                        .HasForeignKey("PrerequisiteLevelId");
-
-                    b.Navigation("PrerequisiteLevel");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Section", b =>
@@ -1000,7 +1000,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Navigation("Sections");
                 });
 
-            modelBuilder.Entity("Sconce.DAL.Models.Order", b =>
+            modelBuilder.Entity("Sconce.DAL.Models.Level", b =>
                 {
                     b.Navigation("Courses");
                 });
