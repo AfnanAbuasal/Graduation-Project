@@ -21,6 +21,9 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public IFormFile Document { get; set; }
         public string? GuardianName { get; set; }
         public string? GuardianEmail { get; set; }
+        [Required]
+        [EnumDataType(typeof(LevelOfProficiency))]
+        [Range((int)LevelOfProficiency.None, (int)LevelOfProficiency.C2, ErrorMessage = "Level of proficiency must be a valid option.")]
         public LevelOfProficiency LevelOfProficiency { get; set; }
     }
 }

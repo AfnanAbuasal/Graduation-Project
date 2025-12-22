@@ -3,6 +3,7 @@ using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,35 @@ namespace Sconce.BLL.Services.Classes
         {
             _courseRepository = courseRepository;
             _levelRepository = levelRepository;
+        }
+
+        public override async Task<Response> GetAllAsync(bool onlyActive = false)
+        {
+            var list = await _courseRepository.GetAllWithLevelAsync();
+
+            if (onlyActive)
+                list = list.Where(x => x.Status == Status.Active);
+
+            var responseList = new List<CourseResponse>();
+            foreach (var entity in list)
+            {
+                var dto = entity.Adapt<CourseResponse>();
+                dto.LevelName = entity.Level?.Name;
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<CourseResponse>> { Data = responseList };
+        }
+
+        public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
+        {
+            var entity = await _courseRepository.GetByIdWithLevelAsync(Id);
+            if (entity == null)
+                return (false, new ErrorResponse { Errors = ["Not Found."] });
+
+            var dto = entity.Adapt<CourseResponse>();
+            dto.LevelName = entity.Level?.Name;
+            return (true, new SuccessResponse<CourseResponse> { Data = dto });
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(CourseRequest request)

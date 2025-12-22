@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Requests
 {
-    public class DropoutRequest
+    public class ProgramRequest
     {
-        [Required] public int LevelId { get; set; }
-        [Required] public string Reasons { get; set; }
+        [Required] public string Name { get; set; }
+        public string? Description { get; set; }
+        [Required] public int PlannedLevelCount { get; set; }
     }
 }

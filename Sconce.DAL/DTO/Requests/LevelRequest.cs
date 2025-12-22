@@ -14,6 +14,7 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public DateOnly StartDate { get; set; }
         [Required] public DateOnly EndDate { get; set; }
         [Required] public int PlannedCourseCount { get; set; }
+        [Required] public int ProgramId { get; set; }
         public int? PrerequisiteLevelId { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface ILevelRepository : IGenericRepository<Level>
     {
+        Task<IEnumerable<Level>> GetAllWithProgramAsync();
+        Task<Level?> GetByIdWithProgramAsync(int id);
     }
 }

@@ -29,7 +29,7 @@ where TEntity : BaseModel
         return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
     }
 
-    public async Task<Response> GetAllAsync(bool onlyActive = false)
+    public virtual async Task<Response> GetAllAsync(bool onlyActive = false)
     {
         var entities = await _repository.GetAllAsync();
         if (onlyActive)
@@ -38,7 +38,7 @@ where TEntity : BaseModel
         return new SuccessResponse<IEnumerable<TResponse>> { Data = entities.Adapt<IEnumerable<TResponse>>() };
     }
 
-    public async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
+    public virtual async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
     {
         var entity = await _repository.GetByIdAsync(Id);
 

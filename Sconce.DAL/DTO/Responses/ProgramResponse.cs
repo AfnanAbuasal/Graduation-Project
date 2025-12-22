@@ -1,4 +1,4 @@
-﻿using Sconce.DAL.Extensions;
+using Sconce.DAL.Extensions;
 using Sconce.DAL.Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -9,18 +9,13 @@ using System.Threading.Tasks;
 
 namespace Sconce.DAL.DTO.Responses
 {
-    public class LevelResponse
+    public class ProgramResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
-        public int PlannedCourseCount { get; set; }
-        public int ActualCourseCount { get; set; }
-        public int ProgramId { get; set; }
-        public string? ProgramName { get; set; }
-        public int? PrerequisiteLevelId { get; set; }
+        public int PlannedLevelCount { get; set; }
+        public int ActualLevelCount { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();

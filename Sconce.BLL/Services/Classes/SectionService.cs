@@ -47,7 +47,7 @@ namespace Sconce.BLL.Services.Classes
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
         }
 
-        public async Task<Response> GetAllAsync(bool onlyActive = false)
+        public override async Task<Response> GetAllAsync(bool onlyActive = false)
         {
             var list = await _sectionRepository.GetAllWithInstructorAsync();
 
@@ -101,7 +101,7 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<SectionResponse>> { Data = responseList };
         }
 
-        public async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
+        public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
         {
             var entity = await _sectionRepository.GetByIdWithInstructorAsync(Id);
             if (entity == null)

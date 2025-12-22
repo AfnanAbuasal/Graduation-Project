@@ -23,6 +23,7 @@ namespace Sconce.DAL.Data
         public DbSet<ParentLink> ParentLinks { get; set; }
 
         // Course Hierarchy
+        public DbSet<Program> Programs { get; set; }
         public DbSet<Level> Levels { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Section> Sections { get; set; }

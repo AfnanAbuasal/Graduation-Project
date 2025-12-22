@@ -1,4 +1,5 @@
-﻿using Sconce.DAL.Models.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using Sconce.DAL.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,11 @@ namespace Sconce.DAL.DTO.Requests
 {
     public class ApplicationReviewRequest
     {
+        [Required]
+        [EnumDataType(typeof(ApplicationStatus))]
+        [Range((int)ApplicationStatus.Pending, (int)ApplicationStatus.Rejected, ErrorMessage = "Application status must be a valid option.")]
         public ApplicationStatus ApplicationStatus { get; set; }
-        public string Feedback { get; set; }
+
+        [Required] public string Feedback { get; set; }
     }
 }
