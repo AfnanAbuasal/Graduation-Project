@@ -76,5 +76,17 @@ namespace Sconce.PL.Areas.Admin
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Increases the planned level count for a program.
+        [HttpPatch("{id}/IncreasePlannedLevelCount")]
+        public async Task<ActionResult<Response>> IncreasePlannedLevelCount([FromRoute] int id, [FromBody] IncreasePlannedCountRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _programService.IncreasePlannedLevelCountAsync(id, request);
+            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface ILevelService : IGenericService<LevelRequest, LevelResponse, Level>
     {
+        Task<(int NumberOfEntries, Response Response)> IncreasePlannedCourseCountAsync(int levelId, IncreasePlannedCountRequest request);
     }
 }

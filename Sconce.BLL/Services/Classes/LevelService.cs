@@ -106,5 +106,21 @@ namespace Sconce.BLL.Services.Classes
 
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
+
+        public async Task<(int NumberOfEntries, Response Response)> IncreasePlannedCourseCountAsync(int levelId, IncreasePlannedCountRequest request)
+        {
+            // Get the level to update
+            var level = await _levelRepository.GetByIdAsync(levelId);
+            if (level == null)
+                return (0, new ErrorResponse { Errors = ["Level not found."] });
+
+            // Increase the planned course count
+            level.PlannedCourseCount += request.Increment;
+            level.UpdatedAt = DateTime.UtcNow;
+
+            var rows = await _levelRepository.UpdateAsync(level);
+
+            return (rows, new SuccessResponse<string> { Data = $"Planned course count increased to {level.PlannedCourseCount}." });
+        }
     }
 }

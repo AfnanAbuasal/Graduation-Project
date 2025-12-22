@@ -77,5 +77,17 @@ namespace Sconce.PL.Areas.Admin
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Increases the planned course count for a level.
+        [HttpPatch("{id}/IncreasePlannedCourseCount")]
+        public async Task<ActionResult<Response>> IncreasePlannedCourseCount([FromRoute] int id, [FromBody] IncreasePlannedCountRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _levelService.IncreasePlannedCourseCountAsync(id, request);
+            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }
