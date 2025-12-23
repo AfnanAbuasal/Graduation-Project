@@ -17,5 +17,7 @@ namespace Sconce.DAL.Models
         public int LevelId { get; set; }
         public Level Level { get; set; }
         public ICollection<Section> Sections { get; set; } = new List<Section>();
+        public ICollection<Question> Questions { get; set; } = new List<Question>();
+        
     }
 }

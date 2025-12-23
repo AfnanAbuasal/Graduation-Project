@@ -36,6 +36,7 @@ namespace Sconce.DAL.Data
         public DbSet<ZoomMeeting> ZoomMeetings { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Dropout> Dropouts { get; set; }
+        public DbSet<Question> Questions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
