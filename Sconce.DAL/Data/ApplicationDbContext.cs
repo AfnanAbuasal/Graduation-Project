@@ -37,6 +37,9 @@ namespace Sconce.DAL.Data
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Dropout> Dropouts { get; set; }
         public DbSet<Question> Questions { get; set; }
+        public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
+        public DbSet<EssayQuestion> EssayQuestions { get; set; }
+        public DbSet<Choice> Choices { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -82,6 +85,37 @@ namespace Sconce.DAL.Data
             builder.Entity<Submission>(entity =>
             {
                 entity.Property(s => s.Grade).HasColumnType("decimal(5,2)");
+            });
+
+            // Question inheritance (TPT - Table Per Type)
+            builder.Entity<MultipleChoiceQuestion>(entity =>
+            {
+                entity.Property(mc => mc.AllowMultipleSelections)
+                    .HasDefaultValue(false);
+                entity.Property(mc => mc.ShuffleChoices)
+                    .HasDefaultValue(true);
+            });
+
+            builder.Entity<EssayQuestion>(entity =>
+            {
+                entity.Property(e => e.AllowFileUpload)
+                    .HasDefaultValue(false);
+            });
+
+            builder.Entity<Choice>(entity =>
+            {
+                entity.HasKey(c => new { c.QuestionId, c.Text });
+
+                entity.HasOne(c => c.Question)
+                    .WithMany()
+                    .HasForeignKey(c => c.QuestionId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(c => c.IsCorrect)
+                    .HasDefaultValue(false);
+
+                entity.HasIndex(c => c.SortOrder)
+                    .IsUnique();
             });
         }
     }
