@@ -27,7 +27,7 @@ namespace Sconce.PL.Areas.Instructor
         {
             var instructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrWhiteSpace(instructorId))
-                return Unauthorized(new ErrorResponse { Errors = ["Unable to determine the current instructor."] });
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
 
             var result = await _sectionService.GetByInstructorAsync(instructorId, onlyActive, sortBy);
             return Ok(result);
