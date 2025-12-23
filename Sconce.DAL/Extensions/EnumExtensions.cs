@@ -71,5 +71,28 @@ namespace Sconce.DAL.Extensions
                 _ => "Unknown"
             };
         }
+
+        // Difficulty
+        public static string ToDisplayString(this Difficulty difficulty)
+        {
+            return difficulty switch
+            {
+                Difficulty.Easy => "Easy",
+                Difficulty.Moderate => "Moderate",
+                Difficulty.Difficult => "Difficult",
+                _ => "Unknown"
+            };
+        }
+
+        // Question Type
+        public static string ToDisplayString(this QuestionType questionType)
+        {
+            return questionType switch
+            {
+                QuestionType.MultipleChoice => "Multiple Choice",
+                QuestionType.Essay => "Essay",
+                _ => "Unknown"
+            };
+        }
     }
 }
