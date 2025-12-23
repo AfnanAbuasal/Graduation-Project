@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sconce.DAL.Validators;
 
 namespace Sconce.DAL.DTO.Requests
 {
@@ -18,7 +19,7 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public int SectionId { get; set; }
         [Required] public int WeekNumber { get; set; }
 
-        [FileExtensions(Extensions = "pdf,doc,docx,txt", ErrorMessage = "Please upload a valid document file.")]
+        [DocumentFile(ErrorMessage = "Please upload a valid document file (pdf, doc, docx, or txt).")]
         public IFormFile? File { get; set; }
     }
 }

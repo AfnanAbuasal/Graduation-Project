@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Sconce.DAL.Models.Enums;
+using Sconce.DAL.Validators;
 
 namespace Sconce.DAL.DTO.Requests
 {
@@ -20,7 +21,7 @@ namespace Sconce.DAL.DTO.Requests
         public string? Street { get; set; }
 
         [Required]
-        [FileExtensions(Extensions = "pdf", ErrorMessage = "Please upload a valid pdf file.")]
+        [PdfFile(ErrorMessage = "Please upload a valid pdf file.")]
         public IFormFile Document { get; set; }
         public string? GuardianName { get; set; }
         public string? GuardianEmail { get; set; }

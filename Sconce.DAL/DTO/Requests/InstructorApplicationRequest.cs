@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Sconce.DAL.Models.Enums;
+using Sconce.DAL.Validators;
 
 namespace Sconce.DAL.DTO.Requests
 {
@@ -23,7 +24,7 @@ namespace Sconce.DAL.DTO.Requests
         public bool ExperienceWithTeachingKids { get; set; } = false;
         
         [Required]
-        [FileExtensions(Extensions = "pdf", ErrorMessage = "Please upload a valid pdf file.")]
+        [PdfFile(ErrorMessage = "Please upload a valid pdf file.")]
         public IFormFile CV { get; set; }
     }
 }
