@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {}
+    "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {}
   },
   "projects": {
-    "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
+    "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
+        "projectUniqueName": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
         "projectName": "Sconce.BLL",
-        "projectPath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
+        "projectPath": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
         "packagesPath": "C:\\Users\\Al-Madani\\.nuget\\packages\\",
-        "outputPath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\obj\\",
+        "outputPath": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

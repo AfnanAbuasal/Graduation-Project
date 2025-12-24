@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Sconce.DAL.Models;
+using Sconce.DAL.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace Sconce.DAL.Data
         public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
         public DbSet<EssayQuestion> EssayQuestions { get; set; }
         public DbSet<Choice> Choices { get; set; }
+        public DbSet<Exam> Exams { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -113,6 +115,27 @@ namespace Sconce.DAL.Data
 
                 entity.Property(c => c.IsCorrect)
                     .HasDefaultValue(false);
+            });
+
+            builder.Entity<Exam>(entity =>
+            {
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.HasOne(e => e.Section)
+                    .WithMany()
+                    .HasForeignKey(e => e.SectionId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(e => e.AttemptsAllowed)
+                    .HasDefaultValue(1);
+
+                entity.Property(e => e.ShuffleQuestions)
+                    .HasDefaultValue(false);
+
+                entity.Property(e => e.ExamStatus)
+                    .HasDefaultValue(ExamStatus.Draft);
             });
         }
     }

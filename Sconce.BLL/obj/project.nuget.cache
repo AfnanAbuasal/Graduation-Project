@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Zj4YisFNVlg=",
+  "dgSpecHash": "hsTLVsid1oA=",
   "success": true,
-  "projectFilePath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
+  "projectFilePath": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Al-Madani\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Al-Madani\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

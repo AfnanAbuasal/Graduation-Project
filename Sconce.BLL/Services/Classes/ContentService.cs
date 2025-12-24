@@ -66,6 +66,24 @@ namespace Sconce.BLL.Services.Classes
 					FileUrl = assignment.FilePath
 				};
 			}
+			else if (content is Exam exam)
+			{
+				return new ExamResponse
+				{
+					Id = exam.Id,
+					SectionId = exam.SectionId,
+					WeekNumber = exam.WeekNumber,
+					Type = exam.Type,
+					CreatedAt = exam.CreatedAt,
+					Title = exam.Title,
+					AvailableFrom = exam.AvailableFrom,
+					AvailableTo = exam.AvailableTo,
+					DurationMinutes = exam.DurationMinutes,
+					AttemptsAllowed = exam.AttemptsAllowed,
+					ShuffleQuestions = exam.ShuffleQuestions,
+					ExamStatus = exam.ExamStatus
+				};
+			}
 			else if (content is Text text)
 			{
 				return new TextResponse
