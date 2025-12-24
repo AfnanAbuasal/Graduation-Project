@@ -12,5 +12,8 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<Response> GetAllUserProfilesAsync(UserType? userType = null);
         Task<(bool Success, Response Response)> GetUserProfileByIdAsync(string userId);
+        Task<(bool Success, Response Response)> DeleteStudentByIdAsync(string studentId, bool deleteApplication = true);
+        Task<(bool Success, Response Response)> DeleteInstructorByIdAsync(string instructorId, bool deleteApplication = true);
+        Task<(bool Success, Response Response)> DeleteParentByIdAsync(string parentId);
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Sconce.BLL.Services.Interfaces;
+using Sconce.DAL.Data;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
 using Sconce.DAL.Models.Enums;
@@ -16,11 +17,13 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUrlHelper _urlHelper;
+        private readonly ApplicationDbContext _context;
 
-        public AdminUserService(UserManager<ApplicationUser> userManager, IUrlHelper urlHelper)
+        public AdminUserService(UserManager<ApplicationUser> userManager, IUrlHelper urlHelper, ApplicationDbContext context)
         {
             _userManager = userManager;
             _urlHelper = urlHelper;
+            _context = context;
         }
 
         public async Task<Response> GetAllUserProfilesAsync(UserType? userType = null)
@@ -137,6 +140,92 @@ namespace Sconce.BLL.Services.Classes
                 Gender = parent.Gender,
                 UserType = UserType.Parent
             };
+        }
+
+        public async Task<(bool Success, Response Response)> DeleteStudentByIdAsync(string studentId, bool deleteApplication = false)
+        {
+            var student = await _userManager.Users.OfType<Student>()
+                .Include(s => s.StudentParents)
+                .FirstOrDefaultAsync(s => s.Id == studentId);
+
+            if (student == null)
+                return (false, new ErrorResponse { Errors = new List<string> { "Student not found." } });
+
+            // 1. Always delete StudentParent links (join table)
+            if (student.StudentParents.Any())
+            {
+                _context.StudentParents.RemoveRange(student.StudentParents);
+            }
+
+            // 2. Optionally delete application
+            if (deleteApplication)
+            {
+                var application = await _context.StudentApplications
+                    .FirstOrDefaultAsync(a => a.Email == student.Email);
+                if (application != null)
+                {
+                    _context.StudentApplications.Remove(application);
+                }
+            }
+
+            // 3. Delete student
+            var result = await _userManager.DeleteAsync(student);
+            if (!result.Succeeded)
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
+
+            await _context.SaveChangesAsync();
+            return (true, new SuccessResponse<string> { Data = "Student deleted successfully." });
+        }
+
+        public async Task<(bool Success, Response Response)> DeleteInstructorByIdAsync(string instructorId, bool deleteApplication = false)
+        {
+            var instructor = await _userManager.Users.OfType<Instructor>()
+                .FirstOrDefaultAsync(i => i.Id == instructorId);
+
+            if (instructor == null)
+                return (false, new ErrorResponse { Errors = new List<string> { "Instructor not found." } });
+
+            // 1. Optionally delete application
+            if (deleteApplication)
+            {
+                var application = await _context.InstructorApplications
+                    .FirstOrDefaultAsync(a => a.Email == instructor.Email);
+                if (application != null)
+                {
+                    _context.InstructorApplications.Remove(application);
+                }
+            }
+
+            // 2. Delete instructor
+            var result = await _userManager.DeleteAsync(instructor);
+            if (!result.Succeeded)
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
+
+            await _context.SaveChangesAsync();
+            return (true, new SuccessResponse<string> { Data = "Instructor deleted successfully." });
+        }
+        public async Task<(bool Success, Response Response)> DeleteParentByIdAsync(string parentId)
+        {
+            var parent = await _userManager.Users.OfType<Parent>()
+                .Include(p => p.StudentParents) // Load links
+                .FirstOrDefaultAsync(p => p.Id == parentId);
+
+            if (parent == null)
+                return (false, new ErrorResponse { Errors = new List<string> { "Parent not found." } });
+
+            // Auto-delete student links
+            if (parent.StudentParents.Any())
+            {
+                _context.StudentParents.RemoveRange(parent.StudentParents);
+            }
+
+            // Delete parent
+            var result = await _userManager.DeleteAsync(parent);
+            if (!result.Succeeded)
+                return (false, new ErrorResponse { Errors = result.Errors.Select(e => e.Description).ToList() });
+
+            await _context.SaveChangesAsync();
+            return (true, new SuccessResponse<string> { Data = "Parent deleted successfully." });
         }
     }
 }

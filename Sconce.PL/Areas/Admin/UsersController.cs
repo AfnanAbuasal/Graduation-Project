@@ -40,5 +40,32 @@ namespace Sconce.PL.Areas.Admin
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Deletes a student user by ID, optionally including their application.
+        [HttpDelete("students/{id}")]
+        public async Task<ActionResult<Response>> DeleteStudent([FromRoute] string id, [FromQuery] bool deleteApplication = true)
+        {
+            var result = await _adminUserService.DeleteStudentByIdAsync(id, deleteApplication);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
+        // Deletes an instructor user by ID, optionally including their application.
+        [HttpDelete("instructors/{id}")]
+        public async Task<ActionResult<Response>> DeleteInstructor([FromRoute] string id, [FromQuery] bool deleteApplication = true)
+        {
+            var result = await _adminUserService.DeleteInstructorByIdAsync(id, deleteApplication);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
+        // Deletes a parent user by ID and all associated student links.
+        [HttpDelete("parents/{id}")]
+        public async Task<ActionResult<Response>> DeleteParent([FromRoute] string id)
+        {
+            var result = await _adminUserService.DeleteParentByIdAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }
