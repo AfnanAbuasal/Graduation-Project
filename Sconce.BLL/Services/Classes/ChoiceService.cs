@@ -4,6 +4,7 @@ using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -45,6 +46,11 @@ namespace Sconce.BLL.Services.Classes
 
             var entity = request.Adapt<Choice>();
             var rows = await _choiceRepository.AddAsync(entity);
+            
+            // Update the question's UpdatedAt timestamp
+            mcq.UpdatedAt = DateTime.UtcNow;
+            await _questionRepository.UpdateAsync(mcq);
+
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
         }
 
@@ -87,6 +93,11 @@ namespace Sconce.BLL.Services.Classes
             existing.SortOrder = request.SortOrder;
 
             var rows = await _choiceRepository.UpdateAsync(existing);
+            
+            // Update the question's UpdatedAt timestamp
+            mcq.UpdatedAt = DateTime.UtcNow;
+            await _questionRepository.UpdateAsync(mcq);
+
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
         }
 
@@ -97,6 +108,15 @@ namespace Sconce.BLL.Services.Classes
                 return (0, new ErrorResponse { Errors = ["Choice not found."] });
 
             var rows = await _choiceRepository.DeleteAsync(existing);
+            
+            // Update the question's UpdatedAt timestamp
+            var mcq = await _questionRepository.GetMultipleChoiceByIdAsync(questionId);
+            if (mcq != null)
+            {
+                mcq.UpdatedAt = DateTime.UtcNow;
+                await _questionRepository.UpdateAsync(mcq);
+            }
+
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
 

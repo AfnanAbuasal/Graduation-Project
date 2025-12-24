@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
+using Sconce.DAL.Models.Enums;
 using System.Security.Claims;
 
 namespace Sconce.PL.Areas.Instructor
@@ -20,31 +21,7 @@ namespace Sconce.PL.Areas.Instructor
             _questionService = questionService;
         }
 
-        // Creates a new question.
-        [HttpPost]
-        public async Task<ActionResult<Response>> Create([FromBody] QuestionRequest request)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _questionService.CreateAsync(request);
-            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
-            return Ok(result.Response);
-        }
-
-        // Updates an existing question.
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] QuestionRequest request)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _questionService.UpdateAsync(id, request);
-            if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
-            return Ok(result.Response);
-        }
-
-        // Gets all questions for a specific course.
+        // Gets all questions (mixed types) for a specific course.
         [HttpGet("Course/{courseId}")]
         public async Task<ActionResult<Response>> GetByCourseId([FromRoute] int courseId)
         {
@@ -61,6 +38,49 @@ namespace Sconce.PL.Areas.Instructor
                 return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
 
             var result = await _questionService.GetAllByInstructorIdAsync(instructorId);
+            return Ok(result);
+        }
+
+        // Gets all questions by type.
+        [HttpGet("Type/{type}")]
+        public async Task<ActionResult<Response>> GetByType([FromRoute] QuestionType type)
+        {
+            var result = await _questionService.GetAllByTypeAsync(type);
+            return Ok(result);
+        }
+
+        // Gets all questions by difficulty.
+        [HttpGet("Difficulty/{difficulty}")]
+        public async Task<ActionResult<Response>> GetByDifficulty([FromRoute] Difficulty difficulty)
+        {
+            var result = await _questionService.GetAllByDifficultyAsync(difficulty);
+            return Ok(result);
+        }
+
+        // Searches questions by prompt text within a course.
+        [HttpGet("Course/{courseId}/Search")]
+        public async Task<ActionResult<Response>> Search([FromRoute] int courseId, [FromQuery] string term)
+        {
+            if (string.IsNullOrWhiteSpace(term))
+                return BadRequest(new ErrorResponse { Errors = ["Search term is required."] });
+
+            var result = await _questionService.SearchByPromptAsync(courseId, term);
+            return Ok(result);
+        }
+
+        // Gets question count for a course.
+        [HttpGet("Course/{courseId}/Count")]
+        public async Task<ActionResult<Response>> CountByCourse([FromRoute] int courseId)
+        {
+            var result = await _questionService.CountByCourseAsync(courseId);
+            return Ok(result);
+        }
+
+        // Gets question count by type for a course.
+        [HttpGet("Course/{courseId}/Count/Type/{type}")]
+        public async Task<ActionResult<Response>> CountByType([FromRoute] int courseId, [FromRoute] QuestionType type)
+        {
+            var result = await _questionService.CountByTypeAsync(courseId, type);
             return Ok(result);
         }
     }

@@ -120,6 +120,23 @@ namespace Sconce.BLL.Services.Classes
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
         }
 
+        public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id)
+        {
+            var entity = await _questionRepository.GetByIdAsync(Id);
+            if (entity == null)
+                return (0, new ErrorResponse { Errors = ["Question not found."] });
+
+            var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return (0, new ErrorResponse { Errors = ["User not authenticated."] });
+
+            if (entity.CreatedByInstructorId != instructorId)
+                return (0, new ErrorResponse { Errors = ["Not authorized to delete this question."] });
+
+            var rows = await _questionRepository.DeleteAsync(entity);
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
+        }
+
         public async Task<Response> GetAllByCourseIdAsync(int courseId)
         {
             var questions = await _questionRepository.GetAllByCourseIdAsync(courseId);
