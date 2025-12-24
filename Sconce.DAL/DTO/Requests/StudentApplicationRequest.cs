@@ -27,8 +27,7 @@ namespace Sconce.DAL.DTO.Requests
         public string? GuardianEmail { get; set; }
 
         [Required]
-        [EnumDataType(typeof(LevelOfProficiency))]
-        [Range((int)LevelOfProficiency.None, (int)LevelOfProficiency.C2, ErrorMessage = "Level of proficiency must be a valid option.")]
+        [EnumDataType(typeof(LevelOfProficiency), ErrorMessage = "Level of proficiency must be a valid option.")]
         public LevelOfProficiency LevelOfProficiency { get; set; }
     }
 }

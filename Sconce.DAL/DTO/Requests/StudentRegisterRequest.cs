@@ -15,8 +15,7 @@ namespace Sconce.DAL.DTO.Requests
         [Required] public string FullName { get; set; }
         [Required] public string Password { get; set; }
         [Required]
-        [EnumDataType(typeof(ReferralSource))]
-        [Range((int)ReferralSource.Search, (int)ReferralSource.Other, ErrorMessage = "Referral source must be a valid option.")]
+        [EnumDataType(typeof(ReferralSource), ErrorMessage = "Referral source must be a valid option.")]
         public ReferralSource ReferralSource { get; set; } = ReferralSource.Other;
     }
 }
