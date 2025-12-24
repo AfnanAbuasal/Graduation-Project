@@ -113,9 +113,6 @@ namespace Sconce.DAL.Data
 
                 entity.Property(c => c.IsCorrect)
                     .HasDefaultValue(false);
-
-                entity.HasIndex(c => c.SortOrder)
-                    .IsUnique();
             });
         }
     }

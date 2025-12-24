@@ -9,7 +9,6 @@ namespace Sconce.DAL.Models
 {
     public class Question : BaseModel
     {
-        public QuestionType Type { get; set; }
         public string Prompt { get; set; }
         public Difficulty Difficulty { get; set; }
         public string CreatedByInstructorId { get; set; }

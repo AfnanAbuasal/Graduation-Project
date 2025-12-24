@@ -201,9 +201,9 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<EssayQuestionResponse>> { Data = data };
         }
 
-        public async Task<Response> GetAllByTypeAsync(QuestionType type)
+        public async Task<Response> GetAllByTypeAsync<TQuestion>() where TQuestion : Question
         {
-            var questions = await _questionRepository.GetAllByTypeAsync(type);
+            var questions = await _questionRepository.GetAllByTypeAsync<TQuestion>();
             var responseList = questions.Select(q =>
             {
                 return q switch
@@ -252,9 +252,9 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<int> { Data = count };
         }
 
-        public async Task<Response> CountByTypeAsync(int courseId, QuestionType type)
+        public async Task<Response> CountByTypeAsync<TQuestion>(int courseId) where TQuestion : Question
         {
-            var count = await _questionRepository.CountByTypeAsync(courseId, type);
+            var count = await _questionRepository.CountByTypeAsync<TQuestion>(courseId);
             return new SuccessResponse<int> { Data = count };
         }
     }

@@ -1095,20 +1095,377 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Frontend.DbController",
-    "Method": "DeleteUserByEmail",
-    "RelativePath": "api/Db/DeleteUser",
+    "ContainingType": "Sconce.PL.Areas.Admin.UsersController",
+    "Method": "DeleteInstructor",
+    "RelativePath": "api/Admin/Users/instructors/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "deleteApplication",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.UsersController",
+    "Method": "DeleteParent",
+    "RelativePath": "api/Admin/Users/parents/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.UsersController",
+    "Method": "DeleteStudent",
+    "RelativePath": "api/Admin/Users/students/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "deleteApplication",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
+    "Method": "Create",
+    "RelativePath": "api/Choices",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ChoiceRequest",
+        "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
+    "Method": "Update",
+    "RelativePath": "api/Choices/{questionId}/{text}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "text",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ChoiceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
+    "Method": "Delete",
+    "RelativePath": "api/Choices/{questionId}/{text}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "text",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
+    "Method": "GetById",
+    "RelativePath": "api/Choices/{questionId}/{text}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "text",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
+    "Method": "GetByQuestionId",
+    "RelativePath": "api/Choices/Question/{questionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.EssayQuestionsController",
+    "Method": "Create",
+    "RelativePath": "api/EssayQuestions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.EssayQuestionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.EssayQuestionsController",
+    "Method": "Update",
+    "RelativePath": "api/EssayQuestions/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.EssayQuestionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.EssayQuestionsController",
+    "Method": "GetById",
+    "RelativePath": "api/EssayQuestions/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.EssayQuestionsController",
+    "Method": "Delete",
+    "RelativePath": "api/EssayQuestions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.EssayQuestionsController",
+    "Method": "GetByCourseId",
+    "RelativePath": "api/EssayQuestions/Course/{courseId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Sconce.PL.Areas.Identity.AccountController",
@@ -2015,6 +2372,141 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Instructor.MultipleChoiceQuestionsController",
+    "Method": "Create",
+    "RelativePath": "api/MultipleChoiceQuestions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.MultipleChoiceQuestionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.MultipleChoiceQuestionsController",
+    "Method": "Update",
+    "RelativePath": "api/MultipleChoiceQuestions/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.MultipleChoiceQuestionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.MultipleChoiceQuestionsController",
+    "Method": "GetById",
+    "RelativePath": "api/MultipleChoiceQuestions/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.MultipleChoiceQuestionsController",
+    "Method": "Delete",
+    "RelativePath": "api/MultipleChoiceQuestions/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.MultipleChoiceQuestionsController",
+    "Method": "GetByCourseId",
+    "RelativePath": "api/MultipleChoiceQuestions/Course/{courseId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Parent.AccountController",
     "Method": "RegisterParent",
     "RelativePath": "api/Parent/Account/RegisterParent",
@@ -2068,63 +2560,6 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
-    "Method": "Create",
-    "RelativePath": "api/Questions",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.QuestionRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
-    "Method": "Update",
-    "RelativePath": "api/Questions/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.QuestionRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
     "Method": "GetByCourseId",
     "RelativePath": "api/Questions/Course/{courseId}",
     "HttpMethod": "GET",
@@ -2151,12 +2586,152 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "CountByCourse",
+    "RelativePath": "api/Questions/Course/{courseId}/Count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "CountByType",
+    "RelativePath": "api/Questions/Course/{courseId}/Count/Type/{type}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "Search",
+    "RelativePath": "api/Questions/Course/{courseId}/Search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "term",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "GetByDifficulty",
+    "RelativePath": "api/Questions/Difficulty/{difficulty}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "difficulty",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
     "Method": "GetMine",
     "RelativePath": "api/Questions/Mine",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "GetByType",
+    "RelativePath": "api/Questions/Type/{type}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "type",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "Sconce.DAL.DTO.Responses.Response",

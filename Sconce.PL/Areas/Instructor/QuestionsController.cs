@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
+using Sconce.DAL.Models;
 using Sconce.DAL.Models.Enums;
 using System.Security.Claims;
 
@@ -41,11 +42,20 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
-        // Gets all questions by type.
+        // Gets all questions by type (polymorphic route: "multiplechoice" or "essay").
         [HttpGet("Type/{type}")]
-        public async Task<ActionResult<Response>> GetByType([FromRoute] QuestionType type)
+        public async Task<ActionResult<Response>> GetByType([FromRoute] string type)
         {
-            var result = await _questionService.GetAllByTypeAsync(type);
+            var result = type.ToLowerInvariant() switch
+            {
+                "multiplechoice" => await _questionService.GetAllByTypeAsync<MultipleChoiceQuestion>(),
+                "essay" => await _questionService.GetAllByTypeAsync<EssayQuestion>(),
+                _ => null
+            };
+
+            if (result == null)
+                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'multiplechoice' or 'essay'."] });
+
             return Ok(result);
         }
 
@@ -76,11 +86,20 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
-        // Gets question count by type for a course.
+        // Gets question count by type for a course (polymorphic route).
         [HttpGet("Course/{courseId}/Count/Type/{type}")]
-        public async Task<ActionResult<Response>> CountByType([FromRoute] int courseId, [FromRoute] QuestionType type)
+        public async Task<ActionResult<Response>> CountByType([FromRoute] int courseId, [FromRoute] string type)
         {
-            var result = await _questionService.CountByTypeAsync(courseId, type);
+            Response? result = type.ToLowerInvariant() switch
+            {
+                "multiplechoice" => await _questionService.CountByTypeAsync<MultipleChoiceQuestion>(courseId),
+                "essay" => await _questionService.CountByTypeAsync<EssayQuestion>(courseId),
+                _ => null
+            };
+
+            if (result == null)
+                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'multiplechoice' or 'essay'."] });
+
             return Ok(result);
         }
     }

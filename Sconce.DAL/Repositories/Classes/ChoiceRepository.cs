@@ -45,28 +45,15 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Set<Choice>()
                 .Where(c => c.QuestionId == questionId)
-                .OrderBy(c => c.SortOrder)
+                .OrderBy(c => c.Text)
                 .AsNoTracking()
                 .ToListAsync();
-        }
-
-        public async Task<Choice?> GetBySortOrderAsync(int questionId, int sortOrder)
-        {
-            return await _context.Set<Choice>()
-                .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.QuestionId == questionId && c.SortOrder == sortOrder);
         }
 
         public async Task<bool> ExistsAsync(int questionId, string text)
         {
             return await _context.Set<Choice>()
                 .AnyAsync(c => c.QuestionId == questionId && c.Text == text);
-        }
-
-        public async Task<bool> ExistsBySortOrderAsync(int questionId, int sortOrder)
-        {
-            return await _context.Set<Choice>()
-                .AnyAsync(c => c.QuestionId == questionId && c.SortOrder == sortOrder);
         }
 
         public async Task<int> CountByQuestionAsync(int questionId)

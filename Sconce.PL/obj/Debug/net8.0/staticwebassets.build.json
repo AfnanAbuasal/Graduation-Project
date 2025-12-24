@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RPt7VFwq6wcUwb4TLWR/1R36xkCItk3wLhmoFV60ZJQ=",
+  "Hash": "AL6DffJIFPeMbqlVtOe7iGZ9DmiKLdX63gEMNt7d0ZQ=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -57,6 +57,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\Assignments\\e9601663-0443-4263-97f3-858b04b62c8c_Supply Chain Project.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kdy6iy9aug",
+      "Integrity": "eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\CVs\\14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf"
     },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf",
@@ -347,6 +368,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.kdy6iy9aug.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234953"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 14:08:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kdy6iy9aug"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\CVs\\14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "234953"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 23 Dec 2025 14:08:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
         }
       ]
     },

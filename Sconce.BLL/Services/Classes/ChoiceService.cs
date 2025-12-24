@@ -32,9 +32,6 @@ namespace Sconce.BLL.Services.Classes
             if (await _choiceRepository.ExistsAsync(request.QuestionId, request.Text))
                 return (0, new ErrorResponse { Errors = ["A choice with the same text already exists for this question."] });
 
-            if (await _choiceRepository.ExistsBySortOrderAsync(request.QuestionId, request.SortOrder))
-                return (0, new ErrorResponse { Errors = ["A choice with the same sort order already exists for this question."] });
-
             // Enforce "no duplicates" of correct when multiple selections are not allowed
             if (!mcq.AllowMultipleSelections && request.IsCorrect)
             {
@@ -64,14 +61,6 @@ namespace Sconce.BLL.Services.Classes
             if (request.QuestionId != questionId || !string.Equals(request.Text, text))
                 return (0, new ErrorResponse { Errors = ["Changing QuestionId or Text is not supported. Delete and recreate the choice instead."] });
 
-            // Validate sort order uniqueness if changed
-            if (existing.SortOrder != request.SortOrder)
-            {
-                var sortExists = await _choiceRepository.ExistsBySortOrderAsync(questionId, request.SortOrder);
-                if (sortExists)
-                    return (0, new ErrorResponse { Errors = ["Another choice already uses the requested sort order."] });
-            }
-
             // Enforce single-correct rules when multiple selections are not allowed
             var mcq = await _questionRepository.GetMultipleChoiceByIdAsync(questionId);
             if (mcq != null && !mcq.AllowMultipleSelections)
@@ -90,7 +79,6 @@ namespace Sconce.BLL.Services.Classes
 
             // Update fields
             existing.IsCorrect = request.IsCorrect;
-            existing.SortOrder = request.SortOrder;
 
             var rows = await _choiceRepository.UpdateAsync(existing);
             

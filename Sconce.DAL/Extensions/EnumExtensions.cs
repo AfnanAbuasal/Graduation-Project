@@ -84,15 +84,5 @@ namespace Sconce.DAL.Extensions
             };
         }
 
-        // Question Type
-        public static string ToDisplayString(this QuestionType questionType)
-        {
-            return questionType switch
-            {
-                QuestionType.MultipleChoice => "Multiple Choice",
-                QuestionType.Essay => "Essay",
-                _ => "Unknown"
-            };
-        }
     }
 }

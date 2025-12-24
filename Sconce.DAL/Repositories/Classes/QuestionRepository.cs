@@ -1,6 +1,6 @@
 using Sconce.DAL.Data;
-using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Models;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -76,15 +76,17 @@ namespace Sconce.DAL.Repositories.Classes
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
-        public async Task<IEnumerable<Question>> GetAllByTypeAsync(QuestionType type)
+        public async Task<IEnumerable<Question>> GetAllByTypeAsync<TQuestion>() where TQuestion : Question
         {
-            var query = _context.Questions
-                .Where(q => q.Type == type)
-                .AsNoTracking();
+            var query = _context.Set<TQuestion>().AsNoTracking();
 
-            if (type == QuestionType.MultipleChoice)
+            if (typeof(TQuestion) == typeof(MultipleChoiceQuestion))
             {
-                query = query.Include(q => ((MultipleChoiceQuestion)q).Choices);
+                // Include choices when fetching MCQs
+                return await _context.Set<MultipleChoiceQuestion>()
+                    .Include(q => q.Choices)
+                    .AsNoTracking()
+                    .ToListAsync();
             }
 
             return await query.ToListAsync();
@@ -118,10 +120,10 @@ namespace Sconce.DAL.Repositories.Classes
                 .CountAsync(q => q.CourseId == courseId);
         }
 
-        public async Task<int> CountByTypeAsync(int courseId, QuestionType type)
+        public async Task<int> CountByTypeAsync<TQuestion>(int courseId) where TQuestion : Question
         {
-            return await _context.Questions
-                .CountAsync(q => q.CourseId == courseId && q.Type == type);
+            return await _context.Set<TQuestion>()
+                .CountAsync(q => q.CourseId == courseId);
         }
     }
 }

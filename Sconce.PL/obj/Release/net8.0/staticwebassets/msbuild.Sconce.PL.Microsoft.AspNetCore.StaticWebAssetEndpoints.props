@@ -24,6 +24,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"409309"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 19 Dec 2025 14:46:20 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.kdy6iy9aug.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kdy6iy9aug"},{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Tue, 23 Dec 2025 14:08:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\14bdcd87-dd20-4e4e-b1f3-fd8d2a1439ab_AfnanAbo-Asal_CV.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Tue, 23 Dec 2025 14:08:39 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/CVs/1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.kdy6iy9aug.pdf">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\1f04f9ee-5a76-4813-81f7-cf516c02d1c9_AfnanAbo-Asal_CV.pdf'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

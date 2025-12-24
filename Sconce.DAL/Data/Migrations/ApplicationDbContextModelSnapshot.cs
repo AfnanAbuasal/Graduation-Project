@@ -163,6 +163,35 @@ namespace Sconce.DAL.Data.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.Choice", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsCorrect")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int?>("MultipleChoiceQuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuestionId", "Text");
+
+                    b.HasIndex("MultipleChoiceQuestionId");
+
+                    b.HasIndex("SortOrder")
+                        .IsUnique();
+
+                    b.ToTable("Choices");
+                });
+
             modelBuilder.Entity("Sconce.DAL.Models.Content", b =>
                 {
                     b.Property<int>("Id")
@@ -558,6 +587,11 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<int>("Difficulty")
                         .HasColumnType("int");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
+
                     b.Property<string>("Prompt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -576,6 +610,10 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Questions");
+
+                    b.HasDiscriminator().HasValue("Question");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Section", b =>
@@ -879,6 +917,41 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasDiscriminator().HasValue("ZoomMeeting");
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.EssayQuestion", b =>
+                {
+                    b.HasBaseType("Sconce.DAL.Models.Question");
+
+                    b.Property<bool>("AllowFileUpload")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int?>("MaxFileSizeMb")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaxWords")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("EssayQuestion");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.HasBaseType("Sconce.DAL.Models.Question");
+
+                    b.Property<bool>("AllowMultipleSelections")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("ShuffleChoices")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.HasDiscriminator().HasValue("MultipleChoiceQuestion");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -892,6 +965,21 @@ namespace Sconce.DAL.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Choice", b =>
+                {
+                    b.HasOne("Sconce.DAL.Models.MultipleChoiceQuestion", null)
+                        .WithMany("Choices")
+                        .HasForeignKey("MultipleChoiceQuestionId");
+
+                    b.HasOne("Sconce.DAL.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Content", b =>
@@ -1127,6 +1215,11 @@ namespace Sconce.DAL.Data.Migrations
             modelBuilder.Entity("Sconce.DAL.Models.Assignment", b =>
                 {
                     b.Navigation("Submissions");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.Navigation("Choices");
                 });
 #pragma warning restore 612, 618
         }

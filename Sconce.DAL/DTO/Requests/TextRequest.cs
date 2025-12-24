@@ -9,8 +9,8 @@ namespace Sconce.DAL.DTO.Requests
 {
     public class TextRequest : IValidatableObject
     {
-        public string Title { get; set; } = string.Empty;
-        public string Body { get; set; } = string.Empty;
+        public string? Title { get; set; }
+        public string? Body { get; set; }
         [Required] public int SectionId { get; set; }
         [Required] public int WeekNumber { get; set; }
 
