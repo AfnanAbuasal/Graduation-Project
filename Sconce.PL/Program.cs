@@ -88,6 +88,8 @@ namespace Sconce.PL
             builder.Services.AddScoped<IZoomMeetingService, ZoomMeetingService>();
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.Services.AddScoped<IQuestionService, QuestionService>();
+            builder.Services.AddScoped<IChoiceRepository, ChoiceRepository>();
+            builder.Services.AddScoped<IChoiceService, ChoiceService>();
 
             // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
