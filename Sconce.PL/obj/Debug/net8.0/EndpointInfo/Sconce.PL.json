@@ -3210,7 +3210,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/QuestionType"
+              "type": "string"
             }
           }
         ],
@@ -3384,7 +3384,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "$ref": "#/components/schemas/QuestionType"
+              "type": "string"
             }
           }
         ],
@@ -5264,7 +5264,6 @@
       "ChoiceRequest": {
         "required": [
           "questionId",
-          "sortOrder",
           "text"
         ],
         "type": "object",
@@ -5279,10 +5278,6 @@
           },
           "isCorrect": {
             "type": "boolean"
-          },
-          "sortOrder": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -5355,14 +5350,10 @@
         "required": [
           "courseId",
           "difficulty",
-          "prompt",
-          "type"
+          "prompt"
         ],
         "type": "object",
         "properties": {
-          "type": {
-            "$ref": "#/components/schemas/QuestionType"
-          },
           "prompt": {
             "minLength": 1,
             "type": "string"
@@ -5525,14 +5516,10 @@
         "required": [
           "courseId",
           "difficulty",
-          "prompt",
-          "type"
+          "prompt"
         ],
         "type": "object",
         "properties": {
-          "type": {
-            "$ref": "#/components/schemas/QuestionType"
-          },
           "prompt": {
             "minLength": 1,
             "type": "string"
@@ -5655,14 +5642,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "QuestionType": {
-        "enum": [
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "ReferralSource": {
         "enum": [

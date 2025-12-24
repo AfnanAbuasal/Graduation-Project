@@ -24,6 +24,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Questions
                 .Where(q => q.CourseId == courseId)
+                .Include(q => (q as MultipleChoiceQuestion).Choices)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -32,6 +33,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Questions
                 .Where(q => q.CreatedByInstructorId == instructorId)
+                .Include(q => (q as MultipleChoiceQuestion).Choices)
                 .AsNoTracking()
                 .ToListAsync();
         }
