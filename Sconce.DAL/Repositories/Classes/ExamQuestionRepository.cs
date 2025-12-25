@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sconce.DAL.Repositories
+namespace Sconce.DAL.Repositories.Classes
 {
     public class ExamQuestionRepository : GenericRepository<ExamQuestion>, IExamQuestionRepository
     {
@@ -35,6 +35,12 @@ namespace Sconce.DAL.Repositories
         {
             return await _context.ExamQuestions
                 .AnyAsync(eq => eq.ExamId == examId && eq.QuestionId == questionId && eq.Id != excludeId);
+        }
+
+        public async Task<bool> ExistsSortOrderInExamAsync(int examId, int sortOrder, int? excludeId = null)
+        {
+            return await _context.ExamQuestions
+                .AnyAsync(eq => eq.ExamId == examId && eq.SortOrder == sortOrder && eq.Id != excludeId);
         }
 
         public async Task<IEnumerable<ExamQuestion>> GetAllByExamIdWithQuestionAsync(int examId)

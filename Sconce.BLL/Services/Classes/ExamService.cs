@@ -60,7 +60,7 @@ namespace Sconce.BLL.Services.Classes
             exam.ExamStatus = ExamStatus.Draft;
 
             var rows = await _examRepository.AddAsync(exam);
-            return (rows, new SuccessResponse<string> { Data = "Exam created successfully." });
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
         }
 
         public async Task<Response> GetAllBySectionAsync(int sectionId, string instructorId, bool onlyActive = false)
@@ -142,7 +142,7 @@ namespace Sconce.BLL.Services.Classes
             exam.UpdatedAt = DateTime.UtcNow;
 
             var rows = await _examRepository.UpdateAsync(exam);
-            return (rows, new SuccessResponse<string> { Data = "Exam updated successfully." });
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int id)
@@ -159,7 +159,7 @@ namespace Sconce.BLL.Services.Classes
             // If exam has questions or attempts, block deletion
 
             var rows = await _examRepository.DeleteAsync(exam);
-            return (rows, new SuccessResponse<string> { Data = "Exam deleted successfully." });
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
 
         public async Task<(bool Success, Response Response)> ChangeExamStatusAsync(int id, ExamStatus newStatus)

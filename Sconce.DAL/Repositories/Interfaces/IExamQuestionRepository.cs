@@ -9,6 +9,7 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<IEnumerable<ExamQuestion>> GetAllByExamIdAsync(int examId);
         Task<ExamQuestion?> GetByExamAndQuestionAsync(int examId, int questionId);
         Task<bool> ExistsQuestionInExamAsync(int examId, int questionId, int? excludeId = null);
+        Task<bool> ExistsSortOrderInExamAsync(int examId, int sortOrder, int? excludeId = null);
         Task<IEnumerable<ExamQuestion>> GetAllByExamIdWithQuestionAsync(int examId); // Include Question
     }
 }
