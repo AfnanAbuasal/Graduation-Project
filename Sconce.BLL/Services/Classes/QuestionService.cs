@@ -20,12 +20,14 @@ namespace Sconce.BLL.Services.Classes
         private readonly IQuestionRepository _questionRepository;
         private readonly ICourseRepository _courseRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IFileService _fileService;
 
-        public QuestionService(IQuestionRepository questionRepository, ICourseRepository courseRepository, IHttpContextAccessor httpContextAccessor) : base(questionRepository)
+        public QuestionService(IQuestionRepository questionRepository, ICourseRepository courseRepository, IHttpContextAccessor httpContextAccessor, IFileService fileService) : base(questionRepository)
         {
             _questionRepository = questionRepository;
             _courseRepository = courseRepository;
             _httpContextAccessor = httpContextAccessor;
+            _fileService = fileService;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(QuestionRequest request)
@@ -62,6 +64,20 @@ namespace Sconce.BLL.Services.Classes
 
             var question = request.Adapt<EssayQuestion>();
             question.CreatedByInstructorId = instructorId;
+
+            // Handle file upload if provided
+            if (request.File != null)
+            {
+                try
+                {
+                    question.QuestionFilePath = await _fileService.SaveFileAsync(request.File, "Uploads/Questions");
+                }
+                catch (Exception ex)
+                {
+                    return (0, new ErrorResponse { Errors = [$"File upload failed: {ex.Message}"] });
+                }
+            }
+
             var rows = await _questionRepository.AddAsync(question);
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
         }
@@ -113,6 +129,26 @@ namespace Sconce.BLL.Services.Classes
             if (course == null)
                 return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
 
+            // Handle file upload if a new file is provided
+            if (request.File != null)
+            {
+                try
+                {
+                    // Delete old file if exists
+                    if (!string.IsNullOrEmpty(entity.QuestionFilePath))
+                    {
+                        await _fileService.DeleteFileAsync(entity.QuestionFilePath);
+                    }
+
+                    // Save new file
+                    entity.QuestionFilePath = await _fileService.SaveFileAsync(request.File, "Uploads/Questions");
+                }
+                catch (Exception ex)
+                {
+                    return (0, new ErrorResponse { Errors = [$"File upload failed: {ex.Message}"] });
+                }
+            }
+
             request.Adapt(entity);
             entity.UpdatedAt = DateTime.UtcNow;
 
@@ -133,6 +169,10 @@ namespace Sconce.BLL.Services.Classes
             if (entity.CreatedByInstructorId != instructorId)
                 return (0, new ErrorResponse { Errors = ["Not authorized to delete this question."] });
 
+            // Delete associated file if it's an essay question with a file
+            if (entity is EssayQuestion essayQuestion && !string.IsNullOrEmpty(essayQuestion.QuestionFilePath))
+                await _fileService.DeleteFileAsync(essayQuestion.QuestionFilePath);
+            
             var rows = await _questionRepository.DeleteAsync(entity);
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }

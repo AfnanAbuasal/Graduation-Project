@@ -5,5 +5,6 @@ namespace Sconce.DAL.DTO.Responses
         public bool AllowFileUpload { get; set; }
         public int? MaxWords { get; set; }
         public int? MaxFileSizeMb { get; set; }
+        public string? QuestionFilePath { get; set; }
     }
 }

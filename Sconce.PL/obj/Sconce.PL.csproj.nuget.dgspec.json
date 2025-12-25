@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj": {}
+    "D:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj": {}
   },
   "projects": {
-    "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
+    "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
+        "projectUniqueName": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
         "projectName": "Sconce.BLL",
-        "projectPath": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
+        "projectPath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj",
         "packagesPath": "C:\\Users\\Al-Madani\\.nuget\\packages\\",
-        "outputPath": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\obj\\",
+        "outputPath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -165,14 +165,14 @@
         }
       }
     },
-    "d:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj": {
+    "D:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj",
+        "projectUniqueName": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj",
         "projectName": "Sconce.PL",
-        "projectPath": "d:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj",
+        "projectPath": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Sconce.PL.csproj",
         "packagesPath": "C:\\Users\\Al-Madani\\.nuget\\packages\\",
-        "outputPath": "d:\\GraduationProject\\Sconce\\Sconce.PL\\obj\\",
+        "outputPath": "D:\\GraduationProject\\Sconce\\Sconce.PL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -193,8 +193,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
-                "projectPath": "d:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj"
+              "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj": {
+                "projectPath": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Sconce.BLL.csproj"
               }
             }
           }
