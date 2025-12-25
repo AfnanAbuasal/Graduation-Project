@@ -888,6 +888,37 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
+    "Method": "IncreaseCapacity",
+    "RelativePath": "api/Admin/Sections/{id}/IncreaseCapacity",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.IncreaseCapacityRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "ToggleStatus",
     "RelativePath": "api/Admin/Sections/{id}/ToggleStatus",
     "HttpMethod": "PATCH",

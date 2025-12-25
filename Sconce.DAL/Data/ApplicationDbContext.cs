@@ -30,18 +30,20 @@ namespace Sconce.DAL.Data
         public DbSet<Section> Sections { get; set; }
 
         // Materials
-
         public DbSet<Content> Contents { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Text> Texts { get; set; }
         public DbSet<ZoomMeeting> ZoomMeetings { get; set; }
         public DbSet<Submission> Submissions { get; set; }
-        public DbSet<Dropout> Dropouts { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
         public DbSet<EssayQuestion> EssayQuestions { get; set; }
         public DbSet<Choice> Choices { get; set; }
         public DbSet<Exam> Exams { get; set; }
+        public DbSet<ExamQuestion> ExamQuestions { get; set; }
+
+        // Other
+        public DbSet<Dropout> Dropouts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -136,6 +138,30 @@ namespace Sconce.DAL.Data
 
                 entity.Property(e => e.ExamStatus)
                     .HasDefaultValue(ExamStatus.Draft);
+            });
+
+            builder.Entity<ExamQuestion>(entity =>
+            {
+                entity.Property(eq => eq.Points)
+                    .HasColumnType("decimal(6,2)");
+
+                entity.HasOne(eq => eq.Exam)
+                    .WithMany()
+                    .HasForeignKey(eq => eq.ExamId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(eq => eq.Question)
+                    .WithMany()
+                    .HasForeignKey(eq => eq.QuestionId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Unique constraint: (ExamId, SortOrder)
+                entity.HasIndex(eq => new { eq.ExamId, eq.SortOrder })
+                    .IsUnique();
+
+                // Unique constraint: (ExamId, QuestionId) to prevent duplicates
+                entity.HasIndex(eq => new { eq.ExamId, eq.QuestionId })
+                    .IsUnique();
             });
         }
     }

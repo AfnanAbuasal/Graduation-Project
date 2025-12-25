@@ -12,6 +12,7 @@ namespace Sconce.DAL.DTO.Responses
         public string DifficultyDisplay => Difficulty.ToDisplayString();
         public string CreatedByInstructorId { get; set; } = string.Empty;
         public int CourseId { get; set; }
+		public string Type { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();

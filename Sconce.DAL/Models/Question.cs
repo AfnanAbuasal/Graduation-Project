@@ -14,5 +14,13 @@ namespace Sconce.DAL.Models
         public string CreatedByInstructorId { get; set; }
         public int CourseId { get; set; }
         public Course Course { get; set; }
+
+        public string Type { get; private set; }
+
+		public Question()
+		{
+			// Set to most-derived class name (e.g., EssayQuestion)
+			Type = GetType().Name;
+		}
     }
 }
