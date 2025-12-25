@@ -1,0 +1,18 @@
+using Sconce.DAL.DTO.Requests;
+using Sconce.DAL.DTO.Responses;
+using Sconce.DAL.Models;
+using Sconce.DAL.Models.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sconce.BLL.Services.Interfaces
+{
+    public interface IExamService : IGenericService<ExamRequest, ExamResponse, Exam>
+    {
+        Task<Response> GetAllBySectionAsync(int sectionId, bool onlyActive = false);
+        Task<(bool Success, Response Response)> ChangeExamStatusAsync(int id, ExamStatus newStatus);
+    }
+}
