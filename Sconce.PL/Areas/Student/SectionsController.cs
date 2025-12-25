@@ -23,6 +23,7 @@ namespace Sconce.PL.Areas.Student
         public async Task<ActionResult<Response>> GetSectionContent([FromRoute] int sectionId)
         {
             var result = await _contentService.GetBySectionIdAsync(sectionId);
+            if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }
     }

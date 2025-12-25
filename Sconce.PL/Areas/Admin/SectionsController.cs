@@ -108,5 +108,17 @@ namespace Sconce.PL.Areas.Admin
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Increases the capacity of a section.
+        [HttpPatch("{id}/IncreaseCapacity")]
+        public async Task<ActionResult<Response>> IncreaseCapacity([FromRoute] int id, [FromBody] IncreaseCapacityRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _sectionService.IncreaseCapacityAsync(id, request.AdditionalCapacity);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }

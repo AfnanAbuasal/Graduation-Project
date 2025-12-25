@@ -41,7 +41,8 @@ namespace Sconce.PL.Areas.Instructor
             if (string.IsNullOrWhiteSpace(instructorId))
                 return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
 
-            var result = await _contentService.GetBySectionIdAsync(sectionId, instructorId);
+            var result = await _contentService.GetBySectionIdAsync(sectionId);
+            if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }
     }

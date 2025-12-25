@@ -50,7 +50,7 @@ namespace Sconce.DAL.Repositories.Classes
                 .Include(s => s.Student);
 
             if (!withTracking)
-                query = query.AsNoTracking();
+                query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Submission, Student>)query.AsNoTracking();
 
             return await query.ToListAsync();
         }

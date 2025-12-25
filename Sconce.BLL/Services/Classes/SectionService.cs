@@ -145,5 +145,21 @@ namespace Sconce.BLL.Services.Classes
 
             return (true, new SuccessResponse<string> { Data = "Instructor unassigned from section successfully." });
         }
+
+        public async Task<(bool Success, Response Response)> IncreaseCapacityAsync(int sectionId, int additionalCapacity)
+        {
+            if (additionalCapacity <= 0)
+                return (false, new ErrorResponse { Errors = ["Additional capacity must be greater than 0."] });
+
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section == null)
+                return (false, new ErrorResponse { Errors = ["Section not found."] });
+
+            section.Capacity += additionalCapacity;
+            section.UpdatedAt = DateTime.UtcNow;
+            await _sectionRepository.UpdateAsync(section);
+
+            return (true, new SuccessResponse<string> { Data = $"Section capacity increased by {additionalCapacity}. New capacity: {section.Capacity}." });
+        }
     }
 }

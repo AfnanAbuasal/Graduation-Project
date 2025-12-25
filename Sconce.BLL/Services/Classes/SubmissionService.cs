@@ -23,6 +23,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
     private readonly IUrlHelper _urlHelper;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly INotificationService _notificationService;
+    private readonly ISectionRepository _sectionRepository;
 
     public SubmissionService(
         ISubmissionRepository submissionRepository,
@@ -30,7 +31,8 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         IUrlHelper urlHelper,
         IAssignmentRepository assignmentRepository,
         IHttpContextAccessor httpContextAccessor,
-        INotificationService notificationService)
+        INotificationService notificationService,
+        ISectionRepository sectionRepository)
         : base(submissionRepository, fileService, urlHelper, "Uploads/Submissions")
     {
         _submissionRepository = submissionRepository;
@@ -39,6 +41,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         _urlHelper = urlHelper;
         _httpContextAccessor = httpContextAccessor;
         _notificationService = notificationService;
+        _sectionRepository = sectionRepository;
     }
 
     public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SubmissionRequest request)
@@ -241,7 +244,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
             return new ErrorResponse { Errors = ["Assignment not found."] };
 
         // Verify instructor has access to the assignment's section
-        var section = await _assignmentRepository.GetSectionByAssignmentIdAsync(assignmentId);
+        var section = await _sectionRepository.GetByIdAsync(assignment.SectionId);
         if (section == null || section.InstructorId != instructorId)
             return new ErrorResponse { Errors = ["Unauthorized access to this assignment."] };
 

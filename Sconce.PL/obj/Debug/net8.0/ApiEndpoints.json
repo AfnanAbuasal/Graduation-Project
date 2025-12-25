@@ -1277,37 +1277,6 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
-    "Method": "GetById",
-    "RelativePath": "api/Choices/{questionId}/{text}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "questionId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "text",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
     "Method": "GetByQuestionId",
     "RelativePath": "api/Choices/Question/{questionId}",
     "HttpMethod": "GET",
@@ -1680,32 +1649,6 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.AssignmentsController",
-    "Method": "GetAll",
-    "RelativePath": "api/Instructor/Assignments",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "onlyActive",
-        "Type": "System.Boolean",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.AssignmentsController",
     "Method": "Create",
     "RelativePath": "api/Instructor/Assignments",
     "HttpMethod": "POST",
@@ -1910,6 +1853,229 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Instructor.AssignmentsController",
+    "Method": "GetBySection",
+    "RelativePath": "api/Instructor/Assignments/Section/{sectionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "Create",
+    "RelativePath": "api/Instructor/Exams",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ExamRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "GetById",
+    "RelativePath": "api/Instructor/Exams/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "Update",
+    "RelativePath": "api/Instructor/Exams/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ExamRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "Delete",
+    "RelativePath": "api/Instructor/Exams/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "ChangeStatus",
+    "RelativePath": "api/Instructor/Exams/{id}/ExamStatus",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "newStatus",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "ToggleStatus",
+    "RelativePath": "api/Instructor/Exams/{id}/ToggleStatus",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "GetBySection",
+    "RelativePath": "api/Instructor/Exams/Section/{sectionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Instructor.SectionsController",
     "Method": "GetSectionContent",
     "RelativePath": "api/Instructor/Sections/{sectionId}/Content",
@@ -1951,32 +2117,6 @@
       {
         "Name": "sortBy",
         "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.SubmissionsController",
-    "Method": "GetAll",
-    "RelativePath": "api/Instructor/Submissions",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "onlyActive",
-        "Type": "System.Boolean",
         "IsRequired": false
       }
     ],
@@ -2050,17 +2190,17 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Instructor.TextsController",
-    "Method": "GetAll",
-    "RelativePath": "api/Instructor/Texts",
+    "ContainingType": "Sconce.PL.Areas.Instructor.SubmissionsController",
+    "Method": "GetByAssignment",
+    "RelativePath": "api/Instructor/Submissions/Assignment/{assignmentId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "onlyActive",
-        "Type": "System.Boolean",
-        "IsRequired": false
+        "Name": "assignmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -2211,17 +2351,17 @@
     ]
   },
   {
-    "ContainingType": "Sconce.PL.Areas.Instructor.ZoomMeetingsController",
-    "Method": "GetAll",
-    "RelativePath": "api/Instructor/ZoomMeetings",
+    "ContainingType": "Sconce.PL.Areas.Instructor.TextsController",
+    "Method": "GetBySection",
+    "RelativePath": "api/Instructor/Texts/Section/{sectionId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "onlyActive",
-        "Type": "System.Boolean",
-        "IsRequired": false
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -2355,6 +2495,32 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ZoomMeetingsController",
+    "Method": "GetBySection",
+    "RelativePath": "api/Instructor/ZoomMeetings/Section/{sectionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -2986,6 +3152,32 @@
     "Method": "CancelRequest",
     "RelativePath": "api/Student/Dropouts/{id}",
     "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ExamsController",
+    "Method": "GetById",
+    "RelativePath": "api/Student/Exams/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [

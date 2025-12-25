@@ -84,5 +84,17 @@ namespace Sconce.DAL.Extensions
             };
         }
 
+        // Exam Status
+        public static string ToDisplayString(this ExamStatus examStatus)
+        {
+            return examStatus switch
+            {
+                ExamStatus.Draft => "Draft",
+                ExamStatus.Published => "Published",
+                ExamStatus.Closed => "Closed",
+                _ => "Unknown"
+            };
+        }
+
     }
 }

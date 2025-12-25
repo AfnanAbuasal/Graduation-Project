@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json.Serialization;
+using Sconce.DAL.Extensions;
 using Sconce.DAL.Models.Enums;
 
 namespace Sconce.DAL.DTO.Responses
@@ -16,6 +18,7 @@ namespace Sconce.DAL.DTO.Responses
         public int WeekNumber { get; set; }
 		public string Type { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
-        public ExamStatus ExamStatus { get; set; }
+        [JsonIgnore] public ExamStatus ExamStatus { get; set; }
+        public string ExamStatusDisplay => ExamStatus.ToDisplayString();
     }
 }
