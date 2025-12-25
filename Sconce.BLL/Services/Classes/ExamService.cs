@@ -63,13 +63,18 @@ namespace Sconce.BLL.Services.Classes
             return (rows, new SuccessResponse<string> { Data = "Exam created successfully." });
         }
 
-        public async Task<Response> GetAllBySectionAsync(int sectionId, bool onlyActive = false)
+        public async Task<Response> GetAllBySectionAsync(int sectionId, string instructorId, bool onlyActive = false)
         {
             // Validate Section exists
             var section = await _sectionRepository.GetByIdAsync(sectionId);
             if (section == null)
                 return new ErrorResponse { Errors = ["Section not found."] };
 
+            // Verify section is assigned to the instructor
+            if (section.InstructorId != instructorId)
+                return new ErrorResponse { Errors = ["Unauthorized access to this section."] };
+
+            // Get all exams for this section
             var exams = await _examRepository.GetAllBySectionIdAsync(sectionId, withTracking: false);
 
             if (onlyActive)

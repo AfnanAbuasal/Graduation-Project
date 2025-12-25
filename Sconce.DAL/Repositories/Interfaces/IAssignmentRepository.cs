@@ -9,5 +9,6 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface IAssignmentRepository : IGenericRepository<Assignment>
     {
+        Task<IEnumerable<Assignment>> GetAllBySectionIdAsync(int sectionId, bool withTracking = false);
     }
 }

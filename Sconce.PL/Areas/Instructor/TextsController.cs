@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
+using System.Security.Claims;
 
 namespace Sconce.PL.Areas.Instructor
 {
@@ -19,12 +20,17 @@ namespace Sconce.PL.Areas.Instructor
             _textService = textService;
         }
 
-        // Lists all text content, optionally only the active ones.
-        [HttpGet]
-        public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
+        // Gets all text content for a section (scoped to instructor's section).
+        [HttpGet("Section/{sectionId}")]
+        public async Task<ActionResult<Response>> GetBySection([FromRoute] int sectionId)
         {
-            var texts = await _textService.GetAllAsync(onlyActive);
-            return Ok(texts);
+            var instructorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var result = await _textService.GetAllBySectionAsync(sectionId, instructorId);
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
         }
 
         // Shows details for a specific text content item.

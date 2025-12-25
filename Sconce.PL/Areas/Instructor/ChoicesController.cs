@@ -53,13 +53,13 @@ namespace Sconce.PL.Areas.Instructor
         }
 
         // Gets a specific choice by question ID and text (composite key).
-        [HttpGet("{questionId}/{text}")]
-        public async Task<ActionResult<Response>> GetById([FromRoute] int questionId, [FromRoute] string text)
-        {
-            var result = await _choiceService.GetByIdAsync(questionId, text);
-            if (!result.Success) return NotFound(result.Response);
-            return Ok(result.Response);
-        }
+        //[HttpGet("{questionId}/{text}")]
+        //public async Task<ActionResult<Response>> GetById([FromRoute] int questionId, [FromRoute] string text)
+        //{
+        //    var result = await _choiceService.GetByIdAsync(questionId, text);
+        //    if (!result.Success) return NotFound(result.Response);
+        //    return Ok(result.Response);
+        //}
 
         // Gets all choices for a specific multiple choice question.
         [HttpGet("Question/{questionId}")]

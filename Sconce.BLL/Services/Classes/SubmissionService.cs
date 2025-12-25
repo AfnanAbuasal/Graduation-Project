@@ -232,4 +232,31 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
 
         return (true, new SuccessResponse<string> { Data = "AssignmentSubmission graded successfully." });
     }
+
+    public async Task<Response> GetAllByAssignmentAsync(int assignmentId, string instructorId)
+    {
+        // Verify assignment exists
+        var assignment = await _assignmentRepository.GetByIdAsync(assignmentId);
+        if (assignment == null)
+            return new ErrorResponse { Errors = ["Assignment not found."] };
+
+        // Verify instructor has access to the assignment's section
+        var section = await _assignmentRepository.GetSectionByAssignmentIdAsync(assignmentId);
+        if (section == null || section.InstructorId != instructorId)
+            return new ErrorResponse { Errors = ["Unauthorized access to this assignment."] };
+
+        // Get all submissions for this assignment
+        var submissions = await _submissionRepository.GetAllByAssignmentIdAsync(assignmentId, withTracking: false);
+
+        var responseList = new List<SubmissionResponse>();
+        foreach (var submission in submissions)
+        {
+            var dto = submission.Adapt<SubmissionResponse>();
+            dto.FileUrl = _urlHelper.BuildUrl(submission.FilePath);
+            dto.StudentName = submission.Student?.FullName;
+            responseList.Add(dto);
+        }
+
+        return new SuccessResponse<IEnumerable<SubmissionResponse>> { Data = responseList };
+    }
 }

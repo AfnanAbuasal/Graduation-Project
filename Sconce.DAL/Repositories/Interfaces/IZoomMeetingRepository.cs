@@ -9,5 +9,6 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
 	public interface IZoomMeetingRepository : IGenericRepository<ZoomMeeting>
 	{
+		Task<IEnumerable<ZoomMeeting>> GetAllBySectionIdAsync(int sectionId, bool withTracking = false);
 	}
 }

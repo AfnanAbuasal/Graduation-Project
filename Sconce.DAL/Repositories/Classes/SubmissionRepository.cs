@@ -42,5 +42,17 @@ namespace Sconce.DAL.Repositories.Classes
                 .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.AssignmentId == assignmentId && s.StudentId == studentId);
         }
+
+        public async Task<IEnumerable<Submission>> GetAllByAssignmentIdAsync(int assignmentId, bool withTracking = false)
+        {
+            var query = _context.Submissions
+                .Where(s => s.AssignmentId == assignmentId)
+                .Include(s => s.Student);
+
+            if (!withTracking)
+                query = query.AsNoTracking();
+
+            return await query.ToListAsync();
+        }
     }
 }

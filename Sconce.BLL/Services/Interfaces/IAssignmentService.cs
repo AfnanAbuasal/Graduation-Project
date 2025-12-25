@@ -11,5 +11,6 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IAssignmentService : IFileGenericService<AssignmentRequest, AssignmentResponse, Assignment>
     {
+        Task<Response> GetAllBySectionAsync(int sectionId, string instructorId);
     }
 }

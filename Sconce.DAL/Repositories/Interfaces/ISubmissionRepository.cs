@@ -12,5 +12,6 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<IEnumerable<Submission>> GetAllWithStudentAsync();
         Task<Submission?> GetByIdWithStudentAsync(int id);
         Task<Submission?> GetByAssignmentAndStudentAsync(int assignmentId, string studentId);
+        Task<IEnumerable<Submission>> GetAllByAssignmentIdAsync(int assignmentId, bool withTracking = false);
     }
 }

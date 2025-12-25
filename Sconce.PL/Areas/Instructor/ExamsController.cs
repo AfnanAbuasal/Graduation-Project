@@ -4,6 +4,7 @@ using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models.Enums;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Sconce.PL.Areas.Instructor
@@ -21,14 +22,6 @@ namespace Sconce.PL.Areas.Instructor
             _examService = examService;
         }
 
-        // Lists all exams, optionally only the active ones.
-        [HttpGet]
-        public async Task<ActionResult<Response>> GetAll([FromQuery] bool onlyActive = false)
-        {
-            var result = await _examService.GetAllAsync(onlyActive);
-            return Ok(result);
-        }
-
         // Shows details for a specific exam.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
@@ -38,11 +31,15 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
-        // Gets all exams for a section.
+        // Gets all exams for a section (scoped to instructor's section).
         [HttpGet("Section/{sectionId}")]
         public async Task<ActionResult<Response>> GetBySection([FromRoute] int sectionId, [FromQuery] bool onlyActive = false)
         {
-            var result = await _examService.GetAllBySectionAsync(sectionId, onlyActive);
+            var instructorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var result = await _examService.GetAllBySectionAsync(sectionId, instructorId, onlyActive);
             if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }

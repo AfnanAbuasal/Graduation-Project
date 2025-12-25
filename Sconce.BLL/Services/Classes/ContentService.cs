@@ -14,14 +14,23 @@ namespace Sconce.BLL.Services.Classes
 	public class ContentService : IContentService
 	{
 		private readonly IContentRepository _contentRepository;
+		private readonly ISectionRepository _sectionRepository;
 
-		public ContentService(IContentRepository contentRepository)
+		public ContentService(IContentRepository contentRepository, ISectionRepository sectionRepository)
 		{
 			_contentRepository = contentRepository;
+			_sectionRepository = sectionRepository;
 		}
 
-		public async Task<Response> GetBySectionIdAsync(int sectionId)
+		public async Task<Response> GetBySectionIdAsync(int sectionId, string instructorId)
 		{
+			// Validate Section exists and belongs to the instructor
+			var section = await _sectionRepository.GetByIdAsync(sectionId);
+			if (section == null)
+				return new ErrorResponse { Errors = ["Section not found."] };
+			if (section.InstructorId != instructorId)
+				return new ErrorResponse { Errors = ["Unauthorized access to this section."] };
+
 			var contents = await _contentRepository.GetBySectionIdAsync(sectionId);
 			var contentResponses = contents.Select(MapContentToResponse).ToList();
 

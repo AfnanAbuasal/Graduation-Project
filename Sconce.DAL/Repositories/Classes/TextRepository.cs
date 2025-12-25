@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Sconce.DAL.Data;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
@@ -11,6 +12,21 @@ namespace Sconce.DAL.Repositories.Classes
 {
     public class TextRepository : GenericRepository<Text>, ITextRepository
     {
-        public TextRepository(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
+
+        public TextRepository(ApplicationDbContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Text>> GetAllBySectionIdAsync(int sectionId, bool withTracking = false)
+        {
+            var query = _context.Set<Text>().Where(t => t.SectionId == sectionId);
+
+            if (!withTracking)
+                query = query.AsNoTracking();
+
+            return await query.ToListAsync();
+        }
     }
 }

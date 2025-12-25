@@ -9,5 +9,6 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface ITextRepository : IGenericRepository<Text>
     {
+        Task<IEnumerable<Text>> GetAllBySectionIdAsync(int sectionId, bool withTracking = false);
     }
 }

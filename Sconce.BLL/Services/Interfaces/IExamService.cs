@@ -12,7 +12,7 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IExamService : IGenericService<ExamRequest, ExamResponse, Exam>
     {
-        Task<Response> GetAllBySectionAsync(int sectionId, bool onlyActive = false);
+        Task<Response> GetAllBySectionAsync(int sectionId, string instructorId, bool onlyActive = false);
         Task<(bool Success, Response Response)> ChangeExamStatusAsync(int id, ExamStatus newStatus);
     }
 }

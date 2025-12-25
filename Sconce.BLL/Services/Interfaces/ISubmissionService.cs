@@ -13,5 +13,6 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<(bool Success, Response Response)> GradeSubmissionAsync(int submissionId, GradeSubmissionRequest request);
         Task<(bool Success, Response Response)> GetMySubmissionByAssignmentAsync(int assignmentId);
+        Task<Response> GetAllByAssignmentAsync(int assignmentId, string instructorId);
     }
 }

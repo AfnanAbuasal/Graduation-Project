@@ -37,7 +37,11 @@ namespace Sconce.PL.Areas.Instructor
         [HttpGet("{sectionId}/Content")]
         public async Task<ActionResult<Response>> GetSectionContent([FromRoute] int sectionId)
         {
-            var result = await _contentService.GetBySectionIdAsync(sectionId);
+            var instructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(instructorId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var result = await _contentService.GetBySectionIdAsync(sectionId, instructorId);
             return Ok(result);
         }
     }
