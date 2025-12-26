@@ -1110,7 +1110,7 @@
         }
       }
     },
-    "/api/Choices": {
+    "/api/Instructor/Choices": {
       "post": {
         "tags": [
           "Choices"
@@ -1158,7 +1158,7 @@
         }
       }
     },
-    "/api/Choices/{questionId}/{text}": {
+    "/api/Instructor/Choices/{questionId}/{text}": {
       "put": {
         "tags": [
           "Choices"
@@ -1271,7 +1271,7 @@
         }
       }
     },
-    "/api/Choices/Question/{questionId}": {
+    "/api/Instructor/Choices/Question/{questionId}": {
       "get": {
         "tags": [
           "Choices"
@@ -1883,7 +1883,7 @@
         }
       }
     },
-    "/api/EssayQuestions": {
+    "/api/Instructor/EssayQuestions": {
       "post": {
         "tags": [
           "EssayQuestions"
@@ -1931,7 +1931,7 @@
         }
       }
     },
-    "/api/EssayQuestions/{id}": {
+    "/api/Instructor/EssayQuestions/{id}": {
       "put": {
         "tags": [
           "EssayQuestions"
@@ -2066,7 +2066,7 @@
         }
       }
     },
-    "/api/EssayQuestions/Course/{courseId}": {
+    "/api/Instructor/EssayQuestions/Course/{courseId}": {
       "get": {
         "tags": [
           "EssayQuestions"
@@ -3274,7 +3274,7 @@
         }
       }
     },
-    "/api/MultipleChoiceQuestions": {
+    "/api/Instructor/MultipleChoiceQuestions": {
       "post": {
         "tags": [
           "MultipleChoiceQuestions"
@@ -3322,7 +3322,7 @@
         }
       }
     },
-    "/api/MultipleChoiceQuestions/{id}": {
+    "/api/Instructor/MultipleChoiceQuestions/{id}": {
       "put": {
         "tags": [
           "MultipleChoiceQuestions"
@@ -3457,7 +3457,7 @@
         }
       }
     },
-    "/api/MultipleChoiceQuestions/Course/{courseId}": {
+    "/api/Instructor/MultipleChoiceQuestions/Course/{courseId}": {
       "get": {
         "tags": [
           "MultipleChoiceQuestions"
@@ -3816,7 +3816,7 @@
         }
       }
     },
-    "/api/Questions/Course/{courseId}": {
+    "/api/Instructor/Questions/Course/{courseId}": {
       "get": {
         "tags": [
           "Questions"
@@ -3856,7 +3856,7 @@
         }
       }
     },
-    "/api/Questions/Mine": {
+    "/api/Instructor/Questions/Mine": {
       "get": {
         "tags": [
           "Questions"
@@ -3885,7 +3885,7 @@
         }
       }
     },
-    "/api/Questions/Type/{type}": {
+    "/api/Instructor/Questions/Type/{type}": {
       "get": {
         "tags": [
           "Questions"
@@ -3924,7 +3924,7 @@
         }
       }
     },
-    "/api/Questions/Difficulty/{difficulty}": {
+    "/api/Instructor/Questions/Difficulty/{difficulty}": {
       "get": {
         "tags": [
           "Questions"
@@ -3963,7 +3963,7 @@
         }
       }
     },
-    "/api/Questions/Course/{courseId}/Search": {
+    "/api/Instructor/Questions/Course/{courseId}/Search": {
       "get": {
         "tags": [
           "Questions"
@@ -4010,7 +4010,7 @@
         }
       }
     },
-    "/api/Questions/Course/{courseId}/Count": {
+    "/api/Instructor/Questions/Course/{courseId}/Count": {
       "get": {
         "tags": [
           "Questions"
@@ -4050,7 +4050,7 @@
         }
       }
     },
-    "/api/Questions/Course/{courseId}/Count/Type/{type}": {
+    "/api/Instructor/Questions/Course/{courseId}/Count/Type/{type}": {
       "get": {
         "tags": [
           "Questions"

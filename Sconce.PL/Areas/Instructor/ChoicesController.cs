@@ -6,7 +6,7 @@ using Sconce.DAL.DTO.Responses;
 
 namespace Sconce.PL.Areas.Instructor
 {
-    [Route("api/[controller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
     [Area("Instructor")]
     [Authorize(Roles = "Instructor")]
