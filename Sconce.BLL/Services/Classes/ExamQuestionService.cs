@@ -184,7 +184,7 @@ namespace Sconce.BLL.Services.Classes
                 return (false, new ErrorResponse { Errors = ["SortOrder values in payload must be unique."] });
 
             // Fetch existing EQs for this exam
-            var eqs = await _examQuestionRepository.GetAllByExamIdAsync(examId);
+            var eqs = (await _examQuestionRepository.GetAllByExamIdAsync(examId)).ToList();
             var eqIds = eqs.Select(e => e.Id).ToHashSet();
 
             // Ensure all provided IDs belong to this exam
@@ -192,12 +192,33 @@ namespace Sconce.BLL.Services.Classes
             if (!providedIds.All(id => eqIds.Contains(id)))
                 return (false, new ErrorResponse { Errors = ["One or more provided ExamQuestionId do not belong to this exam."] });
 
+            // Prevent collisions with questions not included in the payload
+            var untouchedSortOrders = eqs
+                .Where(eq => !providedIds.Contains(eq.Id))
+                .Select(eq => eq.SortOrder)
+                .ToHashSet();
+
+            if (newOrder.Any(o => untouchedSortOrders.Contains(o.SortOrder)))
+                return (false, new ErrorResponse { Errors = ["SortOrder values conflict with existing questions not in the payload."] });
+
             // Apply new sort orders
+            // Step 1: move affected rows to temporary high numbers to satisfy unique index during swap
             var rowsAffected = 0;
+            var tempBase = 1_000_000;
+            var tempIncrement = 0;
+
+            foreach (var (ExamQuestionId, _) in newOrder)
+            {
+                var entity = eqs.First(e => e.Id == ExamQuestionId);
+                entity.SortOrder = tempBase + tempIncrement++;
+                entity.UpdatedAt = DateTime.UtcNow;
+                rowsAffected += await _examQuestionRepository.UpdateAsync(entity);
+            }
+
+            // Step 2: apply the desired ordering
             foreach (var (ExamQuestionId, SortOrder) in newOrder)
             {
                 var entity = eqs.First(e => e.Id == ExamQuestionId);
-                // No need to re-check uniqueness here since payload was validated; apply directly
                 entity.SortOrder = SortOrder;
                 entity.UpdatedAt = DateTime.UtcNow;
                 rowsAffected += await _examQuestionRepository.UpdateAsync(entity);
@@ -255,7 +276,7 @@ namespace Sconce.BLL.Services.Classes
             var allChoices = new List<Choice>();
             if (mcqQuestionIds.Any())
             {
-                allChoices = await _choiceRepository.GetByQuestionIdsAsync(mcqQuestionIds);
+                allChoices = (List<Choice>)await _choiceRepository.GetByQuestionIdsAsync(mcqQuestionIds);
             }
 
             // Group choices by QuestionId for fast lookup
