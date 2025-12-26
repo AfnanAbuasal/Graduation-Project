@@ -18,16 +18,22 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly IExamRepository _examRepository;
         private readonly ISectionRepository _sectionRepository;
+        private readonly IExamQuestionRepository _examQuestionRepository;
+        private readonly IChoiceRepository _choiceRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ExamService(
             IExamRepository examRepository,
             ISectionRepository sectionRepository,
+            IExamQuestionRepository examQuestionRepository,
+            IChoiceRepository choiceRepository,
             IHttpContextAccessor httpContextAccessor)
             : base(examRepository)
         {
             _examRepository = examRepository;
             _sectionRepository = sectionRepository;
+            _examQuestionRepository = examQuestionRepository;
+            _choiceRepository = choiceRepository;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -187,8 +193,44 @@ namespace Sconce.BLL.Services.Classes
                 if (string.IsNullOrWhiteSpace(exam.Title))
                     return (false, new ErrorResponse { Errors = ["Exam must have a title to be published."] });
 
-                // TODO: Ensure exam has at least 1 question (when ExamQuestions is implemented)
-                // TODO: Ensure all MCQ questions have at least 1 choice marked as IsCorrect (when ExamQuestions is implemented)
+                // Ensure exam has at least 1 question
+                var examQuestions = await _examQuestionRepository.GetAllDetailsByExamIdAsync(exam.Id);
+                if (!examQuestions.Any())
+                    return (false, new ErrorResponse { Errors = ["Exam must have at least one question to be published."] });
+
+                // Ensure all MCQ questions have at least 1 choice marked as IsCorrect
+                var mcqQuestionIds = examQuestions
+                    .Where(eq => eq.Question.Type == "MultipleChoiceQuestion")
+                    .Select(eq => eq.QuestionId)
+                    .Distinct()
+                    .ToList();
+
+                if (mcqQuestionIds.Any())
+                {
+                    var allChoices = await _choiceRepository.GetByQuestionIdsAsync(mcqQuestionIds);
+                    var choicesByQuestionId = allChoices.GroupBy(c => c.QuestionId)
+                        .ToDictionary(g => g.Key, g => g.ToList());
+
+                    foreach (var mcqId in mcqQuestionIds)
+                    {
+                        if (!choicesByQuestionId.ContainsKey(mcqId))
+                        {
+                            return (false, new ErrorResponse 
+                            { 
+                                Errors = [$"Multiple choice question (ID: {mcqId}) has no choices defined."] 
+                            });
+                        }
+
+                        var choices = choicesByQuestionId[mcqId];
+                        if (!choices.Any(c => c.IsCorrect))
+                        {
+                            return (false, new ErrorResponse 
+                            { 
+                                Errors = [$"Multiple choice question (ID: {mcqId}) must have at least one correct answer."] 
+                            });
+                        }
+                    }
+                }
             }
 
             exam.ExamStatus = newStatus;
