@@ -19,6 +19,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IExamRepository _examRepository;
         private readonly IQuestionRepository _questionRepository;
         private readonly ISectionRepository _sectionRepository;
+        private readonly IChoiceRepository _choiceRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ExamQuestionService(
@@ -26,6 +27,7 @@ namespace Sconce.BLL.Services.Classes
             IExamRepository examRepository,
             IQuestionRepository questionRepository,
             ISectionRepository sectionRepository,
+            IChoiceRepository choiceRepository,
             IHttpContextAccessor httpContextAccessor)
             : base(examQuestionRepository)
         {
@@ -33,6 +35,7 @@ namespace Sconce.BLL.Services.Classes
             _examRepository = examRepository;
             _questionRepository = questionRepository;
             _sectionRepository = sectionRepository;
+            _choiceRepository = choiceRepository;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -201,6 +204,117 @@ namespace Sconce.BLL.Services.Classes
             }
 
             return (true, new SuccessResponse<string> { Data = "Exam questions reordered successfully." });
+        }
+
+        public async Task<Response> GetAllExamQuestionDetailsForInstructorAsync(int examId)
+        {
+            return await GetAllExamQuestionDetailsAsync(examId, includeCorrectAnswers: true, forStudent: false);
+        }
+
+        public async Task<Response> GetAllExamQuestionDetailsForStudentAsync(int examId)
+        {
+            return await GetAllExamQuestionDetailsAsync(examId, includeCorrectAnswers: false, forStudent: true);
+        }
+
+        private async Task<Response> GetAllExamQuestionDetailsAsync(int examId, bool includeCorrectAnswers, bool forStudent)
+        {
+            // Load exam by id
+            var exam = await _examRepository.GetByIdAsync(examId);
+            if (exam == null)
+                return new ErrorResponse { Errors = ["Exam not found."] };
+
+            // If forStudent: validate ExamStatus and availability window
+            if (forStudent)
+            {
+                if (exam.ExamStatus != ExamStatus.Published)
+                    return new ErrorResponse { Errors = ["Exam is not published yet."] };
+
+                var now = DateTime.UtcNow;
+
+                if (exam.AvailableFrom.HasValue && now < exam.AvailableFrom.Value)
+                    return new ErrorResponse { Errors = ["Exam not available yet."] };
+
+                if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
+                    return new ErrorResponse { Errors = ["Exam has ended."] };
+            }
+
+            // Load examQuestions with Question included (ordered by SortOrder)
+            var examQuestions = await _examQuestionRepository.GetAllDetailsByExamIdAsync(examId);
+
+            if (!examQuestions.Any())
+                return new SuccessResponse<List<ExamQuestionDetailsResponse>> { Data = new List<ExamQuestionDetailsResponse>() };
+
+            // Identify MCQ question IDs
+            var mcqQuestionIds = examQuestions
+                .Where(eq => eq.Question.Type == "MultipleChoiceQuestion")
+                .Select(eq => eq.QuestionId)
+                .Distinct()
+                .ToList();
+
+            // Load choices in one DB query for all MCQ questions
+            var allChoices = new List<Choice>();
+            if (mcqQuestionIds.Any())
+            {
+                allChoices = await _choiceRepository.GetByQuestionIdsAsync(mcqQuestionIds);
+            }
+
+            // Group choices by QuestionId for fast lookup
+            var choicesByQuestionId = allChoices.GroupBy(c => c.QuestionId)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            // Map each ExamQuestion into ExamQuestionDetailsResponse
+            var result = examQuestions.Select(eq =>
+            {
+                var question = eq.Question;
+                var promptToUse = !string.IsNullOrWhiteSpace(eq.PromptOverride) ? eq.PromptOverride : question.Prompt;
+
+                var questionResponse = new QuestionResponse
+                {
+                    Id = question.Id,
+                    Prompt = promptToUse,
+                    Difficulty = question.Difficulty,
+                    CreatedByInstructorId = question.CreatedByInstructorId,
+                    CourseId = question.CourseId,
+                    Type = question.Type,
+                    CreatedAt = question.CreatedAt,
+                    Status = question.Status
+                };
+
+                var examQuestionResponse = new ExamQuestionResponse
+                {
+                    Id = eq.Id,
+                    ExamId = eq.ExamId,
+                    QuestionId = eq.QuestionId,
+                    SortOrder = eq.SortOrder,
+                    Points = eq.Points,
+                    PromptOverride = eq.PromptOverride,
+                    CreatedAt = eq.CreatedAt,
+                    UpdatedAt = eq.UpdatedAt
+                };
+
+                var detailsResponse = new ExamQuestionDetailsResponse
+                {
+                    ExamQuestion = examQuestionResponse,
+                    Question = questionResponse
+                };
+
+                // Add choices for MCQ questions
+                if (question.Type == "MultipleChoiceQuestion" && choicesByQuestionId.ContainsKey(question.Id))
+                {
+                    var choices = choicesByQuestionId[question.Id];
+                    detailsResponse.Choices = choices.Select(c => new ChoiceResponse
+                    {
+                        QuestionId = c.QuestionId,
+                        Text = c.Text,
+                        IsCorrect = includeCorrectAnswers ? c.IsCorrect : false
+                    }).ToList();
+                }
+
+                return detailsResponse;
+            }).ToList();
+
+            // Return SuccessResponse
+            return new SuccessResponse<List<ExamQuestionDetailsResponse>> { Data = result };
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Sconce.DAL.Repositories.Interfaces
 
         Task<Choice?> GetByIdAsync(int questionId, string text);
         Task<IEnumerable<Choice>> GetByQuestionIdAsync(int questionId);
+        Task<IEnumerable<Choice>> GetByQuestionIdsAsync(IEnumerable<int> questionIds);
         Task<bool> ExistsAsync(int questionId, string text);
         Task<int> CountByQuestionAsync(int questionId);
     }

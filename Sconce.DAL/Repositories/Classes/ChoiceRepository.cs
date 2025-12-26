@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Sconce.DAL.Data;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,6 +47,16 @@ namespace Sconce.DAL.Repositories.Classes
             return await _context.Set<Choice>()
                 .Where(c => c.QuestionId == questionId)
                 .OrderBy(c => c.Text)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Choice>> GetByQuestionIdsAsync(IEnumerable<int> questionIds)
+        {
+            return await _context.Set<Choice>()
+                .Where(c => questionIds.Contains(c.QuestionId))
+                .OrderBy(c => c.QuestionId)
+                .ThenBy(c => c.Text)
                 .AsNoTracking()
                 .ToListAsync();
         }

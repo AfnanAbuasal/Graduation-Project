@@ -6,6 +6,6 @@ namespace Sconce.DAL.DTO.Responses
     {
         public bool AllowMultipleSelections { get; set; }
         public bool ShuffleChoices { get; set; }
-        public ICollection<ChoiceResponse> Choices { get; set; } = new List<ChoiceResponse>();
+        public ICollection<ChoiceResponse> Choices { get; set; }
     }
 }

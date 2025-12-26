@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Sconce.DAL.Data;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +50,16 @@ namespace Sconce.DAL.Repositories.Classes
                 .Include(eq => eq.Question)
                 .Where(eq => eq.ExamId == examId)
                 .OrderBy(eq => eq.SortOrder)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ExamQuestion>> GetAllDetailsByExamIdAsync(int examId)
+        {
+            return await _context.ExamQuestions
+                .Include(eq => eq.Question)
+                .Where(eq => eq.ExamId == examId)
+                .OrderBy(eq => eq.SortOrder)
+                .AsNoTracking()
                 .ToListAsync();
         }
     }
