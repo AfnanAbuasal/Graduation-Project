@@ -13,6 +13,8 @@ using Sconce.BLL.Services.Interfaces;
 using Sconce.BLL.Services.Classes;
 using Sconce.DAL.Repositories.Interfaces;
 using Sconce.DAL.Repositories.Classes;
+using Mapster;
+using Sconce.DAL.DTO.Responses;
 
 namespace Sconce.PL
 {

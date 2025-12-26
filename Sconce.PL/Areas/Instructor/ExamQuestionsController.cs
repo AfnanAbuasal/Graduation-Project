@@ -30,15 +30,6 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
-        // Gets all exam questions with full details (question prompt, choices, etc.) for instructor.
-        [HttpGet("Exam/{examId}/Details")]
-        public async Task<ActionResult<Response>> GetDetailsByExamId([FromRoute] int examId)
-        {
-            var result = await _examQuestionService.GetAllExamQuestionDetailsForInstructorAsync(examId);
-            if (result is ErrorResponse) return BadRequest(result);
-            return Ok(result);
-        }
-
         // Gets a specific exam question by ID.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)

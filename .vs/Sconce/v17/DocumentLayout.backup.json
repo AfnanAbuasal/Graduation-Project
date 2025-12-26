@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251226112315_AddedTypeToQuestions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sconce.DAL\\Data\\Migrations\\20251226112315_AddedTypeToQuestions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|d:\\graduationproject\\sconce\\sconce.bll\\services\\classes\\examquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|solutionrelative:sconce.bll\\services\\classes\\examquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\student\\examquestionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\student\\examquestionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|d:\\graduationproject\\sconce\\sconce.bll\\services\\interfaces\\iexamquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|solutionrelative:sconce.bll\\services\\interfaces\\iexamquestionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\instructor\\examquestionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\instructor\\examquestionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\repositories\\classes\\questionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\repositories\\classes\\questionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|d:\\graduationproject\\sconce\\sconce.bll\\services\\classes\\questionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{323A62D9-1352-47CB-8C2A-785D7B11FFAE}|Sconce.BLL\\Sconce.BLL.csproj|solutionrelative:sconce.bll\\services\\classes\\questionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +30,69 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "20251226112315_AddedTypeToQuestions.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251226112315_AddedTypeToQuestions.cs",
-              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20251226112315_AddedTypeToQuestions.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251226112315_AddedTypeToQuestions.cs",
-              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20251226112315_AddedTypeToQuestions.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IExamQuestionService.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Interfaces\\IExamQuestionService.cs",
+              "RelativeDocumentMoniker": "Sconce.BLL\\Services\\Interfaces\\IExamQuestionService.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Interfaces\\IExamQuestionService.cs",
+              "RelativeToolTip": "Sconce.BLL\\Services\\Interfaces\\IExamQuestionService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T11:23:15.558Z",
+              "WhenOpened": "2025-12-26T15:53:20.553Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ExamQuestionService.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Classes\\ExamQuestionService.cs",
               "RelativeDocumentMoniker": "Sconce.BLL\\Services\\Classes\\ExamQuestionService.cs",
               "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Classes\\ExamQuestionService.cs",
               "RelativeToolTip": "Sconce.BLL\\Services\\Classes\\ExamQuestionService.cs",
-              "ViewState": "AgIAAA0BAAAAAAAAAAAAABYBAABYAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwBAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T11:04:40.644Z",
+              "WhenOpened": "2025-12-26T15:52:52.868Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ExamQuestionsController.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\ExamQuestionsController.cs",
-              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Student\\ExamQuestionsController.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\ExamQuestionsController.cs",
-              "RelativeToolTip": "Sconce.PL\\Areas\\Student\\ExamQuestionsController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAwA4AAAAZAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Program.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Program.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Program.cs",
+              "RelativeToolTip": "Sconce.PL\\Program.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAQwJIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T11:04:33.509Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-26T13:37:42.877Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ExamQuestionsController.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Instructor\\ExamQuestionsController.cs",
-              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Instructor\\ExamQuestionsController.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Instructor\\ExamQuestionsController.cs",
-              "RelativeToolTip": "Sconce.PL\\Areas\\Instructor\\ExamQuestionsController.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAswBAAAAAZAAAAAAAAAA==",
+              "Title": "QuestionService.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Classes\\QuestionService.cs",
+              "RelativeDocumentMoniker": "Sconce.BLL\\Services\\Classes\\QuestionService.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.BLL\\Services\\Classes\\QuestionService.cs",
+              "RelativeToolTip": "Sconce.BLL\\Services\\Classes\\QuestionService.cs",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAUwNcAAABIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-26T11:04:23.188Z",
+              "WhenOpened": "2025-12-26T13:36:39.907Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuestionRepository.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Repositories\\Classes\\QuestionRepository.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Repositories\\Classes\\QuestionRepository.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Repositories\\Classes\\QuestionRepository.cs",
+              "RelativeToolTip": "Sconce.DAL\\Repositories\\Classes\\QuestionRepository.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBoAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-26T13:27:40.307Z",
               "EditorCaption": ""
             }
           ]

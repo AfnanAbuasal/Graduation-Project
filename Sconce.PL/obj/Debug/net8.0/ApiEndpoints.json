@@ -2072,32 +2072,6 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ExamQuestionsController",
-    "Method": "GetDetailsByExamId",
-    "RelativePath": "api/Instructor/ExamQuestions/Exam/{examId}/Details",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "examId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.ExamQuestionsController",
     "Method": "Reorder",
     "RelativePath": "api/Instructor/ExamQuestions/Exam/{examId}/Reorder",
     "HttpMethod": "PATCH",

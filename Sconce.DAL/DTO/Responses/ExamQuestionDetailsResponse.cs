@@ -8,9 +8,14 @@ namespace Sconce.DAL.DTO.Responses
 {
     public class ExamQuestionDetailsResponse
     {
-        // Has-A relationships (composition)
-        public ExamQuestionResponse ExamQuestion { get; set; }
-        public QuestionResponse Question { get; set; }
-        public List<ChoiceResponse>? Choices { get; set; }
+        public int Id { get; set; }
+        public int ExamId { get; set; }
+        public int QuestionId { get; set; }
+        public int SortOrder { get; set; }
+        public decimal Points { get; set; }
+        public string Prompt { get; set; }
+        [JsonIgnore] public Difficulty Difficulty { get; set; }
+        public string DifficultyDisplay => Difficulty.ToDisplayString();
+        public List<ChoiceResponse> Choices { get; set; }
     }
 }

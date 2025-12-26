@@ -111,7 +111,7 @@ namespace Sconce.DAL.Data
                 entity.HasKey(c => new { c.QuestionId, c.Text });
 
                 entity.HasOne(c => c.Question)
-                    .WithMany()
+                    .WithMany(q => q.Choices)
                     .HasForeignKey(c => c.QuestionId)
                     .OnDelete(DeleteBehavior.Cascade);
 

@@ -227,37 +227,24 @@ namespace Sconce.BLL.Services.Classes
             return (true, new SuccessResponse<string> { Data = "Exam questions reordered successfully." });
         }
 
-        public async Task<Response> GetAllExamQuestionDetailsForInstructorAsync(int examId)
-        {
-            return await GetAllExamQuestionDetailsAsync(examId, includeCorrectAnswers: true, forStudent: false);
-        }
-
         public async Task<Response> GetAllExamQuestionDetailsForStudentAsync(int examId)
-        {
-            return await GetAllExamQuestionDetailsAsync(examId, includeCorrectAnswers: false, forStudent: true);
-        }
-
-        private async Task<Response> GetAllExamQuestionDetailsAsync(int examId, bool includeCorrectAnswers, bool forStudent)
         {
             // Load exam by id
             var exam = await _examRepository.GetByIdAsync(examId);
             if (exam == null)
                 return new ErrorResponse { Errors = ["Exam not found."] };
 
-            // If forStudent: validate ExamStatus and availability window
-            if (forStudent)
-            {
-                if (exam.ExamStatus != ExamStatus.Published)
-                    return new ErrorResponse { Errors = ["Exam is not published yet."] };
+            // Validate ExamStatus and availability window for students
+            if (exam.ExamStatus != ExamStatus.Published)
+                return new ErrorResponse { Errors = ["Exam is not published yet."] };
 
-                var now = DateTime.UtcNow;
+            var now = DateTime.UtcNow;
 
-                if (exam.AvailableFrom.HasValue && now < exam.AvailableFrom.Value)
-                    return new ErrorResponse { Errors = ["Exam not available yet."] };
+            if (exam.AvailableFrom.HasValue && now < exam.AvailableFrom.Value)
+                return new ErrorResponse { Errors = ["Exam not available yet."] };
 
-                if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
-                    return new ErrorResponse { Errors = ["Exam has ended."] };
-            }
+            if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
+                return new ErrorResponse { Errors = ["Exam has ended."] };
 
             // Load examQuestions with Question included (ordered by SortOrder)
             var examQuestions = await _examQuestionRepository.GetAllDetailsByExamIdAsync(examId);
@@ -283,43 +270,24 @@ namespace Sconce.BLL.Services.Classes
             var choicesByQuestionId = allChoices.GroupBy(c => c.QuestionId)
                 .ToDictionary(g => g.Key, g => g.ToList());
 
-            // Map each ExamQuestion into ExamQuestionDetailsResponse
+            // Map each ExamQuestion into ExamQuestionDetailsResponse (manual mapping)
             var result = examQuestions.Select(eq =>
             {
                 var question = eq.Question;
                 var promptToUse = !string.IsNullOrWhiteSpace(eq.PromptOverride) ? eq.PromptOverride : question.Prompt;
 
-                var questionResponse = new QuestionResponse
-                {
-                    Id = question.Id,
-                    Prompt = promptToUse,
-                    Difficulty = question.Difficulty,
-                    CreatedByInstructorId = question.CreatedByInstructorId,
-                    CourseId = question.CourseId,
-                    Type = question.Type,
-                    CreatedAt = question.CreatedAt,
-                    Status = question.Status
-                };
-
-                var examQuestionResponse = new ExamQuestionResponse
+                var detailsResponse = new ExamQuestionDetailsResponse
                 {
                     Id = eq.Id,
                     ExamId = eq.ExamId,
                     QuestionId = eq.QuestionId,
                     SortOrder = eq.SortOrder,
                     Points = eq.Points,
-                    PromptOverride = eq.PromptOverride,
-                    CreatedAt = eq.CreatedAt,
-                    UpdatedAt = eq.UpdatedAt
+                    Prompt = promptToUse,
+                    Difficulty = question.Difficulty
                 };
 
-                var detailsResponse = new ExamQuestionDetailsResponse
-                {
-                    ExamQuestion = examQuestionResponse,
-                    Question = questionResponse
-                };
-
-                // Add choices for MCQ questions
+                // Add choices for MCQ questions (without correct answers for students)
                 if (question.Type == "MultipleChoiceQuestion" && choicesByQuestionId.ContainsKey(question.Id))
                 {
                     var choices = choicesByQuestionId[question.Id];
@@ -327,7 +295,7 @@ namespace Sconce.BLL.Services.Classes
                     {
                         QuestionId = c.QuestionId,
                         Text = c.Text,
-                        IsCorrect = includeCorrectAnswers ? c.IsCorrect : false
+                        IsCorrect = false
                     }).ToList();
                 }
 

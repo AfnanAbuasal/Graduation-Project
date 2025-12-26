@@ -12,6 +12,6 @@ namespace Sconce.DAL.Models
         public bool ShuffleChoices { get; set; } = true;
 
         // Navigation property
-        public ICollection<Choice> Choices { get; set; }
+        public ICollection<Choice> Choices { get; set; } = new List<Choice>();
     }
 }

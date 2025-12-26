@@ -12,6 +12,6 @@ namespace Sconce.DAL.Models
         public int QuestionId { get; set; }
         public string Text { get; set; }
         public bool IsCorrect { get; set; } = false;
-        public Question Question { get; set; }
+        public MultipleChoiceQuestion Question { get; set; }
     }
 }
