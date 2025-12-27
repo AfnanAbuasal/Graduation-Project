@@ -10,7 +10,7 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<int> UpdateAsync(Choice entity);
         Task<int> DeleteAsync(Choice entity);
 
-        Task<Choice?> GetByIdAsync(int questionId, string text);
+        Task<Choice?> GetByIdAsync(int id);
         Task<IEnumerable<Choice>> GetByQuestionIdAsync(int questionId);
         Task<IEnumerable<Choice>> GetByQuestionIdsAsync(IEnumerable<int> questionIds);
         Task<bool> ExistsAsync(int questionId, string text);

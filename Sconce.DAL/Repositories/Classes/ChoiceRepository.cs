@@ -36,10 +36,9 @@ namespace Sconce.DAL.Repositories.Classes
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<Choice?> GetByIdAsync(int questionId, string text)
+        public async Task<Choice?> GetByIdAsync(int id)
         {
-            // Composite key lookup (QuestionId, Text)
-            return await _context.Set<Choice>().FindAsync(questionId, text);
+            return await _context.Set<Choice>().FindAsync(id);
         }
 
         public async Task<IEnumerable<Choice>> GetByQuestionIdAsync(int questionId)
