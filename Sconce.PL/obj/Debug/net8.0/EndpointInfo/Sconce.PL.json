@@ -1110,10 +1110,21 @@
         }
       }
     },
-    "/api/Instructor/Choices": {
+    "/api/Instructor/Choices/{questionId}": {
       "post": {
         "tags": [
           "Choices"
+        ],
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -1156,10 +1167,8 @@
             }
           }
         }
-      }
-    },
-    "/api/Instructor/Choices/{questionId}/{text}": {
-      "put": {
+      },
+      "get": {
         "tags": [
           "Choices"
         ],
@@ -1172,13 +1181,45 @@
               "type": "integer",
               "format": "int32"
             }
-          },
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Instructor/Choices/{choiceId}": {
+      "put": {
+        "tags": [
+          "Choices"
+        ],
+        "parameters": [
           {
-            "name": "text",
+            "name": "choiceId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -1230,55 +1271,7 @@
         ],
         "parameters": [
           {
-            "name": "questionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "text",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Response"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Instructor/Choices/Question/{questionId}": {
-      "get": {
-        "tags": [
-          "Choices"
-        ],
-        "parameters": [
-          {
-            "name": "questionId",
+            "name": "choiceId",
             "in": "path",
             "required": true,
             "schema": {
@@ -1890,19 +1883,68 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/EssayQuestionRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EssayQuestionRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EssayQuestionRequest"
+                "required": [
+                  "CourseId",
+                  "Difficulty",
+                  "Prompt"
+                ],
+                "type": "object",
+                "properties": {
+                  "AllowFileUpload": {
+                    "type": "boolean"
+                  },
+                  "MaxWords": {
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "MaxFileSizeMb": {
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Prompt": {
+                    "type": "string"
+                  },
+                  "Difficulty": {
+                    "$ref": "#/components/schemas/Difficulty"
+                  },
+                  "CourseId": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "AllowFileUpload": {
+                  "style": "form"
+                },
+                "MaxWords": {
+                  "style": "form"
+                },
+                "MaxFileSizeMb": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                },
+                "Prompt": {
+                  "style": "form"
+                },
+                "Difficulty": {
+                  "style": "form"
+                },
+                "CourseId": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -1949,19 +1991,68 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/EssayQuestionRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EssayQuestionRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/EssayQuestionRequest"
+                "required": [
+                  "CourseId",
+                  "Difficulty",
+                  "Prompt"
+                ],
+                "type": "object",
+                "properties": {
+                  "AllowFileUpload": {
+                    "type": "boolean"
+                  },
+                  "MaxWords": {
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "MaxFileSizeMb": {
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Prompt": {
+                    "type": "string"
+                  },
+                  "Difficulty": {
+                    "$ref": "#/components/schemas/Difficulty"
+                  },
+                  "CourseId": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "AllowFileUpload": {
+                  "style": "form"
+                },
+                "MaxWords": {
+                  "style": "form"
+                },
+                "MaxFileSizeMb": {
+                  "style": "form"
+                },
+                "File": {
+                  "style": "form"
+                },
+                "Prompt": {
+                  "style": "form"
+                },
+                "Difficulty": {
+                  "style": "form"
+                },
+                "CourseId": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -6015,15 +6106,10 @@
       },
       "ChoiceRequest": {
         "required": [
-          "questionId",
           "text"
         ],
         "type": "object",
         "properties": {
-          "questionId": {
-            "type": "integer",
-            "format": "int32"
-          },
           "text": {
             "minLength": 1,
             "type": "string"
@@ -6094,50 +6180,6 @@
           "reasons": {
             "minLength": 1,
             "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "EssayQuestionRequest": {
-        "required": [
-          "courseId",
-          "difficulty",
-          "prompt"
-        ],
-        "type": "object",
-        "properties": {
-          "prompt": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "difficulty": {
-            "$ref": "#/components/schemas/Difficulty"
-          },
-          "courseId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "allowFileUpload": {
-            "type": "boolean"
-          },
-          "maxWords": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "maxFileSizeMb": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "file": {
-            "type": "string",
-            "format": "binary",
-            "nullable": true
           }
         },
         "additionalProperties": false

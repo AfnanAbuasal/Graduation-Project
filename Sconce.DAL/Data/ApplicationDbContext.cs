@@ -108,12 +108,16 @@ namespace Sconce.DAL.Data
 
             builder.Entity<Choice>(entity =>
             {
-                entity.HasKey(c => new { c.QuestionId, c.Text });
+                entity.HasKey(c => c.Id);
 
                 entity.HasOne(c => c.MultipleChoiceQuestion)
                     .WithMany(q => q.Choices)
                     .HasForeignKey(c => c.QuestionId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(c => c.Text)
+                      .IsRequired()
+                      .HasMaxLength(450);
 
                 entity.Property(c => c.IsCorrect)
                     .HasDefaultValue(false);

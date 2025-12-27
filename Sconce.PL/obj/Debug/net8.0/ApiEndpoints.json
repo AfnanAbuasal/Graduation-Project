@@ -1657,46 +1657,15 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
-    "Method": "Create",
-    "RelativePath": "api/Instructor/Choices",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.ChoiceRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
     "Method": "Update",
-    "RelativePath": "api/Instructor/Choices/{questionId}/{text}",
+    "RelativePath": "api/Instructor/Choices/{choiceId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "questionId",
+        "Name": "choiceId",
         "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "text",
-        "Type": "System.String",
         "IsRequired": true
       },
       {
@@ -1720,8 +1689,34 @@
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
     "Method": "Delete",
-    "RelativePath": "api/Instructor/Choices/{questionId}/{text}",
+    "RelativePath": "api/Instructor/Choices/{choiceId}",
     "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "choiceId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
+    "Method": "Create",
+    "RelativePath": "api/Instructor/Choices/{questionId}",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -1731,8 +1726,8 @@
         "IsRequired": true
       },
       {
-        "Name": "text",
-        "Type": "System.String",
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.ChoiceRequest",
         "IsRequired": true
       }
     ],
@@ -1751,7 +1746,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ChoicesController",
     "Method": "GetByQuestionId",
-    "RelativePath": "api/Instructor/Choices/Question/{questionId}",
+    "RelativePath": "api/Instructor/Choices/{questionId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1783,9 +1778,39 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.EssayQuestionRequest",
-        "IsRequired": true
+        "Name": "AllowFileUpload",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "MaxWords",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MaxFileSizeMb",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Prompt",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Difficulty",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CourseId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -1814,9 +1839,39 @@
         "IsRequired": true
       },
       {
-        "Name": "request",
-        "Type": "Sconce.DAL.DTO.Requests.EssayQuestionRequest",
-        "IsRequired": true
+        "Name": "AllowFileUpload",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "MaxWords",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "MaxFileSizeMb",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Prompt",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Difficulty",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CourseId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

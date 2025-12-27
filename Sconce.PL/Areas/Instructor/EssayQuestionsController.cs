@@ -22,7 +22,7 @@ namespace Sconce.PL.Areas.Instructor
 
         // Creates a new essay question.
         [HttpPost]
-        public async Task<ActionResult<Response>> Create([FromBody] EssayQuestionRequest request)
+        public async Task<ActionResult<Response>> Create([FromForm] EssayQuestionRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -34,7 +34,7 @@ namespace Sconce.PL.Areas.Instructor
 
         // Updates an existing essay question.
         [HttpPut("{id}")]
-        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromBody] EssayQuestionRequest request)
+        public async Task<ActionResult<Response>> Update([FromRoute] int id, [FromForm] EssayQuestionRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
