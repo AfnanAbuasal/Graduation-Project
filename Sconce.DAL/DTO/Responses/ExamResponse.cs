@@ -15,6 +15,7 @@ namespace Sconce.DAL.DTO.Responses
         public int AttemptsAllowed { get; set; }
         public bool ShuffleQuestions { get; set; }
         public int SectionId { get; set; }
+        public int CourseId { get; set; }
         public int WeekNumber { get; set; }
 		public string Type { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }

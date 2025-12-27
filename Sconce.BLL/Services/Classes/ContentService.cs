@@ -1,6 +1,7 @@
 using Mapster;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Responses;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
 using System;
@@ -44,68 +45,21 @@ namespace Sconce.BLL.Services.Classes
 		private object MapContentToResponse(Content content)
 		{
 			// Map specific content types to their existing response DTOs
-			if (content is ZoomMeeting zoomMeeting)
+			if (content is ZoomMeeting)
 			{
-				return new ZoomMeetingResponse
-				{
-					Id = zoomMeeting.Id,
-					SectionId = zoomMeeting.SectionId,
-					WeekNumber = zoomMeeting.WeekNumber,
-					Type = zoomMeeting.Type,
-					CreatedAt = zoomMeeting.CreatedAt,
-					Title = zoomMeeting.Title,
-					Description = zoomMeeting.Description,
-					Url = zoomMeeting.Url,
-					ZoomData = zoomMeeting.ZoomData?.Adapt<ZoomDataResponse>()
-				};
+				return content.Adapt<ZoomMeetingResponse>();
 			}
-			else if (content is Assignment assignment)
+			else if (content is Assignment)
 			{
-				return new AssignmentResponse
-				{
-					Id = assignment.Id,
-					SectionId = assignment.SectionId,
-					WeekNumber = assignment.WeekNumber,
-					Type = assignment.Type,
-					CreatedAt = assignment.CreatedAt,
-					Title = assignment.Title,
-					Description = assignment.Description,
-					DueDate = assignment.DueDate,
-					MinGrade = assignment.MinGrade,
-					MaxGrade = assignment.MaxGrade,
-					FileUrl = assignment.FilePath
-				};
+				return content.Adapt<AssignmentResponse>();
 			}
-			else if (content is Exam exam)
+			else if (content is Exam)
 			{
-				return new ExamResponse
-				{
-					Id = exam.Id,
-					SectionId = exam.SectionId,
-					WeekNumber = exam.WeekNumber,
-					Type = exam.Type,
-					CreatedAt = exam.CreatedAt,
-					Title = exam.Title,
-					AvailableFrom = exam.AvailableFrom,
-					AvailableTo = exam.AvailableTo,
-					DurationMinutes = exam.DurationMinutes,
-					AttemptsAllowed = exam.AttemptsAllowed,
-					ShuffleQuestions = exam.ShuffleQuestions,
-					ExamStatus = exam.ExamStatus
-				};
+				return content.Adapt<ExamResponse>();	
 			}
-			else if (content is Text text)
+			else if (content is Text)
 			{
-				return new TextResponse
-				{
-					Id = text.Id,
-					SectionId = text.SectionId,
-					WeekNumber = text.WeekNumber,
-					Type = text.Type,
-					CreatedAt = text.CreatedAt,
-					Title = text.Title,
-					Body = text.Body
-				};
+				return content.Adapt<TextResponse>();
 			}
 
 			// Fallback for unknown content types

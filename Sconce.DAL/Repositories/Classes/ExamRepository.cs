@@ -19,9 +19,21 @@ namespace Sconce.DAL.Repositories.Classes
             _context = context;
         }
 
+        public override async Task<Exam?> GetByIdAsync(int id)
+        {
+            var query = _context.Set<Exam>()
+            .Include(e => e.Section)
+            .ThenInclude(s => s.Course)
+            .Where(e => e.Id == id);
+
+            return await query.FirstOrDefaultAsync();
+        }
         public async Task<IEnumerable<Exam>> GetAllBySectionIdAsync(int sectionId, bool withTracking = false)
         {
-            var query = _context.Set<Exam>().Where(e => e.SectionId == sectionId);
+            var query = _context.Set<Exam>()
+            .Include(e => e.Section)
+            .ThenInclude(s => s.Course)
+            .Where(e => e.SectionId == sectionId);
 
             if (!withTracking)
                 query = query.AsNoTracking();

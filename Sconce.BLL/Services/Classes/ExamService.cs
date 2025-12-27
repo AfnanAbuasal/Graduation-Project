@@ -37,6 +37,17 @@ namespace Sconce.BLL.Services.Classes
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
+        {
+            var exam = await _examRepository.GetByIdAsync(Id);
+            if (exam == null)
+                return (false, new ErrorResponse { Errors = ["Exam not found."] });
+            
+            var examResponse = exam.Adapt<ExamResponse>();
+
+            return (true, new SuccessResponse<ExamResponse> { Data = examResponse });
+        }
+
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ExamRequest request)
         {
             // Validate Section exists
@@ -86,7 +97,10 @@ namespace Sconce.BLL.Services.Classes
             if (onlyActive)
                 exams = exams.Where(e => e.Status == Status.Active);
 
-            return new SuccessResponse<IEnumerable<ExamResponse>> { Data = exams.Adapt<IEnumerable<ExamResponse>>() };
+            // Map to ExamResponse and manually set CourseId
+            var examResponses = exams.Adapt<IEnumerable<ExamResponse>>().ToList();
+
+            return new SuccessResponse<IEnumerable<ExamResponse>> { Data = examResponses };
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, ExamRequest request)

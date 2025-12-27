@@ -39,7 +39,7 @@ namespace Sconce.DAL.Repositories.Classes
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int Id)
+        public virtual async Task<T?> GetByIdAsync(int Id)
             => await _context.Set<T>().FindAsync(Id);
 
         public async Task<int> UpdateAsync(T entity)

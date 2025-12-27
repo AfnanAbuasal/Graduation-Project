@@ -8,7 +8,7 @@ namespace Sconce.DAL.Utilities
 {
     public interface ISeedData
     {
-        //Task DataSeedingAsync();
+        Task DataSeedingAsync();
         Task IdentityDataSeedingAsync();
     }
 }

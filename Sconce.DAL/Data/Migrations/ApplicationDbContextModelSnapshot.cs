@@ -187,7 +187,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Choices");
+                    b.ToTable("Choices", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Content", b =>
@@ -226,7 +226,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("Contents");
+                    b.ToTable("Contents", (string)null);
 
                     b.HasDiscriminator().HasValue("Content");
 
@@ -273,7 +273,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Dropout", b =>
@@ -313,7 +313,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Dropouts");
+                    b.ToTable("Dropouts", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.ExamQuestion", b =>
@@ -358,7 +358,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasIndex("ExamId", "SortOrder")
                         .IsUnique();
 
-                    b.ToTable("ExamQuestions");
+                    b.ToTable("ExamQuestions", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.InstructorApplication", b =>
@@ -428,7 +428,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InstructorApplications");
+                    b.ToTable("InstructorApplications", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Level", b =>
@@ -480,7 +480,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("ProgramId");
 
-                    b.ToTable("Levels");
+                    b.ToTable("Levels", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.ParentInvite", b =>
@@ -522,7 +522,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("ParentInvites");
+                    b.ToTable("ParentInvites", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.ParentLink", b =>
@@ -571,7 +571,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("ParentLinks");
+                    b.ToTable("ParentLinks", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Program", b =>
@@ -606,7 +606,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Programs");
+                    b.ToTable("Programs", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Question", b =>
@@ -653,7 +653,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
 
                     b.HasDiscriminator().HasValue("Question");
 
@@ -696,7 +696,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("InstructorId");
 
-                    b.ToTable("Sections");
+                    b.ToTable("Sections", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.StudentApplication", b =>
@@ -769,7 +769,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("StudentApplications");
+                    b.ToTable("StudentApplications", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.StudentParent", b =>
@@ -794,7 +794,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("StudentParents");
+                    b.ToTable("StudentParents", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Submission", b =>
@@ -842,7 +842,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Submissions");
+                    b.ToTable("Submissions", (string)null);
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Instructor", b =>
@@ -946,7 +946,7 @@ namespace Sconce.DAL.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.ToTable("Contents", t =>
+                    b.ToTable("Contents", null, t =>
                         {
                             t.Property("Title")
                                 .HasColumnName("Exam_Title");
@@ -965,7 +965,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Contents", t =>
+                    b.ToTable("Contents", null, t =>
                         {
                             t.Property("Title")
                                 .HasColumnName("Text_Title");
@@ -989,7 +989,7 @@ namespace Sconce.DAL.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Contents", t =>
+                    b.ToTable("Contents", null, t =>
                         {
                             t.Property("Description")
                                 .HasColumnName("ZoomMeeting_Description");
@@ -1232,7 +1232,7 @@ namespace Sconce.DAL.Data.Migrations
 
             modelBuilder.Entity("Sconce.DAL.Models.ZoomMeeting", b =>
                 {
-                    b.OwnsOne("Sconce.DAL.Models.ZoomData", "ZoomData", b1 =>
+                    b.OwnsOne("Sconce.DAL.Models.ZoomMeeting.ZoomData#Sconce.DAL.Models.ZoomData", "ZoomData", b1 =>
                         {
                             b1.Property<int>("ZoomMeetingId")
                                 .HasColumnType("int");
@@ -1252,12 +1252,12 @@ namespace Sconce.DAL.Data.Migrations
 
                             b1.HasKey("ZoomMeetingId");
 
-                            b1.ToTable("Contents");
+                            b1.ToTable("Contents", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ZoomMeetingId");
 
-                            b1.OwnsOne("Sconce.DAL.Models.ZoomSettings", "Settings", b2 =>
+                            b1.OwnsOne("Sconce.DAL.Models.ZoomMeeting.ZoomData#Sconce.DAL.Models.ZoomData.Settings#Sconce.DAL.Models.ZoomSettings", "Settings", b2 =>
                                 {
                                     b2.Property<int>("ZoomDataZoomMeetingId")
                                         .HasColumnType("int");
@@ -1273,7 +1273,7 @@ namespace Sconce.DAL.Data.Migrations
 
                                     b2.HasKey("ZoomDataZoomMeetingId");
 
-                                    b2.ToTable("Contents");
+                                    b2.ToTable("Contents", (string)null);
 
                                     b2.WithOwner()
                                         .HasForeignKey("ZoomDataZoomMeetingId");

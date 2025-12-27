@@ -131,6 +131,10 @@ namespace Sconce.PL
 
             builder.Services.AddHttpContextAccessor();
 
+            // Mapster Configuration
+            TypeAdapterConfig<Exam, ExamResponse>.NewConfig()
+                .Map(dest => dest.CourseId, src => src.Section.CourseId);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -149,7 +153,7 @@ namespace Sconce.PL
             using (var scope = app.Services.CreateScope())
             {
                 var seeder = scope.ServiceProvider.GetRequiredService<ISeedData>();
-                //await objectOfSeedData.DataSeedingAsync();
+                await seeder.DataSeedingAsync();
                 await seeder.IdentityDataSeedingAsync();
             }
 
