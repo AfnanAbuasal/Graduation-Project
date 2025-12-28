@@ -77,9 +77,11 @@ namespace Sconce.DAL.Extensions
         {
             return difficulty switch
             {
+                Difficulty.VeryEasy => "Very Easy",
                 Difficulty.Easy => "Easy",
-                Difficulty.Moderate => "Moderate",
-                Difficulty.Difficult => "Difficult",
+                Difficulty.Medium => "Medium",
+                Difficulty.Hard => "Hard",
+                Difficulty.VeryHard => "Very Hard",
                 _ => "Unknown"
             };
         }

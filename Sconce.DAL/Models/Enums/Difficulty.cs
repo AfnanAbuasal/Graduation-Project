@@ -8,8 +8,10 @@ namespace Sconce.DAL.Models.Enums
 {
     public enum Difficulty
     {
-        Easy = 1,
-        Moderate = 2,
-        Difficult = 3
+        VeryEasy = 1,
+        Easy = 2,
+        Medium = 3,
+        Hard = 4,
+        VeryHard = 5
     }
 }
