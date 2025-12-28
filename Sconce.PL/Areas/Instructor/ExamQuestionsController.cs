@@ -98,5 +98,15 @@ namespace Sconce.PL.Areas.Instructor
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Gets all exam questions with full details.
+        // Includes questions and choices.
+        [HttpGet("Exam/{examId}/Details")]
+        public async Task<ActionResult<Response>> GetDetailsByExamId([FromRoute] int examId)
+        {
+            var result = await _examQuestionService.GetAllExamQuestionDetailsAsync(examId, false);
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
+        }
     }
 }

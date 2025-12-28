@@ -25,7 +25,7 @@ namespace Sconce.PL.Areas.Student
         [HttpGet("Exam/{examId}/Details")]
         public async Task<ActionResult<Response>> GetDetailsByExamId([FromRoute] int examId)
         {
-            var result = await _examQuestionService.GetAllExamQuestionDetailsForStudentAsync(examId);
+            var result = await _examQuestionService.GetAllExamQuestionDetailsAsync(examId, true);
             if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }

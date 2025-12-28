@@ -10,6 +10,6 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<Response> GetAllByExamIdAsync(int examId);
         Task<(bool Success, Response Response)> ReorderAsync(int examId, List<(int ExamQuestionId, int SortOrder)> newOrder);
-        Task<Response> GetAllExamQuestionDetailsForStudentAsync(int examId);
+        Task<Response> GetAllExamQuestionDetailsAsync(int examId, bool forStudents);
     }
 }

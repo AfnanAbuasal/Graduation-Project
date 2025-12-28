@@ -46,6 +46,19 @@ namespace Sconce.DAL.Repositories.Classes
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
+        public async Task<IEnumerable<Question>> GetByIdsAsync(IEnumerable<int> ids)
+        {
+            var idList = ids?.ToList() ?? new List<int>();
+            if (!idList.Any())
+                return Enumerable.Empty<Question>();
+
+            return await _context.Questions
+                .Where(q => idList.Contains(q.Id))
+                .Include(q => (q as MultipleChoiceQuestion).Choices)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<MultipleChoiceQuestion>> GetAllMultipleChoiceByCourseIdAsync(int courseId)
         {
             return await _context.Set<MultipleChoiceQuestion>()

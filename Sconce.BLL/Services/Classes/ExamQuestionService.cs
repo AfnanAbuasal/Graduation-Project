@@ -9,6 +9,7 @@ using Sconce.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Sconce.BLL.Services.Classes
@@ -227,83 +228,79 @@ namespace Sconce.BLL.Services.Classes
             return (true, new SuccessResponse<string> { Data = "Exam questions reordered successfully." });
         }
 
-        public async Task<Response> GetAllExamQuestionDetailsForStudentAsync(int examId)
+        public async Task<Response> GetAllExamQuestionDetailsAsync(int examId, bool forStudents)
         {
-            // Load exam by id
+            // Ensure exam exists
             var exam = await _examRepository.GetByIdAsync(examId);
             if (exam == null)
                 return new ErrorResponse { Errors = ["Exam not found."] };
 
-            // Validate ExamStatus and availability window for students
-            if (exam.ExamStatus != ExamStatus.Published)
-                return new ErrorResponse { Errors = ["Exam is not published yet."] };
+            // Enforce student-facing availability rules
+            if (forStudents)
+            {
+                if (exam.ExamStatus != ExamStatus.Published)
+                    return new ErrorResponse { Errors = ["Exam is not published yet."] };
 
-            var now = DateTime.UtcNow;
+                var now = DateTime.UtcNow;
 
-            if (exam.AvailableFrom.HasValue && now < exam.AvailableFrom.Value)
-                return new ErrorResponse { Errors = ["Exam not available yet."] };
+                if (exam.AvailableFrom.HasValue && now < exam.AvailableFrom.Value)
+                    return new ErrorResponse { Errors = ["Exam not available yet."] };
 
-            if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
-                return new ErrorResponse { Errors = ["Exam has ended."] };
+                if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
+                    return new ErrorResponse { Errors = ["Exam has ended."] };
+            }
 
-            // Load examQuestions with Question included (ordered by SortOrder)
+            // Load exam questions (ordered by SortOrder in repository)
             var examQuestions = await _examQuestionRepository.GetAllDetailsByExamIdAsync(examId);
 
             if (!examQuestions.Any())
                 return new SuccessResponse<List<ExamQuestionDetailsResponse>> { Data = new List<ExamQuestionDetailsResponse>() };
 
-            // Identify MCQ question IDs
-            var mcqQuestionIds = examQuestions
-                .Where(eq => eq.Question.Type == "MultipleChoiceQuestion")
-                .Select(eq => eq.QuestionId)
-                .Distinct()
-                .ToList();
+            // Batch fetch questions to avoid N+1 queries
+            var questionIds = examQuestions.Select(eq => eq.QuestionId).Distinct().ToList();
+            var questions = await _questionRepository.GetByIdsAsync(questionIds);
+            var questionLookup = questions.ToDictionary(q => q.Id);
 
-            // Load choices in one DB query for all MCQ questions
-            var allChoices = new List<Choice>();
-            if (mcqQuestionIds.Any())
+            var examQuestionDetailsResponses = new List<ExamQuestionDetailsResponse>(examQuestions.Count());
+
+            foreach (var examQuestion in examQuestions)
             {
-                allChoices = (List<Choice>)await _choiceRepository.GetByQuestionIdsAsync(mcqQuestionIds);
-            }
+                if (!questionLookup.TryGetValue(examQuestion.QuestionId, out var question))
+                    return new ErrorResponse { Errors = [$"Question with id {examQuestion.QuestionId} not found."] };
 
-            // Group choices by QuestionId for fast lookup
-            var choicesByQuestionId = allChoices.GroupBy(c => c.QuestionId)
-                .ToDictionary(g => g.Key, g => g.ToList());
+                var examQuestionResponse = examQuestion.Adapt<ExamQuestionResponse>();
+                var questionResponse = MapQuestionToResponse(question);
 
-            // Map each ExamQuestion into ExamQuestionDetailsResponse (manual mapping)
-            var result = examQuestions.Select(eq =>
-            {
-                var question = eq.Question;
-                var promptToUse = !string.IsNullOrWhiteSpace(eq.PromptOverride) ? eq.PromptOverride : question.Prompt;
-
-                var detailsResponse = new ExamQuestionDetailsResponse
+                if (forStudents && questionResponse is MultipleChoiceQuestionResponse mcqResponse)
                 {
-                    Id = eq.Id,
-                    ExamId = eq.ExamId,
-                    QuestionId = eq.QuestionId,
-                    SortOrder = eq.SortOrder,
-                    Points = eq.Points,
-                    Prompt = promptToUse,
-                    Difficulty = question.Difficulty
-                };
-
-                // Add choices for MCQ questions (without correct answers for students)
-                if (question.Type == "MultipleChoiceQuestion" && choicesByQuestionId.ContainsKey(question.Id))
-                {
-                    var choices = choicesByQuestionId[question.Id];
-                    detailsResponse.Choices = choices.Select(c => new ChoiceResponse
-                    {
-                        QuestionId = c.QuestionId,
-                        Text = c.Text,
-                        IsCorrect = false
-                    }).ToList();
+                    // Hide correct flags from students
+                    foreach (var choice in mcqResponse.Choices)
+                        choice.IsCorrect = false;
                 }
 
-                return detailsResponse;
-            }).ToList();
+                examQuestionDetailsResponses.Add(new ExamQuestionDetailsResponse
+                {
+                    ExamQuestion = examQuestionResponse,
+                    Question = questionResponse
+                });
+            }
 
-            // Return SuccessResponse
-            return new SuccessResponse<List<ExamQuestionDetailsResponse>> { Data = result };
+            return new SuccessResponse<List<ExamQuestionDetailsResponse>> { Data = examQuestionDetailsResponses };
         }
+        private QuestionResponse MapQuestionToResponse(Question question)
+		{
+			// Map specific question types to their existing response DTOs
+			if (question is MultipleChoiceQuestion)
+			{
+				return question.Adapt<MultipleChoiceQuestionResponse>();
+			}
+			else if (question is EssayQuestion)
+			{
+				return question.Adapt<EssayQuestionResponse>();
+			}
+
+			// Fallback for unknown content types (needs to be handled)
+			throw new InvalidOperationException($"Unknown question type: {question.GetType().Name}");
+		}
     }
 }
