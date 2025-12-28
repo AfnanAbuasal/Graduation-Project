@@ -67,7 +67,6 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Set<MultipleChoiceQuestion>()
                 .Include(q => q.Choices)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
