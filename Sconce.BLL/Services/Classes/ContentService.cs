@@ -53,10 +53,6 @@ namespace Sconce.BLL.Services.Classes
 			{
 				return content.Adapt<AssignmentResponse>();
 			}
-			else if (content is Exam)
-			{
-				return content.Adapt<ExamResponse>();	
-			}
 			else if (content is Text)
 			{
 				return content.Adapt<TextResponse>();
