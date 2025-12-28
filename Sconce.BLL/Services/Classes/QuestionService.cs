@@ -49,7 +49,7 @@ namespace Sconce.BLL.Services.Classes
             var question = request.Adapt<MultipleChoiceQuestion>();
             question.CreatedByInstructorId = instructorId;
             var rows = await _questionRepository.AddAsync(question);
-            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully. Multiple Choice Question ID: {question.Id}." });
         }
 
         public async Task<(int NumberOfEntries, Response Response)> CreateEssayQuestionAsync(EssayQuestionRequest request)
