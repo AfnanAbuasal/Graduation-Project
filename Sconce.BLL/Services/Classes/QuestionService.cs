@@ -21,13 +21,15 @@ namespace Sconce.BLL.Services.Classes
         private readonly ICourseRepository _courseRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFileService _fileService;
+        private readonly IExamQuestionRepository _examQuestionRepository;
 
-        public QuestionService(IQuestionRepository questionRepository, ICourseRepository courseRepository, IHttpContextAccessor httpContextAccessor, IFileService fileService) : base(questionRepository)
+        public QuestionService(IQuestionRepository questionRepository, ICourseRepository courseRepository, IHttpContextAccessor httpContextAccessor, IFileService fileService, IExamQuestionRepository examQuestionRepository) : base(questionRepository)
         {
             _questionRepository = questionRepository;
             _courseRepository = courseRepository;
             _httpContextAccessor = httpContextAccessor;
             _fileService = fileService;
+            _examQuestionRepository = examQuestionRepository;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(QuestionRequest request)
@@ -168,6 +170,10 @@ namespace Sconce.BLL.Services.Classes
 
             if (entity.CreatedByInstructorId != instructorId)
                 return (0, new ErrorResponse { Errors = ["Not authorized to delete this question."] });
+
+            var linkedToExam = await _examQuestionRepository.ExistsQuestionInAnyExamAsync(Id);
+            if (linkedToExam)
+                return (0, new ErrorResponse { Errors = ["Cannot delete question because it is linked to an exam."] });
 
             // Delete associated file if it's an essay question with a file
             if (entity is EssayQuestion essayQuestion && !string.IsNullOrEmpty(essayQuestion.QuestionFilePath))

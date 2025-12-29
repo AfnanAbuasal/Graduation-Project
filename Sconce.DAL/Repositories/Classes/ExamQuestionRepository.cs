@@ -44,6 +44,12 @@ namespace Sconce.DAL.Repositories.Classes
                 .AnyAsync(eq => eq.ExamId == examId && eq.SortOrder == sortOrder && eq.Id != excludeId);
         }
 
+        public async Task<bool> ExistsQuestionInAnyExamAsync(int questionId)
+        {
+            return await _context.ExamQuestions
+                .AnyAsync(eq => eq.QuestionId == questionId);
+        }
+
         public async Task<IEnumerable<ExamQuestion>> GetAllByExamIdWithQuestionAsync(int examId)
         {
             return await _context.ExamQuestions

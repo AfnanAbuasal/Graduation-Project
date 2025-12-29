@@ -49,7 +49,7 @@ namespace Sconce.BLL.Services.Classes
             mcq.UpdatedAt = DateTime.UtcNow;
             await _questionRepository.UpdateAsync(mcq);
 
-            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
+            return (rows, new SuccessResponse<ChoiceResponse> { Data = entity.Adapt<ChoiceResponse>() });
         }
 
         public async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, ChoiceRequest request)

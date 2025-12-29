@@ -81,7 +81,7 @@ namespace Sconce.BLL.Services.Classes
             var entity = request.Adapt<ExamQuestion>();
 
             var rows = await _examQuestionRepository.AddAsync(entity);
-            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
+            return (rows, new SuccessResponse<ExamQuestionResponse> { Data = entity.Adapt<ExamQuestionResponse>() });
         }
 
         public async Task<Response> GetAllByExamIdAsync(int examId)

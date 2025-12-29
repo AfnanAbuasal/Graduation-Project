@@ -77,7 +77,7 @@ namespace Sconce.BLL.Services.Classes
             exam.ExamStatus = ExamStatus.Draft;
 
             var rows = await _examRepository.AddAsync(exam);
-            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
+            return (rows, new SuccessResponse<ExamResponse> { Data = exam.Adapt<ExamResponse>() });
         }
 
         public async Task<Response> GetAllBySectionAsync(int sectionId, string instructorId, bool onlyActive = false)

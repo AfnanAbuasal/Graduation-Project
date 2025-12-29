@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AL6DffJIFPeMbqlVtOe7iGZ9DmiKLdX63gEMNt7d0ZQ=",
+  "Hash": "6nqtb9lEavo1qj2Aul/B38O97jYUCkOS8UBVcd1071c=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -120,6 +120,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student#[.{fingerprint}]?.m4a",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ibhy37u0fo",
+      "Integrity": "Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a"
     },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
@@ -614,6 +635,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.ibhy37u0fo.m4a",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "159786"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mp4"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 11:04:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ibhy37u0fo"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "159786"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "audio/mp4"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Dec 2025 11:04:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s="
         }
       ]
     },
