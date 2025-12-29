@@ -98,5 +98,17 @@ namespace Sconce.DAL.Extensions
             };
         }
 
+        // Attempt Status
+        public static string ToDisplayString(this AttemptStatus attemptStatus)
+        {
+            return attemptStatus switch
+            {
+                AttemptStatus.InProgress => "In Progress",
+                AttemptStatus.Submitted => "Submitted",
+                AttemptStatus.Expired => "Expired",
+                AttemptStatus.Graded => "Graded",
+                _ => "Unknown"
+            };
+        }
     }
 }

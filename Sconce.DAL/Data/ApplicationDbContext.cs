@@ -41,6 +41,7 @@ namespace Sconce.DAL.Data
         public DbSet<Choice> Choices { get; set; }
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ExamQuestion> ExamQuestions { get; set; }
+        public DbSet<ExamAttempt> ExamAttempts { get; set; }
 
         // Other
         public DbSet<Dropout> Dropouts { get; set; }
@@ -165,6 +166,32 @@ namespace Sconce.DAL.Data
 
                 // Unique constraint: (ExamId, QuestionId) to prevent duplicates
                 entity.HasIndex(eq => new { eq.ExamId, eq.QuestionId })
+                    .IsUnique();
+            });
+
+            builder.Entity<ExamAttempt>(entity =>
+            {
+                entity.HasOne(ea => ea.Exam)
+                    .WithMany()
+                    .HasForeignKey(ea => ea.ExamId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ea => ea.Student)
+                    .WithMany()
+                    .HasForeignKey(ea => ea.StudentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.Property(ea => ea.AttemptNumber)
+                    .HasDefaultValue(1);
+
+                entity.Property(ea => ea.Score)
+                    .HasColumnType("decimal(6,2)");
+
+                entity.Property(ea => ea.MaxScore)
+                    .HasColumnType("decimal(6,2)");
+
+                // Unique constraint: one attempt number per student per exam
+                entity.HasIndex(ea => new { ea.ExamId, ea.StudentId, ea.AttemptNumber })
                     .IsUnique();
             });
         }
