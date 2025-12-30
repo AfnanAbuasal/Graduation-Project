@@ -5,6 +5,7 @@ using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
 using Sconce.DAL.Models.Enums;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace Sconce.PL.Areas.Instructor
@@ -44,6 +45,7 @@ namespace Sconce.PL.Areas.Instructor
 
         // Gets questions by type for a course.
         // Supported types:
+        // - "mcq": All multiple-choice questions
         // - "mcqonecorrect": MCQs with AllowMultipleSelections == false
         // - "mcqmulticorrect": MCQs with AllowMultipleSelections == true
         // - "essay": Essay questions
@@ -52,6 +54,7 @@ namespace Sconce.PL.Areas.Instructor
         {
             var result = type.ToLowerInvariant() switch
             {
+                "mcq" => await _questionService.GetAllMultipleChoiceByCourseIdAsync(courseId),
                 "mcqonecorrect" => await _questionService.GetMultipleChoiceByCourseAndSelectionModeAsync(courseId, false),
                 "mcqmulticorrect" => await _questionService.GetMultipleChoiceByCourseAndSelectionModeAsync(courseId, true),
                 "essay" => await _questionService.GetAllEssayByCourseIdAsync(courseId),
@@ -59,7 +62,7 @@ namespace Sconce.PL.Areas.Instructor
             };
 
             if (result == null)
-                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'mcqonecorrect', 'mcqmulticorrect', or 'essay'."] });
+                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'mcq', 'mcqonecorrect', 'mcqmulticorrect', or 'essay'."] });
 
             return Ok(result);
         }
@@ -95,6 +98,10 @@ namespace Sconce.PL.Areas.Instructor
         [HttpGet("Course/{courseId}/Count/Type/{type}")]
         public async Task<ActionResult<Response>> CountByType([FromRoute] int courseId, [FromRoute] string type)
         {
+            type = type.ToLowerInvariant();
+            if (type == null || (type != "mcq" && type != "mcqonecorrect" && type != "mcqmulticorrect" && type != "essay"))
+                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'mcq', 'mcqonecorrect', 'mcqmulticorrect', or 'essay'."] });
+            
             var result = await _questionService.CountByTypeAsync(courseId, type);
             return Ok(result);
         }

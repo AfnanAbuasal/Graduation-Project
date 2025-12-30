@@ -80,7 +80,7 @@ namespace Sconce.PL.Areas.Admin
         }
 
         // Gets the course in a specific level, optionally only active ones.
-        [HttpGet("Level/{level}")]
+        [HttpGet("Level/{levelId}")]
         public async Task<ActionResult<Response>> GetByLevel([FromRoute] int levelId, bool onlyActive = false)
         {
             var result = await _courseService.GetByLevelAsync(levelId, onlyActive);

@@ -161,6 +161,37 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
+    "Method": "GetByLevel",
+    "RelativePath": "api/Admin/Courses/Level/{levelId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "levelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.DashboardController",
     "Method": "GetStats",
     "RelativePath": "api/Admin/Dashboard/Stats",
@@ -514,6 +545,37 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.LevelsController",
+    "Method": "GetAllByProgram",
+    "RelativePath": "api/Admin/Levels/Program/{programId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -980,6 +1042,37 @@
       {
         "Name": "instructorId",
         "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
+    "Method": "GetByCourse",
+    "RelativePath": "api/Admin/Sections/Course/{courseId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
@@ -2599,6 +2692,37 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "GetByDifficulty",
+    "RelativePath": "api/Instructor/Questions/Course/{courseId}/Difficulty/{difficulty}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "difficulty",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
     "Method": "Search",
     "RelativePath": "api/Instructor/Questions/Course/{courseId}/Search",
     "HttpMethod": "GET",
@@ -2630,14 +2754,19 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
-    "Method": "GetByDifficulty",
-    "RelativePath": "api/Instructor/Questions/Difficulty/{difficulty}",
+    "Method": "GetByType",
+    "RelativePath": "api/Instructor/Questions/Course/{courseId}/Type/{type}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "difficulty",
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "type",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -2662,32 +2791,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Sconce.DAL.DTO.Responses.Response",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
-    "Method": "GetByType",
-    "RelativePath": "api/Instructor/Questions/Type/{type}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "type",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": [
       {
         "Type": "Sconce.DAL.DTO.Responses.Response",
