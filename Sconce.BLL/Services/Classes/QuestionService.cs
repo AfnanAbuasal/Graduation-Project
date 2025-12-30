@@ -32,6 +32,36 @@ namespace Sconce.BLL.Services.Classes
             _examQuestionRepository = examQuestionRepository;
         }
 
+        public async Task<Response> GetAllByCourseIdAsync(int courseId)
+        {
+            var questions = await _questionRepository.GetAllByCourseIdAsync(courseId);
+            var responseList = questions.Select(q =>
+            {
+                return q switch
+                {
+                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
+                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
+                    _ => (object)q.Adapt<QuestionResponse>()
+                };
+            }).ToList();
+            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
+        }
+
+        public async Task<Response> GetAllByInstructorIdAsync(string instructorId)
+        {
+            var questions = await _questionRepository.GetByCreatedByInstructorIdAsync(instructorId);
+            var responseList = questions.Select(q =>
+            {
+                return q switch
+                {
+                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
+                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
+                    _ => (object)q.Adapt<QuestionResponse>()
+                };
+            }).ToList();
+            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
+        }
+
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(QuestionRequest request)
         {
             // This method should not be used directly - use CreateMultipleChoiceQuestionAsync or CreateEssayQuestionAsync
@@ -183,36 +213,6 @@ namespace Sconce.BLL.Services.Classes
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
 
-        public async Task<Response> GetAllByCourseIdAsync(int courseId)
-        {
-            var questions = await _questionRepository.GetAllByCourseIdAsync(courseId);
-            var responseList = questions.Select(q =>
-            {
-                return q switch
-                {
-                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
-                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
-                    _ => (object)q.Adapt<QuestionResponse>()
-                };
-            }).ToList();
-            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
-        }
-
-        public async Task<Response> GetAllByInstructorIdAsync(string instructorId)
-        {
-            var questions = await _questionRepository.GetByCreatedByInstructorIdAsync(instructorId);
-            var responseList = questions.Select(q =>
-            {
-                return q switch
-                {
-                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
-                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
-                    _ => (object)q.Adapt<QuestionResponse>()
-                };
-            }).ToList();
-            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
-        }
-
         public async Task<(bool Success, Response Response)> GetMultipleChoiceByIdAsync(int id)
         {
             var question = await _questionRepository.GetMultipleChoiceByIdAsync(id);
@@ -254,36 +254,6 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<EssayQuestionResponse>> { Data = data };
         }
 
-        public async Task<Response> GetAllByTypeAsync<TQuestion>() where TQuestion : Question
-        {
-            var questions = await _questionRepository.GetAllByTypeAsync<TQuestion>();
-            var responseList = questions.Select(q =>
-            {
-                return q switch
-                {
-                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
-                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
-                    _ => (object)q.Adapt<QuestionResponse>()
-                };
-            }).ToList();
-            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
-        }
-
-        public async Task<Response> GetAllByDifficultyAsync(Difficulty difficulty)
-        {
-            var questions = await _questionRepository.GetAllByDifficultyAsync(difficulty);
-            var responseList = questions.Select(q =>
-            {
-                return q switch
-                {
-                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
-                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
-                    _ => (object)q.Adapt<QuestionResponse>()
-                };
-            }).ToList();
-            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
-        }
-
         public async Task<Response> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty)
         {
             var questions = await _questionRepository.GetAllByDifficultyAndCourseAsync(courseId, difficulty);
@@ -314,15 +284,14 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<object>> { Data = responseList };
         }
 
+        public async Task<Response> CountByTypeAsync(int courseId, string type)
+        {
+            var count = await _questionRepository.CountByTypeAsync(courseId, type);
+            return new SuccessResponse<int> { Data = count };
+        }
         public async Task<Response> CountByCourseAsync(int courseId)
         {
             var count = await _questionRepository.CountByCourseAsync(courseId);
-            return new SuccessResponse<int> { Data = count };
-        }
-
-        public async Task<Response> CountByTypeAsync<TQuestion>(int courseId) where TQuestion : Question
-        {
-            var count = await _questionRepository.CountByTypeAsync<TQuestion>(courseId);
             return new SuccessResponse<int> { Data = count };
         }
     }

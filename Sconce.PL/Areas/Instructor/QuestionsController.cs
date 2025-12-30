@@ -95,16 +95,7 @@ namespace Sconce.PL.Areas.Instructor
         [HttpGet("Course/{courseId}/Count/Type/{type}")]
         public async Task<ActionResult<Response>> CountByType([FromRoute] int courseId, [FromRoute] string type)
         {
-            Response? result = type.ToLowerInvariant() switch
-            {
-                "multiplechoice" => await _questionService.CountByTypeAsync<MultipleChoiceQuestion>(courseId),
-                "essay" => await _questionService.CountByTypeAsync<EssayQuestion>(courseId),
-                _ => null
-            };
-
-            if (result == null)
-                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'multiplechoice' or 'essay'."] });
-
+            var result = await _questionService.CountByTypeAsync(courseId, type);
             return Ok(result);
         }
     }

@@ -99,30 +99,6 @@ namespace Sconce.DAL.Repositories.Classes
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
-        public async Task<IEnumerable<Question>> GetAllByTypeAsync<TQuestion>() where TQuestion : Question
-        {
-            var query = _context.Set<TQuestion>().AsNoTracking();
-
-            if (typeof(TQuestion) == typeof(MultipleChoiceQuestion))
-            {
-                // Include choices when fetching MCQs
-                return await _context.Set<MultipleChoiceQuestion>()
-                    .Include(q => q.Choices)
-                    .AsNoTracking()
-                    .ToListAsync();
-            }
-
-            return await query.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Question>> GetAllByDifficultyAsync(Difficulty difficulty)
-        {
-            return await _context.Questions
-                .Where(q => q.Difficulty == difficulty)
-                .AsNoTracking()
-                .ToListAsync();
-        }
-
         public async Task<IEnumerable<Question>> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty)
         {
             return await _context.Questions
@@ -147,16 +123,31 @@ namespace Sconce.DAL.Repositories.Classes
                 .ToListAsync();
         }
 
+        public async Task<int> CountByTypeAsync(int courseId, string type)
+        {
+            var questions = await _context.Questions
+                .Where(q => q.CourseId == courseId)
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return type switch
+            {
+                "mcq" => questions.OfType<MultipleChoiceQuestion>().Count(),
+                "mcqonecorrect" => questions.OfType<MultipleChoiceQuestion>()
+                    .Count(q => q.AllowMultipleSelections == false),
+                "mcqmulticorrect" => questions.OfType<MultipleChoiceQuestion>()
+                    .Count(q => q.AllowMultipleSelections == true),
+                "essay" => questions.OfType<EssayQuestion>().Count(),
+                _ => 0
+            };
+        }
+
         public async Task<int> CountByCourseAsync(int courseId)
         {
             return await _context.Questions
-                .CountAsync(q => q.CourseId == courseId);
-        }
-
-        public async Task<int> CountByTypeAsync<TQuestion>(int courseId) where TQuestion : Question
-        {
-            return await _context.Set<TQuestion>()
-                .CountAsync(q => q.CourseId == courseId);
+                .Where(q => q.CourseId == courseId)
+                .CountAsync();
         }
     }
 }

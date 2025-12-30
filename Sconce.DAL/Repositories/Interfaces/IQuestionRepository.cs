@@ -19,11 +19,9 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<IEnumerable<EssayQuestion>> GetAllEssayByCourseIdAsync(int courseId);
         Task<MultipleChoiceQuestion?> GetMultipleChoiceByIdAsync(int id);
         Task<EssayQuestion?> GetEssayByIdAsync(int id);
-        Task<IEnumerable<Question>> GetAllByTypeAsync<TQuestion>() where TQuestion : Question;
-        Task<IEnumerable<Question>> GetAllByDifficultyAsync(Difficulty difficulty);
         Task<IEnumerable<Question>> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty);
         Task<IEnumerable<Question>> SearchByPromptAsync(int courseId, string term);
+        Task<int> CountByTypeAsync(int courseId, string type);
         Task<int> CountByCourseAsync(int courseId);
-        Task<int> CountByTypeAsync<TQuestion>(int courseId) where TQuestion : Question;
     }
 }
