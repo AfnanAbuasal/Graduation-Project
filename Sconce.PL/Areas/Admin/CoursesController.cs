@@ -78,5 +78,13 @@ namespace Sconce.PL.Areas.Admin
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Gets the course in a specific level, optionally only active ones.
+        [HttpGet("Level/{level}")]
+        public async Task<ActionResult<Response>> GetByLevel([FromRoute] int levelId, bool onlyActive = false)
+        {
+            var result = await _courseService.GetByLevelAsync(levelId, onlyActive);
+            return Ok(result);
+        }
     }
 }

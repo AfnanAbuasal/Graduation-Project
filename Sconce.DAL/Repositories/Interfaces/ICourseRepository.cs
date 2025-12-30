@@ -11,5 +11,6 @@ namespace Sconce.DAL.Repositories.Interfaces
     {
         Task<IEnumerable<Course>> GetAllWithLevelAsync();
         Task<Course?> GetByIdWithLevelAsync(int id);
+        Task<IEnumerable<Course>> GetByLevelIdAsync(int levelId, bool onlyActive = false);
     }
 }

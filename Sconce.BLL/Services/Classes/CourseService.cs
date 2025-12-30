@@ -211,5 +211,19 @@ namespace Sconce.BLL.Services.Classes
 
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
+        public async Task<Response> GetByLevelAsync(int levelId, bool onlyActive = false)
+        {
+            var courses = await _courseRepository.GetByLevelIdAsync(levelId, onlyActive);
+
+            var responseList = new List<CourseResponse>();
+            foreach (var entity in courses)
+            {
+                var dto = entity.Adapt<CourseResponse>();
+                dto.LevelName = entity.Level?.Name;
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<CourseResponse>> { Data = responseList };
+        }
     }
 }

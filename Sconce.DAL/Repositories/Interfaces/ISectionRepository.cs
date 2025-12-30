@@ -12,5 +12,6 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<Section?> GetByIdWithInstructorAsync(int id);
         Task<IEnumerable<Section>> GetAllWithInstructorAsync();
         Task<IEnumerable<Section>> GetByInstructorIdWithInstructorAsync(string instructorId);
+        Task<IEnumerable<Section>> GetByCourseIdAsync(int courseId, bool onlyActive = false);
     }
 }

@@ -116,6 +116,26 @@ namespace Sconce.BLL.Services.Classes
             return (true, new SuccessResponse<SectionResponse> { Data = dto });
         }
 
+        public async Task<Response> GetByCourseAsync(int courseId, bool onlyActive = false)
+        {
+            var list = await _sectionRepository.GetByCourseIdAsync(courseId, onlyActive);
+
+            var responseList = new List<SectionResponse>();
+
+            foreach (var entity in list)
+            {
+                var dto = entity.Adapt<SectionResponse>();
+                dto.CourseName = entity.Course?.Name;
+                dto.StartDate = entity.Course?.StartDate ?? default;
+                dto.EndDate = entity.Course?.EndDate ?? default;
+                dto.InstructorName = entity.Instructor?.FullName;
+
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<SectionResponse>> { Data = responseList };
+        }
+
         public async Task<(bool Success, Response Response)> AssignInstructorAsync(int sectionId, string instructorId)
         {
             var section = await _sectionRepository.GetByIdAsync(sectionId);

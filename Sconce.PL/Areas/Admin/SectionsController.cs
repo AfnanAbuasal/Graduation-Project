@@ -29,6 +29,14 @@ namespace Sconce.PL.Areas.Admin
             return Ok(sections);
         }
 
+        // Lists all sections in a specific course, optionally only the active ones.
+        [HttpGet("Course/{courseId}")]
+        public async Task<ActionResult<Response>> GetByCourse([FromRoute] int courseId, [FromQuery] bool onlyActive = false)
+        {
+            var sections = await _sectionService.GetByCourseAsync(courseId, onlyActive);
+            return Ok(sections);
+        }
+
         // Shows details for a specific section.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)

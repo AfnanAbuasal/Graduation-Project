@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sconce.DAL.Models.Enums;
 
 namespace Sconce.DAL.Repositories.Classes
 {
@@ -43,6 +44,22 @@ namespace Sconce.DAL.Repositories.Classes
                 .Include(s => s.Course)
                 .Include(s => s.Instructor)
                 .Where(s => s.InstructorId == instructorId)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+        public async Task<IEnumerable<Section>> GetByCourseIdAsync(int courseId, bool onlyActive = false)
+        {
+            var query = _context.Sections
+                .Where(s => s.CourseId == courseId)
+                .Include(s => s.Course)
+                .Include(s => s.Instructor);
+
+            if (onlyActive)
+            {
+                query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Section, Instructor?>)query.Where(s => s.Status == Status.Active);
+            }
+
+            return await query
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -1,4 +1,5 @@
 ﻿using Sconce.DAL.Data;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,21 @@ namespace Sconce.DAL.Repositories.Classes
                 .Include(c => c.Level)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
+        }
+        public async Task<IEnumerable<Course>> GetByLevelIdAsync(int levelId, bool onlyActive = false)
+        {
+            var query = _context.Courses
+                .Where(c => c.LevelId == levelId)
+                .Include(c => c.Level);
+
+            if (onlyActive)
+            {
+                query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Course, Level>)query.Where(c => c.Status == Status.Active);
+            }
+
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }
