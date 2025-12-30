@@ -12,7 +12,7 @@ namespace Sconce.DAL.Models
         public Student Student { get; set; } = null!;
 
         public int AttemptNumber { get; set; } = 1;
-        public AttemptStatus Status { get; set; } = AttemptStatus.InProgress;
+        public AttemptStatus AttemptStatus { get; set; } = AttemptStatus.InProgress;
 
         public DateTime StartedAt { get; set; } = DateTime.UtcNow;
         public DateTime? SubmittedAt { get; set; }

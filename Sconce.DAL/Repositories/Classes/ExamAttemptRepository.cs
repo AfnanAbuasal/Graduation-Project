@@ -18,12 +18,12 @@ namespace Sconce.DAL.Repositories.Classes
             _context = context;
         }
 
-        public async Task<ExamAttempt?> GetActiveAttemptAsync(int examId, string studentId)
+        public async Task<ExamAttempt?> GetInProgressAttemptAsync(int examId, string studentId)
         {
             return await _context.Set<ExamAttempt>()
                 .Where(ea => ea.ExamId == examId
                              && ea.StudentId == studentId
-                             && ea.Status == AttemptStatus.InProgress
+                             && ea.AttemptStatus == AttemptStatus.InProgress
                              && ea.SubmittedAt == null)
                 .OrderByDescending(ea => ea.StartedAt)
                 .FirstOrDefaultAsync();

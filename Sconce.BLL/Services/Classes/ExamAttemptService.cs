@@ -33,13 +33,13 @@ namespace Sconce.BLL.Services.Classes
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<(bool Success, Response Response)> StartAttemptAsync(StartExamAttemptRequest request)
+        public async Task<(bool Success, Response Response)> StartAttemptAsync(int examId)
         {
             var studentId = GetCurrentStudentId();
             if (string.IsNullOrEmpty(studentId))
                 return (false, new ErrorResponse { Errors = ["Not authenticated."] });
 
-            var exam = await _examRepository.GetByIdAsync(request.ExamId);
+            var exam = await _examRepository.GetByIdAsync(examId);
             if (exam == null)
                 return (false, new ErrorResponse { Errors = ["Exam not found."] });
 
@@ -54,7 +54,7 @@ namespace Sconce.BLL.Services.Classes
             if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
                 return (false, new ErrorResponse { Errors = ["Exam availability has ended."] });
 
-            var existingAttempt = await _examAttemptRepository.GetActiveAttemptAsync(exam.Id, studentId); //ToDo: include answers after they're implemented
+            var existingAttempt = await _examAttemptRepository.GetInProgressAttemptAsync(exam.Id, studentId); //ToDo: include answers after they're implemented
             if (existingAttempt != null)
                 return (true, new SuccessResponse<ExamAttemptResponse> { Data = existingAttempt.Adapt<ExamAttemptResponse>() });
             
@@ -73,7 +73,7 @@ namespace Sconce.BLL.Services.Classes
                 ExamId = exam.Id,
                 StudentId = studentId,
                 AttemptNumber = attemptNumber,
-                Status = AttemptStatus.InProgress,
+                AttemptStatus = AttemptStatus.InProgress,
                 StartedAt = startedAt,
                 ExpiresAt = expiresAt
             };
@@ -108,10 +108,10 @@ namespace Sconce.BLL.Services.Classes
             if (!string.Equals(attempt.StudentId, studentId, StringComparison.Ordinal))
                 return (false, new ErrorResponse { Errors = ["Unauthorized attempt access."] });
 
-            if (attempt.Status == AttemptStatus.Submitted)
+            if (attempt.AttemptStatus == AttemptStatus.Submitted)
                 return (false, new ErrorResponse { Errors = ["Attempt has already been submitted."] });
 
-            if (attempt.Status != AttemptStatus.InProgress)
+            if (attempt.AttemptStatus != AttemptStatus.InProgress)
                 return (false, new ErrorResponse { Errors = ["Attempt is not in progress."] });
 
             var now = DateTime.UtcNow;
@@ -121,7 +121,7 @@ namespace Sconce.BLL.Services.Classes
             attempt.MaxScore = examQuestions.Sum(eq => eq.Points);
 
             attempt.SubmittedAt = now;
-            attempt.Status = timedOut ? AttemptStatus.Expired : AttemptStatus.Submitted;
+            attempt.AttemptStatus = timedOut ? AttemptStatus.Expired : AttemptStatus.Submitted;
             attempt.UpdatedAt = now;
 
             await _examAttemptRepository.UpdateAsync(attempt);

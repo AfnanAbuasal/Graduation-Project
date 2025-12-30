@@ -190,6 +190,11 @@ namespace Sconce.DAL.Data
                 entity.Property(ea => ea.MaxScore)
                     .HasColumnType("decimal(6,2)");
 
+                builder.Entity<ExamAttempt>()
+                    .HasIndex(e => new { e.ExamId, e.StudentId })
+                    .HasFilter("[AttemptStatus] = 1")
+                    .IsUnique();
+
                 // Unique constraint: one attempt number per student per exam
                 entity.HasIndex(ea => new { ea.ExamId, ea.StudentId, ea.AttemptNumber })
                     .IsUnique();

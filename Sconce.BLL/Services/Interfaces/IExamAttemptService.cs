@@ -6,7 +6,7 @@ namespace Sconce.BLL.Services.Interfaces
 {
     public interface IExamAttemptService
     {
-        Task<(bool Success, Response Response)> StartAttemptAsync(StartExamAttemptRequest request);
+        Task<(bool Success, Response Response)> StartAttemptAsync(int examId);
         Task<Response> GetMyAttemptsAsync(int examId);
         Task<(bool Success, Response Response)> SubmitAttemptAsync(int attemptId);
     }
