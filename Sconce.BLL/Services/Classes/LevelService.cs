@@ -42,6 +42,20 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<LevelResponse>> { Data = responseList };
         }
 
+        public async Task<Response> GetAllByProgramAsync(int programId, bool onlyActive = false)
+        {
+            var list = await _levelRepository.GetAllByProgramAsync(programId, onlyActive);
+
+            var responseList = new List<LevelResponse>();
+            foreach (var entity in list)
+            {
+                var dto = entity.Adapt<LevelResponse>();
+                dto.ProgramName = entity.Program?.Name;
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<LevelResponse>> { Data = responseList };
+        }
         public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
         {
             var entity = await _levelRepository.GetByIdWithProgramAsync(Id);

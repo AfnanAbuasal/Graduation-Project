@@ -27,6 +27,14 @@ namespace Sconce.PL.Areas.Admin
             return Ok(levels);
         }
 
+        // Lists all levels of a specific program, optionally only the active ones.
+        [HttpGet("Program/{programId}")]
+        public async Task<ActionResult<Response>> GetAllByProgram([FromRoute] int programId, [FromQuery] bool onlyActive = false)
+        {
+            var levels = await _levelService.GetAllByProgramAsync(programId, onlyActive);
+            return Ok(levels);
+        }
+
         // Shows details for a specific level.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)

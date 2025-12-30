@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sconce.DAL.Models.Enums;
 
 namespace Sconce.DAL.Repositories.Classes
 {
@@ -27,6 +28,21 @@ namespace Sconce.DAL.Repositories.Classes
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Level>> GetAllByProgramAsync(int programId, bool onlyActive = false)
+        {
+            var query = _context.Levels
+                .Where(l => l.ProgramId == programId);
+
+            if (onlyActive)
+            {
+                query = query.Where(l => l.Status == Status.Active);
+            }
+
+            return await query
+                .Include(l => l.Program)
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<Level?> GetByIdWithProgramAsync(int id)
         {
             return await _context.Levels

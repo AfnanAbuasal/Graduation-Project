@@ -10,6 +10,7 @@ namespace Sconce.DAL.Repositories.Interfaces
     public interface ILevelRepository : IGenericRepository<Level>
     {
         Task<IEnumerable<Level>> GetAllWithProgramAsync();
+        Task<IEnumerable<Level>> GetAllByProgramAsync(int programId, bool onlyActive = false);
         Task<Level?> GetByIdWithProgramAsync(int id);
     }
 }
