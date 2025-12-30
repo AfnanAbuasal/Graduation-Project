@@ -240,6 +240,13 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<MultipleChoiceQuestionResponse>> { Data = data };
         }
 
+        public async Task<Response> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple)
+        {
+            var mcqs = await _questionRepository.GetMultipleChoiceByCourseAndSelectionModeAsync(courseId, allowMultiple);
+            var data = mcqs.Adapt<IEnumerable<MultipleChoiceQuestionResponse>>();
+            return new SuccessResponse<IEnumerable<MultipleChoiceQuestionResponse>> { Data = data };
+        }
+
         public async Task<Response> GetAllEssayByCourseIdAsync(int courseId)
         {
             var essays = await _questionRepository.GetAllEssayByCourseIdAsync(courseId);
@@ -265,6 +272,21 @@ namespace Sconce.BLL.Services.Classes
         public async Task<Response> GetAllByDifficultyAsync(Difficulty difficulty)
         {
             var questions = await _questionRepository.GetAllByDifficultyAsync(difficulty);
+            var responseList = questions.Select(q =>
+            {
+                return q switch
+                {
+                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
+                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
+                    _ => (object)q.Adapt<QuestionResponse>()
+                };
+            }).ToList();
+            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
+        }
+
+        public async Task<Response> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty)
+        {
+            var questions = await _questionRepository.GetAllByDifficultyAndCourseAsync(courseId, difficulty);
             var responseList = questions.Select(q =>
             {
                 return q switch

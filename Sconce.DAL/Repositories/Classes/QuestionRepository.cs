@@ -24,7 +24,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Questions
                 .Where(q => q.CourseId == courseId)
-                .Include(q => (q as MultipleChoiceQuestion).Choices)
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -33,7 +33,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Questions
                 .Where(q => q.CreatedByInstructorId == instructorId)
-                .Include(q => (q as MultipleChoiceQuestion).Choices)
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -54,7 +54,7 @@ namespace Sconce.DAL.Repositories.Classes
 
             return await _context.Questions
                 .Where(q => idList.Contains(q.Id))
-                .Include(q => (q as MultipleChoiceQuestion).Choices)
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -63,6 +63,15 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Set<MultipleChoiceQuestion>()
                 .Where(q => q.CourseId == courseId)
+                .Include(q => q.Choices)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<MultipleChoiceQuestion>> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple)
+        {
+            return await _context.Set<MultipleChoiceQuestion>()
+                .Where(q => q.CourseId == courseId && q.AllowMultipleSelections == allowMultiple)
                 .Include(q => q.Choices)
                 .AsNoTracking()
                 .ToListAsync();
@@ -114,6 +123,15 @@ namespace Sconce.DAL.Repositories.Classes
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Question>> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty)
+        {
+            return await _context.Questions
+                .Where(q => q.CourseId == courseId && q.Difficulty == difficulty)
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Question>> SearchByPromptAsync(int courseId, string term)
         {
             term = term?.Trim() ?? string.Empty;
@@ -124,6 +142,7 @@ namespace Sconce.DAL.Repositories.Classes
 
             return await _context.Questions
                 .Where(q => q.CourseId == courseId && q.Prompt.Contains(term))
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
                 .AsNoTracking()
                 .ToListAsync();
         }

@@ -23,9 +23,11 @@ namespace Sconce.BLL.Services.Interfaces
 
         // Additional query methods mirroring repository
         Task<Response> GetAllMultipleChoiceByCourseIdAsync(int courseId);
+        Task<Response> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple);
         Task<Response> GetAllEssayByCourseIdAsync(int courseId);
         Task<Response> GetAllByTypeAsync<TQuestion>() where TQuestion : Question;
         Task<Response> GetAllByDifficultyAsync(Difficulty difficulty);
+        Task<Response> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty);
         Task<Response> SearchByPromptAsync(int courseId, string term);
         Task<Response> CountByCourseAsync(int courseId);
         Task<Response> CountByTypeAsync<TQuestion>(int courseId) where TQuestion : Question;

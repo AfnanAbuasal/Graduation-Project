@@ -42,28 +42,33 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
-        // Gets all questions by type (polymorphic route: "multiplechoice" or "essay").
-        [HttpGet("Type/{type}")]
-        public async Task<ActionResult<Response>> GetByType([FromRoute] string type)
+        // Gets questions by type for a course.
+        // Supported types:
+        // - "mcqonecorrect": MCQs with AllowMultipleSelections == false
+        // - "mcqmulticorrect": MCQs with AllowMultipleSelections == true
+        // - "essay": Essay questions
+        [HttpGet("Course/{courseId}/Type/{type}")]
+        public async Task<ActionResult<Response>> GetByType([FromRoute] int courseId, [FromRoute] string type)
         {
             var result = type.ToLowerInvariant() switch
             {
-                "multiplechoice" => await _questionService.GetAllByTypeAsync<MultipleChoiceQuestion>(),
-                "essay" => await _questionService.GetAllByTypeAsync<EssayQuestion>(),
+                "mcqonecorrect" => await _questionService.GetMultipleChoiceByCourseAndSelectionModeAsync(courseId, false),
+                "mcqmulticorrect" => await _questionService.GetMultipleChoiceByCourseAndSelectionModeAsync(courseId, true),
+                "essay" => await _questionService.GetAllEssayByCourseIdAsync(courseId),
                 _ => null
             };
 
             if (result == null)
-                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'multiplechoice' or 'essay'."] });
+                return BadRequest(new ErrorResponse { Errors = ["Unsupported question type. Use 'mcqonecorrect', 'mcqmulticorrect', or 'essay'."] });
 
             return Ok(result);
         }
 
-        // Gets all questions by difficulty.
-        [HttpGet("Difficulty/{difficulty}")]
-        public async Task<ActionResult<Response>> GetByDifficulty([FromRoute] Difficulty difficulty)
+        // Gets all questions by difficulty for a course.
+        [HttpGet("Course/{courseId}/Difficulty/{difficulty}")]
+        public async Task<ActionResult<Response>> GetByDifficulty([FromRoute] int courseId, [FromRoute] Difficulty difficulty)
         {
-            var result = await _questionService.GetAllByDifficultyAsync(difficulty);
+            var result = await _questionService.GetAllByDifficultyAndCourseAsync(courseId, difficulty);
             return Ok(result);
         }
 
