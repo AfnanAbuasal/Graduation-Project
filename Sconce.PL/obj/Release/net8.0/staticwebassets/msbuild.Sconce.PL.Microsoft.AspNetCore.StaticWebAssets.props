@@ -90,6 +90,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\CVs\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\EssayAnswers\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>twasnpt8dc</Fingerprint>
+      <Integrity>w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\EssayAnswers\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Questions\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a'))">
       <SourceType>Package</SourceType>
       <SourceId>Sconce.PL</SourceId>
@@ -107,6 +125,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Questions\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Questions\fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>wbcbp7mkw4</Fingerprint>
+      <Integrity>LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Questions\fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf'))">
       <SourceType>Package</SourceType>

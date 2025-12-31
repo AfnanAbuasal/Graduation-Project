@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6nqtb9lEavo1qj2Aul/B38O97jYUCkOS8UBVcd1071c=",
+  "Hash": "JwKUKArfc5fQWrOxcXn5UrEu9xjVv5ZUW3v2k+IBzmo=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -122,6 +122,27 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf"
     },
     {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\EssayAnswers\\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "twasnpt8dc",
+      "Integrity": "w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\EssayAnswers\\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf"
+    },
+    {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
       "SourceId": "Sconce.PL",
       "SourceType": "Discovered",
@@ -141,6 +162,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wbcbp7mkw4",
+      "Integrity": "LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Questions\\fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf"
     },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf",
@@ -639,6 +681,88 @@
       ]
     },
     {
+      "Route": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\EssayAnswers\\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:56:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.twasnpt8dc.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\EssayAnswers\\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:56:56 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "twasnpt8dc"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        }
+      ]
+    },
+    {
       "Route": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.ibhy37u0fo.m4a",
       "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
       "Selectors": [],
@@ -717,6 +841,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:01:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.wbcbp7mkw4.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Questions\\fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:01:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wbcbp7mkw4"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE="
         }
       ]
     },

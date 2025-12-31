@@ -413,6 +413,88 @@
       ]
     },
     {
+      "Route": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "AssetFile": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:56:56 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.twasnpt8dc.pdf",
+      "AssetFile": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:56:56 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "twasnpt8dc"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf"
+        }
+      ]
+    },
+    {
       "Route": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.ibhy37u0fo.m4a",
       "AssetFile": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
       "Selectors": [],
@@ -491,6 +573,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Lstyxr67LEIgwRC0qo0u+qSaRKspFvQiMO24b94h15s="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "AssetFile": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:01:31 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.wbcbp7mkw4.pdf",
+      "AssetFile": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 31 Dec 2025 18:01:31 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wbcbp7mkw4"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-LKiriTtKlOVbB7Bik+UO5GjiiRe247JrdL0OpnuTCFE="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Questions/fa92c72c-50da-4a4a-a300-50e646906c19_Report.pdf"
         }
       ]
     },
