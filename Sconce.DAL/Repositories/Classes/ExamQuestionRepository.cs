@@ -68,5 +68,12 @@ namespace Sconce.DAL.Repositories.Classes
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<ExamQuestion?> GetByIdWithQuestionAsync(int id)
+        {
+            return await _context.ExamQuestions
+                .Include(eq => eq.Question)
+                .FirstOrDefaultAsync(eq => eq.Id == id);
+        }
     }
 }
