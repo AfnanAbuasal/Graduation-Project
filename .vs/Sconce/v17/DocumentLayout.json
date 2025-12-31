@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20251230134208_addedexamattemptstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20251230134208_addedexamattemptstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Program.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Program.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Program.cs",
+              "RelativeToolTip": "Sconce.PL\\Program.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAQwFoAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T14:04:31.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20251230134208_AddedExamAttemptsTable.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251230134208_AddedExamAttemptsTable.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20251230134208_AddedExamAttemptsTable.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251230134208_AddedExamAttemptsTable.cs",
+              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20251230134208_AddedExamAttemptsTable.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-30T13:42:08.42Z"
             }
           ]
         }
