@@ -56,7 +56,7 @@ namespace Sconce.BLL.Services.Classes
 
             var existingAttempt = await _examAttemptRepository.GetInProgressAttemptAsync(exam.Id, studentId); //ToDo: include answers after they're implemented
             if (existingAttempt != null)
-                return (true, new SuccessResponse<ExamAttemptResponse> { Data = existingAttempt.Adapt<ExamAttemptResponse>() });
+                return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(existingAttempt) });
             
             var attemptsCount = await _examAttemptRepository.GetAttemptsCountAsync(exam.Id, studentId);
             if (attemptsCount >= exam.AttemptsAllowed)
@@ -80,7 +80,7 @@ namespace Sconce.BLL.Services.Classes
 
             await _examAttemptRepository.AddAsync(attempt);
 
-            return (true, new SuccessResponse<ExamAttemptResponse> { Data = attempt.Adapt<ExamAttemptResponse>() });
+            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(attempt) });
         }
 
         public async Task<Response> GetMyAttemptsAsync(int examId)
@@ -90,7 +90,23 @@ namespace Sconce.BLL.Services.Classes
                 return new ErrorResponse { Errors = ["Not authenticated."] };
 
             var attempts = await _examAttemptRepository.GetAttemptsByExamForStudentAsync(examId, studentId);
-            var response = attempts.Adapt<IEnumerable<ExamAttemptResponse>>();
+            var response = attempts.Select(MapToResponse).ToList();
+
+            return new SuccessResponse<IEnumerable<ExamAttemptResponse>> { Data = response };
+        }
+
+        public async Task<Response> GetAttemptsByExamIdAsync(int examId)
+        {
+            var instructorId = GetCurrentInstructorId();
+            if (string.IsNullOrEmpty(instructorId))
+                return new ErrorResponse { Errors = ["Not authenticated."] };
+
+            var exam = await _examRepository.GetByIdAsync(examId);
+            if (exam == null)
+                return new ErrorResponse { Errors = ["Exam not found."] };
+
+            var attempts = await _examAttemptRepository.GetAllByExamIdAsync(examId);
+            var response = attempts.Select(MapToResponse).ToList();
 
             return new SuccessResponse<IEnumerable<ExamAttemptResponse>> { Data = response };
         }
@@ -126,10 +142,20 @@ namespace Sconce.BLL.Services.Classes
 
             await _examAttemptRepository.UpdateAsync(attempt);
 
-            return (true, new SuccessResponse<ExamAttemptResponse> { Data = attempt.Adapt<ExamAttemptResponse>() });
+            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(attempt) });
         }
 
         private string? GetCurrentStudentId()
             => _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        private string? GetCurrentInstructorId()
+            => _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        private ExamAttemptResponse MapToResponse(ExamAttempt attempt)
+        {
+            var dto = attempt.Adapt<ExamAttemptResponse>();
+            dto.StudentFullName = attempt.Student?.FullName ?? string.Empty;
+            return dto;
+        }
     }
 }

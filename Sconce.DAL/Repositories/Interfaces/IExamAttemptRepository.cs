@@ -10,5 +10,6 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<int> GetAttemptsCountAsync(int examId, string studentId);
         Task<ExamAttempt?> GetByIdWithExamAsync(int attemptId);
         Task<List<ExamAttempt>> GetAttemptsByExamForStudentAsync(int examId, string studentId);
+        Task<IEnumerable<ExamAttempt>> GetAllByExamIdAsync(int examId);
     }
 }

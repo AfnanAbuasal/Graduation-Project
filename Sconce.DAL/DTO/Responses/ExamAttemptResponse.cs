@@ -10,6 +10,7 @@ namespace Sconce.DAL.DTO.Responses
         public int Id { get; set; }
         public int ExamId { get; set; }
         public string StudentId { get; set; } = string.Empty;
+        public string StudentFullName { get; set; } = string.Empty;
         public int AttemptNumber { get; set; }
         [JsonIgnore] public AttemptStatus AttemptStatus { get; set; }
         public string AttemptStatusDisplay => AttemptStatus.ToDisplayString();

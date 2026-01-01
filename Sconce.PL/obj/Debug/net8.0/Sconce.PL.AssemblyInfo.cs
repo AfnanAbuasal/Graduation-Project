@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sconce.PL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c10b4d81f8f3523161c858357a0d827b0c58316")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d4907c2bc83bd7f1baed325b3085ed59d0748e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sconce.PL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sconce.PL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

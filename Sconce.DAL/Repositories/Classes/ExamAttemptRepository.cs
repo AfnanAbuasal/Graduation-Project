@@ -50,5 +50,15 @@ namespace Sconce.DAL.Repositories.Classes
                 .OrderBy(ea => ea.AttemptNumber)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<ExamAttempt>> GetAllByExamIdAsync(int examId)
+        {
+            return await _context.Set<ExamAttempt>()
+                .Include(ea => ea.Student)
+                .Where(ea => ea.ExamId == examId)
+                .OrderByDescending(ea => ea.SubmittedAt)
+                .ThenByDescending(ea => ea.StartedAt)
+                .ToListAsync();
+        }
     }
 }
