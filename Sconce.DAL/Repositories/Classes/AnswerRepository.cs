@@ -33,5 +33,21 @@ namespace Sconce.DAL.Repositories.Classes
                 .OrderBy(a => a.ExamQuestion.SortOrder)
                 .ToListAsync();
         }
+
+        public async Task<ExamQuestion?> GetExamQuestionWithMcqChoicesAsync(int examQuestionId)
+        {
+            var examQuestion = await _context.Set<ExamQuestion>()
+                .Include(eq => eq.Question)
+                .FirstOrDefaultAsync(eq => eq.Id == examQuestionId);
+
+            if (examQuestion?.Question is MultipleChoiceQuestion mcQuestion)
+            {
+                await _context.Entry(mcQuestion)
+                    .Collection(q => q.Choices)
+                    .LoadAsync();
+            }
+
+            return examQuestion;
+        }
     }
 }

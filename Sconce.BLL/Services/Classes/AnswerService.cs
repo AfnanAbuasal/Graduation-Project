@@ -19,7 +19,6 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly IAnswerRepository _answerRepository;
         private readonly IExamAttemptRepository _examAttemptRepository;
-        private readonly IExamQuestionRepository _examQuestionRepository;
         private readonly IChoiceRepository _choiceRepository;
         private readonly IFileService _fileService;
         private readonly IUrlHelper _urlHelper;
@@ -28,7 +27,6 @@ namespace Sconce.BLL.Services.Classes
         public AnswerService(
             IAnswerRepository answerRepository,
             IExamAttemptRepository examAttemptRepository,
-            IExamQuestionRepository examQuestionRepository,
             IChoiceRepository choiceRepository,
             IFileService fileService,
             IUrlHelper urlHelper,
@@ -37,7 +35,6 @@ namespace Sconce.BLL.Services.Classes
         {
             _answerRepository = answerRepository;
             _examAttemptRepository = examAttemptRepository;
-            _examQuestionRepository = examQuestionRepository;
             _choiceRepository = choiceRepository;
             _fileService = fileService;
             _urlHelper = urlHelper;
@@ -73,16 +70,13 @@ namespace Sconce.BLL.Services.Classes
             }
 
             // Validate examQuestion belongs to attempt.ExamId
-            var examQuestion = await _examQuestionRepository.GetByIdWithQuestionAsync(request.ExamQuestionId);
+            var examQuestion = await _answerRepository.GetExamQuestionWithMcqChoicesAsync(request.ExamQuestionId);
 
             if (examQuestion == null)
                 return (0, new ErrorResponse { Errors = ["Exam question not found."] });
 
             if (examQuestion.ExamId != attempt.ExamId)
                 return (0, new ErrorResponse { Errors = ["Exam question does not belong to this attempt's exam."] });
-
-            // Decide question type
-            var questionType = examQuestion.Question.Type;
 
             // Check if answer already exists
             var existingAnswer = await _answerRepository.GetByAttemptAndExamQuestionAsync(attempt.Id, examQuestion.Id);
@@ -108,29 +102,62 @@ namespace Sconce.BLL.Services.Classes
             answer.MaxScore = examQuestion.Points;
 
             // Handle based on question type
-            if (questionType == "MultipleChoiceQuestion")
+            if (examQuestion.Question is MultipleChoiceQuestion mcQuestion)
             {
-                // MCQ validation
-                if (request.SelectedChoiceIds == null || !request.SelectedChoiceIds.Any())
+                var selectedIds = request.SelectedChoiceIds?
+                    .Distinct()
+                    .ToList();
+
+                if (selectedIds == null || selectedIds.Count == 0)
                     return (0, new ErrorResponse { Errors = ["Please select at least one choice for multiple choice question."] });
 
-                // Validate all choiceIds belong to that questionId
-                var allChoices = await _choiceRepository.GetByQuestionIdAsync(examQuestion.QuestionId);
-                var validChoiceIds = allChoices.Select(c => c.Id).ToHashSet();
+                var mcChoices = mcQuestion.Choices?.ToList() ?? new List<Choice>();
 
-                foreach (var choiceId in request.SelectedChoiceIds)
+                // Fallback to repository if choices were not preloaded
+                if (!mcChoices.Any())
+                    mcChoices = (await _choiceRepository.GetByQuestionIdAsync(examQuestion.QuestionId)).ToList();
+
+                var validChoiceIds = mcChoices.Select(c => c.Id).ToHashSet();
+
+                foreach (var choiceId in selectedIds)
                 {
                     if (!validChoiceIds.Contains(choiceId))
                         return (0, new ErrorResponse { Errors = [$"Invalid choice ID: {choiceId}"] });
                 }
 
-                // Check if question allows multiple selections
-                var mcQuestion = examQuestion.Question as MultipleChoiceQuestion;
-                if (mcQuestion != null && !mcQuestion.AllowMultipleSelections && request.SelectedChoiceIds.Count > 1)
-                    return (0, new ErrorResponse { Errors = ["This question does not allow multiple selections."] });
+                var correctChoiceIds = mcChoices.Where(c => c.IsCorrect).Select(c => c.Id).ToHashSet();
 
-                // Store as JSON
-                answer.SelectedChoiceIdsJson = JsonSerializer.Serialize(request.SelectedChoiceIds);
+                decimal score = 0m;
+
+                if (!mcQuestion.AllowMultipleSelections)
+                {
+                    if (selectedIds.Count == 1 && correctChoiceIds.Contains(selectedIds[0]))
+                        score = examQuestion.Points;
+                }
+                else
+                {
+                    var hasWrongSelection = selectedIds.Any(id => !correctChoiceIds.Contains(id));
+
+                    if (!hasWrongSelection)
+                    {
+                        var correctCount = correctChoiceIds.Count;
+
+                        if (correctCount > 0)
+                        {
+                            score = (examQuestion.Points / correctCount) * selectedIds.Count;
+
+                            if (score > examQuestion.Points)
+                                score = examQuestion.Points;
+                        }
+                    }
+                }
+
+                answer.Score = score;
+                answer.GradedAt = DateTime.UtcNow;
+                answer.GradedByInstructorId = null;
+
+                // Store as JSON with de-duplicated selected IDs
+                answer.SelectedChoiceIdsJson = JsonSerializer.Serialize(selectedIds);
                 answer.Text = null;
 
                 // Delete old file if exists
@@ -140,7 +167,7 @@ namespace Sconce.BLL.Services.Classes
                     answer.FilePath = null;
                 }
             }
-            else if (questionType == "EssayQuestion")
+            else if (examQuestion.Question is EssayQuestion)
             {
                 // Essay validation: require Text and/or File
                 if (string.IsNullOrWhiteSpace(request.Text) && request.File == null)
