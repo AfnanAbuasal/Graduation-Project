@@ -17,5 +17,11 @@ public class AnswerResponse
 
     public string? FileUrl { get; set; }
 
+    public decimal? Score { get; set; }
+
+    public decimal MaxScore { get; set; }
+
+    public DateTime? GradedAt { get; set; }
+
     public DateTime CreatedAt { get; set; }
 }

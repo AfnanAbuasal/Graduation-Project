@@ -18,5 +18,6 @@ namespace Sconce.DAL.DTO.Responses
         public DateTime? ExpiresAt { get; set; }
         public decimal? Score { get; set; }
         public decimal? MaxScore { get; set; }
+        public DateTime? GradedAt { get; set; }
     }
 }

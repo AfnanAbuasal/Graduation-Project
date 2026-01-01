@@ -20,5 +20,7 @@ namespace Sconce.DAL.Models
 
         public decimal? Score { get; set; }
         public decimal? MaxScore { get; set; }
+
+        public DateTime? GradedAt { get; set; }
     }
 }

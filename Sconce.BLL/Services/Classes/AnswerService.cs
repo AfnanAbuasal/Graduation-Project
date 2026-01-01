@@ -104,6 +104,9 @@ namespace Sconce.BLL.Services.Classes
                 };
             }
 
+            // Set MaxScore from ExamQuestion.Points (snapshot at time of answering)
+            answer.MaxScore = examQuestion.Points;
+
             // Handle based on question type
             if (questionType == "MultipleChoiceQuestion")
             {
