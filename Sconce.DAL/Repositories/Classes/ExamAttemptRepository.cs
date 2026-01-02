@@ -21,6 +21,7 @@ namespace Sconce.DAL.Repositories.Classes
         public async Task<ExamAttempt?> GetInProgressAttemptAsync(int examId, string studentId)
         {
             return await _context.Set<ExamAttempt>()
+                .Include(ea => ea.Answers)
                 .Where(ea => ea.ExamId == examId
                              && ea.StudentId == studentId
                              && ea.AttemptStatus == AttemptStatus.InProgress
@@ -39,6 +40,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Set<ExamAttempt>()
                 .Include(ea => ea.Exam)
+                .Include(ea => ea.Answers)
                 .FirstOrDefaultAsync(ea => ea.Id == attemptId);
         }
 
@@ -59,6 +61,35 @@ namespace Sconce.DAL.Repositories.Classes
                 .OrderByDescending(ea => ea.SubmittedAt)
                 .ThenByDescending(ea => ea.StartedAt)
                 .ToListAsync();
+        }
+
+        public async Task<ExamAttempt?> GetByIdWithDetailsAsync(int attemptId)
+        {
+            var attempt = await _context.Set<ExamAttempt>()
+                .AsNoTracking()
+                .Include(ea => ea.Exam)
+                    .ThenInclude(e => e.ExamQuestions.OrderBy(eq => eq.SortOrder))
+                        .ThenInclude(eq => eq.Question)
+                .Include(ea => ea.Student)
+                .Include(ea => ea.Answers)
+                    .ThenInclude(a => a.ExamQuestion)
+                .FirstOrDefaultAsync(ea => ea.Id == attemptId);
+
+            if (attempt != null)
+            {
+                // Load choices for MCQ questions
+                foreach (var examQuestion in attempt.Exam.ExamQuestions)
+                {
+                    if (examQuestion.Question is MultipleChoiceQuestion mcq)
+                    {
+                        await _context.Entry(mcq)
+                            .Collection(q => q.Choices)
+                            .LoadAsync();
+                    }
+                }
+            }
+
+            return attempt;
         }
     }
 }

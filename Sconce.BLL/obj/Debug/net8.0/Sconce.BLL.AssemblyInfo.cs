@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sconce.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c10b4d81f8f3523161c858357a0d827b0c58316")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a066893b1edc78ff660d865057fdf781547ba804")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sconce.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sconce.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -16,5 +16,7 @@ namespace Sconce.DAL.Models
         public bool ShuffleQuestions { get; set; } = false;
 
         public ExamStatus ExamStatus { get; set; } = ExamStatus.Draft;
+
+        public ICollection<ExamQuestion> ExamQuestions { get; set; } = new List<ExamQuestion>();
     }
 }

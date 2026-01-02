@@ -1,11 +1,12 @@
 using Sconce.DAL.Extensions;
 using Sconce.DAL.Models.Enums;
+using Sconce.DAL.Models;
 using System;
 using System.Text.Json.Serialization;
 
 namespace Sconce.DAL.DTO.Responses
 {
-    public class ExamAttemptResponse : Response
+    public class ExamAttemptResponse
     {
         public int Id { get; set; }
         public int ExamId { get; set; }
@@ -20,5 +21,6 @@ namespace Sconce.DAL.DTO.Responses
         public decimal? Score { get; set; }
         public decimal? MaxScore { get; set; }
         public DateTime? GradedAt { get; set; }
+        public ICollection<AnswerResponse> Answers { get; set; }
     }
 }

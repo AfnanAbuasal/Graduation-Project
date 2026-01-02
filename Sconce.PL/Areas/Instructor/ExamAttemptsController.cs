@@ -28,5 +28,16 @@ namespace Sconce.PL.Areas.Instructor
                 return BadRequest(result);
             return Ok(result);
         }
+
+        // Get full details of a single exam attempt including questions and answers.
+        // Returns detailed attempt information with all questions and student answers.
+        [HttpGet("{attemptId}")]
+        public async Task<ActionResult<Response>> GetAttemptDetails([FromRoute] int attemptId)
+        {
+            var result = await _examAttemptService.GetAttemptDetailsAsync(attemptId);
+            if (!result.Success)
+                return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }

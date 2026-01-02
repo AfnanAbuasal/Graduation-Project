@@ -18,15 +18,11 @@ public class Answer : BaseModel, IFileEntity
     /// For Essay Questions: Optional file upload path.
     public string? FilePath { get; set; }
 
-    /// Grading: Awarded score (null if not graded yet).
     public decimal? Score { get; set; }
 
-    /// Grading: Maximum possible score (snapshot of ExamQuestion.Points).
     public decimal MaxScore { get; set; }
 
-    /// Grading: When this answer was graded.
     public DateTime? GradedAt { get; set; }
 
-    /// Grading: Instructor who graded this answer.
     public string? GradedByInstructorId { get; set; }
 }

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sconce.BLL.Services.Classes
@@ -20,17 +21,20 @@ namespace Sconce.BLL.Services.Classes
         private readonly IExamRepository _examRepository;
         private readonly IExamQuestionRepository _examQuestionRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUrlHelper _urlHelper;
 
         public ExamAttemptService(
             IExamAttemptRepository examAttemptRepository,
             IExamRepository examRepository,
             IExamQuestionRepository examQuestionRepository,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IUrlHelper urlHelper)
         {
             _examAttemptRepository = examAttemptRepository;
             _examRepository = examRepository;
             _examQuestionRepository = examQuestionRepository;
             _httpContextAccessor = httpContextAccessor;
+            _urlHelper = urlHelper;
         }
 
         public async Task<(bool Success, Response Response)> StartAttemptAsync(int examId)
@@ -54,7 +58,7 @@ namespace Sconce.BLL.Services.Classes
             if (exam.AvailableTo.HasValue && now > exam.AvailableTo.Value)
                 return (false, new ErrorResponse { Errors = ["Exam availability has ended."] });
 
-            var existingAttempt = await _examAttemptRepository.GetInProgressAttemptAsync(exam.Id, studentId); //ToDo: include answers after they're implemented
+            var existingAttempt = await _examAttemptRepository.GetInProgressAttemptAsync(exam.Id, studentId);
             if (existingAttempt != null)
                 return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(existingAttempt) });
             
@@ -111,13 +115,50 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<ExamAttemptResponse>> { Data = response };
         }
 
+        public async Task<(bool Success, Response Response)> GetAttemptDetailsAsync(int attemptId)
+        {
+            var instructorId = GetCurrentInstructorId();
+            if (string.IsNullOrEmpty(instructorId))
+                return (false, new ErrorResponse { Errors = ["Not authenticated."] });
+
+            var attempt = await _examAttemptRepository.GetByIdWithDetailsAsync(attemptId);
+            if (attempt == null)
+                return (false, new ErrorResponse { Errors = ["Attempt not found."] });
+
+            // Map basic attempt info with answers
+            var attemptResponse = MapToResponseWithAnswers(attempt);
+
+            // Map all exam questions
+            var questions = new List<ExamQuestionDetailsResponse>();
+
+            foreach (var examQuestion in attempt.Exam.ExamQuestions.OrderBy(eq => eq.SortOrder))
+            {
+                var examQuestionResponse = examQuestion.Adapt<ExamQuestionResponse>();
+                var questionResponse = MapQuestionToResponse(examQuestion.Question);
+
+                questions.Add(new ExamQuestionDetailsResponse
+                {
+                    ExamQuestion = examQuestionResponse,
+                    Question = questionResponse
+                });
+            }
+
+            var detailsResponse = new ExamAttemptDetailsResponse
+            {
+                Attempt = attemptResponse,
+                Questions = questions
+            };
+
+            return (true, new SuccessResponse<ExamAttemptDetailsResponse> { Data = detailsResponse });
+        }
+
         public async Task<(bool Success, Response Response)> SubmitAttemptAsync(int attemptId)
         {
             var studentId = GetCurrentStudentId();
             if (string.IsNullOrEmpty(studentId))
                 return (false, new ErrorResponse { Errors = ["Not authenticated."] });
 
-            var attempt = await _examAttemptRepository.GetByIdWithExamAsync(attemptId); // ToDo: include answers after they're implemented
+            var attempt = await _examAttemptRepository.GetByIdWithExamAsync(attemptId);
             if (attempt == null)
                 return (false, new ErrorResponse { Errors = ["Attempt not found."] });
             
@@ -155,6 +196,54 @@ namespace Sconce.BLL.Services.Classes
         {
             var dto = attempt.Adapt<ExamAttemptResponse>();
             dto.StudentFullName = attempt.Student?.FullName ?? string.Empty;
+            return dto;
+        }
+
+        private ExamAttemptResponse MapToResponseWithAnswers(ExamAttempt attempt)
+        {
+            var dto = MapToResponse(attempt);
+            
+            // Map all answers
+            dto.Answers = attempt.Answers?
+                .Select(MapAnswerToResponse)
+                .ToList() ?? new List<AnswerResponse>();
+
+            return dto;
+        }
+
+        private QuestionResponse MapQuestionToResponse(Question question)
+        {
+            if (question is MultipleChoiceQuestion)
+                return question.Adapt<MultipleChoiceQuestionResponse>();
+            else if (question is EssayQuestion)
+                return question.Adapt<EssayQuestionResponse>();
+            else
+                return question.Adapt<QuestionResponse>();
+        }
+
+        private AnswerResponse MapAnswerToResponse(Answer answer)
+        {
+            var dto = answer.Adapt<AnswerResponse>();
+
+            // Parse SelectedChoiceIdsJson => List<int>
+            if (!string.IsNullOrWhiteSpace(answer.SelectedChoiceIdsJson))
+            {
+                try
+                {
+                    dto.SelectedChoiceIds = JsonSerializer.Deserialize<List<int>>(answer.SelectedChoiceIdsJson);
+                }
+                catch
+                {
+                    dto.SelectedChoiceIds = null;
+                }
+            }
+
+            // Build FileUrl only for essay question answers
+            if (answer.ExamQuestion?.Question is EssayQuestion && !string.IsNullOrWhiteSpace(answer.FilePath))
+            {
+                dto.FileUrl = _urlHelper.BuildUrl(answer.FilePath);
+            }
+
             return dto;
         }
     }
