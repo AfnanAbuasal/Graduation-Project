@@ -495,6 +495,252 @@
       ]
     },
     {
+      "Route": "Uploads/EssayAnswers/137f780b-0547-48eb-8891-161b5bbb5438_Answer.pdf",
+      "AssetFile": "Uploads/EssayAnswers/137f780b-0547-48eb-8891-161b5bbb5438_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 11:36:16 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/137f780b-0547-48eb-8891-161b5bbb5438_Answer.twasnpt8dc.pdf",
+      "AssetFile": "Uploads/EssayAnswers/137f780b-0547-48eb-8891-161b5bbb5438_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 11:36:16 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "twasnpt8dc"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/EssayAnswers/137f780b-0547-48eb-8891-161b5bbb5438_Answer.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/4258e657-4e16-4b54-89b6-73e7f4004474_Answer.pdf",
+      "AssetFile": "Uploads/EssayAnswers/4258e657-4e16-4b54-89b6-73e7f4004474_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 11:19:07 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/4258e657-4e16-4b54-89b6-73e7f4004474_Answer.twasnpt8dc.pdf",
+      "AssetFile": "Uploads/EssayAnswers/4258e657-4e16-4b54-89b6-73e7f4004474_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 11:19:07 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "twasnpt8dc"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/EssayAnswers/4258e657-4e16-4b54-89b6-73e7f4004474_Answer.pdf"
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/c66c4927-56ce-477f-bca2-3683539a8e9d_Answer.pdf",
+      "AssetFile": "Uploads/EssayAnswers/c66c4927-56ce-477f-bca2-3683539a8e9d_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 10:51:10 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/EssayAnswers/c66c4927-56ce-477f-bca2-3683539a8e9d_Answer.twasnpt8dc.pdf",
+      "AssetFile": "Uploads/EssayAnswers/c66c4927-56ce-477f-bca2-3683539a8e9d_Answer.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "153558"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 03 Jan 2026 10:51:10 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "twasnpt8dc"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-w46w3C2ShFipX485piRDzrsoECDfkoNe6RsGKOc6wOA="
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/EssayAnswers/c66c4927-56ce-477f-bca2-3683539a8e9d_Answer.pdf"
+        }
+      ]
+    },
+    {
       "Route": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.ibhy37u0fo.m4a",
       "AssetFile": "Uploads/Questions/e399155c-270d-45b1-8d46-ec0484e22af5_Student.m4a",
       "Selectors": [],

@@ -213,6 +213,11 @@ namespace Sconce.DAL.Data
                     .HasForeignKey(a => a.ExamQuestionId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+                entity.Property(a => a.MaxScore)
+                    .HasColumnType("decimal(6,2)");
+                entity.Property(a => a.Score)
+                    .HasColumnType("decimal(6,2)");
+
                 // Unique constraint: one answer per (ExamAttemptId, ExamQuestionId)
                 entity.HasIndex(a => new { a.ExamAttemptId, a.ExamQuestionId })
                     .IsUnique();

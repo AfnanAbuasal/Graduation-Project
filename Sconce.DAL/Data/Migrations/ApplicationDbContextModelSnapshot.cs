@@ -78,11 +78,26 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<int>("ExamAttemptId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ExamAttemptId1")
+                        .HasColumnType("int");
+
                     b.Property<int>("ExamQuestionId")
                         .HasColumnType("int");
 
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("GradedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GradedByInstructorId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("MaxScore")
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<string>("SelectedChoiceIdsJson")
                         .HasColumnType("nvarchar(max)");
@@ -97,6 +112,8 @@ namespace Sconce.DAL.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExamAttemptId1");
 
                     b.HasIndex("ExamQuestionId");
 
@@ -384,6 +401,9 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<DateTime?>("ExpiresAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("GradedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal?>("MaxScore")
                         .HasColumnType("decimal(6,2)");
 
@@ -434,6 +454,9 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<int>("ExamId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ExamId1")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Points")
                         .HasColumnType("decimal(6,2)");
 
@@ -453,6 +476,8 @@ namespace Sconce.DAL.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExamId1");
 
                     b.HasIndex("QuestionId");
 
@@ -1166,6 +1191,10 @@ namespace Sconce.DAL.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Sconce.DAL.Models.ExamAttempt", null)
+                        .WithMany("Answers")
+                        .HasForeignKey("ExamAttemptId1");
+
                     b.HasOne("Sconce.DAL.Models.ExamQuestion", "ExamQuestion")
                         .WithMany()
                         .HasForeignKey("ExamQuestionId")
@@ -1255,6 +1284,10 @@ namespace Sconce.DAL.Data.Migrations
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Sconce.DAL.Models.Exam", null)
+                        .WithMany("ExamQuestions")
+                        .HasForeignKey("ExamId1");
 
                     b.HasOne("Sconce.DAL.Models.Question", "Question")
                         .WithMany()
@@ -1434,6 +1467,11 @@ namespace Sconce.DAL.Data.Migrations
                     b.Navigation("Sections");
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.ExamAttempt", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
             modelBuilder.Entity("Sconce.DAL.Models.Level", b =>
                 {
                     b.Navigation("Courses");
@@ -1459,6 +1497,11 @@ namespace Sconce.DAL.Data.Migrations
             modelBuilder.Entity("Sconce.DAL.Models.Assignment", b =>
                 {
                     b.Navigation("Submissions");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.Exam", b =>
+                {
+                    b.Navigation("ExamQuestions");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.MultipleChoiceQuestion", b =>

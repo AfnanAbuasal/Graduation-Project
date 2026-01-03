@@ -20,6 +20,8 @@ namespace Sconce.BLL.Services.Classes
         private readonly IExamAttemptRepository _examAttemptRepository;
         private readonly IExamRepository _examRepository;
         private readonly IExamQuestionRepository _examQuestionRepository;
+        private readonly IExamQuestionService _examQuestionService;
+        private readonly IAnswerRepository _answerRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUrlHelper _urlHelper;
 
@@ -27,12 +29,16 @@ namespace Sconce.BLL.Services.Classes
             IExamAttemptRepository examAttemptRepository,
             IExamRepository examRepository,
             IExamQuestionRepository examQuestionRepository,
+            IExamQuestionService examQuestionService,
+            IAnswerRepository answerRepository,
             IHttpContextAccessor httpContextAccessor,
             IUrlHelper urlHelper)
         {
             _examAttemptRepository = examAttemptRepository;
             _examRepository = examRepository;
             _examQuestionRepository = examQuestionRepository;
+            _examQuestionService = examQuestionService;
+            _answerRepository = answerRepository;
             _httpContextAccessor = httpContextAccessor;
             _urlHelper = urlHelper;
         }
@@ -84,7 +90,10 @@ namespace Sconce.BLL.Services.Classes
 
             await _examAttemptRepository.AddAsync(attempt);
 
-            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(attempt) });
+            // Reload to ensure Student navigation is available for mapping FullName
+            var persistedAttempt = await _examAttemptRepository.GetByIdWithExamAsync(attempt.Id) ?? attempt;
+
+            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(persistedAttempt) });
         }
 
         public async Task<Response> GetMyAttemptsAsync(int examId)
@@ -94,7 +103,7 @@ namespace Sconce.BLL.Services.Classes
                 return new ErrorResponse { Errors = ["Not authenticated."] };
 
             var attempts = await _examAttemptRepository.GetAttemptsByExamForStudentAsync(examId, studentId);
-            var response = attempts.Select(MapToResponse).ToList();
+            var response = attempts.Select(MapToResponseWithAnswers).ToList();
 
             return new SuccessResponse<IEnumerable<ExamAttemptResponse>> { Data = response };
         }
@@ -110,7 +119,7 @@ namespace Sconce.BLL.Services.Classes
                 return new ErrorResponse { Errors = ["Exam not found."] };
 
             var attempts = await _examAttemptRepository.GetAllByExamIdAsync(examId);
-            var response = attempts.Select(MapToResponse).ToList();
+            var response = attempts.Select(MapToResponseWithAnswers).ToList();
 
             return new SuccessResponse<IEnumerable<ExamAttemptResponse>> { Data = response };
         }
@@ -121,26 +130,24 @@ namespace Sconce.BLL.Services.Classes
             if (string.IsNullOrEmpty(instructorId))
                 return (false, new ErrorResponse { Errors = ["Not authenticated."] });
 
-            var attempt = await _examAttemptRepository.GetByIdWithDetailsAsync(attemptId);
+            // Load attempt with basic data (exam, student, answers)
+            var attempt = await _examAttemptRepository.GetByIdWithExamAsync(attemptId);
             if (attempt == null)
                 return (false, new ErrorResponse { Errors = ["Attempt not found."] });
+
+            if (attempt.Exam == null)
+                return (false, new ErrorResponse { Errors = ["Exam not found for this attempt."] });
 
             // Map basic attempt info with answers
             var attemptResponse = MapToResponseWithAnswers(attempt);
 
-            // Map all exam questions
+            // Use ExamQuestionService to load full question details separately
+            var questionsResult = await _examQuestionService.GetAllExamQuestionDetailsAsync(attempt.ExamId, forStudents: false);
             var questions = new List<ExamQuestionDetailsResponse>();
 
-            foreach (var examQuestion in attempt.Exam.ExamQuestions.OrderBy(eq => eq.SortOrder))
+            if (questionsResult is SuccessResponse<List<ExamQuestionDetailsResponse>> successResponse)
             {
-                var examQuestionResponse = examQuestion.Adapt<ExamQuestionResponse>();
-                var questionResponse = MapQuestionToResponse(examQuestion.Question);
-
-                questions.Add(new ExamQuestionDetailsResponse
-                {
-                    ExamQuestion = examQuestionResponse,
-                    Question = questionResponse
-                });
+                questions = successResponse.Data ?? new List<ExamQuestionDetailsResponse>();
             }
 
             var detailsResponse = new ExamAttemptDetailsResponse
@@ -183,7 +190,10 @@ namespace Sconce.BLL.Services.Classes
 
             await _examAttemptRepository.UpdateAsync(attempt);
 
-            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(attempt) });
+            // Reload to include latest answers with question data
+            var refreshedAttempt = await _examAttemptRepository.GetByIdWithExamAsync(attempt.Id) ?? attempt;
+
+            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponseWithAnswers(refreshedAttempt) });
         }
 
         private string? GetCurrentStudentId()
@@ -202,23 +212,21 @@ namespace Sconce.BLL.Services.Classes
         private ExamAttemptResponse MapToResponseWithAnswers(ExamAttempt attempt)
         {
             var dto = MapToResponse(attempt);
-            
-            // Map all answers
-            dto.Answers = attempt.Answers?
+
+            var answers = attempt.Answers;
+
+            // If answers not loaded, fetch explicitly
+            if (answers == null || !answers.Any())
+            {
+                var loaded = _answerRepository.GetAllByAttemptIdAsync(attempt.Id).GetAwaiter().GetResult();
+                answers = loaded?.ToList() ?? new List<Answer>();
+            }
+
+            dto.Answers = answers
                 .Select(MapAnswerToResponse)
-                .ToList() ?? new List<AnswerResponse>();
+                .ToList();
 
             return dto;
-        }
-
-        private QuestionResponse MapQuestionToResponse(Question question)
-        {
-            if (question is MultipleChoiceQuestion)
-                return question.Adapt<MultipleChoiceQuestionResponse>();
-            else if (question is EssayQuestion)
-                return question.Adapt<EssayQuestionResponse>();
-            else
-                return question.Adapt<QuestionResponse>();
         }
 
         private AnswerResponse MapAnswerToResponse(Answer answer)

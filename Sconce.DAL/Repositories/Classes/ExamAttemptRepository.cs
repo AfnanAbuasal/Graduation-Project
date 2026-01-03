@@ -20,14 +20,26 @@ namespace Sconce.DAL.Repositories.Classes
 
         public async Task<ExamAttempt?> GetInProgressAttemptAsync(int examId, string studentId)
         {
-            return await _context.Set<ExamAttempt>()
+            var attempt = await _context.Set<ExamAttempt>()
+                .Include(ea => ea.Student)
                 .Include(ea => ea.Answers)
+                    .ThenInclude(a => a.ExamQuestion)
+                        .ThenInclude(eq => eq.Question)
                 .Where(ea => ea.ExamId == examId
                              && ea.StudentId == studentId
                              && ea.AttemptStatus == AttemptStatus.InProgress
                              && ea.SubmittedAt == null)
                 .OrderByDescending(ea => ea.StartedAt)
                 .FirstOrDefaultAsync();
+            
+            if (attempt?.Answers != null)
+            {
+                attempt.Answers = attempt.Answers
+                    .OrderBy(a => a.ExamQuestion?.SortOrder ?? int.MaxValue)
+                    .ToList();
+            }
+            
+            return attempt;
         }
 
         public async Task<int> GetAttemptsCountAsync(int examId, string studentId)
@@ -38,58 +50,74 @@ namespace Sconce.DAL.Repositories.Classes
 
         public async Task<ExamAttempt?> GetByIdWithExamAsync(int attemptId)
         {
-            return await _context.Set<ExamAttempt>()
+            var attempt = await _context.Set<ExamAttempt>()
                 .Include(ea => ea.Exam)
+                .Include(ea => ea.Student)
                 .Include(ea => ea.Answers)
+                    .ThenInclude(a => a.ExamQuestion)
+                        .ThenInclude(eq => eq.Question)
                 .FirstOrDefaultAsync(ea => ea.Id == attemptId);
+            
+            if (attempt?.Answers != null)
+            {
+                attempt.Answers = attempt.Answers
+                    .OrderBy(a => a.ExamQuestion?.SortOrder ?? int.MaxValue)
+                    .ToList();
+            }
+            
+            return attempt;
         }
 
         public async Task<List<ExamAttempt>> GetAttemptsByExamForStudentAsync(int examId, string studentId)
         {
-            return await _context.Set<ExamAttempt>()
+            var attempts = await _context.Set<ExamAttempt>()
                 .Include(ea => ea.Exam)
+                .Include(ea => ea.Student)
+                .Include(ea => ea.Answers)
+                    .ThenInclude(a => a.ExamQuestion)
+                        .ThenInclude(eq => eq.Question)
                 .Where(ea => ea.ExamId == examId && ea.StudentId == studentId)
                 .OrderBy(ea => ea.AttemptNumber)
                 .ToListAsync();
+            
+            // Sort answers within each attempt by question order
+            foreach (var attempt in attempts)
+            {
+                if (attempt.Answers != null)
+                {
+                    attempt.Answers = attempt.Answers
+                        .OrderBy(a => a.ExamQuestion?.SortOrder ?? int.MaxValue)
+                        .ToList();
+                }
+            }
+            
+            return attempts;
         }
 
         public async Task<IEnumerable<ExamAttempt>> GetAllByExamIdAsync(int examId)
         {
-            return await _context.Set<ExamAttempt>()
+            var attempts = await _context.Set<ExamAttempt>()
                 .Include(ea => ea.Student)
+                .Include(ea => ea.Answers)
+                    .ThenInclude(a => a.ExamQuestion)
+                        .ThenInclude(eq => eq.Question)
                 .Where(ea => ea.ExamId == examId)
                 .OrderByDescending(ea => ea.SubmittedAt)
                 .ThenByDescending(ea => ea.StartedAt)
                 .ToListAsync();
-        }
-
-        public async Task<ExamAttempt?> GetByIdWithDetailsAsync(int attemptId)
-        {
-            var attempt = await _context.Set<ExamAttempt>()
-                .AsNoTracking()
-                .Include(ea => ea.Exam)
-                    .ThenInclude(e => e.ExamQuestions.OrderBy(eq => eq.SortOrder))
-                        .ThenInclude(eq => eq.Question)
-                .Include(ea => ea.Student)
-                .Include(ea => ea.Answers)
-                    .ThenInclude(a => a.ExamQuestion)
-                .FirstOrDefaultAsync(ea => ea.Id == attemptId);
-
-            if (attempt != null)
+            
+            // Sort answers within each attempt by question order
+            foreach (var attempt in attempts)
             {
-                // Load choices for MCQ questions
-                foreach (var examQuestion in attempt.Exam.ExamQuestions)
+                if (attempt.Answers != null)
                 {
-                    if (examQuestion.Question is MultipleChoiceQuestion mcq)
-                    {
-                        await _context.Entry(mcq)
-                            .Collection(q => q.Choices)
-                            .LoadAsync();
-                    }
+                    attempt.Answers = attempt.Answers
+                        .OrderBy(a => a.ExamQuestion?.SortOrder ?? int.MaxValue)
+                        .ToList();
                 }
             }
-
-            return attempt;
+            
+            return attempts;
         }
     }
 }
