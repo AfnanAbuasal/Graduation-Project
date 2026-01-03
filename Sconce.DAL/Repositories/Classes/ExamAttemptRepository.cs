@@ -101,7 +101,10 @@ namespace Sconce.DAL.Repositories.Classes
                 .Include(ea => ea.Answers)
                     .ThenInclude(a => a.ExamQuestion)
                         .ThenInclude(eq => eq.Question)
-                .Where(ea => ea.ExamId == examId)
+                .Where(ea => ea.ExamId == examId 
+                             && (ea.AttemptStatus == AttemptStatus.Submitted 
+                                 || ea.AttemptStatus == AttemptStatus.Expired
+                                 || ea.AttemptStatus == AttemptStatus.Graded))
                 .OrderByDescending(ea => ea.SubmittedAt)
                 .ThenByDescending(ea => ea.StartedAt)
                 .ToListAsync();

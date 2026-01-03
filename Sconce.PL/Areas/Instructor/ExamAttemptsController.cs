@@ -19,7 +19,7 @@ namespace Sconce.PL.Areas.Instructor
             _examAttemptService = examAttemptService;
         }
 
-        /// Get all student attempts for a specific exam (instructor view).
+        // Get all student attempts for a specific exam (instructor view).
         [HttpGet("Exam/{examId}")]
         public async Task<ActionResult<Response>> GetByExamId([FromRoute] int examId)
         {
