@@ -49,5 +49,14 @@ namespace Sconce.DAL.Repositories.Classes
 
             return examQuestion;
         }
+
+        public async Task<Answer?> GetByIdWithAttemptAndQuestionAsync(int answerId)
+        {
+            return await _context.Set<Answer>()
+                .Include(a => a.ExamAttempt)
+                .Include(a => a.ExamQuestion)
+                    .ThenInclude(eq => eq.Question)
+                .FirstOrDefaultAsync(a => a.Id == answerId);
+        }
     }
 }

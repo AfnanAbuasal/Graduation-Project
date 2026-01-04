@@ -260,5 +260,51 @@ namespace Sconce.BLL.Services.Classes
 
             return dto;
         }
+
+        public async Task<(bool Success, Response Response)> GradeEssayAnswerAsync(int answerId, decimal score)
+        {
+            // Get instructorId from JWT claims
+            var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(instructorId))
+                return (false, new ErrorResponse { Errors = ["Not authenticated."] });
+
+            // Load answer with relationships
+            var answer = await _answerRepository.GetByIdWithAttemptAndQuestionAsync(answerId);
+
+            if (answer == null)
+                return (false, new ErrorResponse { Errors = ["Answer not found."] });
+
+            // Verify attempt is in a state that can be graded
+            if (answer.ExamAttempt.AttemptStatus != AttemptStatus.Submitted && 
+                answer.ExamAttempt.AttemptStatus != AttemptStatus.Expired)
+                return (false, new ErrorResponse { Errors = ["In-Progress attempts cannot be graded yet."] });
+
+            // Ensure question is Essay
+            if (!(answer.ExamQuestion.Question is EssayQuestion))
+                return (false, new ErrorResponse { Errors = ["Only essay answers can be graded manually."] });
+            // Validate score range
+            if (score < 0)
+                return (false, new ErrorResponse { Errors = ["Score cannot be negative."] });
+
+            if (score > answer.MaxScore)
+                return (false, new ErrorResponse { Errors = [$"Score cannot exceed maxScore ({answer.MaxScore})."] });
+
+            // Apply grading
+            answer.Score = score;
+            answer.GradedAt = DateTime.UtcNow;
+            answer.GradedByInstructorId = instructorId;
+            answer.UpdatedAt = DateTime.UtcNow;
+
+            var rows = await _answerRepository.UpdateAsync(answer);
+
+            if (rows > 0)
+            {
+                var response = MapToResponse(answer);
+                return (true, new SuccessResponse<AnswerResponse> { Data = response });
+            }
+
+            return (false, new ErrorResponse { Errors = ["Failed to grade answer."] });
+        }
     }
 }

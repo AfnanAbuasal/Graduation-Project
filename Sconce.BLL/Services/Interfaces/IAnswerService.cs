@@ -8,5 +8,6 @@ namespace Sconce.BLL.Services.Interfaces
     public interface IAnswerService : IFileGenericService<AnswerRequest, AnswerResponse, Answer>
     {
         Task<Response> GetMyAnswersForAttemptAsync(int attemptId);
+        Task<(bool Success, Response Response)> GradeEssayAnswerAsync(int answerId, decimal score);
     }
 }

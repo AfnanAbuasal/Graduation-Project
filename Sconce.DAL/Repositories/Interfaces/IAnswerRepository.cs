@@ -9,5 +9,6 @@ namespace Sconce.DAL.Repositories.Interfaces
         Task<Answer?> GetByAttemptAndExamQuestionAsync(int attemptId, int examQuestionId);
         Task<IEnumerable<Answer>> GetAllByAttemptIdAsync(int attemptId);
         Task<ExamQuestion?> GetExamQuestionWithMcqChoicesAsync(int examQuestionId);
+        Task<Answer?> GetByIdWithAttemptAndQuestionAsync(int answerId);
     }
 }
