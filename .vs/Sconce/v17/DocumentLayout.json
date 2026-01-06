@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\instructor\\examattemptscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\instructor\\examattemptscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260103100635_addedgradingfields.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20260103100635_addedgradingfields.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -43,6 +47,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ExamAttemptsController.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Instructor\\ExamAttemptsController.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Instructor\\ExamAttemptsController.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Instructor\\ExamAttemptsController.cs",
+              "RelativeToolTip": "Sconce.PL\\Areas\\Instructor\\ExamAttemptsController.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAWwC4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-06T14:23:33.871Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "20260103100635_AddedGradingFields.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260103100635_AddedGradingFields.cs",
               "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260103100635_AddedGradingFields.cs",
@@ -55,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Sconce.DAL\\Data\\ApplicationDbContext.cs",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "20260103100426_AddedGradingFields.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260103100426_AddedGradingFields.cs",
               "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260103100426_AddedGradingFields.cs",
@@ -79,7 +96,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "20251231180910_AddedAnswersTable.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251231180910_AddedAnswersTable.cs",
               "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20251231180910_AddedAnswersTable.cs",
@@ -91,7 +108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Program.cs",
               "RelativeDocumentMoniker": "Sconce.PL\\Program.cs",
@@ -104,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "20251230134208_AddedExamAttemptsTable.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20251230134208_AddedExamAttemptsTable.cs",
               "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20251230134208_AddedExamAttemptsTable.cs",

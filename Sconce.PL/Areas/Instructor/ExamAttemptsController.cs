@@ -39,5 +39,16 @@ namespace Sconce.PL.Areas.Instructor
                 return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Finalizes an exam attempt after grading all essays.
+        // Computes final score and marks attempt as graded.
+        [HttpPost("{attemptId}/Finalize")]
+        public async Task<ActionResult<Response>> FinalizeAttempt([FromRoute] int attemptId)
+        {
+            var result = await _examAttemptService.FinalizeAttemptAsync(attemptId);
+            if (!result.Success)
+                return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }

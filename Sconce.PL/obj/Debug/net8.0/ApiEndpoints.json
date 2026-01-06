@@ -1416,6 +1416,37 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Instructor.AnswersController",
+    "Method": "GradeEssayAnswer",
+    "RelativePath": "api/Instructor/Answers/{answerId}/Grade",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "answerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.GradeAnswerRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Instructor.ApplicationsController",
     "Method": "Apply",
     "RelativePath": "api/Instructor/Applications/Apply",
@@ -2062,6 +2093,32 @@
     "Method": "GetAttemptDetails",
     "RelativePath": "api/Instructor/ExamAttempts/{attemptId}",
     "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "attemptId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamAttemptsController",
+    "Method": "FinalizeAttempt",
+    "RelativePath": "api/Instructor/ExamAttempts/{attemptId}/Finalize",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [

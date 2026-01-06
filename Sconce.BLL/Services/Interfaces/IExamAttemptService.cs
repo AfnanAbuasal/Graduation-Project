@@ -11,5 +11,6 @@ namespace Sconce.BLL.Services.Interfaces
         Task<(bool Success, Response Response)> SubmitAttemptAsync(int attemptId);
         Task<Response> GetAttemptsByExamIdAsync(int examId);
         Task<(bool Success, Response Response)> GetAttemptDetailsAsync(int attemptId);
+        Task<(bool Success, Response Response)> FinalizeAttemptAsync(int attemptId);
     }
 }

@@ -196,6 +196,76 @@ namespace Sconce.BLL.Services.Classes
             return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponseWithAnswers(refreshedAttempt) });
         }
 
+        public async Task<(bool Success, Response Response)> FinalizeAttemptAsync(int attemptId)
+        {
+            // Get instructorId from JWT claims
+            var instructorId = GetCurrentInstructorId();
+            if (string.IsNullOrEmpty(instructorId))
+                return (false, new ErrorResponse { Errors = ["Not authenticated."] });
+
+            // Load attempt with exam
+            var attempt = await _examAttemptRepository.GetByIdWithExamAsync(attemptId);
+            if (attempt == null)
+                return (false, new ErrorResponse { Errors = ["Attempt not found."] });
+
+            // Validate attempt state
+            if (attempt.AttemptStatus == AttemptStatus.InProgress)
+                return (false, new ErrorResponse { Errors = ["Cannot finalize an in-progress attempt."] });
+
+            if (attempt.AttemptStatus == AttemptStatus.Graded)
+                return (false, new ErrorResponse { Errors = ["Attempt already graded."] });
+
+            if (attempt.AttemptStatus != AttemptStatus.Submitted && attempt.AttemptStatus != AttemptStatus.Expired)
+                return (false, new ErrorResponse { Errors = ["Attempt must be submitted or expired before finalization."] });
+
+            // Validate exam exists
+            if (attempt.Exam == null)
+                return (false, new ErrorResponse { Errors = ["Exam not found for this attempt."] });
+
+            // Ensure MaxScore exists
+            if (!attempt.MaxScore.HasValue || attempt.MaxScore == 0)
+            {
+                var examQuestions = await _examQuestionRepository.GetAllByExamIdAsync(attempt.ExamId);
+                attempt.MaxScore = examQuestions.Sum(eq => eq.Points);
+            }
+
+            // Load answers using AnswerRepository
+            var answersEnumerable = await _answerRepository.GetAllByAttemptIdAsync(attemptId);
+            var answers = answersEnumerable.ToList();
+
+            // Check grading completeness for essays and MCQs
+            foreach (var answer in answers)
+            {
+                if (answer.ExamQuestion?.Question is EssayQuestion)
+                {
+                    if (!answer.Score.HasValue)
+                        return (false, new ErrorResponse { Errors = ["Cannot finalize. Some essay answers are not graded yet."] });
+                }
+                else if (answer.ExamQuestion?.Question is MultipleChoiceQuestion)
+                {
+                    if (!answer.Score.HasValue)
+                        return (false, new ErrorResponse { Errors = ["Some MCQ answers are missing auto-score."] });
+                }
+            }
+
+            // Compute final score
+            var totalScore = answers.Sum(a => a.Score ?? 0m);
+            attempt.Score = totalScore;
+            attempt.GradedAt = DateTime.UtcNow;
+            attempt.AttemptStatus = AttemptStatus.Graded;
+            attempt.UpdatedAt = DateTime.UtcNow;
+
+            // Save
+            await _examAttemptRepository.UpdateAsync(attempt);
+
+            // Reload to get the updated attempt with answers
+            var refreshedAttempt = await _examAttemptRepository.GetByIdWithExamAsync(attempt.Id) ?? attempt;
+
+            // Return updated response
+            return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponseWithAnswers(refreshedAttempt) });
+        }
+
+        // Helper methods
         private string? GetCurrentStudentId()
             => _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

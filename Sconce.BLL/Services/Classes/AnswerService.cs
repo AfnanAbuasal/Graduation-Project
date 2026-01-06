@@ -136,25 +136,21 @@ namespace Sconce.BLL.Services.Classes
                 }
                 else
                 {
-                    var hasWrongSelection = selectedIds.Any(id => !correctChoiceIds.Contains(id));
+                    var selectedCorrectCount = selectedIds.Count(id => correctChoiceIds.Contains(id));
+                    var correctCount = correctChoiceIds.Count;
 
-                    if (!hasWrongSelection)
+                    if (correctCount > 0)
                     {
-                        var correctCount = correctChoiceIds.Count;
+                        score = examQuestion.Points / correctCount * selectedCorrectCount;
 
-                        if (correctCount > 0)
-                        {
-                            score = (examQuestion.Points / correctCount) * selectedIds.Count;
-
-                            if (score > examQuestion.Points)
-                                score = examQuestion.Points;
-                        }
+                        if (score > examQuestion.Points)
+                            score = examQuestion.Points;
                     }
                 }
 
                 answer.Score = score;
                 answer.GradedAt = DateTime.UtcNow;
-                answer.GradedByInstructorId = null;
+                answer.GradedByInstructorId = "System (Automatic Grading)";
 
                 // Store as JSON with de-duplicated selected IDs
                 answer.SelectedChoiceIdsJson = JsonSerializer.Serialize(selectedIds);
@@ -238,29 +234,6 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<AnswerResponse>> { Data = responseList };
         }
 
-        private AnswerResponse MapToResponse(Answer answer)
-        {
-            var dto = answer.Adapt<AnswerResponse>();
-
-            // Parse SelectedChoiceIdsJson => List<int>
-            if (!string.IsNullOrWhiteSpace(answer.SelectedChoiceIdsJson))
-            {
-                try
-                {
-                    dto.SelectedChoiceIds = JsonSerializer.Deserialize<List<int>>(answer.SelectedChoiceIdsJson);
-                }
-                catch
-                {
-                    dto.SelectedChoiceIds = null;
-                }
-            }
-
-            // Build FileUrl
-            dto.FileUrl = _urlHelper.BuildUrl(answer.FilePath);
-
-            return dto;
-        }
-
         public async Task<(bool Success, Response Response)> GradeEssayAnswerAsync(int answerId, decimal score)
         {
             // Get instructorId from JWT claims
@@ -305,6 +278,30 @@ namespace Sconce.BLL.Services.Classes
             }
 
             return (false, new ErrorResponse { Errors = ["Failed to grade answer."] });
+        }
+
+        // Helper method to map Answer to AnswerResponse
+        private AnswerResponse MapToResponse(Answer answer)
+        {
+            var dto = answer.Adapt<AnswerResponse>();
+
+            // Parse SelectedChoiceIdsJson => List<int>
+            if (!string.IsNullOrWhiteSpace(answer.SelectedChoiceIdsJson))
+            {
+                try
+                {
+                    dto.SelectedChoiceIds = JsonSerializer.Deserialize<List<int>>(answer.SelectedChoiceIdsJson);
+                }
+                catch
+                {
+                    dto.SelectedChoiceIds = null;
+                }
+            }
+
+            // Build FileUrl
+            dto.FileUrl = _urlHelper.BuildUrl(answer.FilePath);
+
+            return dto;
         }
     }
 }
