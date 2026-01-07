@@ -99,6 +99,8 @@ namespace Sconce.PL
             builder.Services.AddScoped<IChoiceService, ChoiceService>();
             builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
             builder.Services.AddScoped<IAnswerService, AnswerService>();
+            builder.Services.AddScoped<IProgramEnrollmentRepository, ProgramEnrollmentRepository>();
+            builder.Services.AddScoped<IProgramEnrollmentService, ProgramEnrollmentService>();
 
             // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
