@@ -18,5 +18,6 @@ namespace Sconce.DAL.Models
         public ExamStatus ExamStatus { get; set; } = ExamStatus.Draft;
 
         public ICollection<ExamQuestion> ExamQuestions { get; set; } = new List<ExamQuestion>();
+        public ICollection<ExamAttempt> ExamAttempts { get; set; } = new List<ExamAttempt>();
     }
 }

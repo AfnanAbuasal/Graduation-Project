@@ -15,5 +15,7 @@ namespace Sconce.DAL.Models
         public ReferralSource ReferralSource { get; set; } = ReferralSource.Other;
         public ICollection<StudentParent> StudentParents { get; set; } = new List<StudentParent>();
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
+        public ICollection<ExamAttempt> ExamAttempts { get; set; } = new List<ExamAttempt>();
+        public ICollection<ProgramEnrollment> Enrollments { get; set; } = new List<ProgramEnrollment>();
     }
 }

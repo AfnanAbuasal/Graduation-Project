@@ -1,15 +1,20 @@
 using Sconce.DAL.Models.Enums;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sconce.DAL.Models
 {
     public class ExamAttempt : BaseModel
     {
         public int ExamId { get; set; }
-        public Exam Exam { get; set; } = null!;
+
+        [ForeignKey(nameof(ExamId))]
+        public Exam Exam { get; set; }
 
         public string StudentId { get; set; } = string.Empty;
-        public Student Student { get; set; } = null!;
+
+        [ForeignKey(nameof(StudentId))]
+        public Student Student { get; set; }
 
         public int AttemptNumber { get; set; } = 1;
         public AttemptStatus AttemptStatus { get; set; } = AttemptStatus.InProgress;

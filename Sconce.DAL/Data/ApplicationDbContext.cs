@@ -28,6 +28,7 @@ namespace Sconce.DAL.Data
         public DbSet<Level> Levels { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Section> Sections { get; set; }
+        public DbSet<ProgramEnrollment> ProgramEnrollments { get; set; }
 
         // Materials
         public DbSet<Content> Contents { get; set; }
@@ -77,6 +78,62 @@ namespace Sconce.DAL.Data
                 entity.HasOne(sp => sp.Parent)
                     .WithMany(p => p.StudentParents)
                     .HasForeignKey(sp => sp.ParentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Program Enrollment
+            builder.Entity<ProgramEnrollment>(entity =>
+            {
+                entity.HasOne(pe => pe.Program)
+                    .WithMany(p => p.Enrollments)
+                    .HasForeignKey(pe => pe.ProgramId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(pe => pe.Student)
+                    .WithMany(s => s.Enrollments)
+                    .HasForeignKey(pe => pe.StudentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(pe => pe.ProficiencyExamAttempt)
+                    .WithMany()
+                    .HasForeignKey(pe => pe.ProficiencyExamAttemptId)
+                    .OnDelete(DeleteBehavior.Restrict); // To avoid SQL Server’s “multiple cascade paths” error
+
+                entity.HasOne(pe => pe.RecommendedCourse)
+                    .WithMany()
+                    .HasForeignKey(pe => pe.RecommendedCourseId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(pe => pe.EvaluatedByInstructor)
+                    .WithMany()
+                    .HasForeignKey(pe => pe.EvaluatedByInstructorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(pe => pe.PlacedSection)
+                    .WithMany()
+                    .HasForeignKey(pe => pe.PlacedSectionId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                // Unique constraint: one enrollment per student per program
+                entity.HasIndex(pe => new { pe.ProgramId, pe.StudentId })
+                    .IsUnique();
+            });
+
+            builder.Entity<Program>(entity =>
+            {
+                entity.HasOne(p => p.ProficiencyExam)
+                    .WithMany()
+                    .HasForeignKey(p => p.ProficiencyExamId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(p => p.ExamWriterInstructor)
+                    .WithMany()
+                    .HasForeignKey(p => p.ExamWriterInstructorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(p => p.EvaluatorInstructor)
+                    .WithMany()
+                    .HasForeignKey(p => p.EvaluatorInstructorId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -141,9 +198,6 @@ namespace Sconce.DAL.Data
 
                 entity.Property(e => e.ShuffleQuestions)
                     .HasDefaultValue(false);
-
-                entity.Property(e => e.ExamStatus)
-                    .HasDefaultValue(ExamStatus.Draft);
             });
 
             builder.Entity<ExamQuestion>(entity =>
