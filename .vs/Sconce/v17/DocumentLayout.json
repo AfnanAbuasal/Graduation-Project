@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sconce.DAL\\Data\\Migrations\\20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\student\\programenrollmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\student\\programenrollmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs",
-              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs",
-              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260107112212_AddedProgramEnrollmentsTable\u0026ProficiencyFieldsToProgram.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Title": "ProgramEnrollmentsController.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\ProgramEnrollmentsController.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Student\\ProgramEnrollmentsController.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\ProgramEnrollmentsController.cs",
+              "RelativeToolTip": "Sconce.PL\\Areas\\Student\\ProgramEnrollmentsController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAIwBgAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-07T11:22:12.896Z",
+              "WhenOpened": "2026-01-07T17:46:34.492Z",
               "EditorCaption": ""
             }
           ]

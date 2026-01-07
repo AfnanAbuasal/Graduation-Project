@@ -591,6 +591,62 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramEnrollmentsController",
+    "Method": "GetEnrollments",
+    "RelativePath": "api/Admin/ProgramEnrollments/Program/{programId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "placementStatus",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "examStatus",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "recommendedCourseId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortOrder",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.ProgramsController",
     "Method": "GetAll",
     "RelativePath": "api/Admin/Programs",
@@ -3875,6 +3931,32 @@
     "Parameters": [
       {
         "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ProgramEnrollmentsController",
+    "Method": "EnrollInProgram",
+    "RelativePath": "api/Student/ProgramEnrollments/{programId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
         "Type": "System.Int32",
         "IsRequired": true
       }

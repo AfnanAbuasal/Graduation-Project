@@ -26,6 +26,18 @@ namespace Sconce.DAL.Repositories.Classes
                 .FirstOrDefaultAsync(pe => pe.ProgramId == programId && pe.StudentId == studentId);
         }
 
+        public override async Task<ProgramEnrollment?> GetByIdAsync(int id)
+        {
+            return await _context.ProgramEnrollments
+                .Include(pe => pe.Program)
+                .Include(pe => pe.Student)
+                .Include(pe => pe.ProficiencyExamAttempt)
+                .Include(pe => pe.RecommendedCourse)
+                .Include(pe => pe.PlacedSection)
+                .Include(pe => pe.EvaluatedByInstructor)
+                .FirstOrDefaultAsync(pe => pe.Id == id);
+        }
+
         public async Task<IEnumerable<ProgramEnrollment>> GetByProgramIdWithDetailsAsync(int programId)
         {
             return await _context.ProgramEnrollments

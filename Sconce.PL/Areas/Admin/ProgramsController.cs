@@ -88,5 +88,29 @@ namespace Sconce.PL.Areas.Admin
             if (result.NumberOfEntries <= 0) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+        // Assigns an exam writer instructor to a program.
+        [HttpPatch("{programId}/ProficiencyExam/Writer")]
+        public async Task<ActionResult<Response>> AssignExamWriterInstructor([FromRoute] int programId, [FromBody] AssignProgramInstructorRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _programService.AssignExamWriterInstructorAsync(programId, request.InstructorId);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
+        // Assigns an evaluator instructor to a program.
+        [HttpPatch("{programId}/ProficiencyExam/Evaluator")]
+        public async Task<ActionResult<Response>> AssignEvaluatorInstructor([FromRoute] int programId, [FromBody] AssignProgramInstructorRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _programService.AssignEvaluatorInstructorAsync(programId, request.InstructorId);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
     }
 }

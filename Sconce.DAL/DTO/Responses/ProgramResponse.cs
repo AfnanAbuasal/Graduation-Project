@@ -17,6 +17,10 @@ namespace Sconce.DAL.DTO.Responses
         public int PlannedLevelCount { get; set; }
         public int ActualLevelCount { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool HasProficiencyExam { get; set; }
+        public int? ProficiencyExamId { get; set; }
+        public string? ExamWriterInstructorId { get; set; }
+        public string? EvaluatorInstructorId { get; set; }
         [JsonIgnore] public Status Status { get; set; }
         public string StatusDisplay => Status.ToDisplayString();
     }
