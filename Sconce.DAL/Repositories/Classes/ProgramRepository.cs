@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Sconce.DAL.Data;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
@@ -11,6 +12,19 @@ namespace Sconce.DAL.Repositories.Classes
 {
     public class ProgramRepository : GenericRepository<Program>, IProgramRepository
     {
-        public ProgramRepository(ApplicationDbContext context) : base(context) { }
+        private readonly ApplicationDbContext _context;
+
+        public ProgramRepository(ApplicationDbContext context) : base(context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Program>> GetProgramsByExamWriterAsync(string instructorId)
+        {
+            return await _context.Programs
+                .AsNoTracking()
+                .Where(p => p.HasProficiencyExam && p.ExamWriterInstructorId == instructorId)
+                .ToListAsync();
+        }
     }
 }

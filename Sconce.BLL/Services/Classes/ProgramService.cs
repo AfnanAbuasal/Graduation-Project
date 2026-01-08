@@ -4,10 +4,12 @@ using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,12 +20,14 @@ namespace Sconce.BLL.Services.Classes
         private readonly IProgramRepository _programRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly INotificationService _notificationService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService) : base(programRepository)
+        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService, IHttpContextAccessor httpContextAccessor) : base(programRepository)
         {
             _programRepository = programRepository;
             _userManager = userManager;
             _notificationService = notificationService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ProgramRequest request)
@@ -150,6 +154,22 @@ namespace Sconce.BLL.Services.Classes
             };
 
             return (true, response);
+        }
+
+        public async Task<Response> GetProgramsForExamWriterAsync()
+        {
+            // Extract instructor ID from claims
+            var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return new ErrorResponse { Errors = ["User not authenticated."] };
+
+            // Get programs assigned to this instructor as exam writer
+            var programs = await _programRepository.GetProgramsByExamWriterAsync(instructorId);
+
+            // Map to response DTOs
+            var programResponses = programs.Adapt<IEnumerable<ProgramResponse>>();
+
+            return new SuccessResponse<IEnumerable<ProgramResponse>> { Data = programResponses };
         }
     }
 }

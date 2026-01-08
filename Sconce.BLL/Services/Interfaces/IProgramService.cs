@@ -14,5 +14,6 @@ namespace Sconce.BLL.Services.Interfaces
         Task<(int NumberOfEntries, Response Response)> IncreasePlannedLevelCountAsync(int programId, IncreasePlannedCountRequest request);
         Task<(bool Success, Response Response)> AssignExamWriterInstructorAsync(int programId, string instructorId);
         Task<(bool Success, Response Response)> AssignEvaluatorInstructorAsync(int programId, string instructorId);
+        Task<Response> GetProgramsForExamWriterAsync();
     }
 }

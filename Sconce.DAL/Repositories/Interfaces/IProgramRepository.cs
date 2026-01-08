@@ -9,5 +9,6 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface IProgramRepository : IGenericRepository<Program>
     {
+        Task<IEnumerable<Program>> GetProgramsByExamWriterAsync(string instructorId);
     }
 }
