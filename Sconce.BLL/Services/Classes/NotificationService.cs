@@ -510,5 +510,97 @@ namespace Sconce.BLL.Services.Classes
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
+
+        // Login Notification
+        public async Task SendLoginNotificationAsync(ApplicationUser user, DateTime loginTime)
+        {
+            await _emailSender.SendEmailAsync(
+                user.Email,
+                "🔐 New Login to Your Sconce Account",
+                $@"
+                <div style='font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;'>
+                    <h2 style='color: #2c3e50;'>Hello {user.FullName},</h2>
+
+                    <p>We detected a new login to your <span style='color: #58ACAA;'>Sconce</span> account.</p>
+
+                    <div style='background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0;'>
+                        <p style='margin: 5px 0;'><strong>Login Time:</strong> {loginTime:MMMM dd, yyyy HH:mm:ss} UTC</p>
+                        <p style='margin: 5px 0;'><strong>Account:</strong> {user.Email}</p>
+                    </div>
+
+                    <p>If this was you, you can safely ignore this email.</p>
+
+                    <p style='color: #e74c3c;'><strong>If you did not log in,</strong> please secure your account immediately by resetting your password.</p>
+
+                    <p style='margin-top: 30px;'>Stay secure,</p>
+                    <p style='margin-top: 5px; color: #999;'>— The Sconce Team</p>
+                </div>"
+            );
+        }
+
+        // Exam Attempt Notifications
+        public async Task SendExamAttemptSubmittedAsync(Student student, string examTitle, int attemptNumber, DateTime submittedAt)
+        {
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"✅ Exam Attempt Submitted - {examTitle}",
+                $@"
+                <h2>Hello {student.FullName},</h2>
+                <p>Your exam attempt has been successfully submitted! 📝</p>
+                <ul>
+                    <li><b>Exam:</b> {examTitle}</li>
+                    <li><b>Attempt Number:</b> {attemptNumber}</li>
+                    <li><b>Submitted at:</b> {submittedAt:MMMM dd, yyyy HH:mm:ss} UTC</li>
+                </ul>
+                <p>Your answers have been recorded and will be reviewed by your instructor.</p>
+                <p>You'll receive another email once your attempt has been graded.</p>
+                <br/>
+                <p>Good luck! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendExamAttemptExpiredAsync(Student student, string examTitle, int attemptNumber, DateTime expiredAt)
+        {
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"⏱️ Exam Attempt Auto-Submitted - {examTitle}",
+                $@"
+                <h2>Hello {student.FullName},</h2>
+                <p>Your exam attempt has been automatically submitted due to time expiration.</p>
+                <ul>
+                    <li><b>Exam:</b> {examTitle}</li>
+                    <li><b>Attempt Number:</b> {attemptNumber}</li>
+                    <li><b>Expired at:</b> {expiredAt:MMMM dd, yyyy HH:mm:ss} UTC</li>
+                </ul>
+                <p>Don't worry - your answers up to the time limit have been recorded and will be reviewed by your instructor.</p>
+                <p>You'll receive another email once your attempt has been graded.</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendExamAttemptGradedAsync(Student student, string examTitle, int attemptNumber, decimal score, decimal maxScore)
+        {
+            var percentage = maxScore > 0 ? (score / maxScore * 100) : 0;
+
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"📊 Exam Graded - {examTitle}",
+                $@"
+                <h2>Hello {student.FullName},</h2>
+                <p>Your exam attempt has been graded! 🎓</p>
+                <ul>
+                    <li><b>Exam:</b> {examTitle}</li>
+                    <li><b>Attempt Number:</b> {attemptNumber}</li>
+                    <li><b>Score:</b> {score:0.##} / {maxScore:0.##}</li>
+                    <li><b>Percentage:</b> {percentage:0.##}%</li>
+                </ul>
+                <p>You can now view your detailed results and feedback in your student dashboard.</p>
+                <br/>
+                <p>Keep up the great work! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
     }
 }

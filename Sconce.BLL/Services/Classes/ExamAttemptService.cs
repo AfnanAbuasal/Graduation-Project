@@ -24,6 +24,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IAnswerRepository _answerRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUrlHelper _urlHelper;
+        private readonly INotificationService _notificationService;
 
         public ExamAttemptService(
             IExamAttemptRepository examAttemptRepository,
@@ -32,7 +33,8 @@ namespace Sconce.BLL.Services.Classes
             IExamQuestionService examQuestionService,
             IAnswerRepository answerRepository,
             IHttpContextAccessor httpContextAccessor,
-            IUrlHelper urlHelper)
+            IUrlHelper urlHelper,
+            INotificationService notificationService)
         {
             _examAttemptRepository = examAttemptRepository;
             _examRepository = examRepository;
@@ -41,6 +43,7 @@ namespace Sconce.BLL.Services.Classes
             _answerRepository = answerRepository;
             _httpContextAccessor = httpContextAccessor;
             _urlHelper = urlHelper;
+            _notificationService = notificationService;
         }
 
         public async Task<(bool Success, Response Response)> StartAttemptAsync(int examId)
@@ -190,6 +193,27 @@ namespace Sconce.BLL.Services.Classes
 
             await _examAttemptRepository.UpdateAsync(attempt);
 
+            // Send notification email
+            if (attempt.Student != null && attempt.Exam != null)
+            {
+                if (timedOut)
+                {
+                    await _notificationService.SendExamAttemptExpiredAsync(
+                        attempt.Student,
+                        attempt.Exam.Title,
+                        attempt.AttemptNumber,
+                        now);
+                }
+                else
+                {
+                    await _notificationService.SendExamAttemptSubmittedAsync(
+                        attempt.Student,
+                        attempt.Exam.Title,
+                        attempt.AttemptNumber,
+                        now);
+                }
+            }
+
             // Reload to include latest answers with question data
             var refreshedAttempt = await _examAttemptRepository.GetByIdWithExamAsync(attempt.Id) ?? attempt;
 
@@ -257,6 +281,17 @@ namespace Sconce.BLL.Services.Classes
 
             // Save
             await _examAttemptRepository.UpdateAsync(attempt);
+
+            // Send grading notification email
+            if (attempt.Student != null && attempt.Exam != null && attempt.Score.HasValue && attempt.MaxScore.HasValue)
+            {
+                await _notificationService.SendExamAttemptGradedAsync(
+                    attempt.Student,
+                    attempt.Exam.Title,
+                    attempt.AttemptNumber,
+                    attempt.Score.Value,
+                    attempt.MaxScore.Value);
+            }
 
             // Reload to get the updated attempt with answers
             var refreshedAttempt = await _examAttemptRepository.GetByIdWithExamAsync(attempt.Id) ?? attempt;

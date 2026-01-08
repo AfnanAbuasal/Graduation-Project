@@ -59,6 +59,8 @@ namespace Sconce.BLL.Services.Classes
             if (!await _userManager.CheckPasswordAsync(user, loginRequest.Password))
                 return (false, new ErrorResponse { Errors = new List<string> { "Invalid Email or Password." } });
 
+            await _notificationService.SendLoginNotificationAsync(user, DateTime.UtcNow);
+
             return (true, new SuccessResponse<string> { Data = await GenerateTokenAsync(user) });
         }
 

@@ -34,5 +34,9 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendDropoutRejectedAsync(Dropout dropout, string feedback);
         Task SendExamWriterAssignedAsync(Instructor instructor, string programName);
         Task SendEvaluatorAssignedAsync(Instructor instructor, string programName);
+        Task SendLoginNotificationAsync(ApplicationUser user, DateTime loginTime);
+        Task SendExamAttemptSubmittedAsync(Student student, string examTitle, int attemptNumber, DateTime submittedAt);
+        Task SendExamAttemptExpiredAsync(Student student, string examTitle, int attemptNumber, DateTime expiredAt);
+        Task SendExamAttemptGradedAsync(Student student, string examTitle, int attemptNumber, decimal score, decimal maxScore);
     }
 }
