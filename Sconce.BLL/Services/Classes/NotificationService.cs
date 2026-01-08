@@ -471,5 +471,44 @@ namespace Sconce.BLL.Services.Classes
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
+
+        // Instructor Assignment Emails
+        public async Task SendExamWriterAssignedAsync(Instructor instructor, string programName)
+        {
+            await _emailSender.SendEmailAsync(
+                instructor.Email,
+                "📝 You've Been Assigned as Proficiency Exam Writer",
+                $@"
+                <h2>Hello {instructor.FullName},</h2>
+                <p>Great news! You have been assigned as the <b>Exam Writer</b> for the program:</p>
+                <ul>
+                    <li><b>Program:</b> {programName}</li>
+                    <li><b>Role:</b> Proficiency Exam Writer</li>
+                </ul>
+                <p>You can now access the program and begin creating the proficiency exam for students.</p>
+                <p>Thank you for your contribution to our learning community!</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendEvaluatorAssignedAsync(Instructor instructor, string programName)
+        {
+            await _emailSender.SendEmailAsync(
+                instructor.Email,
+                "✅ You've Been Assigned as Evaluator",
+                $@"
+                <h2>Hello {instructor.FullName},</h2>
+                <p>Great news! You have been assigned as the <b>Evaluator</b> for the program:</p>
+                <ul>
+                    <li><b>Program:</b> {programName}</li>
+                    <li><b>Role:</b> Proficiency Exam Evaluator</li>
+                </ul>
+                <p>You can now access the program and evaluate student proficiency exams.</p>
+                <p>Thank you for your contribution to our learning community!</p>
+                <br/>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
     }
 }

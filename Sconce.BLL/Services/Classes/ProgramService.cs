@@ -17,11 +17,55 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly IProgramRepository _programRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly INotificationService _notificationService;
 
-        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager) : base(programRepository)
+        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService) : base(programRepository)
         {
             _programRepository = programRepository;
             _userManager = userManager;
+            _notificationService = notificationService;
+        }
+
+        public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ProgramRequest request)
+        {
+            // Validate ExamWriterInstructor if provided
+            Instructor? examWriterInstructor = null;
+            if (!string.IsNullOrEmpty(request.ExamWriterInstructorId))
+            {
+                var examWriter = await _userManager.FindByIdAsync(request.ExamWriterInstructorId);
+                if (examWriter == null || !(examWriter is Instructor))
+                    return (0, new ErrorResponse { Errors = ["Exam writer instructor not found."] });
+                
+                examWriterInstructor = (Instructor)examWriter;
+            }
+
+            // Validate EvaluatorInstructor if provided
+            Instructor? evaluatorInstructor = null;
+            if (!string.IsNullOrEmpty(request.EvaluatorInstructorId))
+            {
+                var evaluator = await _userManager.FindByIdAsync(request.EvaluatorInstructorId);
+                if (evaluator == null || !(evaluator is Instructor))
+                    return (0, new ErrorResponse { Errors = ["Evaluator instructor not found."] });
+                
+                evaluatorInstructor = (Instructor)evaluator;
+            }
+
+            // Create the program
+            var program = request.Adapt<Program>();
+            var rows = await _programRepository.AddAsync(program);
+
+            // Send notifications to assigned instructors
+            if (examWriterInstructor != null)
+            {
+                await _notificationService.SendExamWriterAssignedAsync(examWriterInstructor, program.Name);
+            }
+
+            if (evaluatorInstructor != null)
+            {
+                await _notificationService.SendEvaluatorAssignedAsync(evaluatorInstructor, program.Name);
+            }
+
+            return (rows, new SuccessResponse<ProgramResponse> { Data = program.Adapt<ProgramResponse>() });
         }
 
         public async Task<(int NumberOfEntries, Response Response)> IncreasePlannedLevelCountAsync(int programId, IncreasePlannedCountRequest request)
@@ -62,6 +106,10 @@ namespace Sconce.BLL.Services.Classes
 
             await _programRepository.UpdateAsync(program);
 
+            // Notify instructor of assignment
+            var instructorEntity = (Instructor)instructor;
+            await _notificationService.SendExamWriterAssignedAsync(instructorEntity, program.Name);
+
             var response = new SuccessResponse<ProgramResponse>
             {
                 Data = program.Adapt<ProgramResponse>()
@@ -91,6 +139,10 @@ namespace Sconce.BLL.Services.Classes
             program.UpdatedAt = DateTime.UtcNow;
 
             await _programRepository.UpdateAsync(program);
+
+            // Notify instructor of assignment
+            var instructorEntity = (Instructor)instructor;
+            await _notificationService.SendEvaluatorAssignedAsync(instructorEntity, program.Name);
 
             var response = new SuccessResponse<ProgramResponse>
             {

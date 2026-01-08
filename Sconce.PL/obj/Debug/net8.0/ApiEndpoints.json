@@ -839,6 +839,68 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramsController",
+    "Method": "AssignEvaluatorInstructor",
+    "RelativePath": "api/Admin/Programs/{programId}/ProficiencyExam/Evaluator",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.AssignProgramInstructorRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramsController",
+    "Method": "AssignExamWriterInstructor",
+    "RelativePath": "api/Admin/Programs/{programId}/ProficiencyExam/Writer",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.AssignProgramInstructorRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.SectionsController",
     "Method": "GetAll",
     "RelativePath": "api/Admin/Sections",

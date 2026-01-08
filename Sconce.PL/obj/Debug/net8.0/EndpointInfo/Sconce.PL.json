@@ -4593,6 +4593,124 @@
         }
       }
     },
+    "/api/Admin/Programs/{programId}/ProficiencyExam/Writer": {
+      "patch": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "programId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignProgramInstructorRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignProgramInstructorRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignProgramInstructorRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/Programs/{programId}/ProficiencyExam/Evaluator": {
+      "patch": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "programId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignProgramInstructorRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignProgramInstructorRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignProgramInstructorRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Instructor/Questions/Course/{courseId}": {
       "get": {
         "tags": [
@@ -6856,6 +6974,19 @@
         },
         "additionalProperties": false
       },
+      "AssignProgramInstructorRequest": {
+        "required": [
+          "instructorId"
+        ],
+        "type": "object",
+        "properties": {
+          "instructorId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "ChoiceRequest": {
         "required": [
           "text"
@@ -7307,6 +7438,17 @@
           "plannedLevelCount": {
             "type": "integer",
             "format": "int32"
+          },
+          "hasProficiencyExam": {
+            "type": "boolean"
+          },
+          "examWriterInstructorId": {
+            "type": "string",
+            "nullable": true
+          },
+          "evaluatorInstructorId": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

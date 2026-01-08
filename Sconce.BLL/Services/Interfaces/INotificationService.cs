@@ -32,5 +32,7 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendDropoutCancelledAsync(Dropout dropout);
         Task SendDropoutApprovedAsync(Dropout dropout);
         Task SendDropoutRejectedAsync(Dropout dropout, string feedback);
+        Task SendExamWriterAssignedAsync(Instructor instructor, string programName);
+        Task SendEvaluatorAssignedAsync(Instructor instructor, string programName);
     }
 }
