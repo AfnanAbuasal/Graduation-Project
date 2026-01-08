@@ -20,10 +20,15 @@ namespace Sconce.DAL.Repositories.Classes
             _context = context;
         }
 
-        public async Task<ProgramEnrollment?> GetByProgramAndStudentAsync(int programId, string studentId)
+        public async Task<ProgramEnrollment?> GetByProgramAndStudentAsync(int programId, string studentId, bool includeProficiencyExamAttempt = false)
         {
-            return await _context.ProgramEnrollments
-                .FirstOrDefaultAsync(pe => pe.ProgramId == programId && pe.StudentId == studentId);
+            var query = _context.ProgramEnrollments
+                .Where(pe => pe.ProgramId == programId && pe.StudentId == studentId);
+
+            if (includeProficiencyExamAttempt)
+                query = query.Include(pe => pe.ProficiencyExamAttempt);
+
+            return await query.FirstOrDefaultAsync();
         }
 
         public override async Task<ProgramEnrollment?> GetByIdAsync(int id)

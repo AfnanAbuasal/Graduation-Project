@@ -1,6 +1,7 @@
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Extensions;
 using Sconce.DAL.Models;
 using Sconce.DAL.Repositories.Interfaces;
@@ -54,6 +55,9 @@ namespace Sconce.BLL.Services.Classes
             // Reload with details (includes navigation props) for mapping
             var createdEnrollment = await _programEnrollmentRepository.GetByIdAsync(enrollment.Id);
 
+            if (createdEnrollment == null)
+                return (false, new ErrorResponse { Errors = ["Failed to load created enrollment."] });
+
             // Notify student about enrollment and next steps
             if (createdEnrollment?.Student != null)
             {
@@ -66,7 +70,7 @@ namespace Sconce.BLL.Services.Classes
                     await _notificationService.SendProgramEnrollmentWithoutExamAsync(createdEnrollment.Student, program);
                 }
             }
-            var response = MapToResponse(createdEnrollment, program);
+            var response = MapToResponse(createdEnrollment!, program);
 
             return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });
         }
@@ -88,6 +92,25 @@ namespace Sconce.BLL.Services.Classes
                 .ToList();
 
             return (responses, totalCount);
+        }
+
+        public async Task<(bool Success, Response Response)> SetRecommendedCourseAsync(int programId, string studentId, int recommendedCourseId)
+        {
+            var enrollment = await _programEnrollmentRepository.GetByProgramAndStudentAsync(programId, studentId, includeProficiencyExamAttempt: true);
+            if (enrollment == null)
+                return (false, new ErrorResponse { Errors = ["Enrollment not found for the specified program and student."] });
+
+            if (enrollment.ProficiencyExamAttempt == null || enrollment.ProficiencyExamAttempt.AttemptStatus != AttemptStatus.Graded)
+                return (false, new ErrorResponse { Errors = ["Proficiency exam attempt is not finalized (graded)."] });
+
+            enrollment.RecommendedCourseId = recommendedCourseId;
+            enrollment.UpdatedAt = DateTime.UtcNow;
+
+            await _programEnrollmentRepository.UpdateAsync(enrollment);
+
+            var updated = await _programEnrollmentRepository.GetByIdAsync(enrollment.Id);
+            var response = MapToResponse(updated!, updated!.Program);
+            return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });
         }
 
         private ProgramEnrollmentResponse MapToResponse(ProgramEnrollment enrollment, Program? program)

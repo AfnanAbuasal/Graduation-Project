@@ -9,7 +9,7 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface IProgramEnrollmentRepository : IGenericRepository<ProgramEnrollment>
     {
-        Task<ProgramEnrollment?> GetByProgramAndStudentAsync(int programId, string studentId);
+        Task<ProgramEnrollment?> GetByProgramAndStudentAsync(int programId, string studentId, bool includeProficiencyExamAttempt = false);
         Task<IEnumerable<ProgramEnrollment>> GetByProgramIdWithDetailsAsync(int programId);
         Task<(IEnumerable<ProgramEnrollment> Enrollments, int TotalCount)> GetFilteredEnrollmentsAsync(
             int programId,

@@ -20,5 +20,6 @@ namespace Sconce.BLL.Services.Interfaces
             string sortOrder = "oldest",
             int pageNumber = 1,
             int pageSize = 10);
+        Task<(bool Success, Response Response)> SetRecommendedCourseAsync(int programId, string studentId, int recommendedCourseId);
     }
 }
