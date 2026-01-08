@@ -2836,6 +2836,62 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ProgramsController",
+    "Method": "SetRecommendedCourse",
+    "RelativePath": "api/Instructor/Programs/{programId}/Students/{studentId}/RecommendedCourse",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "studentId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.RecommendCourseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ProgramsController",
+    "Method": "GetProficiencyExamEvaluatorPrograms",
+    "RelativePath": "api/Instructor/Programs/ProficiencyExamEvaluator",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ProgramsController",
     "Method": "GetProficiencyExamWriterPrograms",
     "RelativePath": "api/Instructor/Programs/ProficiencyExamWriter",
     "HttpMethod": "GET",
@@ -4032,7 +4088,7 @@
   {
     "ContainingType": "Sconce.PL.Areas.Student.ProgramEnrollmentsController",
     "Method": "EnrollInProgram",
-    "RelativePath": "api/Student/ProgramEnrollments/{programId}",
+    "RelativePath": "api/Student/ProgramEnrollments/{programId}/Enroll",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

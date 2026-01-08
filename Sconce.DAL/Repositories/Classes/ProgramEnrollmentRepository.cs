@@ -57,14 +57,12 @@ namespace Sconce.DAL.Repositories.Classes
                 .ToListAsync();
         }
 
-        public async Task<(IEnumerable<ProgramEnrollment> Enrollments, int TotalCount)> GetFilteredEnrollmentsAsync(
+        public async Task<IEnumerable<ProgramEnrollment>> GetFilteredEnrollmentsAsync(
             int programId,
             string? placementStatus = null,
             string? examStatus = null,
             int? recommendedCourseId = null,
-            string sortOrder = "newest",
-            int pageNumber = 1,
-            int pageSize = 10)
+            string sortOrder = "oldest")
         {
             var query = _context.ProgramEnrollments
                 .Where(pe => pe.ProgramId == programId)
@@ -113,17 +111,13 @@ namespace Sconce.DAL.Repositories.Classes
                 query = query.Where(pe => pe.RecommendedCourseId == recommendedCourseId);
             }
 
-            var totalCount = await query.CountAsync();
-
-            // Apply sorting and pagination
+            // Apply sorting
             var enrollments = await (sortOrder == "oldest"
                 ? query.OrderBy(pe => pe.CreatedAt)
                 : query.OrderByDescending(pe => pe.CreatedAt))
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
                 .ToListAsync();
 
-            return (enrollments, totalCount);
+            return enrollments;
         }
     }
 }

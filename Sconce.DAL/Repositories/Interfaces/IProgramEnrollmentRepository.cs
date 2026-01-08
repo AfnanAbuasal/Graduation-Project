@@ -11,13 +11,11 @@ namespace Sconce.DAL.Repositories.Interfaces
     {
         Task<ProgramEnrollment?> GetByProgramAndStudentAsync(int programId, string studentId, bool includeProficiencyExamAttempt = false);
         Task<IEnumerable<ProgramEnrollment>> GetByProgramIdWithDetailsAsync(int programId);
-        Task<(IEnumerable<ProgramEnrollment> Enrollments, int TotalCount)> GetFilteredEnrollmentsAsync(
+        Task<IEnumerable<ProgramEnrollment>> GetFilteredEnrollmentsAsync(
             int programId,
             string? placementStatus = null,
             string? examStatus = null,
             int? recommendedCourseId = null,
-            string sortOrder = "oldest",
-            int pageNumber = 1,
-            int pageSize = 10);
+            string sortOrder = "oldest");
     }
 }

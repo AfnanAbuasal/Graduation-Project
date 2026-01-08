@@ -12,14 +12,12 @@ namespace Sconce.BLL.Services.Interfaces
     public interface IProgramEnrollmentService
     {
         Task<(bool Success, Response Response)> EnrollStudentAsync(int programId, string studentId);
-        Task<(IEnumerable<ProgramEnrollmentResponse> Enrollments, int TotalCount)> GetEnrollmentsForProgramAsync(
+        Task<IEnumerable<ProgramEnrollmentResponse>> GetEnrollmentsForProgramAsync(
             int programId,
             string? placementStatus = null,
             string? examStatus = null,
             int? recommendedCourseId = null,
-            string sortOrder = "oldest",
-            int pageNumber = 1,
-            int pageSize = 10);
+            string sortOrder = "oldest");
         Task<(bool Success, Response Response)> SetRecommendedCourseAsync(int programId, string studentId, int recommendedCourseId);
     }
 }

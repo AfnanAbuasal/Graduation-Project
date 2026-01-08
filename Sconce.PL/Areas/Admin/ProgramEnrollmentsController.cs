@@ -25,9 +25,7 @@ namespace Sconce.PL.Areas.Admin
             [FromQuery] string? placementStatus = null,
             [FromQuery] string? examStatus = null,
             [FromQuery] int? recommendedCourseId = null,
-            [FromQuery] string sortOrder = "oldest",
-            [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10)
+            [FromQuery] string sortOrder = "oldest")
         {
             // Normalize and validate inputs
             placementStatus = placementStatus?.Trim().ToLower();
@@ -46,27 +44,16 @@ namespace Sconce.PL.Areas.Admin
             if (!string.IsNullOrEmpty(examStatus) && !new[] { "inprogress", "submitted", "graded", "nottaken" }.Contains(examStatus))
                 return BadRequest("Invalid exam status. Use 'inprogress', 'submitted', 'graded', or 'nottaken'.");
 
-            // Validate pagination
-            if (pageNumber < 1 || pageSize < 1)
-                return BadRequest("Page number and page size must be greater than 0.");
-            
-            var (enrollments, totalCount) = await _programEnrollmentService.GetEnrollmentsForProgramAsync(
+            var result = await _programEnrollmentService.GetEnrollmentsForProgramAsync(
                 programId,
                 placementStatus,
                 examStatus,
                 recommendedCourseId,
-                sortOrder,
-                pageNumber,
-                pageSize);
+                sortOrder);
 
-            return Ok(new
-            {
-                data = enrollments,
-                totalCount,
-                pageNumber,
-                pageSize,
-                totalPages = (int)Math.Ceiling((double)totalCount / pageSize)
-            });
+            if (result is ErrorResponse errorResponse)
+                return BadRequest(errorResponse);
+            return Ok(result);
         }
     }
 }

@@ -75,23 +75,21 @@ namespace Sconce.BLL.Services.Classes
             return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });
         }
 
-        public async Task<(IEnumerable<ProgramEnrollmentResponse> Enrollments, int TotalCount)> GetEnrollmentsForProgramAsync(
+        public async Task<IEnumerable<ProgramEnrollmentResponse>> GetEnrollmentsForProgramAsync(
             int programId,
             string? placementStatus = null,
             string? examStatus = null,
             int? recommendedCourseId = null,
-            string sortOrder = "oldest",
-            int pageNumber = 1,
-            int pageSize = 10)
+            string sortOrder = "oldest")
         {
-            var (enrollments, totalCount) = await _programEnrollmentRepository
-                .GetFilteredEnrollmentsAsync(programId, placementStatus, examStatus, recommendedCourseId, sortOrder, pageNumber, pageSize);
+            var enrollments = await _programEnrollmentRepository
+                .GetFilteredEnrollmentsAsync(programId, placementStatus, examStatus, recommendedCourseId, sortOrder);
 
             var responses = enrollments
                 .Select(enrollment => MapToResponse(enrollment, enrollment.Program))
                 .ToList();
 
-            return (responses, totalCount);
+            return responses;
         }
 
         public async Task<(bool Success, Response Response)> SetRecommendedCourseAsync(int programId, string studentId, int recommendedCourseId)
