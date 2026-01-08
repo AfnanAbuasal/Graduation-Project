@@ -171,5 +171,21 @@ namespace Sconce.BLL.Services.Classes
 
             return new SuccessResponse<IEnumerable<ProgramResponse>> { Data = programResponses };
         }
+
+        public async Task<Response> GetProgramsForEvaluatorAsync()
+        {
+            // Extract instructor ID from claims
+            var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return new ErrorResponse { Errors = ["User not authenticated."] };
+
+            // Get programs assigned to this instructor as evaluator
+            var programs = await _programRepository.GetProgramsByEvaluatorAsync(instructorId);
+
+            // Map to response DTOs
+            var programResponses = programs.Adapt<IEnumerable<ProgramResponse>>();
+
+            return new SuccessResponse<IEnumerable<ProgramResponse>> { Data = programResponses };
+        }
     }
 }

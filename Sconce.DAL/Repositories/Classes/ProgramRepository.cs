@@ -26,5 +26,13 @@ namespace Sconce.DAL.Repositories.Classes
                 .Where(p => p.HasProficiencyExam && p.ExamWriterInstructorId == instructorId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Program>> GetProgramsByEvaluatorAsync(string instructorId)
+        {
+            return await _context.Programs
+                .AsNoTracking()
+                .Where(p => p.HasProficiencyExam && p.EvaluatorInstructorId == instructorId)
+                .ToListAsync();
+        }
     }
 }

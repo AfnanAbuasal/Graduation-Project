@@ -2835,6 +2835,26 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ProgramsController",
+    "Method": "GetProficiencyExamWriterPrograms",
+    "RelativePath": "api/Instructor/Programs/ProficiencyExamWriter",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
     "Method": "GetByCourseId",
     "RelativePath": "api/Instructor/Questions/Course/{courseId}",

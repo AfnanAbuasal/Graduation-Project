@@ -27,5 +27,14 @@ namespace Sconce.PL.Areas.Instructor
             if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }
+
+        // Gets all programs where the current instructor is assigned as Proficiency Exam Evaluator.
+        [HttpGet("ProficiencyExamEvaluator")]
+        public async Task<ActionResult<Response>> GetProficiencyExamEvaluatorPrograms()
+        {
+            var result = await _programService.GetProgramsForEvaluatorAsync();
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
+        }
     }
 }

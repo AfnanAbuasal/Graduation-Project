@@ -15,5 +15,6 @@ namespace Sconce.BLL.Services.Interfaces
         Task<(bool Success, Response Response)> AssignExamWriterInstructorAsync(int programId, string instructorId);
         Task<(bool Success, Response Response)> AssignEvaluatorInstructorAsync(int programId, string instructorId);
         Task<Response> GetProgramsForExamWriterAsync();
+        Task<Response> GetProgramsForEvaluatorAsync();
     }
 }

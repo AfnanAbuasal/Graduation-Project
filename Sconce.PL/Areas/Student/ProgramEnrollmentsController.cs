@@ -20,7 +20,7 @@ namespace Sconce.PL.Areas.Student
         }
 
         // Enroll in a program
-        [HttpPost("{programId}")]
+        [HttpPost("{programId}/Enroll")]
         public async Task<ActionResult<Response>> EnrollInProgram([FromRoute] int programId)
         {
             // Extract student ID from JWT token
