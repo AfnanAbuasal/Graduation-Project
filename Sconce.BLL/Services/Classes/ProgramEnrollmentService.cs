@@ -16,13 +16,16 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly IProgramEnrollmentRepository _programEnrollmentRepository;
         private readonly IProgramRepository _programRepository;
+        private readonly INotificationService _notificationService;
 
         public ProgramEnrollmentService(
             IProgramEnrollmentRepository programEnrollmentRepository,
-            IProgramRepository programRepository)
+            IProgramRepository programRepository,
+            INotificationService notificationService)
         {
             _programEnrollmentRepository = programEnrollmentRepository;
             _programRepository = programRepository;
+            _notificationService = notificationService;
         }
 
         public async Task<(bool Success, Response Response)> EnrollStudentAsync(int programId, string studentId)
@@ -50,6 +53,19 @@ namespace Sconce.BLL.Services.Classes
 
             // Reload with details (includes navigation props) for mapping
             var createdEnrollment = await _programEnrollmentRepository.GetByIdAsync(enrollment.Id);
+
+            // Notify student about enrollment and next steps
+            if (createdEnrollment?.Student != null)
+            {
+                if (program.HasProficiencyExam)
+                {
+                    await _notificationService.SendProgramEnrollmentWithExamAsync(createdEnrollment.Student, program);
+                }
+                else
+                {
+                    await _notificationService.SendProgramEnrollmentWithoutExamAsync(createdEnrollment.Student, program);
+                }
+            }
             var response = MapToResponse(createdEnrollment, program);
 
             return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });

@@ -602,5 +602,51 @@ namespace Sconce.BLL.Services.Classes
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
+
+        // Program Enrollment Emails
+        public async Task SendProgramEnrollmentWithExamAsync(Student student, Program program)
+        {
+            if (student.Email == null)
+                return;
+
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"📚 Enrolled in {program.Name} — Take Your Proficiency Exam",
+                $@"
+                <h2>Welcome to {program.Name}, {student.FullName}!</h2>
+                <p>You have been successfully enrolled in <b>{program.Name}</b>.</p>
+                <p>Next step: Please take your proficiency exam to help us place you in the right level.</p>
+                <ul>
+                    <li><b>Program:</b> {program.Name}</li>
+                    <li><b>Enrollment Date:</b> {DateTime.UtcNow:MMMM dd, yyyy}</li>
+                </ul>
+                <p>You can start the exam from your dashboard right away.</p>
+                <br/>
+                <p>Good luck! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
+
+        public async Task SendProgramEnrollmentWithoutExamAsync(Student student, Program program)
+        {
+            if (student.Email == null)
+                return;
+
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"📚 Enrolled in {program.Name} — Next Steps",
+                $@"
+                <h2>Welcome to {program.Name}, {student.FullName}!</h2>
+                <p>You have been successfully enrolled in <b>{program.Name}</b>.</p>
+                <p>Our admin team will place you into the appropriate section. You’ll receive an update once your section is assigned.</p>
+                <ul>
+                    <li><b>Program:</b> {program.Name}</li>
+                    <li><b>Enrollment Date:</b> {DateTime.UtcNow:MMMM dd, yyyy}</li>
+                </ul>
+                <br/>
+                <p>Welcome aboard! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
     }
 }

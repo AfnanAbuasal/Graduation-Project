@@ -38,5 +38,7 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendExamAttemptSubmittedAsync(Student student, string examTitle, int attemptNumber, DateTime submittedAt);
         Task SendExamAttemptExpiredAsync(Student student, string examTitle, int attemptNumber, DateTime expiredAt);
         Task SendExamAttemptGradedAsync(Student student, string examTitle, int attemptNumber, decimal score, decimal maxScore);
+        Task SendProgramEnrollmentWithExamAsync(Student student, Program program);
+        Task SendProgramEnrollmentWithoutExamAsync(Student student, Program program);
     }
 }
