@@ -50,10 +50,20 @@ namespace Sconce.BLL.Services.Classes
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ExamRequest request)
         {
-            // Validate Section exists
-            var section = await _sectionRepository.GetByIdAsync(request.SectionId);
-            if (section == null)
-                return (0, new ErrorResponse { Errors = ["Section not found."] });
+            // Validate exactly one of SectionId or ProgramId is set
+            bool hasSectionId = request.SectionId.HasValue;
+            bool hasProgramId = request.ProgramId.HasValue;
+
+            if ((hasSectionId && hasProgramId) || (!hasSectionId && !hasProgramId))
+                return (0, new ErrorResponse { Errors = ["Exam must belong to either a Section (normal flow) or a Program (proficiency flow), but not both or neither."] });
+
+            // Validate Section exists if SectionId is provided
+            if (hasSectionId)
+            {
+                var section = await _sectionRepository.GetByIdAsync(request.SectionId!.Value);
+                if (section == null)
+                    return (0, new ErrorResponse { Errors = ["Section not found."] });
+            }
 
             // Validate AttemptsAllowed >= 1
             if (request.AttemptsAllowed < 1)
@@ -114,10 +124,20 @@ namespace Sconce.BLL.Services.Classes
             if (exam.ExamStatus == ExamStatus.Closed)
                 return (0, new ErrorResponse { Errors = ["Closed exams cannot be edited."] });
 
-            // Validate Section exists
-            var section = await _sectionRepository.GetByIdAsync(request.SectionId);
-            if (section == null)
-                return (0, new ErrorResponse { Errors = ["Section not found."] });
+            // Validate exactly one of SectionId or ProgramId is set
+            bool hasSectionId = request.SectionId.HasValue;
+            bool hasProgramId = request.ProgramId.HasValue;
+
+            if ((hasSectionId && hasProgramId) || (!hasSectionId && !hasProgramId))
+                return (0, new ErrorResponse { Errors = ["Exam must belong to either a Section (normal flow) or a Program (proficiency flow), but not both or neither."] });
+
+            // Validate Section exists if SectionId is provided
+            if (hasSectionId)
+            {
+                var section = await _sectionRepository.GetByIdAsync(request.SectionId!.Value);
+                if (section == null)
+                    return (0, new ErrorResponse { Errors = ["Section not found."] });
+            }
 
             // Validate AttemptsAllowed
             if (request.AttemptsAllowed < 1)

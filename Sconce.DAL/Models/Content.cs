@@ -8,7 +8,7 @@ namespace Sconce.DAL.Models
 {
 	public class Content : BaseModel
 	{
-		public int SectionId { get; set; }
+		public int? SectionId { get; set; }
 		public Section? Section { get; set; }
 
 		public string Type { get; private set; }

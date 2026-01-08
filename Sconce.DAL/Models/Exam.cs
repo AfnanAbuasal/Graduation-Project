@@ -17,6 +17,10 @@ namespace Sconce.DAL.Models
 
         public ExamStatus ExamStatus { get; set; } = ExamStatus.Draft;
 
+        // Proficiency flow (Program)
+        public int? ProgramId { get; set; }
+        public Program? Program { get; set; }
+
         public ICollection<ExamQuestion> ExamQuestions { get; set; } = new List<ExamQuestion>();
         public ICollection<ExamAttempt> ExamAttempts { get; set; } = new List<ExamAttempt>();
     }

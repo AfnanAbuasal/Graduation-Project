@@ -70,9 +70,20 @@ namespace Sconce.BLL.Services.Classes
 
         public async Task<(int NumberOfEntries, Response Response)> CreateMultipleChoiceQuestionAsync(MultipleChoiceQuestionRequest request)
         {
-            var course = await _courseRepository.GetByIdAsync(request.CourseId);
-            if (course == null)
-                return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            // Validate exactly one of CourseId or ProgramId is set
+            bool hasCourseId = request.CourseId.HasValue;
+            bool hasProgramId = request.ProgramId.HasValue;
+
+            if ((hasCourseId && hasProgramId) || (!hasCourseId && !hasProgramId))
+                return (0, new ErrorResponse { Errors = ["Question must belong to either a Course (normal flow) or a Program (proficiency flow), but not both or neither."] });
+
+            // Validate Course exists if CourseId is provided
+            if (hasCourseId)
+            {
+                var course = await _courseRepository.GetByIdAsync(request.CourseId!.Value);
+                if (course == null)
+                    return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            }
 
             var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(instructorId))
@@ -86,9 +97,20 @@ namespace Sconce.BLL.Services.Classes
 
         public async Task<(int NumberOfEntries, Response Response)> CreateEssayQuestionAsync(EssayQuestionRequest request)
         {
-            var course = await _courseRepository.GetByIdAsync(request.CourseId);
-            if (course == null)
-                return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            // Validate exactly one of CourseId or ProgramId is set
+            bool hasCourseId = request.CourseId.HasValue;
+            bool hasProgramId = request.ProgramId.HasValue;
+
+            if ((hasCourseId && hasProgramId) || (!hasCourseId && !hasProgramId))
+                return (0, new ErrorResponse { Errors = ["Question must belong to either a Course (normal flow) or a Program (proficiency flow), but not both or neither."] });
+
+            // Validate Course exists if CourseId is provided
+            if (hasCourseId)
+            {
+                var course = await _courseRepository.GetByIdAsync(request.CourseId!.Value);
+                if (course == null)
+                    return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            }
 
             var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(instructorId))
@@ -133,9 +155,20 @@ namespace Sconce.BLL.Services.Classes
             if (entity.CreatedByInstructorId != instructorId)
                 return (0, new ErrorResponse { Errors = ["Not authorized to update this question."] });
 
-            var course = await _courseRepository.GetByIdAsync(request.CourseId);
-            if (course == null)
-                return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            // Validate exactly one of CourseId or ProgramId is set
+            bool hasCourseId = request.CourseId.HasValue;
+            bool hasProgramId = request.ProgramId.HasValue;
+
+            if ((hasCourseId && hasProgramId) || (!hasCourseId && !hasProgramId))
+                return (0, new ErrorResponse { Errors = ["Question must belong to either a Course (normal flow) or a Program (proficiency flow), but not both or neither."] });
+
+            // Validate Course exists if CourseId is provided
+            if (hasCourseId)
+            {
+                var course = await _courseRepository.GetByIdAsync(request.CourseId!.Value);
+                if (course == null)
+                    return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            }
 
             request.Adapt(entity);
             entity.UpdatedAt = DateTime.UtcNow;
@@ -157,9 +190,20 @@ namespace Sconce.BLL.Services.Classes
             if (entity.CreatedByInstructorId != instructorId)
                 return (0, new ErrorResponse { Errors = ["Not authorized to update this question."] });
 
-            var course = await _courseRepository.GetByIdAsync(request.CourseId);
-            if (course == null)
-                return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            // Validate exactly one of CourseId or ProgramId is set
+            bool hasCourseId = request.CourseId.HasValue;
+            bool hasProgramId = request.ProgramId.HasValue;
+
+            if ((hasCourseId && hasProgramId) || (!hasCourseId && !hasProgramId))
+                return (0, new ErrorResponse { Errors = ["Question must belong to either a Course (normal flow) or a Program (proficiency flow), but not both or neither."] });
+
+            // Validate Course exists if CourseId is provided
+            if (hasCourseId)
+            {
+                var course = await _courseRepository.GetByIdAsync(request.CourseId!.Value);
+                if (course == null)
+                    return (0, new ErrorResponse { Errors = [$"Course with Id: {request.CourseId} not found."] });
+            }
 
             // Handle file upload if a new file is provided
             if (request.File != null)

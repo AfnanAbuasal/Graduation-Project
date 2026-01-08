@@ -11,6 +11,7 @@ namespace Sconce.DAL.DTO.Requests
         [EnumDataType(typeof(Difficulty), ErrorMessage = "Difficulty must be a valid option.")]
         public Difficulty Difficulty { get; set; }
         
-        [Required] public int CourseId { get; set; }
+        public int? CourseId { get; set; }
+        public int? ProgramId { get; set; }
     }
 }

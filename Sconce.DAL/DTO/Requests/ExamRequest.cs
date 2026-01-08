@@ -9,8 +9,8 @@ namespace Sconce.DAL.DTO.Requests
         [StringLength(200)]
         public string Title { get; set; } = string.Empty;
 
-        [Required]
-        public int SectionId { get; set; }
+        public int? SectionId { get; set; }
+        public int? ProgramId { get; set; }
 
         [Required]
         public int WeekNumber { get; set; }
