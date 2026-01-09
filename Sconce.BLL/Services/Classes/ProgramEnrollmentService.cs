@@ -17,15 +17,21 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly IProgramEnrollmentRepository _programEnrollmentRepository;
         private readonly IProgramRepository _programRepository;
+        private readonly IStudentSectionRepository _studentSectionRepository;
+        private readonly ISectionRepository _sectionRepository;
         private readonly INotificationService _notificationService;
 
         public ProgramEnrollmentService(
             IProgramEnrollmentRepository programEnrollmentRepository,
             IProgramRepository programRepository,
+            IStudentSectionRepository studentSectionRepository,
+            ISectionRepository sectionRepository,
             INotificationService notificationService)
         {
             _programEnrollmentRepository = programEnrollmentRepository;
             _programRepository = programRepository;
+            _studentSectionRepository = studentSectionRepository;
+            _sectionRepository = sectionRepository;
             _notificationService = notificationService;
         }
 
@@ -108,6 +114,56 @@ namespace Sconce.BLL.Services.Classes
 
             var updated = await _programEnrollmentRepository.GetByIdAsync(enrollment.Id);
             var response = MapToResponse(updated!, updated!.Program);
+            return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });
+        }
+
+        public async Task<(bool Success, Response Response)> AddStudentToSectionAsync(int programEnrollmentId, int sectionId)
+        {
+            var enrollment = await _programEnrollmentRepository.GetByIdAsync(programEnrollmentId);
+            if (enrollment == null)
+                return (false, new ErrorResponse { Errors = ["Program enrollment not found."] });
+
+            if (string.IsNullOrWhiteSpace(enrollment.StudentId))
+                return (false, new ErrorResponse { Errors = ["Enrollment has no associated student."] });
+
+            var section = await _sectionRepository.GetByIdWithCourseAsync(sectionId);
+            if (section == null)
+                return (false, new ErrorResponse { Errors = ["Section not found."] });
+
+            var sectionProgramId = section.Course?.Level?.ProgramId;
+            if (!sectionProgramId.HasValue || sectionProgramId.Value != enrollment.ProgramId)
+                return (false, new ErrorResponse { Errors = ["Section does not belong to the same program as the enrollment."] });
+
+            var alreadyInSection = await _studentSectionRepository.ExistsAsync(enrollment.StudentId, sectionId);
+            if (alreadyInSection)
+                return (false, new ErrorResponse { Errors = ["Student is already placed in this section."] });
+
+            if (section.CurrentCapacity >= section.Capacity)
+                return (false, new ErrorResponse { Errors = ["Section capacity has been reached."] });
+
+            var studentSection = new StudentSection
+            {
+                StudentId = enrollment.StudentId,
+                SectionId = sectionId,
+                AddedAt = DateTime.UtcNow
+            };
+
+            await _studentSectionRepository.AddAsync(studentSection);
+
+            section.CurrentCapacity++;
+            await _sectionRepository.UpdateAsync(section);
+
+            enrollment.PlacedSectionId = sectionId;
+            enrollment.UpdatedAt = DateTime.UtcNow;
+            await _programEnrollmentRepository.UpdateAsync(enrollment);
+
+            var updatedEnrollment = await _programEnrollmentRepository.GetByIdAsync(programEnrollmentId);
+            if (updatedEnrollment?.Student != null)
+            {
+                await _notificationService.SendStudentPlacedInSectionAsync(updatedEnrollment.Student, section);
+            }
+
+            var response = MapToResponse(updatedEnrollment!, updatedEnrollment!.Program);
             return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });
         }
 

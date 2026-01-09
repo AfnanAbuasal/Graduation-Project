@@ -19,5 +19,6 @@ namespace Sconce.BLL.Services.Interfaces
             int? recommendedCourseId = null,
             string sortOrder = "oldest");
         Task<(bool Success, Response Response)> SetRecommendedCourseAsync(int programId, string studentId, int recommendedCourseId);
+        Task<(bool Success, Response Response)> AddStudentToSectionAsync(int programEnrollmentId, int sectionId);
     }
 }

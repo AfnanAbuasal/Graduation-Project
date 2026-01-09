@@ -10,6 +10,7 @@ namespace Sconce.DAL.Repositories.Interfaces
     public interface ISectionRepository : IGenericRepository<Section>
     {
         Task<Section?> GetByIdWithInstructorAsync(int id);
+        Task<Section?> GetByIdWithCourseAsync(int id);
         Task<IEnumerable<Section>> GetAllWithInstructorAsync();
         Task<IEnumerable<Section>> GetByInstructorIdWithInstructorAsync(string instructorId);
         Task<IEnumerable<Section>> GetByCourseIdAsync(int courseId, bool onlyActive = false);

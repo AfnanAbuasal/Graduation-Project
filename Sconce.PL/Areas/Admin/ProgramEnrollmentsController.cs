@@ -55,5 +55,14 @@ namespace Sconce.PL.Areas.Admin
                 return BadRequest(errorResponse);
             return Ok(result);
         }
+
+        [HttpPost("{enrollmentId}/AddToSection/{sectionId}")]
+        public async Task<ActionResult<Response>> AddToSection([FromRoute] int enrollmentId, [FromRoute] int sectionId)
+        {
+            var (success, response) = await _programEnrollmentService.AddStudentToSectionAsync(enrollmentId, sectionId);
+            if (!success)
+                return BadRequest(response);
+            return Ok(response);
+        }
     }
 }

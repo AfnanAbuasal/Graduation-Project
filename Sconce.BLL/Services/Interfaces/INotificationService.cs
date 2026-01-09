@@ -40,5 +40,6 @@ namespace Sconce.BLL.Services.Interfaces
         Task SendExamAttemptGradedAsync(Student student, string examTitle, int attemptNumber, decimal score, decimal maxScore);
         Task SendProgramEnrollmentWithExamAsync(Student student, Program program);
         Task SendProgramEnrollmentWithoutExamAsync(Student student, Program program);
+        Task SendStudentPlacedInSectionAsync(Student student, Section section);
     }
 }

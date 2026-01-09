@@ -648,5 +648,25 @@ namespace Sconce.BLL.Services.Classes
                 <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
             );
         }
+
+        public async Task SendStudentPlacedInSectionAsync(Student student, Section section)
+        {
+            if (student.Email == null)
+                return;
+
+            var courseName = section.Course?.Name ?? "Course";
+
+            await _emailSender.SendEmailAsync(
+                student.Email,
+                $"🎓 Section Placement — {courseName}",
+                $@"
+                <h2>Hello {student.FullName},</h2>
+                <p>You've been placed into the section <b>{section.Name}</b> for <b>{courseName}</b>.</p>
+                <p>You can view your section details and materials in your dashboard.</p>
+                <br/>
+                <p>Wishing you a great learning journey! 🌟</p>
+                <p style='margin-top: 30px; color: #999;'>— The Sconce Team</p>"
+            );
+        }
     }
 }

@@ -29,6 +29,15 @@ namespace Sconce.DAL.Repositories.Classes
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 
+        public async Task<Section?> GetByIdWithCourseAsync(int id)
+        {
+            return await _context.Sections
+                .Include(s => s.Course)
+                    .ThenInclude(c => c.Level)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
         public async Task<IEnumerable<Section>> GetAllWithInstructorAsync()
         {
             return await _context.Sections
