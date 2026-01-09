@@ -40,6 +40,15 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
+        // Attaches a proficiency exam to a program (exam writer only).
+        [HttpPut("{programId}/AttachProficiencyExam/{examId}")]
+        public async Task<ActionResult<Response>> AttachProficiencyExam([FromRoute] int programId, [FromRoute] int examId)
+        {
+            var result = await _programService.AssignProficiencyExamAsync(programId, examId);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
         // Sets the recommended course for a student's finalized proficiency exam attempt.
         [HttpPut("{programId}/Students/{studentId}/RecommendedCourse")]
         public async Task<ActionResult<Response>> SetRecommendedCourse([FromRoute] int programId, [FromRoute] string studentId, [FromBody] RecommendCourseRequest request)

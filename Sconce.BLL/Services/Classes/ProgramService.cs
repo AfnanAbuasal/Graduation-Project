@@ -12,6 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -21,13 +22,15 @@ namespace Sconce.BLL.Services.Classes
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly INotificationService _notificationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IExamRepository _examRepository;
 
-        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService, IHttpContextAccessor httpContextAccessor) : base(programRepository)
+        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService, IHttpContextAccessor httpContextAccessor, IExamRepository examRepository) : base(programRepository)
         {
             _programRepository = programRepository;
             _userManager = userManager;
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
+            _examRepository = examRepository;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ProgramRequest request)
@@ -186,6 +189,50 @@ namespace Sconce.BLL.Services.Classes
             var programResponses = programs.Adapt<IEnumerable<ProgramResponse>>();
 
             return new SuccessResponse<IEnumerable<ProgramResponse>> { Data = programResponses };
+        }
+
+        public async Task<(bool Success, Response Response)> AssignProficiencyExamAsync(int programId, int examId)
+        {
+            // Extract instructor ID
+            var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return (false, new ErrorResponse { Errors = ["User not authenticated."] });
+
+            // Load program
+            var program = await _programRepository.GetByIdAsync(programId);
+            if (program == null)
+                return (false, new ErrorResponse { Errors = ["Program not found."] });
+
+            // Validate program settings
+            if (!program.HasProficiencyExam)
+                return (false, new ErrorResponse { Errors = ["This program does not have a proficiency exam enabled."] });
+            
+            if (program.ExamWriterInstructorId != instructorId)
+                return (false, new ErrorResponse { Errors = ["Forbidden. You are not assigned as the exam writer for this program."] });
+
+            if (program.ProficiencyExamId.HasValue)
+                return (false, new ErrorResponse { Errors = ["Proficiency exam already assigned for this program."] });
+            
+            // Load exam
+            var exam = await _examRepository.GetByIdAsync(examId);
+            if (exam == null)
+                return (false, new ErrorResponse { Errors = ["Exam not found."] });
+
+            if (exam.ProgramId != programId)
+                return (false, new ErrorResponse { Errors = ["Exam does not belong to this program."] });
+
+            // Assign exam
+            program.ProficiencyExamId = examId;
+            program.UpdatedAt = DateTime.UtcNow;
+
+            await _programRepository.UpdateAsync(program);
+
+            var response = new SuccessResponse<ProgramResponse>
+            {
+                Data = program.Adapt<ProgramResponse>()
+            };
+
+            return (true, response);
         }
     }
 }
