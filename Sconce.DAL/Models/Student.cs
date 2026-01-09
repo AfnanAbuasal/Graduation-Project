@@ -10,12 +10,13 @@ namespace Sconce.DAL.Models
 {
     public class Student : ApplicationUser
     {
-        public string DocumentPath { get; set; } // path to the uploaded ID/BirthCertificate file
+        public string DocumentPath { get; set; } = string.Empty; // path to the uploaded ID/BirthCertificate file
         public LevelOfProficiency LevelOfProficiency { get; set; } = LevelOfProficiency.None;
         public ReferralSource ReferralSource { get; set; } = ReferralSource.Other;
         public ICollection<StudentParent> StudentParents { get; set; } = new List<StudentParent>();
         public ICollection<Submission> Submissions { get; set; } = new List<Submission>();
         public ICollection<ExamAttempt> ExamAttempts { get; set; } = new List<ExamAttempt>();
         public ICollection<ProgramEnrollment> Enrollments { get; set; } = new List<ProgramEnrollment>();
+        public ICollection<StudentSection> StudentSections { get; set; } = new List<StudentSection>();
     }
 }

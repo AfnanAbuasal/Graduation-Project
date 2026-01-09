@@ -44,6 +44,7 @@ namespace Sconce.DAL.Data
         public DbSet<ExamQuestion> ExamQuestions { get; set; }
         public DbSet<ExamAttempt> ExamAttempts { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<StudentSection> StudentSections { get; set; }
 
         // Other
         public DbSet<Dropout> Dropouts { get; set; }
@@ -79,6 +80,22 @@ namespace Sconce.DAL.Data
                     .WithMany(p => p.StudentParents)
                     .HasForeignKey(sp => sp.ParentId)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // StudentSection (many-to-many between Student and Section)
+            builder.Entity<StudentSection>(entity =>
+            {
+                entity.HasKey(ss => new { ss.StudentId, ss.SectionId });
+
+                entity.HasOne(ss => ss.Student)
+                    .WithMany(s => s.StudentSections)
+                    .HasForeignKey(ss => ss.StudentId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ss => ss.Section)
+                    .WithMany(sec => sec.StudentSections)
+                    .HasForeignKey(ss => ss.SectionId)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             // Program Enrollment
