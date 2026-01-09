@@ -53,5 +53,22 @@ namespace Sconce.DAL.Repositories.Classes
                 .Select(ss => ss.Student)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<StudentSection>> GetByStudentAndProgramAsync(string studentId, int programId)
+        {
+            return await _context.StudentSections
+                .Include(ss => ss.Section)
+                    .ThenInclude(s => s.Course)
+                        .ThenInclude(c => c.Level)
+                            .ThenInclude(l => l.Program)
+                .Where(ss => ss.StudentId == studentId && ss.Section.Course.Level.ProgramId == programId)
+                .ToListAsync();
+        }
+
+        public async Task<int> DeleteAsync(StudentSection entity)
+        {
+            _context.StudentSections.Remove(entity);
+            return await _context.SaveChangesAsync();
+        }
     }
 }

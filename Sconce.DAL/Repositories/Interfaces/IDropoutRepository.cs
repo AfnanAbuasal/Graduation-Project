@@ -9,6 +9,6 @@ namespace Sconce.DAL.Repositories.Interfaces
 {
     public interface IDropoutRepository : IGenericRepository<Dropout>
     {
-        Task<Dropout?> GetByIdWithStudentAsync(int id);
+        Task<Dropout?> GetByIdWithStudentAndProgramAsync(int id);
     }
 }

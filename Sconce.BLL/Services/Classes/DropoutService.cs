@@ -18,15 +18,24 @@ namespace Sconce.BLL.Services.Classes
     public class DropoutService : GenericService<DropoutRequest, DropoutResponse, Dropout>, IDropoutService
     {
         private readonly IDropoutRepository _dropoutRepository;
+        private readonly IProgramRepository _programRepository;
+        private readonly IProgramEnrollmentRepository _programEnrollmentRepository;
+        private readonly IStudentSectionRepository _studentSectionRepository;
         private readonly INotificationService _notificationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public DropoutService(
             IDropoutRepository dropoutRepository,
+            IProgramRepository programRepository,
+            IProgramEnrollmentRepository programEnrollmentRepository,
+            IStudentSectionRepository studentSectionRepository,
             INotificationService notificationService,
             IHttpContextAccessor httpContextAccessor) : base(dropoutRepository)
         {
             _dropoutRepository = dropoutRepository;
+            _programRepository = programRepository;
+            _programEnrollmentRepository = programEnrollmentRepository;
+            _studentSectionRepository = studentSectionRepository;
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -38,6 +47,11 @@ namespace Sconce.BLL.Services.Classes
             if (string.IsNullOrEmpty(studentId))
                 return (0, new ErrorResponse { Errors = ["User not authenticated."] });
 
+            // Validate program exists
+            var program = await _programRepository.GetByIdAsync(request.ProgramId);
+            if (program == null)
+                return (0, new ErrorResponse { Errors = ["Program not found."] });
+
             var dropout = request.Adapt<Dropout>();
             dropout.StudentId = studentId;
 
@@ -45,13 +59,17 @@ namespace Sconce.BLL.Services.Classes
 
             if (rows > 0)
             {
-                var dropoutWithStudent = await _dropoutRepository.GetByIdWithStudentAsync(dropout.Id);
+                var dropoutWithStudent = await _dropoutRepository.GetByIdWithStudentAndProgramAsync(dropout.Id);
 
                 if (dropoutWithStudent != null)
+                {
                     await _notificationService.SendDropoutRequestedAsync(dropoutWithStudent);
+                    var response = MapToResponse(dropoutWithStudent);
+                    return (rows, new SuccessResponse<DropoutResponse> { Data = response });
+                }
             }
 
-            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });
+            return (rows, new ErrorResponse { Errors = ["Failed to create dropout request."] });
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int ID, DropoutRequest request)
@@ -69,6 +87,11 @@ namespace Sconce.BLL.Services.Classes
             if (dropout.ApplicationStatus != ApplicationStatus.Pending)
                 return (0, new ErrorResponse { Errors = ["Only pending dropout requests can be updated."] });
 
+            // Validate program exists
+            var program = await _programRepository.GetByIdAsync(request.ProgramId);
+            if (program == null)
+                return (0, new ErrorResponse { Errors = ["Program not found."] });
+
             request.Adapt(dropout);
             dropout.UpdatedAt = DateTime.UtcNow;
 
@@ -76,18 +99,22 @@ namespace Sconce.BLL.Services.Classes
 
             if (rows > 0)
             {
-                var dropoutWithStudent = await _dropoutRepository.GetByIdWithStudentAsync(ID);
+                var dropoutWithStudent = await _dropoutRepository.GetByIdWithStudentAndProgramAsync(ID);
 
                 if (dropoutWithStudent != null)
+                {
                     await _notificationService.SendDropoutUpdatedAsync(dropoutWithStudent);
+                    var response = MapToResponse(dropoutWithStudent);
+                    return (rows, new SuccessResponse<DropoutResponse> { Data = response });
+                }
             }
 
-            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
+            return (rows, new ErrorResponse { Errors = ["Failed to update dropout request."] });
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id)
         {
-            var dropout = await _dropoutRepository.GetByIdWithStudentAsync(Id);
+            var dropout = await _dropoutRepository.GetByIdWithStudentAndProgramAsync(Id);
 
             if (dropout == null)
                 return (0, new ErrorResponse { Errors = ["Dropout request not found."] });
@@ -123,23 +150,59 @@ namespace Sconce.BLL.Services.Classes
 
             await _dropoutRepository.UpdateAsync(request);
 
-            var dropoutWithStudent = await _dropoutRepository.GetByIdWithStudentAsync(requestId);
+            var dropoutWithStudent = await _dropoutRepository.GetByIdWithStudentAndProgramAsync(requestId);
 
             if (dropoutWithStudent != null)
             {
                 if (newStatus == ApplicationStatus.Approved)
+                {
+                    // Remove student from all sections in the program and delete program enrollment
+                    await RemoveStudentFromProgramSectionsAsync(dropoutWithStudent.StudentId, dropoutWithStudent.ProgramId);
                     await _notificationService.SendDropoutApprovedAsync(dropoutWithStudent);
+                }
                 else if (newStatus == ApplicationStatus.Rejected)
+                {
                     await _notificationService.SendDropoutRejectedAsync(dropoutWithStudent, feedback);
+                }
+
+                var response = MapToResponse(dropoutWithStudent);
+                return (true, new SuccessResponse<DropoutResponse> { Data = response });
             }
 
-            // remove student from the program if approved
+            return (false, new ErrorResponse { Errors = ["Failed to retrieve dropout request details."] });
+        }
 
-            var message = newStatus == ApplicationStatus.Approved
-                ? "Dropout request approved."
-                : "Dropout request rejected.";
+        private async Task RemoveStudentFromProgramSectionsAsync(string studentId, int programId)
+        {
+            // Get all student sections for this student in sections belonging to the program
+            var studentSections = await _studentSectionRepository.GetByStudentAndProgramAsync(studentId, programId);
 
-            return (true, new SuccessResponse<string> { Data = message });
+            foreach (var studentSection in studentSections)
+            {
+                await _studentSectionRepository.DeleteAsync(studentSection);
+            }
+
+            // Remove program enrollment
+            var enrollment = await _programEnrollmentRepository.GetByProgramAndStudentAsync(programId, studentId);
+            if (enrollment != null)
+            {
+                await _programEnrollmentRepository.DeleteAsync(enrollment);
+            }
+        }
+
+        private DropoutResponse MapToResponse(Dropout dropout)
+        {
+            return new DropoutResponse
+            {
+                Id = dropout.Id,
+                Reasons = dropout.Reasons,
+                ApplicationStatus = dropout.ApplicationStatus,
+                CreatedAt = dropout.CreatedAt,
+                ProgramId = dropout.ProgramId,
+                ProgramName = dropout.Program?.Name ?? string.Empty,
+                StudentId = dropout.StudentId,
+                StudentName = dropout.Student?.FullName ?? string.Empty
+            };
         }
     }
 }

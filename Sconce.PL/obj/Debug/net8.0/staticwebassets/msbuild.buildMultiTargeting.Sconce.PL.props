@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Sconce.PL.props" />
-</Project>

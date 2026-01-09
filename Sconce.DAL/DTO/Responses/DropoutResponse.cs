@@ -10,12 +10,12 @@ namespace Sconce.DAL.DTO.Responses
     public class DropoutResponse
     {
         public int Id { get; set; }
-        public string Reasons { get; set; }
+        public string Reasons { get; set; } = string.Empty;
         public ApplicationStatus ApplicationStatus { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int LevelId { get; set; }
-        public string LevelName { get; set; }
-        public string StudentId { get; set; }
-        public string StudentName { get; set; }
+        public int ProgramId { get; set; }
+        public string ProgramName { get; set; } = string.Empty;
+        public string StudentId { get; set; } = string.Empty;
+        public string StudentName { get; set; } = string.Empty;
     }
 }

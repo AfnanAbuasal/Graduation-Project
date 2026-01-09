@@ -13,7 +13,7 @@ namespace Sconce.DAL.Models
         public int Capacity { get; set; }
         public int CurrentCapacity { get; set; }
         public int CourseId { get; set; }
-        public Course? Course { get; set; }
+        public Course Course { get; set; }
         public string? InstructorId { get; set; }
         public Instructor? Instructor { get; set; }
         public ICollection<StudentSection> StudentSections { get; set; } = new List<StudentSection>();

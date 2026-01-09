@@ -19,11 +19,11 @@ namespace Sconce.DAL.Repositories.Classes
             _context = context;
         }
 
-        public async Task<Dropout?> GetByIdWithStudentAsync(int id)
+        public async Task<Dropout?> GetByIdWithStudentAndProgramAsync(int id)
         {
             return await _context.Dropouts
                 .Include(d => d.Student)
-                .Include(d => d.Level)
+                .Include(d => d.Program)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(d => d.Id == id);
         }

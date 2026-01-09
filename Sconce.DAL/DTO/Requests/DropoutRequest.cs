@@ -9,7 +9,7 @@ namespace Sconce.DAL.DTO.Requests
 {
     public class DropoutRequest
     {
-        [Required] public int LevelId { get; set; }
-        [Required] public string Reasons { get; set; }
+        [Required] public int ProgramId { get; set; }
+        [Required] public string Reasons { get; set; } = string.Empty;
     }
 }
