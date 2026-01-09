@@ -2116,7 +2116,6 @@
             "multipart/form-data": {
               "schema": {
                 "required": [
-                  "CourseId",
                   "Difficulty",
                   "Prompt"
                 ],
@@ -2150,6 +2149,10 @@
                   "CourseId": {
                     "type": "integer",
                     "format": "int32"
+                  },
+                  "ProgramId": {
+                    "type": "integer",
+                    "format": "int32"
                   }
                 }
               },
@@ -2173,6 +2176,9 @@
                   "style": "form"
                 },
                 "CourseId": {
+                  "style": "form"
+                },
+                "ProgramId": {
                   "style": "form"
                 }
               }
@@ -2224,7 +2230,6 @@
             "multipart/form-data": {
               "schema": {
                 "required": [
-                  "CourseId",
                   "Difficulty",
                   "Prompt"
                 ],
@@ -2258,6 +2263,10 @@
                   "CourseId": {
                     "type": "integer",
                     "format": "int32"
+                  },
+                  "ProgramId": {
+                    "type": "integer",
+                    "format": "int32"
                   }
                 }
               },
@@ -2281,6 +2290,9 @@
                   "style": "form"
                 },
                 "CourseId": {
+                  "style": "form"
+                },
+                "ProgramId": {
                   "style": "form"
                 }
               }
@@ -4230,23 +4242,54 @@
               "type": "string",
               "default": "oldest"
             }
-          },
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admin/ProgramEnrollments/{enrollmentId}/AddToSection/{sectionId}": {
+      "post": {
+        "tags": [
+          "ProgramEnrollments"
+        ],
+        "parameters": [
           {
-            "name": "pageNumber",
-            "in": "query",
+            "name": "enrollmentId",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 1
+              "format": "int32"
             }
           },
           {
-            "name": "pageSize",
-            "in": "query",
+            "name": "sectionId",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 10
+              "format": "int32"
             }
           }
         ],
@@ -4332,6 +4375,55 @@
         }
       }
     },
+    "/api/Instructor/Programs/{programId}/AttachProficiencyExam/{examId}": {
+      "put": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "programId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "examId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Instructor/Programs/{programId}/Students/{studentId}/RecommendedCourse": {
       "put": {
         "tags": [
@@ -4375,6 +4467,45 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Guest/Programs": {
+      "get": {
+        "tags": [
+          "Programs"
+        ],
+        "parameters": [
+          {
+            "name": "onlyActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -5176,6 +5307,35 @@
         }
       }
     },
+    "/api/Student/Sections/MySections": {
+      "get": {
+        "tags": [
+          "Sections"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Instructor/Sections/MySections": {
       "get": {
         "tags": [
@@ -5223,6 +5383,46 @@
       }
     },
     "/api/Instructor/Sections/{sectionId}/Content": {
+      "get": {
+        "tags": [
+          "Sections"
+        ],
+        "parameters": [
+          {
+            "name": "sectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Instructor/Sections/{sectionId}/Students": {
       "get": {
         "tags": [
           "Sections"
@@ -7228,7 +7428,6 @@
       },
       "ExamRequest": {
         "required": [
-          "sectionId",
           "title",
           "weekNumber"
         ],
@@ -7241,7 +7440,13 @@
           },
           "sectionId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
+          },
+          "programId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "weekNumber": {
             "type": "integer",
@@ -7438,7 +7643,6 @@
       },
       "MultipleChoiceQuestionRequest": {
         "required": [
-          "courseId",
           "difficulty",
           "prompt"
         ],
@@ -7453,7 +7657,13 @@
           },
           "courseId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
+          },
+          "programId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "allowMultipleSelections": {
             "type": "boolean"

@@ -126,6 +126,26 @@ namespace Sconce.BLL.Services.Classes
             if (string.IsNullOrWhiteSpace(enrollment.StudentId))
                 return (false, new ErrorResponse { Errors = ["Enrollment has no associated student."] });
 
+            // Validate proficiency exam requirements
+            if (enrollment.ProficiencyExamAttempt == null)
+                return (false, new ErrorResponse { Errors = ["Proficiency exam attempt not found."] });
+
+            if (enrollment.ProficiencyExamAttempt.AttemptStatus != AttemptStatus.Graded)
+                return (false, new ErrorResponse { Errors = ["Proficiency exam must be graded before placing student in a section."] });
+
+            if (!enrollment.ProficiencyExamAttempt.Score.HasValue)
+                return (false, new ErrorResponse { Errors = ["Exam score is required."] });
+
+            if (!enrollment.ProficiencyExamAttempt.MaxScore.HasValue)
+                return (false, new ErrorResponse { Errors = ["Exam max score is required."] });
+
+            // Validate recommended course requirements
+            if (!enrollment.RecommendedCourseId.HasValue)
+                return (false, new ErrorResponse { Errors = ["Recommended course ID is required."] });
+
+            if (enrollment.RecommendedCourse == null || string.IsNullOrWhiteSpace(enrollment.RecommendedCourse.Name))
+                return (false, new ErrorResponse { Errors = ["Recommended course must be assigned before placing student in a section."] });
+
             var section = await _sectionRepository.GetByIdWithCourseAsync(sectionId);
             if (section == null)
                 return (false, new ErrorResponse { Errors = ["Section not found."] });

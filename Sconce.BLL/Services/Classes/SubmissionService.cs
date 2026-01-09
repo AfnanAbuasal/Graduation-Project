@@ -244,7 +244,7 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
             return new ErrorResponse { Errors = ["Assignment not found."] };
 
         // Verify instructor has access to the assignment's section
-        var section = await _sectionRepository.GetByIdAsync(assignment.SectionId);
+        var section = await _sectionRepository.GetByIdAsync((int)assignment.SectionId);
         if (section == null || section.InstructorId != instructorId)
             return new ErrorResponse { Errors = ["Unauthorized access to this assignment."] };
 

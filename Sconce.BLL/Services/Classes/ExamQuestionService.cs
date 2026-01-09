@@ -57,7 +57,7 @@ namespace Sconce.BLL.Services.Classes
                 return (0, new ErrorResponse { Errors = ["Question not found."] });
 
             // Question must belong to the exam's course
-            var section = await _sectionRepository.GetByIdAsync(exam.SectionId);
+            var section = await _sectionRepository.GetByIdAsync((int)exam.SectionId);
             if (section == null)
                 return (0, new ErrorResponse { Errors = ["Section not found for this exam."] });
 
@@ -116,7 +116,7 @@ namespace Sconce.BLL.Services.Classes
                 return (0, new ErrorResponse { Errors = ["Question not found."] });
 
             // Validate course match
-            var section = await _sectionRepository.GetByIdAsync(exam.SectionId);
+            var section = await _sectionRepository.GetByIdAsync((int)exam.SectionId);
             if (section == null)
                 return (0, new ErrorResponse { Errors = ["Section not found for this exam."] });
 

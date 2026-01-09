@@ -592,6 +592,37 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Admin.ProgramEnrollmentsController",
+    "Method": "AddToSection",
+    "RelativePath": "api/Admin/ProgramEnrollments/{enrollmentId}/AddToSection/{sectionId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "enrollmentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Admin.ProgramEnrollmentsController",
     "Method": "GetEnrollments",
     "RelativePath": "api/Admin/ProgramEnrollments/Program/{programId}",
     "HttpMethod": "GET",
@@ -621,16 +652,6 @@
       {
         "Name": "sortOrder",
         "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -1425,6 +1446,32 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Guest.ProgramsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Guest/Programs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Identity.AccountController",
     "Method": "ConfirmEmail",
     "RelativePath": "api/Identity/Account/ConfirmEmail",
@@ -2051,7 +2098,12 @@
       },
       {
         "Name": "CourseId",
-        "Type": "System.Int32",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProgramId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],
@@ -2112,7 +2164,12 @@
       },
       {
         "Name": "CourseId",
-        "Type": "System.Int32",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProgramId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],
@@ -2836,6 +2893,37 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ProgramsController",
+    "Method": "AttachProficiencyExam",
+    "RelativePath": "api/Instructor/Programs/{programId}/AttachProficiencyExam/{examId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "examId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ProgramsController",
     "Method": "SetRecommendedCourse",
     "RelativePath": "api/Instructor/Programs/{programId}/Students/{studentId}/RecommendedCourse",
     "HttpMethod": "PUT",
@@ -3110,6 +3198,32 @@
     "ContainingType": "Sconce.PL.Areas.Instructor.SectionsController",
     "Method": "GetSectionContent",
     "RelativePath": "api/Instructor/Sections/{sectionId}/Content",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.SectionsController",
+    "Method": "GetSectionStudents",
+    "RelativePath": "api/Instructor/Sections/{sectionId}/Students",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -4125,6 +4239,26 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.SectionsController",
+    "Method": "GetMySections",
+    "RelativePath": "api/Student/Sections/MySections",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "Sconce.DAL.DTO.Responses.Response",
