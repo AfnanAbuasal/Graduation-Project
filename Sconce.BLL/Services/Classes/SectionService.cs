@@ -19,12 +19,14 @@ namespace Sconce.BLL.Services.Classes
     {
         private readonly ISectionRepository _sectionRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IStudentSectionRepository _studentSectionRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, UserManager<ApplicationUser> userManager) : base(sectionRepository)
+        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, IStudentSectionRepository studentSectionRepository, UserManager<ApplicationUser> userManager) : base(sectionRepository)
         {
             _sectionRepository = sectionRepository;
             _courseRepository = courseRepository;
+            _studentSectionRepository = studentSectionRepository;
             _userManager = userManager;
         }
 
@@ -180,6 +182,37 @@ namespace Sconce.BLL.Services.Classes
             await _sectionRepository.UpdateAsync(section);
 
             return (true, new SuccessResponse<string> { Data = $"Section capacity increased by {additionalCapacity}. New capacity: {section.Capacity}." });
+        }
+
+        public async Task<Response> GetByStudentAsync(string studentId)
+        {
+            var studentSections = await _studentSectionRepository.GetByStudentIdAsync(studentId);
+
+            var responseList = new List<StudentSectionResponse>();
+
+            foreach (var studentSection in studentSections)
+            {
+                var section = studentSection.Section;
+                var course = section?.Course;
+                var level = course?.Level;
+                var program = level?.Program;
+
+                var dto = new StudentSectionResponse
+                {
+                    SectionId = section?.Id ?? 0,
+                    SectionName = section?.Name ?? string.Empty,
+                    CourseId = course?.Id ?? 0,
+                    CourseName = course?.Name ?? string.Empty,
+                    LevelId = level?.Id ?? 0,
+                    LevelName = level?.Name ?? string.Empty,
+                    ProgramId = program?.Id ?? 0,
+                    ProgramName = program?.Name ?? string.Empty
+                };
+
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<StudentSectionResponse>> { Data = responseList };
         }
     }
 }

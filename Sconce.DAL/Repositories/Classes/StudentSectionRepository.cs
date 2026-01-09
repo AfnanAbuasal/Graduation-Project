@@ -33,5 +33,16 @@ namespace Sconce.DAL.Repositories.Classes
             await _context.StudentSections.AddAsync(entity);
             return await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<StudentSection>> GetByStudentIdAsync(string studentId)
+        {
+            return await _context.StudentSections
+                .Include(ss => ss.Section)
+                    .ThenInclude(s => s.Course)
+                        .ThenInclude(c => c.Level)
+                            .ThenInclude(l => l.Program)
+                .Where(ss => ss.StudentId == studentId)
+                .ToListAsync();
+        }
     }
 }
