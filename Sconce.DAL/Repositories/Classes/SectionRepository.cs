@@ -34,7 +34,6 @@ namespace Sconce.DAL.Repositories.Classes
             return await _context.Sections
                 .Include(s => s.Course)
                     .ThenInclude(c => c.Level)
-                .AsNoTracking()
                 .FirstOrDefaultAsync(s => s.Id == id);
         }
 

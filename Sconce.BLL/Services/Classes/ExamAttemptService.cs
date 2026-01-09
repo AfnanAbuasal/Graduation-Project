@@ -22,6 +22,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IExamQuestionRepository _examQuestionRepository;
         private readonly IExamQuestionService _examQuestionService;
         private readonly IAnswerRepository _answerRepository;
+        private readonly IProgramEnrollmentRepository _programEnrollmentRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUrlHelper _urlHelper;
         private readonly INotificationService _notificationService;
@@ -32,6 +33,7 @@ namespace Sconce.BLL.Services.Classes
             IExamQuestionRepository examQuestionRepository,
             IExamQuestionService examQuestionService,
             IAnswerRepository answerRepository,
+            IProgramEnrollmentRepository programEnrollmentRepository,
             IHttpContextAccessor httpContextAccessor,
             IUrlHelper urlHelper,
             INotificationService notificationService)
@@ -41,6 +43,7 @@ namespace Sconce.BLL.Services.Classes
             _examQuestionRepository = examQuestionRepository;
             _examQuestionService = examQuestionService;
             _answerRepository = answerRepository;
+            _programEnrollmentRepository = programEnrollmentRepository;
             _httpContextAccessor = httpContextAccessor;
             _urlHelper = urlHelper;
             _notificationService = notificationService;
@@ -95,6 +98,18 @@ namespace Sconce.BLL.Services.Classes
 
             // Reload to ensure Student navigation is available for mapping FullName
             var persistedAttempt = await _examAttemptRepository.GetByIdWithExamAsync(attempt.Id) ?? attempt;
+
+            // If this is a proficiency exam (program-level), link it to the student's enrollment
+            if (exam.ProgramId.HasValue)
+            {
+                var enrollment = await _programEnrollmentRepository.GetByProgramAndStudentAsync(exam.ProgramId.Value, studentId);
+                if (enrollment != null)
+                {
+                    enrollment.ProficiencyExamAttemptId = persistedAttempt.Id;
+                    enrollment.UpdatedAt = DateTime.UtcNow;
+                    await _programEnrollmentRepository.UpdateAsync(enrollment);
+                }
+            }
 
             return (true, new SuccessResponse<ExamAttemptResponse> { Data = MapToResponse(persistedAttempt) });
         }
@@ -281,6 +296,19 @@ namespace Sconce.BLL.Services.Classes
 
             // Save
             await _examAttemptRepository.UpdateAsync(attempt);
+
+            // If this is a proficiency exam (program-level), update the enrollment with evaluator info
+            if (attempt.Exam.ProgramId.HasValue && !string.IsNullOrEmpty(attempt.StudentId))
+            {
+                var enrollment = await _programEnrollmentRepository.GetByProgramAndStudentAsync(attempt.Exam.ProgramId.Value, attempt.StudentId);
+                if (enrollment != null)
+                {
+                    enrollment.EvaluatedByInstructorId = instructorId;
+                    enrollment.EvaluatedAt = DateTime.UtcNow;
+                    enrollment.UpdatedAt = DateTime.UtcNow;
+                    await _programEnrollmentRepository.UpdateAsync(enrollment);
+                }
+            }
 
             // Send grading notification email
             if (attempt.Student != null && attempt.Exam != null && attempt.Score.HasValue && attempt.MaxScore.HasValue)

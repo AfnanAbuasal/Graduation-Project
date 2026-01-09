@@ -350,7 +350,7 @@ namespace Sconce.DAL.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LevelId")
+                    b.Property<int>("ProgramId")
                         .HasColumnType("int");
 
                     b.Property<string>("Reasons")
@@ -369,7 +369,7 @@ namespace Sconce.DAL.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LevelId");
+                    b.HasIndex("ProgramId");
 
                     b.HasIndex("StudentId");
 
@@ -1354,9 +1354,9 @@ namespace Sconce.DAL.Data.Migrations
 
             modelBuilder.Entity("Sconce.DAL.Models.Dropout", b =>
                 {
-                    b.HasOne("Sconce.DAL.Models.Level", "Level")
+                    b.HasOne("Sconce.DAL.Models.Program", "Program")
                         .WithMany()
-                        .HasForeignKey("LevelId")
+                        .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1366,7 +1366,7 @@ namespace Sconce.DAL.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Level");
+                    b.Navigation("Program");
 
                     b.Navigation("Student");
                 });

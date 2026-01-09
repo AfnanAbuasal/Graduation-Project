@@ -56,13 +56,27 @@ namespace Sconce.BLL.Services.Classes
             if (question == null)
                 return (0, new ErrorResponse { Errors = ["Question not found."] });
 
-            // Question must belong to the exam's course
-            var section = await _sectionRepository.GetByIdAsync((int)exam.SectionId);
-            if (section == null)
-                return (0, new ErrorResponse { Errors = ["Section not found for this exam."] });
+            // Validate question belongs to exam's scope (program or course)
+            if (exam.ProgramId.HasValue)
+            {
+                // Program-level exam: question must belong to same program
+                if (question.ProgramId != exam.ProgramId.Value)
+                    return (0, new ErrorResponse { Errors = ["Question does not belong to this program."] });
+            }
+            else if (exam.SectionId.HasValue)
+            {
+                // Section-level exam: question must belong to section's course
+                var section = await _sectionRepository.GetByIdAsync(exam.SectionId.Value);
+                if (section == null)
+                    return (0, new ErrorResponse { Errors = ["Section not found for this exam."] });
 
-            if (question.CourseId != section.CourseId)
-                return (0, new ErrorResponse { Errors = ["Question does not belong to this course."] });
+                if (question.CourseId != section.CourseId)
+                    return (0, new ErrorResponse { Errors = ["Question does not belong to this course."] });
+            }
+            else
+            {
+                return (0, new ErrorResponse { Errors = ["Exam has invalid scope (neither program nor section)."] });
+            }
 
             // Prevent duplicates (ExamId, QuestionId)
             var duplicateQuestion = await _examQuestionRepository.ExistsQuestionInExamAsync(request.ExamId, request.QuestionId);
@@ -115,13 +129,27 @@ namespace Sconce.BLL.Services.Classes
             if (question == null)
                 return (0, new ErrorResponse { Errors = ["Question not found."] });
 
-            // Validate course match
-            var section = await _sectionRepository.GetByIdAsync((int)exam.SectionId);
-            if (section == null)
-                return (0, new ErrorResponse { Errors = ["Section not found for this exam."] });
+            // Validate question belongs to exam's scope (program or course)
+            if (exam.ProgramId.HasValue)
+            {
+                // Program-level exam: question must belong to same program
+                if (question.ProgramId != exam.ProgramId.Value)
+                    return (0, new ErrorResponse { Errors = ["Question does not belong to this program."] });
+            }
+            else if (exam.SectionId.HasValue)
+            {
+                // Section-level exam: question must belong to section's course
+                var section = await _sectionRepository.GetByIdAsync(exam.SectionId.Value);
+                if (section == null)
+                    return (0, new ErrorResponse { Errors = ["Section not found for this exam."] });
 
-            if (question.CourseId != section.CourseId)
-                return (0, new ErrorResponse { Errors = ["Question does not belong to this course."] });
+                if (question.CourseId != section.CourseId)
+                    return (0, new ErrorResponse { Errors = ["Question does not belong to this course."] });
+            }
+            else
+            {
+                return (0, new ErrorResponse { Errors = ["Exam has invalid scope (neither program nor section)."] });
+            }
 
             // Prevent duplicates when changing QuestionId
             var duplicateQuestion = await _examQuestionRepository.ExistsQuestionInExamAsync(existing.ExamId, request.QuestionId, excludeId: existing.Id);

@@ -7378,12 +7378,12 @@
       },
       "DropoutRequest": {
         "required": [
-          "levelId",
+          "programId",
           "reasons"
         ],
         "type": "object",
         "properties": {
-          "levelId": {
+          "programId": {
             "type": "integer",
             "format": "int32"
           },

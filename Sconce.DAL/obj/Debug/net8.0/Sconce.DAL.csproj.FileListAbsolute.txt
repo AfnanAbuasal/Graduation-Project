@@ -1,0 +1,13 @@
+D:\GraduationProject\Sconce\Sconce.DAL\bin\Debug\net8.0\Sconce.DAL.deps.json
+D:\GraduationProject\Sconce\Sconce.DAL\bin\Debug\net8.0\Sconce.DAL.dll
+D:\GraduationProject\Sconce\Sconce.DAL\bin\Debug\net8.0\Sconce.DAL.pdb
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.csproj.AssemblyReference.cache
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.AssemblyInfoInputs.cache
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.AssemblyInfo.cs
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.csproj.CoreCompileInputs.cache
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.sourcelink.json
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.dll
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\refint\Sconce.DAL.dll
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\Sconce.DAL.pdb
+D:\GraduationProject\Sconce\Sconce.DAL\obj\Debug\net8.0\ref\Sconce.DAL.dll
