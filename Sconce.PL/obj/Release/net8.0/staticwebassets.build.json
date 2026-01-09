@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y6D0+UlqhRDgKi6jZi7vSKP+/WgSwWGIuoKskTXUALE=",
+  "Hash": "OGOSPgr7JVLt0hyT7DvWsjm3ig5DySo6wbWSUdMGEgg=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -267,6 +267,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\StudentDocs\\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/StudentDocs/63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gsbkspre5p",
+      "Integrity": "ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\StudentDocs\\63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf"
     },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf",
@@ -1304,6 +1325,88 @@
         {
           "Name": "Last-Modified",
           "Value": "Thu, 11 Dec 2025 14:48:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.gsbkspre5p.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 Jan 2026 14:18:00 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gsbkspre5p"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/StudentDocs/63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/StudentDocs/63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\StudentDocs\\63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "84633"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 Jan 2026 14:18:00 GMT"
         },
         {
           "Name": "Cache-Control",

@@ -40,6 +40,55 @@ namespace Sconce.BLL.Services.Classes
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public override async Task<Response> GetAllAsync(bool onlyActive = false)
+        {
+            var dropouts = await _dropoutRepository.GetAllWithStudentAndProgramAsync();
+
+            if (onlyActive)
+                dropouts = dropouts.Where(d => d.Status == Status.Active);
+
+            var responses = dropouts.Select(MapToResponse);
+            return new SuccessResponse<IEnumerable<DropoutResponse>> { Data = responses };
+        }
+
+        public async Task<Response> GetByProgramIdAsync(int programId, bool onlyActive = false)
+        {
+            var dropouts = await _dropoutRepository.GetByProgramWithStudentAndProgramAsync(programId);
+
+            if (onlyActive)
+                dropouts = dropouts.Where(d => d.Status == Status.Active);
+
+            var responses = dropouts.Select(MapToResponse);
+            return new SuccessResponse<IEnumerable<DropoutResponse>> { Data = responses };
+        }
+
+        public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
+        {
+            var dropout = await _dropoutRepository.GetByIdWithStudentAndProgramAsync(Id);
+
+            if (dropout == null)
+                return (false, new ErrorResponse { Errors = ["Dropout request not found."] });
+
+            var response = MapToResponse(dropout);
+            return (true, new SuccessResponse<DropoutResponse> { Data = response });
+        }
+
+        public async Task<(bool Success, Response Response)> GetStudentDropoutByProgramIdAsync(int programId)
+        {
+            var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(studentId))
+                return (false, new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var dropout = await _dropoutRepository.GetByProgramAndStudentAsync(programId, studentId);
+
+            if (dropout == null)
+                return (false, new ErrorResponse { Errors = ["Dropout request not found."] });
+
+            var response = MapToResponse(dropout);
+            return (true, new SuccessResponse<DropoutResponse> { Data = response });
+        }
+
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(DropoutRequest request)
         {
             var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -51,6 +100,10 @@ namespace Sconce.BLL.Services.Classes
             var program = await _programRepository.GetByIdAsync(request.ProgramId);
             if (program == null)
                 return (0, new ErrorResponse { Errors = ["Program not found."] });
+
+            var existingDropout = await _dropoutRepository.GetByProgramAndStudentAsync(request.ProgramId, studentId);
+            if (existingDropout != null && existingDropout.ApplicationStatus == ApplicationStatus.Pending)
+                return (0, new ErrorResponse { Errors = ["You already have a pending dropout request for this program."] });
 
             var dropout = request.Adapt<Dropout>();
             dropout.StudentId = studentId;

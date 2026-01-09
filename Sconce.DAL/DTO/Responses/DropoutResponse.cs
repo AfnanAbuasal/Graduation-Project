@@ -1,4 +1,6 @@
+using Sconce.DAL.Extensions;
 using Sconce.DAL.Models.Enums;
+using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,8 @@ namespace Sconce.DAL.DTO.Responses
     {
         public int Id { get; set; }
         public string Reasons { get; set; } = string.Empty;
-        public ApplicationStatus ApplicationStatus { get; set; }
+        [JsonIgnore] public ApplicationStatus ApplicationStatus { get; set; }
+        public string ApplicationStatusDisplay => ApplicationStatus.ToDisplayString();
         public DateTime CreatedAt { get; set; }
         public int ProgramId { get; set; }
         public string ProgramName { get; set; } = string.Empty;

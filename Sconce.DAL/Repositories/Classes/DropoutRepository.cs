@@ -27,5 +27,31 @@ namespace Sconce.DAL.Repositories.Classes
                 .AsNoTracking()
                 .FirstOrDefaultAsync(d => d.Id == id);
         }
+
+        public async Task<IEnumerable<Dropout>> GetAllWithStudentAndProgramAsync()
+        {
+            return await _context.Dropouts
+                .Include(d => d.Student)
+                .Include(d => d.Program)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Dropout>> GetByProgramWithStudentAndProgramAsync(int programId)
+        {
+            return await _context.Dropouts
+                .Include(d => d.Student)
+                .Include(d => d.Program)
+                .Where(d => d.ProgramId == programId)
+                .ToListAsync();
+        }
+
+        public async Task<Dropout?> GetByProgramAndStudentAsync(int programId, string studentId)
+        {
+            return await _context.Dropouts
+                .Include(d => d.Student)
+                .Include(d => d.Program)
+                .Where(d => d.ProgramId == programId && d.StudentId == studentId)
+                .FirstOrDefaultAsync();
+        }
     }
 }

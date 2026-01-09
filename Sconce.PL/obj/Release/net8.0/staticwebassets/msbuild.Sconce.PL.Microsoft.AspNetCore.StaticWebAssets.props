@@ -216,6 +216,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\60fa84fd-f008-4742-9ce2-433ec71b74ac_AfnanAbo-Asal_EFSET_Certificate.pdf'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>Sconce.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Sconce.PL</BasePath>
+      <RelativePath>Uploads/StudentDocs/63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>gsbkspre5p</Fingerprint>
+      <Integrity>ULdi/evH3Ojhv3WBXeYanewCYI0sXdkJTwAdLb56jmI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\63b85c26-d5cf-4670-b0f9-5f87f47172cf_AfnanAbo-Asal_EFSET_Certificate.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\StudentDocs\e3fb8e18-486d-486e-a480-4428200e621d_EF_SET_Certificate.pdf'))">
       <SourceType>Package</SourceType>
       <SourceId>Sconce.PL</SourceId>

@@ -20,6 +20,15 @@ namespace Sconce.PL.Areas.Student
             _dropoutService = dropoutService;
         }
 
+        // Gets the current student's dropout request for a program.
+        [HttpGet("Program/{id}")]
+        public async Task<ActionResult<Response>> GetByProgram([FromRoute] int id)
+        {
+            var result = await _dropoutService.GetStudentDropoutByProgramIdAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
         // Submits a new dropout request.
         [HttpPost]
         public async Task<ActionResult<Response>> RequestDropout([FromBody] DropoutRequest request)

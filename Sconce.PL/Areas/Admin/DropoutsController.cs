@@ -28,6 +28,14 @@ namespace Sconce.PL.Areas.Admin
             return Ok(requests);
         }
 
+        // Lists dropout requests for a specific program.
+        [HttpGet("program/{id}")]
+        public async Task<ActionResult<Response>> GetByProgram([FromRoute] int id, [FromQuery] bool onlyActive = false)
+        {
+            var requests = await _dropoutService.GetByProgramIdAsync(id, onlyActive);
+            return Ok(requests);
+        }
+
         // Shows details for a specific dropout request.
         [HttpGet("{id}")]
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)

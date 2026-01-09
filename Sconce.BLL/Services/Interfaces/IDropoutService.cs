@@ -13,5 +13,7 @@ namespace Sconce.BLL.Services.Interfaces
     public interface IDropoutService : IGenericService<DropoutRequest, DropoutResponse, Dropout>
     {
         Task<(bool Success, Response Response)> ReviewDropoutAsync(int requestId, ApplicationStatus newStatus, string feedback);
+        Task<Response> GetByProgramIdAsync(int programId, bool onlyActive = false);
+        Task<(bool Success, Response Response)> GetStudentDropoutByProgramIdAsync(int programId);
     }
 }

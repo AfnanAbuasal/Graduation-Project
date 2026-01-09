@@ -11,5 +11,6 @@ namespace Sconce.DAL.Repositories.Interfaces
     {
         Task<IEnumerable<Program>> GetProgramsByExamWriterAsync(string instructorId);
         Task<IEnumerable<Program>> GetProgramsByEvaluatorAsync(string instructorId);
+        Task<IEnumerable<Program>> GetProgramsByStudentAsync(string studentId);
     }
 }

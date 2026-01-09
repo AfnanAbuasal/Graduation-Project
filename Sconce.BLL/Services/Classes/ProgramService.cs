@@ -234,5 +234,51 @@ namespace Sconce.BLL.Services.Classes
 
             return (true, response);
         }
+
+        public async Task<Response> GetProgramsForStudentAsync()
+        {
+            // Extract student ID from claims
+            var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(studentId))
+                return new ErrorResponse { Errors = ["User not authenticated."] };
+
+            // Get programs the student is enrolled in
+            var programs = await _programRepository.GetProgramsByStudentAsync(studentId);
+
+            // Map to response DTOs
+            var programResponses = programs.Adapt<IEnumerable<ProgramResponse>>();
+
+            return new SuccessResponse<IEnumerable<ProgramResponse>> { Data = programResponses };
+        }
+
+        public async Task<Response> GetProficiencyExamForProgramAsync(int programId)
+        {
+            // Extract student ID from claims
+            var studentId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(studentId))
+                return new ErrorResponse { Errors = ["User not authenticated."] };
+
+            // Load program
+            var program = await _programRepository.GetByIdAsync(programId);
+            if (program == null)
+                return new ErrorResponse { Errors = ["Program not found."] };
+
+            // Check if program has proficiency exam
+            if (!program.HasProficiencyExam)
+                return new ErrorResponse { Errors = ["This program does not have a proficiency exam."] };
+
+            if (!program.ProficiencyExamId.HasValue)
+                return new ErrorResponse { Errors = ["Proficiency exam has not been assigned yet."] };
+
+            // Load the exam
+            var exam = await _examRepository.GetByIdAsync(program.ProficiencyExamId.Value);
+            if (exam == null)
+                return new ErrorResponse { Errors = ["Proficiency exam not found."] };
+
+            // Map to response DTO
+            var examResponse = exam.Adapt<ExamResponse>();
+
+            return new SuccessResponse<ExamResponse> { Data = examResponse };
+        }
     }
 }

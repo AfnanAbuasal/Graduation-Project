@@ -295,6 +295,37 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.DropoutsController",
+    "Method": "GetByProgram",
+    "RelativePath": "api/Admin/Dropouts/program/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.InstructorsController",
     "Method": "GetAll",
     "RelativePath": "api/Admin/Instructors/Applications",
@@ -4070,6 +4101,32 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Student.DropoutsController",
+    "Method": "GetByProgram",
+    "RelativePath": "api/Student/Dropouts/Program/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Student.ExamAttemptsController",
     "Method": "SubmitAttempt",
     "RelativePath": "api/Student/ExamAttempts/{attemptId}/Submit",
@@ -4213,6 +4270,52 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ProgramsController",
+    "Method": "GetProficiencyExam",
+    "RelativePath": "api/Student/Programs/{programId}/ProficiencyExam",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ProgramsController",
+    "Method": "GetEnrolledPrograms",
+    "RelativePath": "api/Student/Programs/Enrolled",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "Sconce.DAL.DTO.Responses.Response",
