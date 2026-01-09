@@ -21,13 +21,15 @@ namespace Sconce.BLL.Services.Classes
         private readonly ICourseRepository _courseRepository;
         private readonly IStudentSectionRepository _studentSectionRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUrlHelper _urlHelper;
 
-        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, IStudentSectionRepository studentSectionRepository, UserManager<ApplicationUser> userManager) : base(sectionRepository)
+        public SectionService(ISectionRepository sectionRepository, ICourseRepository courseRepository, IStudentSectionRepository studentSectionRepository, UserManager<ApplicationUser> userManager, IUrlHelper urlHelper) : base(sectionRepository)
         {
             _sectionRepository = sectionRepository;
             _courseRepository = courseRepository;
             _studentSectionRepository = studentSectionRepository;
             _userManager = userManager;
+            _urlHelper = urlHelper;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(SectionRequest request)
@@ -213,6 +215,28 @@ namespace Sconce.BLL.Services.Classes
             }
 
             return new SuccessResponse<IEnumerable<StudentSectionResponse>> { Data = responseList };
+        }
+
+        public async Task<Response> GetStudentsBySectionIdAsync(int sectionId)
+        {
+            // Validate section exists
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section == null)
+                return new ErrorResponse { Errors = ["Section not found."] };
+
+            // Get students in the section
+            var students = await _studentSectionRepository.GetStudentsBySectionIdAsync(sectionId);
+
+            var responseList = new List<StudentProfileResponse>();
+
+            foreach (var student in students)
+            {
+                var dto = student.Adapt<StudentProfileResponse>();
+                dto.DocumentUrl = _urlHelper.BuildUrl(student.DocumentPath);
+                responseList.Add(dto);
+            }
+
+            return new SuccessResponse<IEnumerable<StudentProfileResponse>> { Data = responseList };
         }
     }
 }

@@ -44,5 +44,14 @@ namespace Sconce.DAL.Repositories.Classes
                 .Where(ss => ss.StudentId == studentId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Student>> GetStudentsBySectionIdAsync(int sectionId)
+        {
+            return await _context.StudentSections
+                .Include(ss => ss.Student)
+                .Where(ss => ss.SectionId == sectionId)
+                .Select(ss => ss.Student)
+                .ToListAsync();
+        }
     }
 }

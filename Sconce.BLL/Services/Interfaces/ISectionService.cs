@@ -17,5 +17,6 @@ namespace Sconce.BLL.Services.Interfaces
         Task<Response> GetByCourseAsync(int courseId, bool onlyActive = false);
         Task<(bool Success, Response Response)> IncreaseCapacityAsync(int sectionId, int additionalCapacity);
         Task<Response> GetByStudentAsync(string studentId);
+        Task<Response> GetStudentsBySectionIdAsync(int sectionId);
     }
 }

@@ -45,5 +45,18 @@ namespace Sconce.PL.Areas.Instructor
             if (result is ErrorResponse) return BadRequest(result);
             return Ok(result);
         }
+
+        // Gets all students enrolled in a specific section.
+        [HttpGet("{sectionId}/Students")]
+        public async Task<ActionResult<Response>> GetSectionStudents([FromRoute] int sectionId)
+        {
+            var instructorId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(instructorId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var result = await _sectionService.GetStudentsBySectionIdAsync(sectionId);
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
+        }
     }
 }
