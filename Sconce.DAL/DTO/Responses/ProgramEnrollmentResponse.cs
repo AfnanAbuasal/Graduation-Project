@@ -14,6 +14,7 @@ namespace Sconce.DAL.DTO.Responses
         
         public string StudentId { get; set; } = string.Empty;
         public string? StudentFullName { get; set; }
+        public int? StudentAge { get; set; }
         
         public DateTime CreatedAt { get; set; }
 

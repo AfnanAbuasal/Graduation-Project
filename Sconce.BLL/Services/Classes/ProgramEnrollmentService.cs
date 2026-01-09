@@ -64,9 +64,13 @@ namespace Sconce.BLL.Services.Classes
             if (createdEnrollment == null)
                 return (false, new ErrorResponse { Errors = ["Failed to load created enrollment."] });
 
-            // Notify student about enrollment and next steps
-            if (createdEnrollment?.Student != null)
+            // Set student age
+            if (createdEnrollment.Student != null)
             {
+                createdEnrollment.StudentAge = CalculateAge(createdEnrollment.Student.DateOfBirth);
+                await _programEnrollmentRepository.UpdateAsync(createdEnrollment);
+
+                // Notify student about enrollment and next steps
                 if (program.HasProficiencyExam)
                 {
                     await _notificationService.SendProgramEnrollmentWithExamAsync(createdEnrollment.Student, program);
@@ -76,7 +80,8 @@ namespace Sconce.BLL.Services.Classes
                     await _notificationService.SendProgramEnrollmentWithoutExamAsync(createdEnrollment.Student, program);
                 }
             }
-            var response = MapToResponse(createdEnrollment!, program);
+
+            var response = MapToResponse(createdEnrollment, program);
 
             return (true, new SuccessResponse<ProgramEnrollmentResponse> { Data = response });
         }
@@ -196,6 +201,7 @@ namespace Sconce.BLL.Services.Classes
                 ProgramName = program?.Name ?? enrollment.Program?.Name,
                 StudentId = enrollment.StudentId,
                 StudentFullName = enrollment.Student?.FullName,
+                StudentAge = enrollment.StudentAge ?? (enrollment.Student != null ? CalculateAge(enrollment.Student.DateOfBirth) : null),
                 CreatedAt = enrollment.CreatedAt,
                 ProficiencyExamStatusDisplay = enrollment.ProficiencyExamAttempt != null
                     ? enrollment.ProficiencyExamAttempt.AttemptStatus.ToDisplayString()
@@ -219,6 +225,17 @@ namespace Sconce.BLL.Services.Classes
                 return Math.Round(score.Value / maxScore.Value * 100, 2);
             }
             return null;
+        }
+
+        private int? CalculateAge(DateOnly dateOfBirth)
+        {
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            int age = today.Year - dateOfBirth.Year;
+            if (dateOfBirth > today.AddYears(-age))
+            {
+                age--;
+            }
+            return age;
         }
     }
 }

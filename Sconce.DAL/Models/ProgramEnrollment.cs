@@ -16,6 +16,8 @@ namespace Sconce.DAL.Models
         public string StudentId { get; set; }
         public Student Student { get; set; }
 
+        public int? StudentAge { get; set; }
+
         public int? ProficiencyExamAttemptId { get; set; }
         public ExamAttempt? ProficiencyExamAttempt { get; set; }
 

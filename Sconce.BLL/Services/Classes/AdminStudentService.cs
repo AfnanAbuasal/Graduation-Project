@@ -98,6 +98,10 @@ namespace Sconce.BLL.Services.Classes
                 studentUser.Gender = app.Gender;
                 studentUser.DocumentPath = app.DocumentPath;
                 studentUser.LevelOfProficiency = app.LevelOfProficiency;
+                studentUser.Country = app.Country;
+                studentUser.City = app.City;
+                studentUser.Street = app.Street;
+                studentUser.PhoneNumber = app.PhoneNumber;
 
                 // Update student user in Identity
                 var result = await _userManager.UpdateAsync(studentUser);
