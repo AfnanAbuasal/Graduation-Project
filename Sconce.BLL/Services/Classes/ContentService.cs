@@ -61,6 +61,10 @@ namespace Sconce.BLL.Services.Classes
 			{
 				return content.Adapt<ExamResponse>();
 			}
+			else if (content is Document)
+			{
+				return content.Adapt<DocumentResponse>();
+			}
 
 			// Fallback for unknown content types
 			throw new InvalidOperationException($"Unknown content type: {content.GetType().Name}");

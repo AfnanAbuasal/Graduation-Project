@@ -35,6 +35,7 @@ namespace Sconce.DAL.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Text> Texts { get; set; }
         public DbSet<ZoomMeeting> ZoomMeetings { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
@@ -243,6 +244,12 @@ namespace Sconce.DAL.Data
                     .WithMany()
                     .HasForeignKey(c => c.SectionId)
                     .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            builder.Entity<Document>(entity =>
+            {
+                entity.Property(d => d.Title)
+                    .HasMaxLength(200);
             });
 
             builder.Entity<Exam>(entity =>
