@@ -2295,6 +2295,32 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Instructor.EssayQuestionsController",
+    "Method": "GetByProgramId",
+    "RelativePath": "api/Instructor/EssayQuestions/Program/{programId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Instructor.ExamAttemptsController",
     "Method": "GetAttemptDetails",
     "RelativePath": "api/Instructor/ExamAttempts/{attemptId}",
@@ -2810,6 +2836,37 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
+    "Method": "GetByProgram",
+    "RelativePath": "api/Instructor/Exams/Program/{programId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ExamsController",
     "Method": "GetBySection",
     "RelativePath": "api/Instructor/Exams/Section/{sectionId}",
     "HttpMethod": "GET",
@@ -2958,6 +3015,32 @@
     "Parameters": [
       {
         "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.MultipleChoiceQuestionsController",
+    "Method": "GetByProgramId",
+    "RelativePath": "api/Instructor/MultipleChoiceQuestions/Program/{programId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -3265,6 +3348,32 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.QuestionsController",
+    "Method": "GetByProgramId",
+    "RelativePath": "api/Instructor/Questions/Program/{programId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "Sconce.DAL.DTO.Responses.Response",

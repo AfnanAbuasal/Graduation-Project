@@ -11,12 +11,15 @@ namespace Sconce.DAL.Repositories.Interfaces
     public interface IQuestionRepository : IGenericRepository<Question>
     {
         Task<IEnumerable<Question>> GetAllByCourseIdAsync(int courseId);
+        Task<IEnumerable<Question>> GetAllByProgramIdAsync(int programId);
         Task<IEnumerable<Question>> GetByCreatedByInstructorIdAsync(string instructorId);
         Task<Question?> GetByIdWithCourseAsync(int id);
         Task<IEnumerable<Question>> GetByIdsAsync(IEnumerable<int> ids);
         Task<IEnumerable<MultipleChoiceQuestion>> GetAllMultipleChoiceByCourseIdAsync(int courseId);
+        Task<IEnumerable<MultipleChoiceQuestion>> GetAllMultipleChoiceByProgramIdAsync(int programId);
         Task<IEnumerable<MultipleChoiceQuestion>> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple);
         Task<IEnumerable<EssayQuestion>> GetAllEssayByCourseIdAsync(int courseId);
+        Task<IEnumerable<EssayQuestion>> GetAllEssayByProgramIdAsync(int programId);
         Task<MultipleChoiceQuestion?> GetMultipleChoiceByIdAsync(int id);
         Task<EssayQuestion?> GetEssayByIdAsync(int id);
         Task<IEnumerable<Question>> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty);

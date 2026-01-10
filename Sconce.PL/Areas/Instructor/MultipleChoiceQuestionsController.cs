@@ -61,6 +61,14 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
+        // Gets all multiple choice questions for a specific program (proficiency flow).
+        [HttpGet("Program/{programId}")]
+        public async Task<ActionResult<Response>> GetByProgramId([FromRoute] int programId)
+        {
+            var result = await _questionService.GetAllMultipleChoiceByProgramIdAsync(programId);
+            return Ok(result);
+        }
+
         // Deletes a multiple choice question.
         [HttpDelete("{id}")]
         public async Task<ActionResult<Response>> Delete([FromRoute] int id)

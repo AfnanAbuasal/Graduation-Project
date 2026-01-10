@@ -56,6 +56,22 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<object>> { Data = responseList };
         }
 
+        public async Task<Response> GetAllByProgramIdAsync(int programId)
+        {
+            var questions = await _questionRepository.GetAllByProgramIdAsync(programId);
+            var responseList = questions.Select(q =>
+            {
+                return q switch
+                {
+                    MultipleChoiceQuestion mcq => (object)mcq.Adapt<MultipleChoiceQuestionResponse>(),
+                    EssayQuestion eq => (object)eq.Adapt<EssayQuestionResponse>(),
+                    _ => (object)q.Adapt<QuestionResponse>()
+                };
+            }).ToList();
+
+            return new SuccessResponse<IEnumerable<object>> { Data = responseList };
+        }
+
         public async Task<Response> GetAllByInstructorIdAsync(string instructorId)
         {
             var questions = await _questionRepository.GetByCreatedByInstructorIdAsync(instructorId);
@@ -293,6 +309,13 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<MultipleChoiceQuestionResponse>> { Data = data };
         }
 
+        public async Task<Response> GetAllMultipleChoiceByProgramIdAsync(int programId)
+        {
+            var mcqs = await _questionRepository.GetAllMultipleChoiceByProgramIdAsync(programId);
+            var data = mcqs.Adapt<IEnumerable<MultipleChoiceQuestionResponse>>();
+            return new SuccessResponse<IEnumerable<MultipleChoiceQuestionResponse>> { Data = data };
+        }
+
         public async Task<Response> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple)
         {
             var mcqs = await _questionRepository.GetMultipleChoiceByCourseAndSelectionModeAsync(courseId, allowMultiple);
@@ -303,6 +326,13 @@ namespace Sconce.BLL.Services.Classes
         public async Task<Response> GetAllEssayByCourseIdAsync(int courseId)
         {
             var essays = await _questionRepository.GetAllEssayByCourseIdAsync(courseId);
+            var data = essays.Adapt<IEnumerable<EssayQuestionResponse>>();
+            return new SuccessResponse<IEnumerable<EssayQuestionResponse>> { Data = data };
+        }
+
+        public async Task<Response> GetAllEssayByProgramIdAsync(int programId)
+        {
+            var essays = await _questionRepository.GetAllEssayByProgramIdAsync(programId);
             var data = essays.Adapt<IEnumerable<EssayQuestionResponse>>();
             return new SuccessResponse<IEnumerable<EssayQuestionResponse>> { Data = data };
         }

@@ -123,6 +123,28 @@ namespace Sconce.BLL.Services.Classes
             return new SuccessResponse<IEnumerable<ExamResponse>> { Data = examResponses };
         }
 
+        public async Task<Response> GetAllByProgramAsync(int programId, string instructorId, bool onlyActive = false)
+        {
+            // Validate Program exists
+            var program = await _programRepository.GetByIdAsync(programId);
+            if (program == null)
+                return new ErrorResponse { Errors = ["Program not found."] };
+
+            // Verify program is assigned to the instructor as exam writer
+            if (program.ExamWriterInstructorId != instructorId)
+                return new ErrorResponse { Errors = ["Unauthorized access to this program."] };
+
+            // Get all exams for this program (proficiency flow)
+            var exams = await _examRepository.GetAllByProgramIdAsync(programId, withTracking: false);
+
+            if (onlyActive)
+                exams = exams.Where(e => e.Status == Status.Active);
+
+            var examResponses = exams.Adapt<IEnumerable<ExamResponse>>().ToList();
+
+            return new SuccessResponse<IEnumerable<ExamResponse>> { Data = examResponses };
+        }
+
         public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, ExamRequest request)
         {
             // Fetch existing exam

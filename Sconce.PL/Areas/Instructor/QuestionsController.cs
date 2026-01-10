@@ -31,6 +31,14 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
+        // Gets all questions (mixed types) for a specific program (proficiency flow).
+        [HttpGet("Program/{programId}")]
+        public async Task<ActionResult<Response>> GetByProgramId([FromRoute] int programId)
+        {
+            var result = await _questionService.GetAllByProgramIdAsync(programId);
+            return Ok(result);
+        }
+
         // Gets all questions created by the current instructor.
         [HttpGet("Mine")]
         public async Task<ActionResult<Response>> GetMine()

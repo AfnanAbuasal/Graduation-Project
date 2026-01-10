@@ -10,5 +10,6 @@ namespace Sconce.DAL.Repositories.Interfaces
     public interface IExamRepository : IGenericRepository<Exam>
     {
         Task<IEnumerable<Exam>> GetAllBySectionIdAsync(int sectionId, bool withTracking = false);
+        Task<IEnumerable<Exam>> GetAllByProgramIdAsync(int programId, bool withTracking = false);
     }
 }

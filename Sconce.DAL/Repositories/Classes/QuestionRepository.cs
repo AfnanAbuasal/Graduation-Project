@@ -47,6 +47,15 @@ namespace Sconce.DAL.Repositories.Classes
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Question>> GetAllByProgramIdAsync(int programId)
+        {
+            return await _context.Questions
+                .Where(q => q.ProgramId == programId)
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Question>> GetByCreatedByInstructorIdAsync(string instructorId)
         {
             return await _context.Questions
@@ -86,6 +95,15 @@ namespace Sconce.DAL.Repositories.Classes
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<MultipleChoiceQuestion>> GetAllMultipleChoiceByProgramIdAsync(int programId)
+        {
+            return await _context.Set<MultipleChoiceQuestion>()
+                .Where(q => q.ProgramId == programId)
+                .Include(q => q.Choices)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<MultipleChoiceQuestion>> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple)
         {
             return await _context.Set<MultipleChoiceQuestion>()
@@ -99,6 +117,14 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Set<EssayQuestion>()
                 .Where(q => q.CourseId == courseId)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<EssayQuestion>> GetAllEssayByProgramIdAsync(int programId)
+        {
+            return await _context.Set<EssayQuestion>()
+                .Where(q => q.ProgramId == programId)
                 .AsNoTracking()
                 .ToListAsync();
         }

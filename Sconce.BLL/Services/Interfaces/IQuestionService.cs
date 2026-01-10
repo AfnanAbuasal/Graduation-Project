@@ -13,6 +13,7 @@ namespace Sconce.BLL.Services.Interfaces
     public interface IQuestionService : IGenericService<QuestionRequest, QuestionResponse, Question>
     {
         Task<Response> GetAllByCourseIdAsync(int courseId);
+        Task<Response> GetAllByProgramIdAsync(int programId);
         Task<Response> GetAllByInstructorIdAsync(string instructorId);
         Task<(int NumberOfEntries, Response Response)> CreateMultipleChoiceQuestionAsync(MultipleChoiceQuestionRequest request);
         Task<(int NumberOfEntries, Response Response)> CreateEssayQuestionAsync(EssayQuestionRequest request);
@@ -23,8 +24,10 @@ namespace Sconce.BLL.Services.Interfaces
 
         // Additional query methods mirroring repository
         Task<Response> GetAllMultipleChoiceByCourseIdAsync(int courseId);
+        Task<Response> GetAllMultipleChoiceByProgramIdAsync(int programId);
         Task<Response> GetMultipleChoiceByCourseAndSelectionModeAsync(int courseId, bool allowMultiple);
         Task<Response> GetAllEssayByCourseIdAsync(int courseId);
+        Task<Response> GetAllEssayByProgramIdAsync(int programId);
         Task<Response> GetAllByDifficultyAndCourseAsync(int courseId, Difficulty difficulty);
         Task<Response> SearchByPromptAsync(int courseId, string term);
         Task<Response> CountByTypeAsync(int courseId, string type);

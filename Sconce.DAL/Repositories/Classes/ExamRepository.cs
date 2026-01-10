@@ -40,5 +40,16 @@ namespace Sconce.DAL.Repositories.Classes
 
             return await query.ToListAsync();
         }
+
+        public async Task<IEnumerable<Exam>> GetAllByProgramIdAsync(int programId, bool withTracking = false)
+        {
+            var query = _context.Set<Exam>()
+                .Where(e => e.ProgramId == programId);
+
+            if (!withTracking)
+                query = query.AsNoTracking();
+
+            return await query.ToListAsync();
+        }
     }
 }

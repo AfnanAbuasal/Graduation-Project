@@ -53,6 +53,19 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result);
         }
 
+        // Gets all exams for a program (proficiency flow, scoped to exam-writer instructor).
+        [HttpGet("Program/{programId}")]
+        public async Task<ActionResult<Response>> GetByProgram([FromRoute] int programId, [FromQuery] bool onlyActive = false)
+        {
+            var instructorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var result = await _examService.GetAllByProgramAsync(programId, instructorId, onlyActive);
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
+        }
+
         // Creates a new exam.
         [HttpPost]
         public async Task<ActionResult<Response>> Create([FromBody] ExamRequest request)
