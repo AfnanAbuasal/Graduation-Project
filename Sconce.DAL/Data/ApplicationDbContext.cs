@@ -49,6 +49,7 @@ namespace Sconce.DAL.Data
 
         // Other
         public DbSet<Dropout> Dropouts { get; set; }
+        public DbSet<InformationRequest> InformationRequests { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
