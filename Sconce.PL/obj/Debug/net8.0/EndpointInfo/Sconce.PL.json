@@ -3353,6 +3353,91 @@
         }
       }
     },
+    "/api/Instructor/Exams/{id}/ExamStatus": {
+      "get": {
+        "tags": [
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Exams"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "newStatus",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/ExamStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Instructor/Exams/Section/{sectionId}": {
       "get": {
         "tags": [
@@ -3449,7 +3534,7 @@
         }
       }
     },
-    "/api/Instructor/Exams/{id}/ExamStatus": {
+    "/api/Instructor/Exams/{id}/ToggleStatus": {
       "patch": {
         "tags": [
           "Exams"
@@ -3462,13 +3547,6 @@
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "newStatus",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/ExamStatus"
             }
           }
         ],
@@ -3496,7 +3574,7 @@
         }
       }
     },
-    "/api/Instructor/Exams/{id}/ToggleStatus": {
+    "/api/Instructor/Exams/{id}/ReopenProficiencyExam": {
       "patch": {
         "tags": [
           "Exams"

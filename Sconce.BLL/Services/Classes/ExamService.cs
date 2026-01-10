@@ -21,13 +21,15 @@ namespace Sconce.BLL.Services.Classes
         private readonly IExamQuestionRepository _examQuestionRepository;
         private readonly IChoiceRepository _choiceRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IProgramRepository _programRepository;
 
         public ExamService(
             IExamRepository examRepository,
             ISectionRepository sectionRepository,
             IExamQuestionRepository examQuestionRepository,
             IChoiceRepository choiceRepository,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IProgramRepository programRepository)
             : base(examRepository)
         {
             _examRepository = examRepository;
@@ -35,6 +37,7 @@ namespace Sconce.BLL.Services.Classes
             _examQuestionRepository = examQuestionRepository;
             _choiceRepository = choiceRepository;
             _httpContextAccessor = httpContextAccessor;
+            _programRepository = programRepository;
         }
 
         public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
@@ -315,6 +318,51 @@ namespace Sconce.BLL.Services.Classes
             return (true, new SuccessResponse<string> { Data = $"Exam status changed to {newStatus} successfully." });
         }
 
+        public async Task<(bool Success, Response Response)> GetExamStatusAsync(int id)
+        {
+            var exam = await _examRepository.GetByIdAsync(id);
+            if (exam == null)
+                return (false, new ErrorResponse { Errors = ["Exam not found."] });
+
+            var statusResponse = new ExamStatusResponse { Id = exam.Id, ExamStatus = exam.ExamStatus };
+            return (true, new SuccessResponse<ExamStatusResponse> { Data = statusResponse });
+        }
+        public async Task<(bool Success, Response Response)> ReopenProficiencyExamAsync(int id)
+        {
+            // Extract instructor ID from claims
+            var instructorId = _httpContextAccessor.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(instructorId))
+                return (false, new ErrorResponse { Errors = ["User not authenticated."] });
+
+            // Fetch the exam
+            var exam = await _examRepository.GetByIdAsync(id);
+            if (exam == null)
+                return (false, new ErrorResponse { Errors = ["Exam not found."] });
+
+            // Validate it's a proficiency exam (has ProgramId, not SectionId)
+            if (!exam.ProgramId.HasValue || exam.SectionId.HasValue)
+                return (false, new ErrorResponse { Errors = ["Only proficiency exams can be re-opened. Regular section exams cannot be re-opened once published or closed."] });
+
+            // Validate current status is Published or Closed
+            if (exam.ExamStatus != ExamStatus.Published && exam.ExamStatus != ExamStatus.Closed)
+                return (false, new ErrorResponse { Errors = ["Only Published or Closed exams can be re-opened. Current status: " + exam.ExamStatus] });
+
+            // Validate instructor is the exam writer for this program
+            var program = await _programRepository.GetByIdAsync(exam.ProgramId.Value);
+            if (program == null)
+                return (false, new ErrorResponse { Errors = ["Associated program not found."] });
+
+            if (program.ExamWriterInstructorId != instructorId)
+                return (false, new ErrorResponse { Errors = ["Forbidden. You are not assigned as the exam writer for this program."] });
+
+            // Re-open the exam by setting status back to Draft
+            exam.ExamStatus = ExamStatus.Draft;
+            exam.UpdatedAt = DateTime.UtcNow;
+
+            await _examRepository.UpdateAsync(exam);
+
+            return (true, new SuccessResponse<string> { Data = "Proficiency exam re-opened for editing successfully. Status changed to Draft." });
+        }
         private async Task UpdateSectionTimestampAsync(int sectionId)
         {
             var section = await _sectionRepository.GetByIdAsync(sectionId);

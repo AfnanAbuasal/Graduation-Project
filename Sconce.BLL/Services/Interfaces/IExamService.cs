@@ -14,5 +14,7 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<Response> GetAllBySectionAsync(int sectionId, string instructorId, bool onlyActive = false);
         Task<(bool Success, Response Response)> ChangeExamStatusAsync(int id, ExamStatus newStatus);
+        Task<(bool Success, Response Response)> GetExamStatusAsync(int id);
+        Task<(bool Success, Response Response)> ReopenProficiencyExamAsync(int id);
     }
 }

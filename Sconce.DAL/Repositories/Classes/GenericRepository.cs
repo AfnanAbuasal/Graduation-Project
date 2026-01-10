@@ -31,7 +31,7 @@ namespace Sconce.DAL.Repositories.Classes
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(bool withTracking = false)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(bool withTracking = false)
         {
             if (withTracking)
                 return await _context.Set<T>().ToListAsync();

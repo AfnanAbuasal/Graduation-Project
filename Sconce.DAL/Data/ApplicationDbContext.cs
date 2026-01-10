@@ -104,7 +104,7 @@ namespace Sconce.DAL.Data
                 entity.HasOne(pe => pe.Program)
                     .WithMany(p => p.Enrollments)
                     .HasForeignKey(pe => pe.ProgramId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(pe => pe.Student)
                     .WithMany(s => s.Enrollments)
@@ -154,6 +154,43 @@ namespace Sconce.DAL.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
+            // Program → Levels (Cascade)
+            builder.Entity<Level>(entity =>
+            {
+                entity.HasOne(l => l.Program)
+                    .WithMany(p => p.Levels)
+                    .HasForeignKey(l => l.ProgramId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(l => l.PrerequisiteLevel)
+                    .WithMany()
+                    .HasForeignKey(l => l.PrerequisiteLevelId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // Level → Courses (Cascade)
+            builder.Entity<Course>(entity =>
+            {
+                entity.HasOne(c => c.Level)
+                    .WithMany(l => l.Courses)
+                    .HasForeignKey(c => c.LevelId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // Course → Sections (Cascade)
+            builder.Entity<Section>(entity =>
+            {
+                entity.HasOne(s => s.Course)
+                    .WithMany(c => c.Sections)
+                    .HasForeignKey(s => s.CourseId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(s => s.Instructor)
+                    .WithMany()
+                    .HasForeignKey(s => s.InstructorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
             // MinGrade & MaxGrade precision in Assignment
             builder.Entity<Assignment>(entity =>
             {
@@ -199,16 +236,20 @@ namespace Sconce.DAL.Data
                     .HasDefaultValue(false);
             });
 
+            // Content (base) → Section (Cascade to delete all derived contents like Exams, Assignments, Texts, ZoomMeetings)
+            builder.Entity<Content>(entity =>
+            {
+                entity.HasOne(c => c.Section)
+                    .WithMany()
+                    .HasForeignKey(c => c.SectionId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
             builder.Entity<Exam>(entity =>
             {
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasMaxLength(200);
-
-                entity.HasOne(e => e.Section)
-                    .WithMany()
-                    .HasForeignKey(e => e.SectionId)
-                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.Property(e => e.AttemptsAllowed)
                     .HasDefaultValue(1);
@@ -292,6 +333,20 @@ namespace Sconce.DAL.Data
                 // Unique constraint: one answer per (ExamAttemptId, ExamQuestionId)
                 entity.HasIndex(a => new { a.ExamAttemptId, a.ExamQuestionId })
                     .IsUnique();
+            });
+
+            // Course → Questions (Cascade)
+            builder.Entity<Question>(entity =>
+            {
+                entity.HasOne(q => q.Course)
+                    .WithMany(c => c.Questions)
+                    .HasForeignKey(q => q.CourseId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(q => q.Program)
+                    .WithMany()
+                    .HasForeignKey(q => q.ProgramId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

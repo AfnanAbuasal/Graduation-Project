@@ -20,6 +20,24 @@ namespace Sconce.DAL.Repositories.Classes
             _context = context;
         }
 
+        public override async Task<IEnumerable<Question>> GetAllAsync(bool withTracking = false)
+        {
+            if (withTracking)
+            {
+                return await _context.Questions
+                    .Include(q => (q as MultipleChoiceQuestion)!.Choices)
+                    .Include(q => q.Course)
+                        .ThenInclude(c => c.Level)
+                    .ToListAsync();
+            }
+
+            return await _context.Questions
+                .Include(q => (q as MultipleChoiceQuestion)!.Choices)
+                .Include(q => q.Course)
+                    .ThenInclude(c => c.Level)
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<IEnumerable<Question>> GetAllByCourseIdAsync(int courseId)
         {
             return await _context.Questions

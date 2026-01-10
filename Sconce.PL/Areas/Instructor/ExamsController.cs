@@ -31,6 +31,15 @@ namespace Sconce.PL.Areas.Instructor
             return Ok(result.Response);
         }
 
+        // Gets the exam status by exam id.
+        [HttpGet("{id}/ExamStatus")]
+        public async Task<ActionResult<Response>> GetExamStatus([FromRoute] int id)
+        {
+            var result = await _examService.GetExamStatusAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
         // Gets all exams for a section (scoped to instructor's section).
         [HttpGet("Section/{sectionId}")]
         public async Task<ActionResult<Response>> GetBySection([FromRoute] int sectionId, [FromQuery] bool onlyActive = false)
@@ -91,6 +100,15 @@ namespace Sconce.PL.Areas.Instructor
         public async Task<ActionResult<Response>> ToggleStatus([FromRoute] int id)
         {
             var result = await _examService.ToggleStatusAsync(id);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
+        }
+
+        // Re-opens a proficiency exam for editing (Published/Closed -> Draft).
+        [HttpPatch("{id}/ReopenProficiencyExam")]
+        public async Task<ActionResult<Response>> ReopenProficiencyExam([FromRoute] int id)
+        {
+            var result = await _examService.ReopenProficiencyExamAsync(id);
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }

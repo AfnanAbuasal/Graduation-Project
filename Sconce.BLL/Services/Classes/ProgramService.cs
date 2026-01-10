@@ -12,7 +12,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Diagnostics.Eventing.Reader;
 
 namespace Sconce.BLL.Services.Classes
 {
@@ -23,14 +22,22 @@ namespace Sconce.BLL.Services.Classes
         private readonly INotificationService _notificationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IExamRepository _examRepository;
+        private readonly IQuestionRepository _questionRepository;
+        private readonly IGenericRepository<ExamQuestion> _examQuestionRepository;
+        private readonly IGenericRepository<Answer> _answerRepository;
+        private readonly IGenericRepository<Dropout> _dropoutRepository;
 
-        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService, IHttpContextAccessor httpContextAccessor, IExamRepository examRepository) : base(programRepository)
+        public ProgramService(IProgramRepository programRepository, UserManager<ApplicationUser> userManager, INotificationService notificationService, IHttpContextAccessor httpContextAccessor, IExamRepository examRepository, IQuestionRepository questionRepository, IGenericRepository<ExamQuestion> examQuestionRepository, IGenericRepository<Answer> answerRepository, IGenericRepository<Dropout> dropoutRepository) : base(programRepository)
         {
             _programRepository = programRepository;
             _userManager = userManager;
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
             _examRepository = examRepository;
+            _questionRepository = questionRepository;
+            _examQuestionRepository = examQuestionRepository;
+            _answerRepository = answerRepository;
+            _dropoutRepository = dropoutRepository;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ProgramRequest request)
@@ -279,6 +286,57 @@ namespace Sconce.BLL.Services.Classes
             var examResponse = exam.Adapt<ExamResponse>();
 
             return new SuccessResponse<ExamResponse> { Data = examResponse };
+        }
+
+        public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int Id)
+        {
+            var program = await _programRepository.GetByIdAsync(Id);
+
+            if (program == null)
+                return (0, new ErrorResponse { Errors = ["Program not found."] });
+
+            // Get all questions for this program (both course-linked and proficiency)
+            var allQuestions = await _questionRepository.GetAllAsync();
+            var programQuestions = allQuestions.Where(q => q.ProgramId == Id || q.Course?.Level?.ProgramId == Id).Select(q => q.Id).ToList();
+
+            // Get ExamQuestions that reference these questions
+            var allExamQuestions = await _examQuestionRepository.GetAllAsync();
+            var examQuestionsToDelete = allExamQuestions.Where(eq => programQuestions.Contains(eq.QuestionId)).ToList();
+            var examQuestionIds = examQuestionsToDelete.Select(eq => eq.Id).ToList();
+
+            // 1. Delete Answers that reference these ExamQuestions first
+            var allAnswers = await _answerRepository.GetAllAsync();
+            var answersToDelete = allAnswers.Where(a => examQuestionIds.Contains(a.ExamQuestionId)).ToList();
+            foreach (var answer in answersToDelete)
+            {
+                await _answerRepository.DeleteAsync(answer);
+            }
+
+            // 2. Delete ExamQuestions that reference these questions
+            foreach (var examQuestion in examQuestionsToDelete)
+            {
+                await _examQuestionRepository.DeleteAsync(examQuestion);
+            }
+
+            // 3. Delete proficiency questions (direct Program → Question)
+            var proficiencyQuestions = allQuestions.Where(q => q.ProgramId == Id).ToList();
+            foreach (var question in proficiencyQuestions)
+            {
+                await _questionRepository.DeleteAsync(question);
+            }
+
+            // 4. Delete Dropouts for this program
+            var allDropouts = await _dropoutRepository.GetAllAsync();
+            var dropoutsToDelete = allDropouts.Where(d => d.ProgramId == Id).ToList();
+            foreach (var dropout in dropoutsToDelete)
+            {
+                await _dropoutRepository.DeleteAsync(dropout);
+            }
+
+            // 5. Delete the program (cascades will handle everything else)
+            var rows = await _programRepository.DeleteAsync(program);
+
+            return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
     }
 }
