@@ -17,6 +17,8 @@ namespace Sconce.BLL.Services.Classes
         private readonly IDocumentRepository _documentRepository;
         private readonly ISectionRepository _sectionRepository;
         private readonly IUrlHelper _urlHelper;
+        private readonly IFileService _fileService;
+        private readonly string _folder;
 
         public DocumentService(
             IDocumentRepository documentRepository,
@@ -28,6 +30,8 @@ namespace Sconce.BLL.Services.Classes
             _documentRepository = documentRepository;
             _sectionRepository = sectionRepository;
             _urlHelper = urlHelper;
+            _fileService = fileService;
+            _folder = "Uploads/Documents";
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(DocumentRequest request)
@@ -41,14 +45,23 @@ namespace Sconce.BLL.Services.Classes
             if (request.File == null || request.File.Length == 0)
                 return (0, new ErrorResponse { Errors = ["File is required."] });
 
-            var result = await base.CreateAsync(request);
+            // Create entity from request
+            var document = request.Adapt<Document>();
 
-            if (result.NumberOfEntries > 0)
-            {
-                await UpdateSectionTimestampAsync(request.SectionId);
-            }
+            // Save file
+            document.FilePath = await _fileService.SaveFileAsync(request.File, _folder);
 
-            return result;
+            // Persist entity
+            var rows = await _documentRepository.AddAsync(document);
+
+            // Update section timestamp
+            await UpdateSectionTimestampAsync(request.SectionId);
+
+            // Map response with FileUrl
+            var response = document.Adapt<DocumentResponse>();
+            response.FileUrl = _urlHelper.BuildUrl(document.FilePath);
+
+            return (rows, new SuccessResponse<DocumentResponse> { Data = response });
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> UpdateAsync(int id, DocumentRequest request)
@@ -62,15 +75,41 @@ namespace Sconce.BLL.Services.Classes
             if (section == null)
                 return (0, new ErrorResponse { Errors = ["Section not found."] });
 
-            var sectionId = document.SectionId;
-            var result = await base.UpdateAsync(id, request);
+            // Track original section for timestamp update
+            var originalSectionId = document.SectionId;
 
-            if (result.NumberOfEntries > 0 && sectionId.HasValue)
+            // Update properties
+            document.Title = request.Title;
+            document.SectionId = request.SectionId;
+            document.WeekNumber = request.WeekNumber;
+
+            // Handle file update if provided
+            if (request.File != null && request.File.Length > 0)
             {
-                await UpdateSectionTimestampAsync(sectionId.Value);
+                if (!string.IsNullOrEmpty(document.FilePath))
+                {
+                    await _fileService.DeleteFileAsync(document.FilePath);
+                }
+
+                document.FilePath = await _fileService.SaveFileAsync(request.File, _folder);
             }
 
-            return result;
+            document.UpdatedAt = DateTime.UtcNow;
+
+            // Persist changes
+            var rows = await _documentRepository.UpdateAsync(document);
+
+            // Update section timestamp
+            if (originalSectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(originalSectionId.Value);
+            }
+
+            // Map response with FileUrl
+            var response = document.Adapt<DocumentResponse>();
+            response.FileUrl = _urlHelper.BuildUrl(document.FilePath);
+
+            return (rows, new SuccessResponse<DocumentResponse> { Data = response });
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> DeleteAsync(int id)

@@ -60,6 +60,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"234953"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022eOK/UQu\u002BSo62GnVolcFTWOwTT2ba1unbds8OgR9f\u002BEM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 10 Dec 2025 18:45:49 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.8qwo8a6p4o.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Documents\afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"8qwo8a6p4o"},{"Name":"integrity","Value":"sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="},{"Name":"label","Value":"_content/Sconce.PL/Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"409309"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\u0022"},{"Name":"Last-Modified","Value":"Sat, 10 Jan 2026 20:21:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\Documents\afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"409309"},{"Name":"Content-Type","Value":"application/pdf"},{"Name":"ETag","Value":"\u0022UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\u0022"},{"Name":"Last-Modified","Value":"Sat, 10 Jan 2026 20:21:30 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/Sconce.PL/Uploads/EssayAnswers/02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\Uploads\EssayAnswers\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

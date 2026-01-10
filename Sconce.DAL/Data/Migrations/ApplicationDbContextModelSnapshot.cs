@@ -1156,6 +1156,30 @@ namespace Sconce.DAL.Data.Migrations
                     b.HasDiscriminator().HasValue("Assignment");
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.Document", b =>
+                {
+                    b.HasBaseType("Sconce.DAL.Models.Content");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.ToTable("Contents", t =>
+                        {
+                            t.Property("FilePath")
+                                .HasColumnName("Document_FilePath");
+
+                            t.Property("Title")
+                                .HasColumnName("Document_Title");
+                        });
+
+                    b.HasDiscriminator().HasValue("Document");
+                });
+
             modelBuilder.Entity("Sconce.DAL.Models.Exam", b =>
                 {
                     b.HasBaseType("Sconce.DAL.Models.Content");

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OGOSPgr7JVLt0hyT7DvWsjm3ig5DySo6wbWSUdMGEgg=",
+  "Hash": "A4A8sxIYsTv2+8rf3z0rYgMMxD4jyeiNNeF4ad2JBro=",
   "Source": "Sconce.PL",
   "BasePath": "_content/Sconce.PL",
   "Mode": "Default",
@@ -120,6 +120,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\CVs\\ee18d12b-0dfa-4de4-99c1-48799e867db2_AfnanAbo-Asal_CV.pdf"
+    },
+    {
+      "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Documents\\afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf",
+      "SourceId": "Sconce.PL",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\",
+      "BasePath": "_content/Sconce.PL",
+      "RelativePath": "Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8qwo8a6p4o",
+      "Integrity": "UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Documents\\afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf"
     },
     {
       "Identity": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\EssayAnswers\\02dc2b91-6234-45b9-b06f-6491508840cb_Answer.pdf",
@@ -761,6 +782,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-eOK/UQu+So62GnVolcFTWOwTT2ba1unbds8OgR9f+EM="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.8qwo8a6p4o.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Documents\\afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 10 Jan 2026 20:21:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8qwo8a6p4o"
+        },
+        {
+          "Name": "label",
+          "Value": "Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
+        }
+      ]
+    },
+    {
+      "Route": "Uploads/Documents/afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf",
+      "AssetFile": "D:\\GraduationProject\\Sconce\\Sconce.PL\\wwwroot\\Uploads\\Documents\\afe78e1c-848e-43bf-81ed-a532ccbb7a61_Supply Chain Project.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "409309"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 10 Jan 2026 20:21:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UDTEQJOGxyDQSdYwRHCkovVVXtDewR84oiiTEfOf9pE="
         }
       ]
     },
