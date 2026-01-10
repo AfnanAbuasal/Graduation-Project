@@ -326,6 +326,26 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.InformationRequestsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Admin/InformationRequests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.InstructorsController",
     "Method": "GetAll",
     "RelativePath": "api/Admin/Instructors/Applications",
@@ -1462,6 +1482,32 @@
         "Name": "deleteApplication",
         "Type": "System.Boolean",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Guest.InformationRequestsController",
+    "Method": "SubmitRequest",
+    "RelativePath": "api/Guest/InformationRequests/Submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.InformationRequestRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [

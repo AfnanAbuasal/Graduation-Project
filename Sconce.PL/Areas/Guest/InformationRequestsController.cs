@@ -29,6 +29,8 @@ namespace Sconce.PL.Areas.Guest
             }
 
             var result = await _informationRequestService.CreateAsync(request);
+            if (result.NumberOfEntries == 0)
+                return BadRequest(result.Response);
             return Ok(result.Response);
         }
     }

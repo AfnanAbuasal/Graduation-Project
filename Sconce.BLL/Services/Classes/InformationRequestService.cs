@@ -37,10 +37,9 @@ namespace Sconce.BLL.Services.Classes
 
                 if (rows > 0)
                 {
-                    var responseDto = entity.Adapt<InformationRequestResponse>();
-                    return (rows, new SuccessResponse<InformationRequestResponse>
+                    return (rows, new SuccessResponse<string>
                     {
-                        Data = responseDto
+                        Data = "Thank you for contacting us, we will reach out shortly."
                     });
                 }
 
