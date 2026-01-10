@@ -87,6 +87,13 @@ namespace Sconce.BLL.Services.Classes
             exam.ExamStatus = ExamStatus.Draft;
 
             var rows = await _examRepository.AddAsync(exam);
+            
+            // Update section timestamp if exam belongs to a section
+            if (rows > 0 && request.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(request.SectionId.Value);
+            }
+            
             return (rows, new SuccessResponse<ExamResponse> { Data = exam.Adapt<ExamResponse>() });
         }
 
@@ -119,6 +126,8 @@ namespace Sconce.BLL.Services.Classes
             var exam = await _examRepository.GetByIdAsync(id);
             if (exam == null)
                 return (0, new ErrorResponse { Errors = ["Exam not found."] });
+
+            var originalSectionId = exam.SectionId;
 
             // Block updates if exam is closed
             if (exam.ExamStatus == ExamStatus.Closed)
@@ -182,6 +191,20 @@ namespace Sconce.BLL.Services.Classes
             exam.UpdatedAt = DateTime.UtcNow;
 
             var rows = await _examRepository.UpdateAsync(exam);
+            
+            // Update section timestamp if exam belongs to a section (original or new)
+            if (rows > 0)
+            {
+                if (originalSectionId.HasValue)
+                {
+                    await UpdateSectionTimestampAsync(originalSectionId.Value);
+                }
+                if (request.SectionId.HasValue && request.SectionId != originalSectionId)
+                {
+                    await UpdateSectionTimestampAsync(request.SectionId.Value);
+                }
+            }
+            
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
         }
 
@@ -191,14 +214,25 @@ namespace Sconce.BLL.Services.Classes
             if (exam == null)
                 return (0, new ErrorResponse { Errors = ["Exam not found."] });
 
+            var sectionId = exam.SectionId;
+
             // Block deletion of published or closed exams
             if (exam.ExamStatus == ExamStatus.Published || exam.ExamStatus == ExamStatus.Closed)
                 return (0, new ErrorResponse { Errors = ["Cannot delete a published or closed exam."] });
 
-            // TODO: Later add check for dependent entities (ExamQuestions/Attempts)
-            // If exam has questions or attempts, block deletion
+            // Check for dependent entities (ExamQuestions/Attempts)
+            var examQuestions = await _examQuestionRepository.GetAllByExamIdAsync(id);
+            if (examQuestions.Any())
+                return (0, new ErrorResponse { Errors = ["Cannot delete an exam that has questions linked to it."] });
 
             var rows = await _examRepository.DeleteAsync(exam);
+            
+            // Update section timestamp if exam belonged to a section
+            if (rows > 0 && sectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(sectionId.Value);
+            }
+            
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
 
@@ -272,7 +306,23 @@ namespace Sconce.BLL.Services.Classes
 
             await _examRepository.UpdateAsync(exam);
 
+            // Update section timestamp if exam belongs to a section
+            if (exam.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(exam.SectionId.Value);
+            }
+
             return (true, new SuccessResponse<string> { Data = $"Exam status changed to {newStatus} successfully." });
+        }
+
+        private async Task UpdateSectionTimestampAsync(int sectionId)
+        {
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section != null)
+            {
+                section.UpdatedAt = DateTime.UtcNow;
+                await _sectionRepository.UpdateAsync(section);
+            }
         }
     }
 }

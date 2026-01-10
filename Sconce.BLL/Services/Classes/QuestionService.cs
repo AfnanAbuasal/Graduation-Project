@@ -22,14 +22,23 @@ namespace Sconce.BLL.Services.Classes
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFileService _fileService;
         private readonly IExamQuestionRepository _examQuestionRepository;
+        private readonly ISectionRepository _sectionRepository;
 
-        public QuestionService(IQuestionRepository questionRepository, ICourseRepository courseRepository, IHttpContextAccessor httpContextAccessor, IFileService fileService, IExamQuestionRepository examQuestionRepository) : base(questionRepository)
+        public QuestionService(
+            IQuestionRepository questionRepository,
+            ICourseRepository courseRepository,
+            IHttpContextAccessor httpContextAccessor,
+            IFileService fileService,
+            IExamQuestionRepository examQuestionRepository,
+            ISectionRepository sectionRepository)
+            : base(questionRepository)
         {
             _questionRepository = questionRepository;
             _courseRepository = courseRepository;
             _httpContextAccessor = httpContextAccessor;
             _fileService = fileService;
             _examQuestionRepository = examQuestionRepository;
+            _sectionRepository = sectionRepository;
         }
 
         public async Task<Response> GetAllByCourseIdAsync(int courseId)

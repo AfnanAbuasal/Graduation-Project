@@ -231,7 +231,15 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         var assignment = await _assignmentRepository.GetByIdAsync(submission.AssignmentId);
 
         if (submissionWithStudent != null && assignment != null)
+        {
             await _notificationService.SendSubmissionGradedAsync(submissionWithStudent, assignment);
+            
+            // Update section timestamp
+            if (assignment.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(assignment.SectionId.Value);
+            }
+        }
 
         return (true, new SuccessResponse<string> { Data = "AssignmentSubmission graded successfully." });
     }
@@ -243,8 +251,12 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         if (assignment == null)
             return new ErrorResponse { Errors = ["Assignment not found."] };
 
+        // Verify assignment has a section
+        if (!assignment.SectionId.HasValue)
+            return new ErrorResponse { Errors = ["Assignment does not have a valid section."] };
+
         // Verify instructor has access to the assignment's section
-        var section = await _sectionRepository.GetByIdAsync((int)assignment.SectionId);
+        var section = await _sectionRepository.GetByIdAsync(assignment.SectionId.Value);
         if (section == null || section.InstructorId != instructorId)
             return new ErrorResponse { Errors = ["Unauthorized access to this assignment."] };
 
@@ -261,5 +273,15 @@ public class SubmissionService : FileGenericService<SubmissionRequest, Submissio
         }
 
         return new SuccessResponse<IEnumerable<SubmissionResponse>> { Data = responseList };
+    }
+
+    private async Task UpdateSectionTimestampAsync(int sectionId)
+    {
+        var section = await _sectionRepository.GetByIdAsync(sectionId);
+        if (section != null)
+        {
+            section.UpdatedAt = DateTime.UtcNow;
+            await _sectionRepository.UpdateAsync(section);
+        }
     }
 }

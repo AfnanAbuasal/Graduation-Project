@@ -23,6 +23,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IFileService _fileService;
         private readonly IUrlHelper _urlHelper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ISectionRepository _sectionRepository;
 
         public AnswerService(
             IAnswerRepository answerRepository,
@@ -30,7 +31,8 @@ namespace Sconce.BLL.Services.Classes
             IChoiceRepository choiceRepository,
             IFileService fileService,
             IUrlHelper urlHelper,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            ISectionRepository sectionRepository)
             : base(answerRepository, fileService, urlHelper, "Uploads/EssayAnswers")
         {
             _answerRepository = answerRepository;
@@ -39,6 +41,7 @@ namespace Sconce.BLL.Services.Classes
             _fileService = fileService;
             _urlHelper = urlHelper;
             _httpContextAccessor = httpContextAccessor;
+            _sectionRepository = sectionRepository;
         }
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(AnswerRequest request)
@@ -273,6 +276,12 @@ namespace Sconce.BLL.Services.Classes
 
             if (rows > 0)
             {
+                // Update section timestamp if exam belongs to a section
+                if (answer.ExamAttempt?.Exam?.SectionId != null)
+                {
+                    await UpdateSectionTimestampAsync(answer.ExamAttempt.Exam.SectionId.Value);
+                }
+                
                 var response = MapToResponse(answer);
                 return (true, new SuccessResponse<AnswerResponse> { Data = response });
             }
@@ -302,6 +311,16 @@ namespace Sconce.BLL.Services.Classes
             dto.FileUrl = _urlHelper.BuildUrl(answer.FilePath);
 
             return dto;
+        }
+
+        private async Task UpdateSectionTimestampAsync(int sectionId)
+        {
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section != null)
+            {
+                section.UpdatedAt = DateTime.UtcNow;
+                await _sectionRepository.UpdateAsync(section);
+            }
         }
     }
 }

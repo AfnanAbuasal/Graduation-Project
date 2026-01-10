@@ -95,6 +95,13 @@ namespace Sconce.BLL.Services.Classes
             var entity = request.Adapt<ExamQuestion>();
 
             var rows = await _examQuestionRepository.AddAsync(entity);
+            
+            // Update section timestamp if exam belongs to a section
+            if (rows > 0 && exam.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(exam.SectionId.Value);
+            }
+            
             return (rows, new SuccessResponse<ExamQuestionResponse> { Data = entity.Adapt<ExamQuestionResponse>() });
         }
 
@@ -174,6 +181,13 @@ namespace Sconce.BLL.Services.Classes
             existing.UpdatedAt = DateTime.UtcNow;
 
             var rows = await _examQuestionRepository.UpdateAsync(existing);
+            
+            // Update section timestamp if exam belongs to a section
+            if (rows > 0 && exam.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(exam.SectionId.Value);
+            }
+            
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) updated successfully." });
         }
 
@@ -191,6 +205,13 @@ namespace Sconce.BLL.Services.Classes
                 return (0, new ErrorResponse { Errors = ["Cannot modify questions after publishing the exam."] });
 
             var rows = await _examQuestionRepository.DeleteAsync(existing);
+            
+            // Update section timestamp if exam belongs to a section
+            if (rows > 0 && exam.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(exam.SectionId.Value);
+            }
+            
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) deleted successfully." });
         }
 
@@ -251,6 +272,12 @@ namespace Sconce.BLL.Services.Classes
                 entity.SortOrder = SortOrder;
                 entity.UpdatedAt = DateTime.UtcNow;
                 rowsAffected += await _examQuestionRepository.UpdateAsync(entity);
+            }
+
+            // Update section timestamp if exam belongs to a section
+            if (exam.SectionId.HasValue)
+            {
+                await UpdateSectionTimestampAsync(exam.SectionId.Value);
             }
 
             return (true, new SuccessResponse<string> { Data = "Exam questions reordered successfully." });
@@ -330,5 +357,15 @@ namespace Sconce.BLL.Services.Classes
 			// Fallback for unknown content types (needs to be handled)
 			throw new InvalidOperationException($"Unknown question type: {question.GetType().Name}");
 		}
+
+        private async Task UpdateSectionTimestampAsync(int sectionId)
+        {
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section != null)
+            {
+                section.UpdatedAt = DateTime.UtcNow;
+                await _sectionRepository.UpdateAsync(section);
+            }
+        }
     }
 }

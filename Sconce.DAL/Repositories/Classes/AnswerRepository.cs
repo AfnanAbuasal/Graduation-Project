@@ -54,6 +54,7 @@ namespace Sconce.DAL.Repositories.Classes
         {
             return await _context.Set<Answer>()
                 .Include(a => a.ExamAttempt)
+                    .ThenInclude(ea => ea.Exam)
                 .Include(a => a.ExamQuestion)
                     .ThenInclude(eq => eq.Question)
                 .FirstOrDefaultAsync(a => a.Id == answerId);
