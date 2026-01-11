@@ -12,5 +12,6 @@ namespace Sconce.BLL.Services.Interfaces
     public interface ICourseService : IGenericService<CourseRequest, CourseResponse, Course>
     {
         Task<Response> GetByLevelAsync(int levelId, bool onlyActive = false);
+        Task<Response> GetByProgramAsync(int programId, bool onlyActive = false);
     }
 }

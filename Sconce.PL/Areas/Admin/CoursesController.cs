@@ -86,5 +86,13 @@ namespace Sconce.PL.Areas.Admin
             var result = await _courseService.GetByLevelAsync(levelId, onlyActive);
             return Ok(result);
         }
+
+        // Gets all courses in a program ordered by level prerequisites then course order.
+        [HttpGet("Program/{programId}")]
+        public async Task<ActionResult<Response>> GetByProgram([FromRoute] int programId, [FromQuery] bool onlyActive = false)
+        {
+            var result = await _courseService.GetByProgramAsync(programId, onlyActive);
+            return Ok(result);
+        }
     }
 }

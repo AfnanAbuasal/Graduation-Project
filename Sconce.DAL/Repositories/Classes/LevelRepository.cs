@@ -43,6 +43,18 @@ namespace Sconce.DAL.Repositories.Classes
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Level>> GetAllByProgramWithCoursesAndPrerequisiteAsync(int programId)
+        {
+            var query = _context.Levels
+                .Where(l => l.ProgramId == programId)
+                .Include(l => l.Courses)
+                .Include(l => l.PrerequisiteLevel);
+
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<Level?> GetByIdWithProgramAsync(int id)
         {
             return await _context.Levels
