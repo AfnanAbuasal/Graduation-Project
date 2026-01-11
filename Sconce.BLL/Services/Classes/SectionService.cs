@@ -46,6 +46,10 @@ namespace Sconce.BLL.Services.Classes
                     return (0, new ErrorResponse { Errors = [$"Instructor with Id: {request.InstructorId} not found."] });
             }
 
+            // Set instructor to null if "" is provided
+            if (request.InstructorId == "")
+                request.InstructorId = null;
+
             var section = request.Adapt<Section>();
             var rows = await _sectionRepository.AddAsync(section);
             return (rows, new SuccessResponse<string> { Data = $"{rows} record(s) created successfully." });

@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260110223800_InformationRequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sconce.DAL\\Data\\Migrations\\20260110223800_InformationRequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260110223800_informationrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20260110223800_informationrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260110194608_addeddocumentstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,8 +47,7 @@
               "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260110194608_AddedDocumentsTable.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T19:46:09.305Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-10T19:46:09.305Z"
             }
           ]
         }

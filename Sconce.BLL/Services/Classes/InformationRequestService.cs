@@ -29,6 +29,10 @@ namespace Sconce.BLL.Services.Classes
                 if (request == null)
                     return (0, new ErrorResponse { Errors = ["Request cannot be null."] });
 
+                // Set PhoneNumber to null if "" or whitespace is provided
+                if (string.IsNullOrWhiteSpace(request.PhoneNumber) || request.PhoneNumber == "")
+                    request.PhoneNumber = null;
+
                 // Map to entity
                 var entity = request.Adapt<InformationRequest>();
 
