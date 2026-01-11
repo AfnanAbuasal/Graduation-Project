@@ -13,5 +13,6 @@ namespace Sconce.BLL.Services.Interfaces
     {
         Task<Response> GetByLevelAsync(int levelId, bool onlyActive = false);
         Task<Response> GetByProgramAsync(int programId, bool onlyActive = false);
+        Task<Response> GetCourseCountByProgramAsync(int programId, bool onlyActive = false);
     }
 }

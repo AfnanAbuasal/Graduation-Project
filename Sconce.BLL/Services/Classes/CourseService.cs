@@ -251,5 +251,16 @@ namespace Sconce.BLL.Services.Classes
 
             return new SuccessResponse<IEnumerable<CourseResponse>> { Data = responseList };
         }
+
+        public async Task<Response> GetCourseCountByProgramAsync(int programId, bool onlyActive = false)
+        {
+            var levels = await _levelRepository.GetAllByProgramWithCoursesAsync(programId);
+            
+            var count = levels
+                .SelectMany(l => l.Courses)
+                .Count(c => !onlyActive || c.Status == Status.Active);
+
+            return new SuccessResponse<int> { Data = count };
+        }
     }
 }

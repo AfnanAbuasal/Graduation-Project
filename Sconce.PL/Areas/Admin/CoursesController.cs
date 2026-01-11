@@ -94,5 +94,13 @@ namespace Sconce.PL.Areas.Admin
             var result = await _courseService.GetByProgramAsync(programId, onlyActive);
             return Ok(result);
         }
+
+        // Gets the count of courses in a program.
+        [HttpGet("Program/{programId}/Count")]
+        public async Task<ActionResult<Response>> GetCourseCountByProgram([FromRoute] int programId, [FromQuery] bool onlyActive = false)
+        {
+            var result = await _courseService.GetCourseCountByProgramAsync(programId, onlyActive);
+            return Ok(result);
+        }
     }
 }
