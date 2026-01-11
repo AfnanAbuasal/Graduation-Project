@@ -21,6 +21,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IProgramRepository _programRepository;
         private readonly IProgramEnrollmentRepository _programEnrollmentRepository;
         private readonly IStudentSectionRepository _studentSectionRepository;
+        private readonly ISectionRepository _sectionRepository;
         private readonly INotificationService _notificationService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -29,6 +30,7 @@ namespace Sconce.BLL.Services.Classes
             IProgramRepository programRepository,
             IProgramEnrollmentRepository programEnrollmentRepository,
             IStudentSectionRepository studentSectionRepository,
+            ISectionRepository sectionRepository,
             INotificationService notificationService,
             IHttpContextAccessor httpContextAccessor) : base(dropoutRepository)
         {
@@ -36,6 +38,7 @@ namespace Sconce.BLL.Services.Classes
             _programRepository = programRepository;
             _programEnrollmentRepository = programEnrollmentRepository;
             _studentSectionRepository = studentSectionRepository;
+            _sectionRepository = sectionRepository;
             _notificationService = notificationService;
             _httpContextAccessor = httpContextAccessor;
         }
@@ -232,6 +235,14 @@ namespace Sconce.BLL.Services.Classes
 
             foreach (var studentSection in studentSections)
             {
+                // Get the section and decrease its current capacity
+                var section = await _sectionRepository.GetByIdAsync(studentSection.SectionId);
+                if (section != null && section.CurrentCapacity > 0)
+                {
+                    section.CurrentCapacity--;
+                    await _sectionRepository.UpdateAsync(section);
+                }
+
                 await _studentSectionRepository.DeleteAsync(studentSection);
             }
 
