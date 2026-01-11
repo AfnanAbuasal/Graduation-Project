@@ -11,7 +11,7 @@ namespace Sconce.DAL.Repositories.Interfaces
     {
         Task<IEnumerable<Level>> GetAllWithProgramAsync();
         Task<IEnumerable<Level>> GetAllByProgramAsync(int programId, bool onlyActive = false);
-        Task<IEnumerable<Level>> GetAllByProgramWithCoursesAndPrerequisiteAsync(int programId);
+        Task<IEnumerable<Level>> GetAllByProgramWithCoursesAsync(int programId);
         Task<Level?> GetByIdWithProgramAsync(int id);
     }
 }

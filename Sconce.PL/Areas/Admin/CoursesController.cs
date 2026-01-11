@@ -87,7 +87,7 @@ namespace Sconce.PL.Areas.Admin
             return Ok(result);
         }
 
-        // Gets all courses in a program ordered by level prerequisites then course order.
+        // Gets all ordered courses in a program.
         [HttpGet("Program/{programId}")]
         public async Task<ActionResult<Response>> GetByProgram([FromRoute] int programId, [FromQuery] bool onlyActive = false)
         {

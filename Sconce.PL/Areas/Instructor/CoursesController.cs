@@ -18,8 +18,8 @@ public class CoursesController : ControllerBase
         _courseService = courseService;
     }
     
-    // Gets all courses in a program for the instructor, ordered by level prerequisites then course order.
-    [HttpGet("{programId}/Courses")]
+    // Gets all ordered courses in a program for the instructor.
+    [HttpGet("Program/{programId}")]
     public async Task<ActionResult<Response>> GetCoursesByProgram([FromRoute] int programId, [FromQuery] bool onlyActive = false)
     {
         var result = await _courseService.GetByProgramAsync(programId, onlyActive);

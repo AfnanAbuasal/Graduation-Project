@@ -228,72 +228,14 @@ namespace Sconce.BLL.Services.Classes
 
         public async Task<Response> GetByProgramAsync(int programId, bool onlyActive = false)
         {
-            var levels = await _levelRepository.GetAllByProgramWithCoursesAndPrerequisiteAsync(programId);
+            var levels = await _levelRepository.GetAllByProgramWithCoursesAsync(programId);
             var levelList = levels.ToList();
 
             if (!levelList.Any())
                 return new SuccessResponse<IEnumerable<CourseResponse>> { Data = [] };
 
-            // Build graph for prerequisite-based ordering.
-            var idToLevel = levelList.ToDictionary(l => l.Id);
-            var adjacency = new Dictionary<int, List<Level>>();
-            var indegree = new Dictionary<int, int>();
-
-            foreach (var level in levelList)
-            {
-                adjacency[level.Id] = new List<Level>();
-                indegree[level.Id] = 0;
-            }
-
-            foreach (var level in levelList)
-            {
-                if (level.PrerequisiteLevelId.HasValue && idToLevel.TryGetValue(level.PrerequisiteLevelId.Value, out var prereq))
-                {
-                    adjacency[prereq.Id].Add(level);
-                    indegree[level.Id]++;
-                }
-            }
-
-            // Kahn's algorithm with CreatedAt tiebreaker for roots and siblings.
-            var queue = levelList
-                .Where(l => indegree[l.Id] == 0)
-                .OrderBy(l => l.CreatedAt)
-                .ThenBy(l => l.Id)
-                .ToList();
-
-            var orderedLevels = new List<Level>();
-            while (queue.Count > 0)
-            {
-                var current = queue[0];
-                queue.RemoveAt(0);
-                orderedLevels.Add(current);
-
-                foreach (var next in adjacency[current.Id])
-                {
-                    indegree[next.Id]--;
-                    if (indegree[next.Id] == 0)
-                    {
-                        queue.Add(next);
-                        queue = queue
-                            .OrderBy(l => l.CreatedAt)
-                            .ThenBy(l => l.Id)
-                            .ToList();
-                    }
-                }
-            }
-
-            // Fallback: if there was a cycle or missing prerequisite, append remaining by CreatedAt.
-            if (orderedLevels.Count < levelList.Count)
-            {
-                var remaining = levelList
-                    .Where(l => !orderedLevels.Any(o => o.Id == l.Id))
-                    .OrderBy(l => l.CreatedAt)
-                    .ThenBy(l => l.Id);
-                orderedLevels.AddRange(remaining);
-            }
-
             var responseList = new List<CourseResponse>();
-            foreach (var level in orderedLevels)
+            foreach (var level in levelList)
             {
                 var courses = onlyActive
                     ? level.Courses.Where(c => c.Status == Status.Active)
