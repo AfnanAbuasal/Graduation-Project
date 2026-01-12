@@ -71,5 +71,13 @@ namespace Sconce.DAL.Repositories.Classes
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<StudentSection>> GetStudentSectionsAsync(string studentId)
+        {
+            return await _context.StudentSections
+                .Where(ss => ss.StudentId == studentId)
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

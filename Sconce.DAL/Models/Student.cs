@@ -18,5 +18,6 @@ namespace Sconce.DAL.Models
         public ICollection<ExamAttempt> ExamAttempts { get; set; } = new List<ExamAttempt>();
         public ICollection<ProgramEnrollment> Enrollments { get; set; } = new List<ProgramEnrollment>();
         public ICollection<StudentSection> StudentSections { get; set; } = new List<StudentSection>();
+        public ICollection<ZoomAttendance> ZoomAttendances { get; set; } = new List<ZoomAttendance>();
     }
 }

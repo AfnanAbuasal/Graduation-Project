@@ -35,6 +35,7 @@ namespace Sconce.DAL.Data
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Text> Texts { get; set; }
         public DbSet<ZoomMeeting> ZoomMeetings { get; set; }
+        public DbSet<ZoomAttendance> ZoomAttendances { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Submission> Submissions { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -355,6 +356,24 @@ namespace Sconce.DAL.Data
                     .WithMany()
                     .HasForeignKey(q => q.ProgramId)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ZoomMeeting → ZoomAttendance (Cascade)
+            builder.Entity<ZoomAttendance>(entity =>
+            {
+                entity.HasOne(za => za.ZoomMeeting)
+                    .WithMany(zm => zm.Attendances)
+                    .HasForeignKey(za => za.ZoomMeetingId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(za => za.Student)
+                    .WithMany(s => s.ZoomAttendances)
+                    .HasForeignKey(za => za.StudentId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                // Unique constraint: one attendance record per student per zoom meeting
+                entity.HasIndex(za => new { za.ZoomMeetingId, za.StudentId })
+                    .IsUnique();
             });
         }
     }

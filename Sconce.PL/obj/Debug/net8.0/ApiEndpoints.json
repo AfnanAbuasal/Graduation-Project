@@ -223,6 +223,37 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Admin.CoursesController",
+    "Method": "GetCourseCountByProgram",
+    "RelativePath": "api/Admin/Courses/Program/{programId}/Count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "programId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "onlyActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Admin.DashboardController",
     "Method": "GetStats",
     "RelativePath": "api/Admin/Dashboard/Stats",

@@ -13,6 +13,7 @@ namespace Sconce.DAL.Models
 		public string? Description { get; set; }
 		public string Url { get; set; } = string.Empty;
 		public ZoomData? ZoomData { get; set; }
+		public ICollection<ZoomAttendance> Attendances { get; set; } = new List<ZoomAttendance>();
 	}
 
 	[Owned]

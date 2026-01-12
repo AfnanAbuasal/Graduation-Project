@@ -12,5 +12,6 @@ namespace Sconce.BLL.Services.Interfaces
 	public interface IZoomMeetingService : IGenericService<ZoomMeetingRequest, ZoomMeetingResponse, ZoomMeeting>
 	{
 		Task<Response> GetAllBySectionAsync(int sectionId, string instructorId);
+		Task<(bool Success, Response Response)> MarkAttendanceAsync(MarkZoomAttendanceRequest request, string instructorId);
 	}
 }

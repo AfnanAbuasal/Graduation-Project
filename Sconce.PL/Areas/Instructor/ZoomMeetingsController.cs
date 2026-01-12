@@ -84,5 +84,21 @@ namespace Sconce.PL.Areas.Instructor
 			if (!result.Success) return BadRequest(result.Response);
 			return Ok(result.Response);
 		}
+
+		// Mark student attendance for a Zoom meeting.
+		[HttpPost("MarkAttendance")]
+		public async Task<ActionResult<Response>> MarkAttendance([FromBody] MarkZoomAttendanceRequest request)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var instructorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			if (string.IsNullOrEmpty(instructorId))
+				return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+			var result = await _zoomMeetingService.MarkAttendanceAsync(request, instructorId);
+			if (!result.Success) return BadRequest(result.Response);
+			return Ok(result.Response);
+		}
 	}
 }
