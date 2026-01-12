@@ -2059,6 +2059,32 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.AssignmentsController",
+    "Method": "GetStudentPerformance",
+    "RelativePath": "api/Instructor/Assignments/Performance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.PerformanceFilterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.AssignmentsController",
     "Method": "GetBySection",
     "RelativePath": "api/Instructor/Assignments/Section/{sectionId}",
     "HttpMethod": "GET",
@@ -4309,6 +4335,32 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Parent.AssignmentsController",
+    "Method": "GetChildPerformance",
+    "RelativePath": "api/Parent/Assignments/Performance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.PerformanceFilterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Parent.ZoomMeetingsController",
     "Method": "GetChildPerformance",
     "RelativePath": "api/Parent/ZoomMeetings/Performance",
@@ -4572,6 +4624,37 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.AssignmentsController",
+    "Method": "GetMyPerformance",
+    "RelativePath": "api/Student/Assignments/Performance/Section/{sectionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "windowDays",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

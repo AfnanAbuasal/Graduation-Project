@@ -122,5 +122,20 @@ namespace Sconce.DAL.Repositories.Classes
             
             return attempts;
         }
+
+        public async Task<IEnumerable<ExamAttempt>> GetAllByStudentIdAsync(string studentId, bool withTracking = false)
+        {
+            var query = _context.Set<ExamAttempt>()
+                .Where(ea => ea.StudentId == studentId)
+                .Include(ea => ea.Exam)
+                .OrderBy(ea => ea.ExamId)
+                .ThenBy(ea => ea.AttemptNumber)
+                .AsQueryable();
+
+            if (!withTracking)
+                query = query.AsNoTracking();
+
+            return await query.ToListAsync();
+        }
     }
 }

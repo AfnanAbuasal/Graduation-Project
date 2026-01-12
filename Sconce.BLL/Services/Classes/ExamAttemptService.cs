@@ -26,6 +26,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUrlHelper _urlHelper;
         private readonly INotificationService _notificationService;
+        private readonly ISectionRepository _sectionRepository;
 
         public ExamAttemptService(
             IExamAttemptRepository examAttemptRepository,
@@ -36,7 +37,8 @@ namespace Sconce.BLL.Services.Classes
             IProgramEnrollmentRepository programEnrollmentRepository,
             IHttpContextAccessor httpContextAccessor,
             IUrlHelper urlHelper,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            ISectionRepository sectionRepository)
         {
             _examAttemptRepository = examAttemptRepository;
             _examRepository = examRepository;
@@ -47,6 +49,7 @@ namespace Sconce.BLL.Services.Classes
             _httpContextAccessor = httpContextAccessor;
             _urlHelper = urlHelper;
             _notificationService = notificationService;
+            _sectionRepository = sectionRepository;
         }
 
         public async Task<(bool Success, Response Response)> StartAttemptAsync(int examId)
@@ -386,6 +389,122 @@ namespace Sconce.BLL.Services.Classes
             }
 
             return dto;
+        }
+
+        public async Task<Response> GetStudentExamPerformanceAsync(PerformanceFilterRequest request)
+        {
+            // Verify section exists
+            var section = await _sectionRepository.GetByIdAsync(request.SectionId);
+            if (section == null)
+                return new ErrorResponse { Errors = ["Section not found."] };
+        
+            // Verify student exists and is enrolled in the section
+            var studentSections = await _sectionRepository.GetStudentSectionsAsync(request.StudentId);
+            var studentSection = studentSections.FirstOrDefault(ss => ss.SectionId == request.SectionId);
+            if (studentSection == null)
+                return new ErrorResponse { Errors = ["Student is not enrolled in this section."] };
+        
+            // Calculate time window
+            DateTime windowStart;
+            if (request.WindowDays.HasValue)
+            {
+                windowStart = DateTime.UtcNow.AddDays(-request.WindowDays.Value);
+            }
+            else
+            {
+                // Use section enrollment date as start
+                windowStart = studentSection.AddedAt;
+            }
+        
+            // Get all exams in the section
+            var allExams = await _examRepository.GetAllBySectionIdAsync(request.SectionId, withTracking: false);
+            
+            // Get all student's attempts for this section's exams
+            // Filter by: Submitted, Expired, or Graded (exclude InProgress)
+            // Note: We don't need to check exam availability (AvailableFrom/AvailableTo) here because
+            // attempts can only be created when the exam is available. If an attempt exists, it was
+            // necessarily created during the exam's availability window.
+            var allAttempts = await _examAttemptRepository.GetAllByStudentIdAsync(request.StudentId, withTracking: false);
+            var relevantAttempts = allAttempts
+                .Where(a => allExams.Any(e => e.Id == a.ExamId) &&
+                            a.StartedAt >= windowStart &&
+                            a.StartedAt <= DateTime.UtcNow &&
+                            (a.AttemptStatus == AttemptStatus.Submitted || 
+                             a.AttemptStatus == AttemptStatus.Expired || 
+                             a.AttemptStatus == AttemptStatus.Graded))
+                .OrderBy(a => a.ExamId)
+                .ThenBy(a => a.AttemptNumber)
+                .ToList();
+        
+            // Create exam lookup
+            var examDict = allExams.ToDictionary(e => e.Id, e => e);
+        
+            // Build performance items
+            var performanceItems = relevantAttempts.Select(attempt =>
+            {
+                var exam = examDict.GetValueOrDefault(attempt.ExamId);
+                decimal? scorePercentage = null;
+                
+                if (attempt.Score.HasValue && attempt.MaxScore.HasValue && attempt.MaxScore.Value > 0)
+                {
+                    scorePercentage = Math.Round((attempt.Score.Value / attempt.MaxScore.Value) * 100, 2);
+                }
+        
+                string status = attempt.AttemptStatus switch
+                {
+                    AttemptStatus.Graded => "Graded",
+                    AttemptStatus.Expired => "Expired",
+                    AttemptStatus.Submitted => "Submitted",
+                    _ => "Unknown"
+                };
+        
+                return new ExamPerformanceItemResponse
+                {
+                    ExamId = attempt.ExamId,
+                    ExamTitle = exam?.Title ?? "Unknown",
+                    AttemptId = attempt.Id,
+                    AttemptNumber = attempt.AttemptNumber,
+                    Status = status,
+                    Score = attempt.Score,
+                    MaxScore = attempt.MaxScore,
+                    ScorePercentage = scorePercentage,
+                    StartedAt = attempt.StartedAt,
+                    SubmittedAt = attempt.SubmittedAt,
+                    GradedAt = attempt.GradedAt
+                };
+            }).ToList();
+        
+            // Calculate summary statistics
+            var uniqueExams = performanceItems.Select(p => p.ExamId).Distinct().Count();
+            var totalAttempts = performanceItems.Count;
+            var completedCount = performanceItems.Count(p => p.Status == "Graded");
+            var attemptedCount = performanceItems.Count(p => p.Status == "Submitted" || p.Status == "Expired");
+        
+            // Average score percentage: only from graded attempts with scores
+            var gradedWithScores = performanceItems
+                .Where(p => p.Status == "Graded" && p.ScorePercentage.HasValue)
+                .ToList();
+            
+            var averageScorePercentage = gradedWithScores.Count > 0
+                ? Math.Round(gradedWithScores.Average(p => p.ScorePercentage.Value), 2)
+                : 0;
+        
+            var summary = new ExamPerformanceSummaryResponse
+            {
+                TotalExams = uniqueExams,
+                TotalAttempts = totalAttempts,
+                CompletedCount = completedCount,
+                AttemptedCount = attemptedCount,
+                AverageScorePercentage = averageScorePercentage
+            };
+        
+            var performanceResponse = new ExamPerformanceResponse
+            {
+                ExamAttempts = performanceItems,
+                Summary = summary
+            };
+        
+            return new SuccessResponse<ExamPerformanceResponse> { Data = performanceResponse };
         }
     }
 }

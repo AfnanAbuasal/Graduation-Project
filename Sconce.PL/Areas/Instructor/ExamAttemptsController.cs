@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
+using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using System.Threading.Tasks;
 
@@ -49,6 +50,18 @@ namespace Sconce.PL.Areas.Instructor
             if (!result.Success)
                 return BadRequest(result.Response);
             return Ok(result.Response);
+        }
+
+        // Get student's exam performance.
+        [HttpPost("Performance")]
+        public async Task<ActionResult<Response>> GetStudentPerformance([FromBody] PerformanceFilterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+        
+            var result = await _examAttemptService.GetStudentExamPerformanceAsync(request);
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
         }
     }
 }
