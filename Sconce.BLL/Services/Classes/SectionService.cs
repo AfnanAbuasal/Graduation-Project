@@ -198,13 +198,17 @@ namespace Sconce.BLL.Services.Classes
 
             foreach (var studentSection in studentSections)
             {
+                var student = studentSection.Student;
                 var section = studentSection.Section;
                 var course = section?.Course;
                 var level = course?.Level;
                 var program = level?.Program;
+                var instructor = section?.Instructor;
 
                 var dto = new StudentSectionResponse
                 {
+                    StudentId = student?.Id ?? string.Empty,
+                    StudentName = student?.FullName ?? string.Empty,
                     SectionId = section?.Id ?? 0,
                     SectionName = section?.Name ?? string.Empty,
                     CourseId = course?.Id ?? 0,
@@ -212,7 +216,9 @@ namespace Sconce.BLL.Services.Classes
                     LevelId = level?.Id ?? 0,
                     LevelName = level?.Name ?? string.Empty,
                     ProgramId = program?.Id ?? 0,
-                    ProgramName = program?.Name ?? string.Empty
+                    ProgramName = program?.Name ?? string.Empty,
+                    InstructorId = instructor?.Id ?? string.Empty,
+                    InstructorName = instructor?.FullName ?? string.Empty
                 };
 
                 responseList.Add(dto);
