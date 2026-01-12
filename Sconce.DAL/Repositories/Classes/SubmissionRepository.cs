@@ -47,10 +47,11 @@ namespace Sconce.DAL.Repositories.Classes
         {
             var query = _context.Submissions
                 .Where(s => s.AssignmentId == assignmentId)
-                .Include(s => s.Student);
+                .Include(s => s.Student)
+                .AsQueryable();
 
             if (!withTracking)
-                query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Submission, Student>)query.AsNoTracking();
+                query = query.AsNoTracking();
 
             return await query.ToListAsync();
         }

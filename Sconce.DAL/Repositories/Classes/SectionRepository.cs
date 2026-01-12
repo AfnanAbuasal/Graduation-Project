@@ -60,11 +60,12 @@ namespace Sconce.DAL.Repositories.Classes
             var query = _context.Sections
                 .Where(s => s.CourseId == courseId)
                 .Include(s => s.Course)
-                .Include(s => s.Instructor);
+                .Include(s => s.Instructor)
+                .AsQueryable();
 
             if (onlyActive)
             {
-                query = (Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Section, Instructor?>)query.Where(s => s.Status == Status.Active);
+                query = query.Where(s => s.Status == Status.Active);
             }
 
             return await query

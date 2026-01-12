@@ -1133,6 +1133,37 @@ namespace Sconce.DAL.Data.Migrations
                     b.ToTable("Submissions");
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.ZoomAttendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Attended")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("RecordedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ZoomMeetingId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("ZoomMeetingId", "StudentId")
+                        .IsUnique();
+
+                    b.ToTable("ZoomAttendances");
+                });
+
             modelBuilder.Entity("Sconce.DAL.Models.Instructor", b =>
                 {
                     b.HasBaseType("Sconce.DAL.Models.ApplicationUser");
@@ -1696,6 +1727,25 @@ namespace Sconce.DAL.Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("Sconce.DAL.Models.ZoomAttendance", b =>
+                {
+                    b.HasOne("Sconce.DAL.Models.Student", "Student")
+                        .WithMany("ZoomAttendances")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sconce.DAL.Models.ZoomMeeting", "ZoomMeeting")
+                        .WithMany("Attendances")
+                        .HasForeignKey("ZoomMeetingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("ZoomMeeting");
+                });
+
             modelBuilder.Entity("Sconce.DAL.Models.Exam", b =>
                 {
                     b.HasOne("Sconce.DAL.Models.Program", "Program")
@@ -1805,6 +1855,8 @@ namespace Sconce.DAL.Data.Migrations
                     b.Navigation("StudentSections");
 
                     b.Navigation("Submissions");
+
+                    b.Navigation("ZoomAttendances");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.Assignment", b =>
@@ -1817,6 +1869,11 @@ namespace Sconce.DAL.Data.Migrations
                     b.Navigation("ExamAttempts");
 
                     b.Navigation("ExamQuestions");
+                });
+
+            modelBuilder.Entity("Sconce.DAL.Models.ZoomMeeting", b =>
+                {
+                    b.Navigation("Attendances");
                 });
 
             modelBuilder.Entity("Sconce.DAL.Models.MultipleChoiceQuestion", b =>

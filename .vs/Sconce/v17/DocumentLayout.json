@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260110223800_informationrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20260110223800_informationrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260110194608_addeddocumentstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20260110194608_addeddocumentstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260112103314_zoomattendances.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20260112103314_zoomattendances.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,27 +23,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260110223800_InformationRequests.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260110223800_InformationRequests.cs",
-              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260110223800_InformationRequests.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260110223800_InformationRequests.cs",
-              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260110223800_InformationRequests.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Title": "20260112103314_ZoomAttendances.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
+              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T22:38:00.425Z",
+              "WhenOpened": "2026-01-12T10:33:15.002Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "20260110194608_AddedDocumentsTable.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260110194608_AddedDocumentsTable.cs",
-              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260110194608_AddedDocumentsTable.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260110194608_AddedDocumentsTable.cs",
-              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260110194608_AddedDocumentsTable.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T19:46:09.305Z"
             }
           ]
         }

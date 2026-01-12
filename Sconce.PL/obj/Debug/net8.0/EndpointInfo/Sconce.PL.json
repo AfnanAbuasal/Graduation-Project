@@ -8225,6 +8225,54 @@
           }
         }
       }
+    },
+    "/api/Instructor/ZoomMeetings/MarkAttendance": {
+      "post": {
+        "tags": [
+          "ZoomMeetings"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkZoomAttendanceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkZoomAttendanceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkZoomAttendanceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -8652,6 +8700,28 @@
           "password": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MarkZoomAttendanceRequest": {
+        "required": [
+          "attended",
+          "studentId",
+          "zoomMeetingId"
+        ],
+        "type": "object",
+        "properties": {
+          "zoomMeetingId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "studentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "attended": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

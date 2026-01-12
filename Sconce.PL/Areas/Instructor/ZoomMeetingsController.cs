@@ -100,5 +100,17 @@ namespace Sconce.PL.Areas.Instructor
 			if (!result.Success) return BadRequest(result.Response);
 			return Ok(result.Response);
 		}
+
+		// Get student's Zoom meeting performance.
+		[HttpPost("Performance")]
+		public async Task<ActionResult<Response>> GetStudentPerformance([FromBody] PerformanceFilterRequest request)
+		{
+			if (!ModelState.IsValid)
+				return BadRequest(ModelState);
+
+			var result = await _zoomMeetingService.GetStudentZoomPerformanceAsync(request);
+			if (result is ErrorResponse) return BadRequest(result);
+			return Ok(result);
+		}
 	}
 }

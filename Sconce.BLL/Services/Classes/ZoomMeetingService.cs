@@ -165,4 +165,84 @@ public class ZoomMeetingService : GenericService<ZoomMeetingRequest, ZoomMeeting
 
 		return (true, new SuccessResponse<ZoomAttendanceResponse> { Data = response });
 	}
+
+	public async Task<Response> GetStudentZoomPerformanceAsync(PerformanceFilterRequest request)
+	{
+		// Verify section exists
+		var section = await _sectionRepository.GetByIdAsync(request.SectionId);
+		if (section == null)
+			return new ErrorResponse { Errors = ["Section not found."] };
+
+		// Verify student exists and is enrolled in the section
+		var studentSections = await _sectionRepository.GetStudentSectionsAsync(request.StudentId);
+		var studentSection = studentSections.FirstOrDefault(ss => ss.SectionId == request.SectionId);
+		if (studentSection == null)
+			return new ErrorResponse { Errors = ["Student is not enrolled in this section."] };
+
+		// Calculate time window
+		DateTime windowStart;
+		if (request.WindowDays.HasValue)
+		{
+			windowStart = DateTime.UtcNow.AddDays(-request.WindowDays.Value);
+		}
+		else
+		{
+			// Use section enrollment date as start
+			windowStart = studentSection.AddedAt; // this or section.Course.StartDate?
+		}
+
+		// Get all zoom meetings in the section within the time window (past meetings only)
+		var allZoomMeetings = await _zoomMeetingRepository.GetAllBySectionIdAsync(request.SectionId, withTracking: false);
+		var pastZoomMeetings = allZoomMeetings
+			.Where(zm => zm.ZoomData != null && 
+			             zm.ZoomData.StartTime >= windowStart && 
+			             zm.ZoomData.StartTime <= DateTime.UtcNow)
+			.OrderBy(zm => zm.ZoomData.StartTime)
+			.ToList();
+
+		// Get all attendance records for this student in this section
+		var attendanceRecords = await _attendanceRepository.GetByStudentIdAsync(request.StudentId, withTracking: false);
+		var attendanceDict = attendanceRecords.ToDictionary(a => a.ZoomMeetingId, a => a);
+
+		// Build performance items
+		var performanceItems = pastZoomMeetings.Select(zm =>
+		{
+			var hasAttendance = attendanceDict.TryGetValue(zm.Id, out var attendance);
+			return new ZoomMeetingPerformanceItemResponse
+			{
+				ZoomMeetingId = zm.Id,
+				Title = zm.Title,
+				ScheduledTime = zm.ZoomData.StartTime,
+				Attended = hasAttendance ? attendance.Attended : null,
+				RecordedAt = hasAttendance ? attendance.RecordedAt : null
+			};
+		}).ToList();
+
+		// Calculate summary statistics
+		var totalMeetings = performanceItems.Count;
+		var attendedCount = performanceItems.Count(p => p.Attended == true);
+		var missedCount = performanceItems.Count(p => p.Attended == false);
+		var attendanceNotMarkedCount = performanceItems.Count(p => p.Attended == null);
+
+		// Attendance rate: attended / (attended + missed) - only counting marked meetings
+		var markedMeetings = attendedCount + missedCount;
+		var attendanceRate = markedMeetings > 0 ? (decimal)attendedCount / markedMeetings * 100 : 0;
+
+		var summary = new ZoomMeetingPerformanceSummaryResponse
+		{
+			TotalMeetings = totalMeetings,
+			AttendedCount = attendedCount,
+			MissedCount = missedCount,
+			AttendanceNotMarkedCount = attendanceNotMarkedCount,
+			AttendanceRate = Math.Round(attendanceRate, 2)
+		};
+
+		var performanceResponse = new ZoomMeetingPerformanceResponse
+		{
+			ZoomMeetings = performanceItems,
+			Summary = summary
+		};
+
+		return new SuccessResponse<ZoomMeetingPerformanceResponse> { Data = performanceResponse };
+	}
 }

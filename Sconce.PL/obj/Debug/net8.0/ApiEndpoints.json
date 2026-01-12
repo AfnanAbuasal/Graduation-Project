@@ -4180,6 +4180,32 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ZoomMeetingsController",
+    "Method": "MarkAttendance",
+    "RelativePath": "api/Instructor/ZoomMeetings/MarkAttendance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.MarkZoomAttendanceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ZoomMeetingsController",
     "Method": "GetBySection",
     "RelativePath": "api/Instructor/ZoomMeetings/Section/{sectionId}",
     "HttpMethod": "GET",

@@ -13,5 +13,6 @@ namespace Sconce.BLL.Services.Interfaces
 	{
 		Task<Response> GetAllBySectionAsync(int sectionId, string instructorId);
 		Task<(bool Success, Response Response)> MarkAttendanceAsync(MarkZoomAttendanceRequest request, string instructorId);
+		Task<Response> GetStudentZoomPerformanceAsync(PerformanceFilterRequest request);
 	}
 }
