@@ -27,5 +27,13 @@ namespace Sconce.PL.Areas.Student
             if (!result.Success) return BadRequest(result.Response);
             return Ok(result.Response);
         }
+
+            // Gets all published exams for a specific section.
+            [HttpGet("Section/{sectionId}")]
+            public async Task<ActionResult<Response>> GetPublishedBySection([FromRoute] int sectionId)
+            {
+                var result = await _examService.GetPublishedBySectionIdAsync(sectionId);
+                return Ok(result);
+            }
     }
 }

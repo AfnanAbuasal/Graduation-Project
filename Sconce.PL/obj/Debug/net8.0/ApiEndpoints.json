@@ -4206,6 +4206,32 @@
   },
   {
     "ContainingType": "Sconce.PL.Areas.Instructor.ZoomMeetingsController",
+    "Method": "GetStudentPerformance",
+    "RelativePath": "api/Instructor/ZoomMeetings/Performance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.PerformanceFilterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Instructor.ZoomMeetingsController",
     "Method": "GetBySection",
     "RelativePath": "api/Instructor/ZoomMeetings/Section/{sectionId}",
     "HttpMethod": "GET",
@@ -4267,6 +4293,32 @@
       {
         "Name": "request",
         "Type": "Sconce.DAL.DTO.Requests.ParentRegisterWithInviteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Parent.ZoomMeetingsController",
+    "Method": "GetChildPerformance",
+    "RelativePath": "api/Parent/ZoomMeetings/Performance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Sconce.DAL.DTO.Requests.PerformanceFilterRequest",
         "IsRequired": true
       }
     ],
@@ -4800,6 +4852,32 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Student.ExamsController",
+    "Method": "GetPublishedBySection",
+    "RelativePath": "api/Student/Exams/Section/{sectionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Student.ProgramEnrollmentsController",
     "Method": "EnrollInProgram",
     "RelativePath": "api/Student/ProgramEnrollments/{programId}/Enroll",
@@ -5074,6 +5152,37 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Sconce.PL.Areas.Student.ZoomMeetingsController",
+    "Method": "GetMyPerformance",
+    "RelativePath": "api/Student/ZoomMeetings/Performance/Section/{sectionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sectionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "windowDays",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

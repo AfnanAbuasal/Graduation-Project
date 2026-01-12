@@ -394,5 +394,23 @@ namespace Sconce.BLL.Services.Classes
                 await _sectionRepository.UpdateAsync(section);
             }
         }
+
+            public async Task<Response> GetPublishedBySectionIdAsync(int sectionId)
+            {
+                // Validate section exists
+                var section = await _sectionRepository.GetByIdAsync(sectionId);
+                if (section == null)
+                    return new ErrorResponse { Errors = ["Section not found."] };
+
+                // Get all exams for this section
+                var exams = await _examRepository.GetAllBySectionIdAsync(sectionId, withTracking: false);
+
+                // Filter to only published exams
+                exams = exams.Where(e => e.ExamStatus == ExamStatus.Published && e.Status == Status.Active);
+
+                var examResponses = exams.Adapt<IEnumerable<ExamResponse>>().ToList();
+
+                return new SuccessResponse<IEnumerable<ExamResponse>> { Data = examResponses };
+            }
     }
 }

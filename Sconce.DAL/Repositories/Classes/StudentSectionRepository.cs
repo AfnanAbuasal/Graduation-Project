@@ -37,6 +37,9 @@ namespace Sconce.DAL.Repositories.Classes
         public async Task<IEnumerable<StudentSection>> GetByStudentIdAsync(string studentId)
         {
             return await _context.StudentSections
+                .Include(ss => ss.Student)
+                .Include(ss => ss.Section)
+                    .ThenInclude(s => s.Instructor)
                 .Include(ss => ss.Section)
                     .ThenInclude(s => s.Course)
                         .ThenInclude(c => c.Level)

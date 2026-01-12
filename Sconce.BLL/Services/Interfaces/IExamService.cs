@@ -17,5 +17,6 @@ namespace Sconce.BLL.Services.Interfaces
         Task<(bool Success, Response Response)> ChangeExamStatusAsync(int id, ExamStatus newStatus);
         Task<(bool Success, Response Response)> GetExamStatusAsync(int id);
         Task<(bool Success, Response Response)> ReopenProficiencyExamAsync(int id);
+        Task<Response> GetPublishedBySectionIdAsync(int sectionId);
     }
 }
