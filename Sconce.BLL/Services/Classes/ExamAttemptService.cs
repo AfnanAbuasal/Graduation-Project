@@ -479,6 +479,8 @@ namespace Sconce.BLL.Services.Classes
             var totalAttempts = performanceItems.Count;
             var completedCount = performanceItems.Count(p => p.Status == "Graded");
             var attemptedCount = performanceItems.Count(p => p.Status == "Submitted" || p.Status == "Expired");
+            var examsWithAttempts = performanceItems.Select(p => p.ExamId).Distinct().Count();
+            var missingAttemptsCount = allExams.Count() - examsWithAttempts;
         
             // Average score percentage: only from graded attempts with scores
             var gradedWithScores = performanceItems
@@ -495,6 +497,7 @@ namespace Sconce.BLL.Services.Classes
                 TotalAttempts = totalAttempts,
                 CompletedCount = completedCount,
                 AttemptedCount = attemptedCount,
+                MissingAttemptsCount = missingAttemptsCount,
                 AverageScorePercentage = averageScorePercentage
             };
         

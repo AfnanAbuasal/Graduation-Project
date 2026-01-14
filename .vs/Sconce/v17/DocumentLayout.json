@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260114121129_ChangedAttendenceToEnum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Sconce.DAL\\Data\\Migrations\\20260114121129_ChangedAttendenceToEnum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\student\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\student\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,12 +27,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "20260114121129_ChangedAttendenceToEnum.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260114121129_ChangedAttendenceToEnum.cs",
+              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260114121129_ChangedAttendenceToEnum.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260114121129_ChangedAttendenceToEnum.cs",
+              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260114121129_ChangedAttendenceToEnum.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-14T12:11:29.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "DocumentsController.cs",
               "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\DocumentsController.cs",
               "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Student\\DocumentsController.cs",
               "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\DocumentsController.cs",
               "RelativeToolTip": "Sconce.PL\\Areas\\Student\\DocumentsController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAxwBoAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAgwBoAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-13T17:33:30.44Z",
               "EditorCaption": ""

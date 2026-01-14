@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Responses;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Sconce.PL.Areas.Student
@@ -28,12 +29,17 @@ namespace Sconce.PL.Areas.Student
             return Ok(result.Response);
         }
 
-            // Gets all published exams for a specific section.
-            [HttpGet("Section/{sectionId}")]
-            public async Task<ActionResult<Response>> GetPublishedBySection([FromRoute] int sectionId)
-            {
-                var result = await _examService.GetPublishedBySectionIdAsync(sectionId);
-                return Ok(result);
-            }
+        // Gets all published exams for a specific section with student-specific state.
+        [HttpGet("Section/{sectionId}")]
+        public async Task<ActionResult<Response>> GetPublishedBySection([FromRoute] int sectionId)
+        {
+            var studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrWhiteSpace(studentId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            var result = await _examService.GetPublishedBySectionForStudentAsync(sectionId, studentId);
+            if (result is ErrorResponse) return BadRequest(result);
+            return Ok(result);
+        }
     }
 }

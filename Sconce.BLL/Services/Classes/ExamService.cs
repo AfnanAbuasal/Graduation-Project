@@ -22,6 +22,7 @@ namespace Sconce.BLL.Services.Classes
         private readonly IChoiceRepository _choiceRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IProgramRepository _programRepository;
+        private readonly IExamAttemptRepository _examAttemptRepository;
 
         public ExamService(
             IExamRepository examRepository,
@@ -29,7 +30,8 @@ namespace Sconce.BLL.Services.Classes
             IExamQuestionRepository examQuestionRepository,
             IChoiceRepository choiceRepository,
             IHttpContextAccessor httpContextAccessor,
-            IProgramRepository programRepository)
+            IProgramRepository programRepository,
+            IExamAttemptRepository examAttemptRepository)
             : base(examRepository)
         {
             _examRepository = examRepository;
@@ -38,6 +40,7 @@ namespace Sconce.BLL.Services.Classes
             _choiceRepository = choiceRepository;
             _httpContextAccessor = httpContextAccessor;
             _programRepository = programRepository;
+            _examAttemptRepository = examAttemptRepository;
         }
 
         public override async Task<(bool Success, Response Response)> GetByIdAsync(int Id)
@@ -395,22 +398,52 @@ namespace Sconce.BLL.Services.Classes
             }
         }
 
-            public async Task<Response> GetPublishedBySectionIdAsync(int sectionId)
-            {
-                // Validate section exists
-                var section = await _sectionRepository.GetByIdAsync(sectionId);
-                if (section == null)
-                    return new ErrorResponse { Errors = ["Section not found."] };
+        public async Task<Response> GetPublishedBySectionForStudentAsync(int sectionId, string studentId)
+        {
+            // Validate section exists
+            var section = await _sectionRepository.GetByIdAsync(sectionId);
+            if (section == null)
+                return new ErrorResponse { Errors = ["Section not found."] };
 
-                // Get all exams for this section
-                var exams = await _examRepository.GetAllBySectionIdAsync(sectionId, withTracking: false);
+            if (string.IsNullOrWhiteSpace(studentId))
+                return new ErrorResponse { Errors = ["Student not authenticated."] };
 
-                // Filter to only published exams
-                exams = exams.Where(e => e.ExamStatus == ExamStatus.Published && e.Status == Status.Active);
+            // Get all published exams for this section
+            var exams = await _examRepository.GetAllBySectionIdAsync(sectionId, withTracking: false);
+            var publishedExams = exams
+                .Where(e => e.ExamStatus == ExamStatus.Published && e.Status == Status.Active)
+                .ToList();
 
-                var examResponses = exams.Adapt<IEnumerable<ExamResponse>>().ToList();
+            if (!publishedExams.Any())
+                return new SuccessResponse<IEnumerable<StudentExamResponse>> { Data = Enumerable.Empty<StudentExamResponse>() };
 
-                return new SuccessResponse<IEnumerable<ExamResponse>> { Data = examResponses };
-            }
+            // Fetch all attempts for this student and map by exam
+            var examIds = publishedExams.Select(e => e.Id).ToHashSet();
+            var attempts = await _examAttemptRepository.GetAllByStudentIdAsync(studentId, withTracking: false);
+            var attemptsLookup = attempts
+                .Where(a => examIds.Contains(a.ExamId))
+                .GroupBy(a => a.ExamId)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            var examResponses = publishedExams
+                .Select(exam => MapExamForStudent(exam, attemptsLookup))
+                .ToList();
+
+            return new SuccessResponse<IEnumerable<StudentExamResponse>> { Data = examResponses };
+        }
+
+        private StudentExamResponse MapExamForStudent(Exam exam, Dictionary<int, List<ExamAttempt>> attemptsLookup)
+        {
+            var attempts = attemptsLookup.TryGetValue(exam.Id, out var list) ? list : new List<ExamAttempt>();
+            var attemptsMade = attempts.Count;
+            var attempted = attempts.Any(a => a.AttemptStatus == AttemptStatus.Submitted
+                                           || a.AttemptStatus == AttemptStatus.Graded
+                                           || a.AttemptStatus == AttemptStatus.Expired);
+
+            var dto = exam.Adapt<StudentExamResponse>();
+            dto.Attempted = attempted;
+            dto.RemainingAttempts = Math.Max(0, exam.AttemptsAllowed - attemptsMade);
+            return dto;
+        }
     }
 }

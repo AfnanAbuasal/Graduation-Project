@@ -42,6 +42,14 @@ namespace Sconce.BLL.Services.Classes
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ProgramRequest request)
         {
+            // If Description, ExamWriterInstructorId, or EvaluatorInstructorId were sent "" in the request, set them as null
+            if (string.IsNullOrWhiteSpace(request.Description) || request.Description == "")
+                request.Description = null;
+            if (string.IsNullOrWhiteSpace(request.ExamWriterInstructorId) || request.ExamWriterInstructorId == "")
+                request.ExamWriterInstructorId = null;
+            if (string.IsNullOrWhiteSpace(request.EvaluatorInstructorId) || request.EvaluatorInstructorId == "")
+                request.EvaluatorInstructorId = null;
+
             // Validate ExamWriterInstructor if provided
             Instructor? examWriterInstructor = null;
             if (!string.IsNullOrEmpty(request.ExamWriterInstructorId))

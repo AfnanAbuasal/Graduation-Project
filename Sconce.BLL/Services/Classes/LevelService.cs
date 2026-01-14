@@ -69,6 +69,10 @@ namespace Sconce.BLL.Services.Classes
 
         public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(LevelRequest request)
         {
+            // If Description was sent "" in the request, set it as null
+            if (string.IsNullOrWhiteSpace(request.Description) || request.Description == "")
+                request.Description = null;
+
             // Ensure Program exists before creating level
             var program = await _programRepository.GetByIdAsync(request.ProgramId);
             if (program == null)

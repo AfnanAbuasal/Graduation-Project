@@ -8745,6 +8745,46 @@
           }
         }
       }
+    },
+    "/api/Instructor/ZoomMeetings/{zoomMeetingId}/Attendance": {
+      "get": {
+        "tags": [
+          "ZoomMeetings"
+        ],
+        "parameters": [
+          {
+            "name": "zoomMeetingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -8800,6 +8840,15 @@
           }
         },
         "additionalProperties": false
+      },
+      "AttendanceStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "ChoiceRequest": {
         "required": [
@@ -9193,7 +9242,7 @@
             "type": "string"
           },
           "attended": {
-            "type": "boolean"
+            "$ref": "#/components/schemas/AttendanceStatus"
           }
         },
         "additionalProperties": false
