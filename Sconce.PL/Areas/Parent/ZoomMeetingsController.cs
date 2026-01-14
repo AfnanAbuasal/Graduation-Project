@@ -14,10 +14,12 @@ namespace Sconce.PL.Areas.Parent
     public class ZoomMeetingsController : ControllerBase
     {
         private readonly IZoomMeetingService _zoomMeetingService;
+        private readonly IParentAccessService _parentAccessService;
 
-        public ZoomMeetingsController(IZoomMeetingService zoomMeetingService)
+        public ZoomMeetingsController(IZoomMeetingService zoomMeetingService, IParentAccessService parentAccessService)
         {
             _zoomMeetingService = zoomMeetingService;
+            _parentAccessService = parentAccessService;
         }
 
         // Get child's Zoom meeting performance.
@@ -27,8 +29,14 @@ namespace Sconce.PL.Areas.Parent
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // TODO: Add validation to ensure parent has access to this student (their child)
-            // This would require checking StudentParent relationship
+            var parentId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(parentId))
+                return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+            // Validate parent has access to this student
+            var (hasAccess, errorMessage) = await _parentAccessService.ValidateParentAccessToStudentAsync(parentId, request.StudentId);
+            if (!hasAccess)
+                return Forbid(errorMessage);
 
             var result = await _zoomMeetingService.GetStudentZoomPerformanceAsync(request);
             if (result is ErrorResponse) return BadRequest(result);

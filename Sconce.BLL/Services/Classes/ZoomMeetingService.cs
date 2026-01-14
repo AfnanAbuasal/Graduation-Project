@@ -4,6 +4,7 @@ using Sconce.BLL.Services.Interfaces;
 using Sconce.DAL.DTO.Requests;
 using Sconce.DAL.DTO.Responses;
 using Sconce.DAL.Models;
+using Sconce.DAL.Models.Enums;
 using Sconce.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,20 +19,23 @@ public class ZoomMeetingService : GenericService<ZoomMeetingRequest, ZoomMeeting
 	private readonly IZoomMeetingRepository _zoomMeetingRepository;
 	private readonly ISectionRepository _sectionRepository;
 	private readonly IZoomAttendanceRepository _attendanceRepository;
+	private readonly IStudentSectionRepository _studentSectionRepository;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public ZoomMeetingService(
 		IZoomMeetingRepository zoomMeetingRepository,
 		ISectionRepository sectionRepository,
 		IZoomAttendanceRepository attendanceRepository,
+		IStudentSectionRepository studentSectionRepository,
 		UserManager<ApplicationUser> userManager)
 		: base(zoomMeetingRepository)
 	{
 		_zoomMeetingRepository = zoomMeetingRepository;
 		_sectionRepository = sectionRepository;
 		_attendanceRepository = attendanceRepository;
+		_studentSectionRepository = studentSectionRepository;
         _userManager = userManager;
-    }
+	}
 
 	public override async Task<(int NumberOfEntries, Response Response)> CreateAsync(ZoomMeetingRequest request)
 	{
@@ -220,12 +224,13 @@ public class ZoomMeetingService : GenericService<ZoomMeetingRequest, ZoomMeeting
 
 		// Calculate summary statistics
 		var totalMeetings = performanceItems.Count;
-		var attendedCount = performanceItems.Count(p => p.Attended == true);
-		var missedCount = performanceItems.Count(p => p.Attended == false);
+		var attendedCount = performanceItems.Count(p => p.Attended == AttendanceStatus.Attended);
+		var missedCount = performanceItems.Count(p => p.Attended == AttendanceStatus.Absent);
+		var excusedCount = performanceItems.Count(p => p.Attended == AttendanceStatus.Excused);
 		var attendanceNotMarkedCount = performanceItems.Count(p => p.Attended == null);
 
 		// Attendance rate: attended / (attended + missed) - only counting marked meetings
-		var markedMeetings = attendedCount + missedCount;
+		var markedMeetings = attendedCount + missedCount + excusedCount;
 		var attendanceRate = markedMeetings > 0 ? (decimal)attendedCount / markedMeetings * 100 : 0;
 
 		var summary = new ZoomMeetingPerformanceSummaryResponse
@@ -234,6 +239,7 @@ public class ZoomMeetingService : GenericService<ZoomMeetingRequest, ZoomMeeting
 			AttendedCount = attendedCount,
 			MissedCount = missedCount,
 			AttendanceNotMarkedCount = attendanceNotMarkedCount,
+			ExcusedCount = excusedCount,
 			AttendanceRate = Math.Round(attendanceRate, 2)
 		};
 
@@ -244,5 +250,49 @@ public class ZoomMeetingService : GenericService<ZoomMeetingRequest, ZoomMeeting
 		};
 
 		return new SuccessResponse<ZoomMeetingPerformanceResponse> { Data = performanceResponse };
+	}
+
+	public async Task<Response> GetAttendanceListByZoomMeetingAsync(int zoomMeetingId, string instructorId)
+	{
+		// Get zoom meeting with section info
+		var zoomMeeting = await _zoomMeetingRepository.GetByIdAsync(zoomMeetingId);
+		if (zoomMeeting == null)
+			return new ErrorResponse { Errors = ["Zoom meeting not found."] };
+
+		if (!zoomMeeting.SectionId.HasValue)
+			return new ErrorResponse { Errors = ["Zoom meeting is not associated with a section."] };
+
+		// Verify section exists and instructor teaches it
+		var section = await _sectionRepository.GetByIdAsync(zoomMeeting.SectionId.Value);
+		if (section == null)
+			return new ErrorResponse { Errors = ["Section not found."] };
+
+		if (section.InstructorId != instructorId)
+			return new ErrorResponse { Errors = ["Unauthorized. You do not teach this section."] };
+
+		// Get all students enrolled in the section
+		var students = await _studentSectionRepository.GetStudentsBySectionIdAsync(zoomMeeting.SectionId.Value);
+
+		// Get all attendance records for this zoom meeting
+		var attendanceRecords = await _attendanceRepository.GetByZoomMeetingIdAsync(zoomMeetingId, withTracking: false);
+		var attendanceDict = attendanceRecords.ToDictionary(a => a.StudentId, a => a);
+
+		// Build response list with all students and their attendance status
+		var responseList = students
+			.Select(student =>
+			{
+				var hasAttendance = attendanceDict.TryGetValue(student.Id, out var attendance);
+				return new StudentZoomAttendanceResponse
+				{
+					StudentId = student.Id,
+					StudentName = student.FullName,
+					AttendanceStatus = hasAttendance ? attendance.Attended : null,
+					RecordedAt = hasAttendance ? attendance.RecordedAt : null
+				};
+			})
+			.OrderBy(s => s.StudentName) // Sort alphabetically by name
+			.ToList();
+
+		return new SuccessResponse<IEnumerable<StudentZoomAttendanceResponse>> { Data = responseList };
 	}
 }

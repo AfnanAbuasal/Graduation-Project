@@ -57,6 +57,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<IEmailSender, EmailSetting>();
             builder.Services.AddScoped<ISeedData, SeedData>();
             builder.Services.AddScoped<INotificationService, NotificationService>();
+            builder.Services.AddScoped<IParentAccessService, ParentAccessService>();
             builder.Services.AddScoped<IAdminInstructorService, AdminInstructorService>();
             builder.Services.AddScoped<IAdminUserService, AdminUserService>();
             builder.Services.AddScoped<IUrlHelper, UrlHelper>();

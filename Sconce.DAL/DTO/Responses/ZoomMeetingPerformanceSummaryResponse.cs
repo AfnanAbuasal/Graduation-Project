@@ -11,6 +11,7 @@ namespace Sconce.DAL.DTO.Responses
         public int TotalMeetings { get; set; }
         public int AttendedCount { get; set; }
         public int MissedCount { get; set; }
+        public int ExcusedCount { get; set; }
         public int AttendanceNotMarkedCount { get; set; }
         public decimal AttendanceRate { get; set; }
     }

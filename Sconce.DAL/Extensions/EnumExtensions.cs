@@ -110,5 +110,17 @@ namespace Sconce.DAL.Extensions
                 _ => "Unknown"
             };
         }
+
+        // Attendance Status
+        public static string ToDisplayString(this AttendanceStatus attendanceStatus)
+        {
+            return attendanceStatus switch
+            {
+                AttendanceStatus.Attended => "Attended",
+                AttendanceStatus.Excused => "Excused",
+                AttendanceStatus.Absent => "Absent",
+                _ => "Unknown"
+            };
+        }
     }
 }

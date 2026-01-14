@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\GraduationProject\\Sconce\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|d:\\graduationproject\\sconce\\sconce.dal\\data\\migrations\\20260112103314_zoomattendances.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38E410D7-0CCB-4215-8363-4E993E9B33F3}|Sconce.DAL\\Sconce.DAL.csproj|solutionrelative:sconce.dal\\data\\migrations\\20260112103314_zoomattendances.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|d:\\graduationproject\\sconce\\sconce.pl\\areas\\student\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2910CB1E-309D-4B0B-BF70-8852EFEEEA58}|Sconce.PL\\Sconce.PL.csproj|solutionrelative:sconce.pl\\areas\\student\\documentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "20260112103314_ZoomAttendances.cs",
-              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
-              "RelativeDocumentMoniker": "Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
-              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
-              "RelativeToolTip": "Sconce.DAL\\Data\\Migrations\\20260112103314_ZoomAttendances.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Title": "DocumentsController.cs",
+              "DocumentMoniker": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\DocumentsController.cs",
+              "RelativeDocumentMoniker": "Sconce.PL\\Areas\\Student\\DocumentsController.cs",
+              "ToolTip": "D:\\GraduationProject\\Sconce\\Sconce.PL\\Areas\\Student\\DocumentsController.cs",
+              "RelativeToolTip": "Sconce.PL\\Areas\\Student\\DocumentsController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAxwBoAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-12T10:33:15.002Z",
+              "WhenOpened": "2026-01-13T17:33:30.44Z",
               "EditorCaption": ""
             }
           ]

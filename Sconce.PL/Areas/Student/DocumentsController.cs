@@ -23,8 +23,8 @@ namespace Sconce.PL.Areas.Student
         public async Task<ActionResult<Response>> GetById([FromRoute] int id)
         {
             var result = await _documentService.GetByIdAsync(id);
-            if (result is ErrorResponse) return BadRequest(result);
-            return Ok(result);
+            if (!result.Success) return BadRequest(result.Response);
+            return Ok(result.Response);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sconce.DAL.Models.Enums;
 
 namespace Sconce.DAL.Models
 {
@@ -13,7 +14,7 @@ namespace Sconce.DAL.Models
 		public ZoomMeeting ZoomMeeting { get; set; }
 		public string StudentId { get; set; }
 		public Student Student { get; set; }
-		public bool Attended { get; set; }
+		public AttendanceStatus Attended { get; set; }
 		public DateTime RecordedAt { get; set; }
 	}
 }

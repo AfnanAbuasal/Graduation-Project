@@ -112,5 +112,18 @@ namespace Sconce.PL.Areas.Instructor
 			if (result is ErrorResponse) return BadRequest(result);
 			return Ok(result);
 		}
+
+		// Get attendance list for a Zoom meeting (all students with their attendance status).
+		[HttpGet("{zoomMeetingId}/Attendance")]
+		public async Task<ActionResult<Response>> GetAttendanceList([FromRoute] int zoomMeetingId)
+		{
+			var instructorId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			if (string.IsNullOrEmpty(instructorId))
+				return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
+
+			var result = await _zoomMeetingService.GetAttendanceListByZoomMeetingAsync(zoomMeetingId, instructorId);
+			if (result is ErrorResponse) return BadRequest(result);
+			return Ok(result);
+		}
 	}
 }
