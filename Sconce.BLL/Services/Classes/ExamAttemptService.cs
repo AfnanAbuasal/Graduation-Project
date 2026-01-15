@@ -412,8 +412,8 @@ namespace Sconce.BLL.Services.Classes
             }
             else
             {
-                // Use section enrollment date as start
-                windowStart = studentSection.AddedAt;
+                // Use section creation date as start
+                windowStart = section.CreatedAt;
             }
         
             // Get all exams in the section

@@ -191,9 +191,9 @@ public class ZoomMeetingService : GenericService<ZoomMeetingRequest, ZoomMeeting
 		}
 		else
 		{
-			// Use section enrollment date as start
-			windowStart = studentSection.AddedAt; // this or section.Course.StartDate?
-		}
+            // Use section creation date as start
+            windowStart = section.CreatedAt;
+        }
 
 		// Get all zoom meetings in the section within the time window (past meetings only)
 		var allZoomMeetings = await _zoomMeetingRepository.GetAllBySectionIdAsync(request.SectionId, withTracking: false);

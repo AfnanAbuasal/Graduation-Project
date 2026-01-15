@@ -29,6 +29,11 @@ namespace Sconce.PL.Areas.Instructor
             if (string.IsNullOrWhiteSpace(instructorId))
                 return Unauthorized(new ErrorResponse { Errors = ["User not authenticated."] });
 
+            if (sortBy != null && (sortBy != "name" || sortBy != "lastaccessed"))
+            {
+                return BadRequest(new ErrorResponse { Errors = ["Invalid sortBy parameter. Allowed values are 'name' or 'lastaccessed'."] });
+            }
+
             var result = await _sectionService.GetByInstructorAsync(instructorId, onlyActive, sortBy);
             return Ok(result);
         }

@@ -4413,6 +4413,26 @@
     ]
   },
   {
+    "ContainingType": "Sconce.PL.Areas.Parent.ChildrenController",
+    "Method": "GetChildren",
+    "RelativePath": "api/Parent/Children",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Sconce.DAL.DTO.Responses.Response",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Sconce.PL.Areas.Parent.ExamAttemptsController",
     "Method": "GetChildPerformance",
     "RelativePath": "api/Parent/ExamAttempts/Performance",

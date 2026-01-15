@@ -126,8 +126,8 @@ public class AssignmentService : FileGenericService<AssignmentRequest, Assignmen
         }
         else
         {
-            // Use section enrollment date as start
-            windowStart = studentSection.AddedAt;
+            // Use section creation date as start
+            windowStart = section.CreatedAt;
         }
 
         // Get all assignments in the section within the time window (past assignments only - due date before now)

@@ -38,6 +38,9 @@ namespace Sconce.DAL.Repositories.Classes
             return await _context.StudentParents
                 .Where(sp => sp.ParentId == parentId)
                 .Include(sp => sp.Student)
+                    .ThenInclude(s => s.StudentSections)
+                        .ThenInclude(ss => ss.Section)
+                            .ThenInclude(sec => sec.Course)
                 .ToListAsync();
         }
     }
