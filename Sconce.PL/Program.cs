@@ -108,6 +108,7 @@ namespace Sconce.PL
             builder.Services.AddScoped<IProgramEnrollmentService, ProgramEnrollmentService>();
             builder.Services.AddScoped<IInformationRequestRepository, InformationRequestRepository>();
             builder.Services.AddScoped<IInformationRequestService, InformationRequestService>();
+            builder.Services.AddScoped<IUpcomingEventsService, UpcomingEventsService>();
 
             // Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
